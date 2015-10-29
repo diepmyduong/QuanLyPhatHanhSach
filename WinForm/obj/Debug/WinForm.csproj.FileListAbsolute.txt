@@ -1,0 +1,13 @@
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe.config
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Properties.Resources.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmMain.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.exe
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucSach.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemSach.resources
