@@ -32,7 +32,7 @@ namespace WinForm.Views
         //Khi Load Form
         private void frmMain_Load(object sender, EventArgs e)
         {
-            
+
             //Load các lĩnh vực
             _DMLinhVuc = LinhVucManager.getAll();
             cmbLinhVuc.DataSource = _DMLinhVuc;
@@ -147,6 +147,14 @@ namespace WinForm.Views
                 MessageBox.Show("Nhà Xuất Bản chưa hợp lệ");
                 return;
             }
+            //Kiểm tra thông tin cập nhật trùng
+            //if(_DMSach.Find(sach => !sach.MaSoSach.Equals(Int32.Parse(txbMaSach.Text))
+            //                        && sach.TenSach.Equals(txbTenSach.Text)
+            //                        && sach.LinhVucSach.MaSoLinhVuc.Equals(cmbLinhVuc.SelectedValue)
+            //                        && sach.NXB.MaSoNXB.Equals(cmbNXB.SelectedValue)) != null)
+            //{
+            //    MessageBox.Show("Thông tin bị trùng");
+            //}
             //Tạo mới đối tượng
             Sach s = new Sach();
             s.MaSoSach = Int32.Parse(txbMaSach.Text);
@@ -183,7 +191,8 @@ namespace WinForm.Views
         //Chọn thêm lĩnh vực
         private void btnThemLinhVuc_Click(object sender, EventArgs e)
         {
-
+            frmThemLinhVuc form = new frmThemLinhVuc(this);
+            form.ShowDialog(this);
         }
         //Chọn thêm NXB
         private void btnThemNXB_Click(object sender, EventArgs e)
@@ -232,8 +241,17 @@ namespace WinForm.Views
                 txbSoLuong.Text = s.Soluong.ToString();
                 txbGiaBan.Text = s.GiaBan.ToString();
                 txbGiaMua.Text = s.GiaNhap.ToString();
+                if(s.HinhAnh != null)
+                {
+                    picHinhAnh.ImageLocation = s.HinhAnh;
+                }
+                else
+                {
+                    picHinhAnh.Image = Properties.Resources.DefaultImage;
+                }
+                
             }
-            
+
         }
         /// <summary>
         /// Thực hiện lọc dữ liệu với tham số cho trước

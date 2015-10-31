@@ -42,7 +42,8 @@ namespace WinForm.Views
         //Khi chọn thêm mới 1 lĩnh vực
         private void btnThemLinhVuc_Click(object sender, EventArgs e)
         {
-
+            frmThemLinhVuc form = new frmThemLinhVuc(this);
+            form.ShowDialog(this);
         }
         //Khi chọn tải ảnh lên
         private void btnTaiAnh_Click(object sender, EventArgs e)
@@ -126,6 +127,12 @@ namespace WinForm.Views
             txbGiaBan.Text = "";
             txbGiaNhap.Text = "";
             picHinhAnh.ImageLocation = "";
+        }
+
+        public void reloadLinhVuc()
+        {
+            _DMLinhVuc = LinhVucManager.getAll();
+            cmbLinhVuc.DataSource = _DMLinhVuc;
         }
 
         #endregion

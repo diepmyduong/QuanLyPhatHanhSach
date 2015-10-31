@@ -536,10 +536,13 @@
             this.picHinhAnh.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.picHinhAnh.Image = global::WinForm.Properties.Resources.DefaultImage;
+            this.picHinhAnh.InitialImage = null;
             this.picHinhAnh.Location = new System.Drawing.Point(418, 13);
             this.picHinhAnh.Name = "picHinhAnh";
             this.tableLayoutPanel1.SetRowSpan(this.picHinhAnh, 6);
             this.picHinhAnh.Size = new System.Drawing.Size(174, 174);
+            this.picHinhAnh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picHinhAnh.TabIndex = 16;
             this.picHinhAnh.TabStop = false;
             // 
@@ -613,10 +616,14 @@
             // 
             // gdvDanhMucSach
             // 
+            this.gdvDanhMucSach.AllowUserToAddRows = false;
+            this.gdvDanhMucSach.AllowUserToDeleteRows = false;
+            this.gdvDanhMucSach.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvDanhMucSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gdvDanhMucSach.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gdvDanhMucSach.Location = new System.Drawing.Point(3, 283);
             this.gdvDanhMucSach.Name = "gdvDanhMucSach";
+            this.gdvDanhMucSach.ReadOnly = true;
             this.gdvDanhMucSach.Size = new System.Drawing.Size(758, 231);
             this.gdvDanhMucSach.TabIndex = 1;
             this.gdvDanhMucSach.SelectionChanged += new System.EventHandler(this.gdvDanhMucSach_SelectionChanged);

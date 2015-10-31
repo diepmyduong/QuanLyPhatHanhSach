@@ -23,5 +23,38 @@ namespace Core.DAL
             };
 
         }
+
+        public static bool add(LinhVuc linhvuc)
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                LINHVUC lv;
+                lv = (from b in db.LINHVUCs
+                     where b.ten.Equals(linhvuc.TenLinhVuc)
+                     select b).SingleOrDefault();
+                if (lv != null) return false;
+                lv = new LINHVUC();
+                lv.ten = linhvuc.TenLinhVuc;
+                db.LINHVUCs.InsertOnSubmit(lv);
+                db.SubmitChanges();
+                return true;
+            }
+        }
+
+        public static bool edit(LinhVuc linhvuc)
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                //Kiểm tra lĩnh vực có tồn tại không
+                LINHVUC lv;
+                lv = (from b in db.LINHVUCs
+                      where b.masolinhvuc.Equals(linhvuc.MaSoLinhVuc)
+                      select b).SingleOrDefault();
+                if (lv == null) return false;
+                lv.ten = linhvuc.TenLinhVuc;
+                db.SubmitChanges();
+                return true;
+            }
+        }
     }
 }

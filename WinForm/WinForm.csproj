@@ -60,12 +60,19 @@
     <Compile Include="Views\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmThemLinhVuc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThemLinhVuc.Designer.cs">
+      <DependentUpon>frmThemLinhVuc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmThemSach.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmThemSach.Designer.cs">
       <DependentUpon>frmThemSach.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Prompt.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -74,12 +81,16 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Views\frmDanhMucSach.resx">
       <DependentUpon>frmDanhMucSach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThemLinhVuc.resx">
+      <DependentUpon>frmThemLinhVuc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmThemSach.resx">
       <DependentUpon>frmThemSach.cs</DependentUpon>
@@ -102,6 +113,9 @@
       <Project>{05b2ded4-313a-4bec-88a7-ae7c58857188}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\DefaultImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

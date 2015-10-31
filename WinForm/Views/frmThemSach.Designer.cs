@@ -243,10 +243,13 @@
             // picHinhAnh
             // 
             this.picHinhAnh.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picHinhAnh.Image = global::WinForm.Properties.Resources.DefaultImage;
+            this.picHinhAnh.InitialImage = null;
             this.picHinhAnh.Location = new System.Drawing.Point(220, 153);
             this.picHinhAnh.Name = "picHinhAnh";
             this.tableLayoutPanel1.SetRowSpan(this.picHinhAnh, 4);
             this.picHinhAnh.Size = new System.Drawing.Size(141, 114);
+            this.picHinhAnh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picHinhAnh.TabIndex = 16;
             this.picHinhAnh.TabStop = false;
             // 
