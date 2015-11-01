@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLPHS" Class="EntitiesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=ADMINPC;Initial Catalog=QLPHS;Integrated Security=True" SettingsObjectName="Core.Properties.Settings" SettingsPropertyName="QLPHSConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(local);Initial Catalog=QLPHS;Integrated Security=True" SettingsObjectName="Core.Properties.Settings" SettingsPropertyName="QLPHSConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.CHITIETHOADONDAILY" Member="CHITIETHOADONDAILies">
     <Type Name="CHITIETHOADONDAILY">
       <Column Name="masohoadon" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -8,14 +8,6 @@
       <Column Name="dongia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="HOADONDAILY_CHITIETHOADONDAILY" Member="HOADONDAILY" ThisKey="masohoadon" OtherKey="masohoadon" Type="HOADONDAILY" IsForeignKey="true" />
       <Association Name="SACH_CHITIETHOADONDAILY" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.THEKHO" Member="THEKHOs">
-    <Type Name="THEKHO">
-      <Column Name="ngayghi" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="soluong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="SACH_THEKHO" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CHITIETHOADONNXB" Member="CHITIETHOADONNXBs">
@@ -72,7 +64,7 @@
   </Table>
   <Table Name="dbo.DAILY" Member="DAILies">
     <Type Name="DAILY">
-      <Column Name="masodaily" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="masodaily" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="diachi" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="sodienthoai" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
@@ -84,7 +76,7 @@
   </Table>
   <Table Name="dbo.HOADONDAILY" Member="HOADONDAILies">
     <Type Name="HOADONDAILY">
-      <Column Name="masohoadon" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="masohoadon" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="masodaily" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ngaylap" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="tongtien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -94,7 +86,7 @@
   </Table>
   <Table Name="dbo.HOADONNXB" Member="HOADONNXBs">
     <Type Name="HOADONNXB">
-      <Column Name="masohoadon" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="masohoadon" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="masonxb" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ngaylap" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="tongtien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -104,14 +96,14 @@
   </Table>
   <Table Name="dbo.LINHVUC" Member="LINHVUCs">
     <Type Name="LINHVUC">
-      <Column Name="masolinhvuc" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="masolinhvuc" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="LINHVUC_SACH" Member="SACHes" ThisKey="masolinhvuc" OtherKey="masolinhvuc" Type="SACH" />
     </Type>
   </Table>
   <Table Name="dbo.NXB" Member="NXBs">
     <Type Name="NXB">
-      <Column Name="masonxb" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="masonxb" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="diachi" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="sodienthoai" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
@@ -124,7 +116,7 @@
   </Table>
   <Table Name="dbo.PHIEUNHAP" Member="PHIEUNHAPs">
     <Type Name="PHIEUNHAP">
-      <Column Name="masophieunhap" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="masophieunhap" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="masonxb" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="nguoigiaosach" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="ngaylap" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
@@ -135,7 +127,7 @@
   </Table>
   <Table Name="dbo.PHIEUXUAT" Member="PHIEUXUATs">
     <Type Name="PHIEUXUAT">
-      <Column Name="masophieuxuat" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="masophieuxuat" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="masodaily" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="nguoinhasach" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="ngaylap" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
@@ -146,7 +138,7 @@
   </Table>
   <Table Name="dbo.SACH" Member="SACHes">
     <Type Name="SACH">
-      <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="masonxb" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="masolinhvuc" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="tensach" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
@@ -156,14 +148,22 @@
       <Column Name="soluong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="hinhanh" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="SACH_CHITIETHOADONDAILY" Member="CHITIETHOADONDAILies" ThisKey="masosach" OtherKey="masosach" Type="CHITIETHOADONDAILY" />
-      <Association Name="SACH_THEKHO" Member="THEKHOs" ThisKey="masosach" OtherKey="masosach" Type="THEKHO" />
       <Association Name="SACH_CHITIETHOADONNXB" Member="CHITIETHOADONNXBs" ThisKey="masosach" OtherKey="masosach" Type="CHITIETHOADONNXB" />
       <Association Name="SACH_CHITIETPHIEUNHAP" Member="CHITIETPHIEUNHAPs" ThisKey="masosach" OtherKey="masosach" Type="CHITIETPHIEUNHAP" />
       <Association Name="SACH_CHITIETPHIEUXUAT" Member="CHITIETPHIEUXUATs" ThisKey="masosach" OtherKey="masosach" Type="CHITIETPHIEUXUAT" />
       <Association Name="SACH_CONGNODAILY" Member="CONGNODAILies" ThisKey="masosach" OtherKey="masosach" Type="CONGNODAILY" />
       <Association Name="SACH_CONGNONXB" Member="CONGNONXBs" ThisKey="masosach" OtherKey="masosach" Type="CONGNONXB" />
+      <Association Name="SACH_THEKHO" Member="THEKHOs" ThisKey="masosach" OtherKey="masosach" Type="THEKHO" />
       <Association Name="LINHVUC_SACH" Member="LINHVUC" ThisKey="masolinhvuc" OtherKey="masolinhvuc" Type="LINHVUC" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="NXB_SACH" Member="NXB" ThisKey="masonxb" OtherKey="masonxb" Type="NXB" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.THEKHO" Member="THEKHOs">
+    <Type Name="THEKHO">
+      <Column Name="ngayghi" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="soluong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="SACH_THEKHO" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

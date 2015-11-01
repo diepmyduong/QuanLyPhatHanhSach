@@ -33,9 +33,6 @@ namespace Core.DAL
     partial void InsertCHITIETHOADONDAILY(CHITIETHOADONDAILY instance);
     partial void UpdateCHITIETHOADONDAILY(CHITIETHOADONDAILY instance);
     partial void DeleteCHITIETHOADONDAILY(CHITIETHOADONDAILY instance);
-    partial void InsertTHEKHO(THEKHO instance);
-    partial void UpdateTHEKHO(THEKHO instance);
-    partial void DeleteTHEKHO(THEKHO instance);
     partial void InsertCHITIETHOADONNXB(CHITIETHOADONNXB instance);
     partial void UpdateCHITIETHOADONNXB(CHITIETHOADONNXB instance);
     partial void DeleteCHITIETHOADONNXB(CHITIETHOADONNXB instance);
@@ -75,10 +72,13 @@ namespace Core.DAL
     partial void InsertSACH(SACH instance);
     partial void UpdateSACH(SACH instance);
     partial void DeleteSACH(SACH instance);
+    partial void InsertTHEKHO(THEKHO instance);
+    partial void UpdateTHEKHO(THEKHO instance);
+    partial void DeleteTHEKHO(THEKHO instance);
     #endregion
 		
 		public EntitiesDataContext() : 
-				base(global::Core.Properties.Settings.Default.QLPHSConnectionString, mappingSource)
+				base(global::Core.Properties.Settings.Default.QLPHSConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -112,14 +112,6 @@ namespace Core.DAL
 			get
 			{
 				return this.GetTable<CHITIETHOADONDAILY>();
-			}
-		}
-		
-		public System.Data.Linq.Table<THEKHO> THEKHOs
-		{
-			get
-			{
-				return this.GetTable<THEKHO>();
 			}
 		}
 		
@@ -224,6 +216,14 @@ namespace Core.DAL
 			get
 			{
 				return this.GetTable<SACH>();
+			}
+		}
+		
+		public System.Data.Linq.Table<THEKHO> THEKHOs
+		{
+			get
+			{
+				return this.GetTable<THEKHO>();
 			}
 		}
 	}
@@ -412,157 +412,6 @@ namespace Core.DAL
 					if ((value != null))
 					{
 						value.CHITIETHOADONDAILies.Add(this);
-						this._masosach = value.masosach;
-					}
-					else
-					{
-						this._masosach = default(int);
-					}
-					this.SendPropertyChanged("SACH");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.THEKHO")]
-	public partial class THEKHO : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.DateTime _ngayghi;
-		
-		private int _masosach;
-		
-		private int _soluong;
-		
-		private EntityRef<SACH> _SACH;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnngayghiChanging(System.DateTime value);
-    partial void OnngayghiChanged();
-    partial void OnmasosachChanging(int value);
-    partial void OnmasosachChanged();
-    partial void OnsoluongChanging(int value);
-    partial void OnsoluongChanged();
-    #endregion
-		
-		public THEKHO()
-		{
-			this._SACH = default(EntityRef<SACH>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngayghi", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
-		public System.DateTime ngayghi
-		{
-			get
-			{
-				return this._ngayghi;
-			}
-			set
-			{
-				if ((this._ngayghi != value))
-				{
-					this.OnngayghiChanging(value);
-					this.SendPropertyChanging();
-					this._ngayghi = value;
-					this.SendPropertyChanged("ngayghi");
-					this.OnngayghiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masosach", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int masosach
-		{
-			get
-			{
-				return this._masosach;
-			}
-			set
-			{
-				if ((this._masosach != value))
-				{
-					if (this._SACH.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnmasosachChanging(value);
-					this.SendPropertyChanging();
-					this._masosach = value;
-					this.SendPropertyChanged("masosach");
-					this.OnmasosachChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
-		{
-			get
-			{
-				return this._soluong;
-			}
-			set
-			{
-				if ((this._soluong != value))
-				{
-					this.OnsoluongChanging(value);
-					this.SendPropertyChanging();
-					this._soluong = value;
-					this.SendPropertyChanged("soluong");
-					this.OnsoluongChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SACH_THEKHO", Storage="_SACH", ThisKey="masosach", OtherKey="masosach", IsForeignKey=true)]
-		public SACH SACH
-		{
-			get
-			{
-				return this._SACH.Entity;
-			}
-			set
-			{
-				SACH previousValue = this._SACH.Entity;
-				if (((previousValue != value) 
-							|| (this._SACH.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SACH.Entity = null;
-						previousValue.THEKHOs.Remove(this);
-					}
-					this._SACH.Entity = value;
-					if ((value != null))
-					{
-						value.THEKHOs.Add(this);
 						this._masosach = value.masosach;
 					}
 					else
@@ -1769,7 +1618,7 @@ namespace Core.DAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masodaily", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masodaily", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int masodaily
 		{
 			get
@@ -2004,7 +1853,7 @@ namespace Core.DAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masohoadon", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masohoadon", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int masohoadon
 		{
 			get
@@ -2207,7 +2056,7 @@ namespace Core.DAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masohoadon", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masohoadon", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int masohoadon
 		{
 			get
@@ -2399,7 +2248,7 @@ namespace Core.DAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masolinhvuc", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masolinhvuc", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int masolinhvuc
 		{
 			get
@@ -2534,7 +2383,7 @@ namespace Core.DAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masonxb", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masonxb", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int masonxb
 		{
 			get
@@ -2798,7 +2647,7 @@ namespace Core.DAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masophieunhap", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masophieunhap", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int masophieunhap
 		{
 			get
@@ -3025,7 +2874,7 @@ namespace Core.DAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masophieuxuat", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masophieuxuat", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int masophieuxuat
 		{
 			get
@@ -3235,8 +3084,6 @@ namespace Core.DAL
 		
 		private EntitySet<CHITIETHOADONDAILY> _CHITIETHOADONDAILies;
 		
-		private EntitySet<THEKHO> _THEKHOs;
-		
 		private EntitySet<CHITIETHOADONNXB> _CHITIETHOADONNXBs;
 		
 		private EntitySet<CHITIETPHIEUNHAP> _CHITIETPHIEUNHAPs;
@@ -3246,6 +3093,8 @@ namespace Core.DAL
 		private EntitySet<CONGNODAILY> _CONGNODAILies;
 		
 		private EntitySet<CONGNONXB> _CONGNONXBs;
+		
+		private EntitySet<THEKHO> _THEKHOs;
 		
 		private EntityRef<LINHVUC> _LINHVUC;
 		
@@ -3278,18 +3127,18 @@ namespace Core.DAL
 		public SACH()
 		{
 			this._CHITIETHOADONDAILies = new EntitySet<CHITIETHOADONDAILY>(new Action<CHITIETHOADONDAILY>(this.attach_CHITIETHOADONDAILies), new Action<CHITIETHOADONDAILY>(this.detach_CHITIETHOADONDAILies));
-			this._THEKHOs = new EntitySet<THEKHO>(new Action<THEKHO>(this.attach_THEKHOs), new Action<THEKHO>(this.detach_THEKHOs));
 			this._CHITIETHOADONNXBs = new EntitySet<CHITIETHOADONNXB>(new Action<CHITIETHOADONNXB>(this.attach_CHITIETHOADONNXBs), new Action<CHITIETHOADONNXB>(this.detach_CHITIETHOADONNXBs));
 			this._CHITIETPHIEUNHAPs = new EntitySet<CHITIETPHIEUNHAP>(new Action<CHITIETPHIEUNHAP>(this.attach_CHITIETPHIEUNHAPs), new Action<CHITIETPHIEUNHAP>(this.detach_CHITIETPHIEUNHAPs));
 			this._CHITIETPHIEUXUATs = new EntitySet<CHITIETPHIEUXUAT>(new Action<CHITIETPHIEUXUAT>(this.attach_CHITIETPHIEUXUATs), new Action<CHITIETPHIEUXUAT>(this.detach_CHITIETPHIEUXUATs));
 			this._CONGNODAILies = new EntitySet<CONGNODAILY>(new Action<CONGNODAILY>(this.attach_CONGNODAILies), new Action<CONGNODAILY>(this.detach_CONGNODAILies));
 			this._CONGNONXBs = new EntitySet<CONGNONXB>(new Action<CONGNONXB>(this.attach_CONGNONXBs), new Action<CONGNONXB>(this.detach_CONGNONXBs));
+			this._THEKHOs = new EntitySet<THEKHO>(new Action<THEKHO>(this.attach_THEKHOs), new Action<THEKHO>(this.detach_THEKHOs));
 			this._LINHVUC = default(EntityRef<LINHVUC>);
 			this._NXB = default(EntityRef<NXB>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masosach", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masosach", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int masosach
 		{
 			get
@@ -3490,19 +3339,6 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SACH_THEKHO", Storage="_THEKHOs", ThisKey="masosach", OtherKey="masosach")]
-		public EntitySet<THEKHO> THEKHOs
-		{
-			get
-			{
-				return this._THEKHOs;
-			}
-			set
-			{
-				this._THEKHOs.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SACH_CHITIETHOADONNXB", Storage="_CHITIETHOADONNXBs", ThisKey="masosach", OtherKey="masosach")]
 		public EntitySet<CHITIETHOADONNXB> CHITIETHOADONNXBs
 		{
@@ -3565,6 +3401,19 @@ namespace Core.DAL
 			set
 			{
 				this._CONGNONXBs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SACH_THEKHO", Storage="_THEKHOs", ThisKey="masosach", OtherKey="masosach")]
+		public EntitySet<THEKHO> THEKHOs
+		{
+			get
+			{
+				return this._THEKHOs;
+			}
+			set
+			{
+				this._THEKHOs.Assign(value);
 			}
 		}
 		
@@ -3668,18 +3517,6 @@ namespace Core.DAL
 			entity.SACH = null;
 		}
 		
-		private void attach_THEKHOs(THEKHO entity)
-		{
-			this.SendPropertyChanging();
-			entity.SACH = this;
-		}
-		
-		private void detach_THEKHOs(THEKHO entity)
-		{
-			this.SendPropertyChanging();
-			entity.SACH = null;
-		}
-		
 		private void attach_CHITIETHOADONNXBs(CHITIETHOADONNXB entity)
 		{
 			this.SendPropertyChanging();
@@ -3738,6 +3575,169 @@ namespace Core.DAL
 		{
 			this.SendPropertyChanging();
 			entity.SACH = null;
+		}
+		
+		private void attach_THEKHOs(THEKHO entity)
+		{
+			this.SendPropertyChanging();
+			entity.SACH = this;
+		}
+		
+		private void detach_THEKHOs(THEKHO entity)
+		{
+			this.SendPropertyChanging();
+			entity.SACH = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.THEKHO")]
+	public partial class THEKHO : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.DateTime _ngayghi;
+		
+		private int _masosach;
+		
+		private int _soluong;
+		
+		private EntityRef<SACH> _SACH;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnngayghiChanging(System.DateTime value);
+    partial void OnngayghiChanged();
+    partial void OnmasosachChanging(int value);
+    partial void OnmasosachChanged();
+    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanged();
+    #endregion
+		
+		public THEKHO()
+		{
+			this._SACH = default(EntityRef<SACH>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngayghi", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
+		public System.DateTime ngayghi
+		{
+			get
+			{
+				return this._ngayghi;
+			}
+			set
+			{
+				if ((this._ngayghi != value))
+				{
+					this.OnngayghiChanging(value);
+					this.SendPropertyChanging();
+					this._ngayghi = value;
+					this.SendPropertyChanged("ngayghi");
+					this.OnngayghiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masosach", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int masosach
+		{
+			get
+			{
+				return this._masosach;
+			}
+			set
+			{
+				if ((this._masosach != value))
+				{
+					if (this._SACH.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnmasosachChanging(value);
+					this.SendPropertyChanging();
+					this._masosach = value;
+					this.SendPropertyChanged("masosach");
+					this.OnmasosachChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
+		public int soluong
+		{
+			get
+			{
+				return this._soluong;
+			}
+			set
+			{
+				if ((this._soluong != value))
+				{
+					this.OnsoluongChanging(value);
+					this.SendPropertyChanging();
+					this._soluong = value;
+					this.SendPropertyChanged("soluong");
+					this.OnsoluongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SACH_THEKHO", Storage="_SACH", ThisKey="masosach", OtherKey="masosach", IsForeignKey=true)]
+		public SACH SACH
+		{
+			get
+			{
+				return this._SACH.Entity;
+			}
+			set
+			{
+				SACH previousValue = this._SACH.Entity;
+				if (((previousValue != value) 
+							|| (this._SACH.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SACH.Entity = null;
+						previousValue.THEKHOs.Remove(this);
+					}
+					this._SACH.Entity = value;
+					if ((value != null))
+					{
+						value.THEKHOs.Add(this);
+						this._masosach = value.masosach;
+					}
+					else
+					{
+						this._masosach = default(int);
+					}
+					this.SendPropertyChanged("SACH");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
