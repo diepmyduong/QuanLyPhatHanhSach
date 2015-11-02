@@ -1,6 +1,6 @@
 ﻿namespace WinForm.Views
 {
-    partial class frmChiTietCongNoDaiLy
+    partial class frmChiTietCongNoNXB
     {
         /// <summary>
         /// Required designer variable.
@@ -33,8 +33,8 @@
             this.lbTaiKhoan = new System.Windows.Forms.Label();
             this.lbSoDienThoai = new System.Windows.Forms.Label();
             this.lbDiaChi = new System.Windows.Forms.Label();
-            this.lbTenDaiLy = new System.Windows.Forms.Label();
-            this.lbMaSoDaiLy = new System.Windows.Forms.Label();
+            this.lbTenNXB = new System.Windows.Forms.Label();
+            this.lbMaSoNXB = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,7 +50,7 @@
             this.cmbEndYear = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lbConNo = new System.Windows.Forms.Label();
-            this.lbDaThu = new System.Windows.Forms.Label();
+            this.lbDaChi = new System.Windows.Forms.Label();
             this.lbTienSach = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -76,7 +76,7 @@
             this.panelContainer.Name = "panelContainer";
             this.panelContainer.Padding = new System.Windows.Forms.Padding(10);
             this.panelContainer.Size = new System.Drawing.Size(784, 561);
-            this.panelContainer.TabIndex = 0;
+            this.panelContainer.TabIndex = 1;
             // 
             // tableLayoutPanel1
             // 
@@ -90,8 +90,8 @@
             this.tableLayoutPanel1.Controls.Add(this.lbTaiKhoan, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.lbSoDienThoai, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.lbDiaChi, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbTenDaiLy, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbMaSoDaiLy, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lbTenNXB, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lbMaSoNXB, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
@@ -155,45 +155,45 @@
             this.lbDiaChi.Size = new System.Drawing.Size(0, 13);
             this.lbDiaChi.TabIndex = 17;
             // 
-            // lbTenDaiLy
+            // lbTenNXB
             // 
-            this.lbTenDaiLy.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbTenDaiLy.AutoSize = true;
-            this.lbTenDaiLy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTenDaiLy.Location = new System.Drawing.Point(117, 38);
-            this.lbTenDaiLy.Name = "lbTenDaiLy";
-            this.lbTenDaiLy.Size = new System.Drawing.Size(0, 13);
-            this.lbTenDaiLy.TabIndex = 16;
+            this.lbTenNXB.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbTenNXB.AutoSize = true;
+            this.lbTenNXB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTenNXB.Location = new System.Drawing.Point(117, 38);
+            this.lbTenNXB.Name = "lbTenNXB";
+            this.lbTenNXB.Size = new System.Drawing.Size(0, 13);
+            this.lbTenNXB.TabIndex = 16;
             // 
-            // lbMaSoDaiLy
+            // lbMaSoNXB
             // 
-            this.lbMaSoDaiLy.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbMaSoDaiLy.AutoSize = true;
-            this.lbMaSoDaiLy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMaSoDaiLy.Location = new System.Drawing.Point(117, 8);
-            this.lbMaSoDaiLy.Name = "lbMaSoDaiLy";
-            this.lbMaSoDaiLy.Size = new System.Drawing.Size(0, 13);
-            this.lbMaSoDaiLy.TabIndex = 15;
+            this.lbMaSoNXB.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbMaSoNXB.AutoSize = true;
+            this.lbMaSoNXB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMaSoNXB.Location = new System.Drawing.Point(117, 8);
+            this.lbMaSoNXB.Name = "lbMaSoNXB";
+            this.lbMaSoNXB.Size = new System.Drawing.Size(0, 13);
+            this.lbMaSoNXB.TabIndex = 15;
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 8);
+            this.label1.Location = new System.Drawing.Point(44, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Mã số Đại lý :";
+            this.label1.Text = "Mã số NXB :";
             // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(50, 38);
+            this.label2.Location = new System.Drawing.Point(54, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Tên Đại lý :";
+            this.label2.Text = "Tên NXB :";
             // 
             // label3
             // 
@@ -319,7 +319,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel2.Controls.Add(this.lbConNo, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.lbDaThu, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lbDaChi, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.lbTienSach, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label15, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label16, 0, 1);
@@ -347,17 +347,17 @@
             this.lbConNo.TabIndex = 25;
             this.lbConNo.Text = "0";
             // 
-            // lbDaThu
+            // lbDaChi
             // 
-            this.lbDaThu.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbDaThu.AutoSize = true;
-            this.lbDaThu.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDaThu.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lbDaThu.Location = new System.Drawing.Point(122, 79);
-            this.lbDaThu.Name = "lbDaThu";
-            this.lbDaThu.Size = new System.Drawing.Size(24, 25);
-            this.lbDaThu.TabIndex = 24;
-            this.lbDaThu.Text = "0";
+            this.lbDaChi.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbDaChi.AutoSize = true;
+            this.lbDaChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDaChi.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lbDaChi.Location = new System.Drawing.Point(122, 79);
+            this.lbDaChi.Name = "lbDaChi";
+            this.lbDaChi.Size = new System.Drawing.Size(24, 25);
+            this.lbDaChi.TabIndex = 24;
+            this.lbDaChi.Text = "0";
             // 
             // lbTienSach
             // 
@@ -387,11 +387,11 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label16.Location = new System.Drawing.Point(36, 79);
+            this.label16.Location = new System.Drawing.Point(38, 79);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(80, 25);
+            this.label16.Size = new System.Drawing.Size(78, 25);
             this.label16.TabIndex = 21;
-            this.label16.Text = "Đã thu :";
+            this.label16.Text = "Đã chi :";
             // 
             // label17
             // 
@@ -460,17 +460,17 @@
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
-            // frmChiTietCongNoDaiLy
+            // frmChiTietCongNoNXB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panelContainer);
             this.MinimumSize = new System.Drawing.Size(800, 600);
-            this.Name = "frmChiTietCongNoDaiLy";
+            this.Name = "frmChiTietCongNoNXB";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Chi tiết công nợ đại lý";
-            this.Load += new System.EventHandler(this.frmChiTietCongNoDaiLy_Load);
+            this.Text = "Chi tiết công nợ NXB";
+            this.Load += new System.EventHandler(this.frmChiTietCongNoNXB_Load);
             this.panelContainer.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -490,8 +490,8 @@
         private System.Windows.Forms.Label lbTaiKhoan;
         private System.Windows.Forms.Label lbSoDienThoai;
         private System.Windows.Forms.Label lbDiaChi;
-        private System.Windows.Forms.Label lbTenDaiLy;
-        private System.Windows.Forms.Label lbMaSoDaiLy;
+        private System.Windows.Forms.Label lbTenNXB;
+        private System.Windows.Forms.Label lbMaSoNXB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -507,7 +507,7 @@
         private System.Windows.Forms.ComboBox cmbEndYear;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label lbConNo;
-        private System.Windows.Forms.Label lbDaThu;
+        private System.Windows.Forms.Label lbDaChi;
         private System.Windows.Forms.Label lbTienSach;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
