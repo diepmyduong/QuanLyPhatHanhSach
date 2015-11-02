@@ -10,55 +10,56 @@ using System.Windows.Forms;
 
 namespace WinForm.Views
 {
-    public partial class frmDanhMucNXB : Form
+    public partial class frmDanhMucDaiLy : Form
     {
-        public frmDanhMucNXB(Form parent)
+        public frmDanhMucDaiLy(Form parent)
         {
             InitializeComponent();
             _frmParent = parent;
-
         }
+
         #region Private Propertites
         private Form _frmParent;
         #endregion
 
         #region Form Control Listener
         //Khi Load Form
-        private void frmDanhMucNXB_Load(object sender, EventArgs e)
+        private void frmDanhMucDaiLy_Load(object sender, EventArgs e)
         {
 
         }
-        //Khi Cập nhật thông tin NXB
+        //Khi Cập nhật thông tin Đại lý
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
 
         }
-        //Khi CHọn xóa NXB
+        //Khi Xóa 1 Đại lý
         private void btnXoa_Click(object sender, EventArgs e)
         {
 
         }
-        //Khi chọn Thêm mới 1 NXB
-        private void btnThemNXB_Click(object sender, EventArgs e)
+        //Khi Thêm Mới Đại lý
+        private void btnThemDaiLy_Click(object sender, EventArgs e)
         {
 
         }
-        //Khi Chọn Xem Công nợ NXB
+        //Khi Chọn Xem Công Nợ Đại lý
         private void btnXemCongNo_Click(object sender, EventArgs e)
         {
 
         }
-        //Khi Chọn Thoát
+        //Khi Chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
 
         }
-        //Khi chọn 1 NXB từ Danh mục NXB
-        private void gdvDMNXB_SelectionChanged(object sender, EventArgs e)
+        //Khi Chọn Đại lý từ Danh Mục Đại lý
+        private void gdvDMDaiLy_SelectionChanged(object sender, EventArgs e)
         {
 
         }
         #endregion
+
 
     }
 }

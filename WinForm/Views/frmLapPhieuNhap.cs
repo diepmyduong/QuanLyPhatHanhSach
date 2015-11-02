@@ -14,13 +14,15 @@ namespace WinForm.Views
 {
     public partial class frmLapPhieuNhap : Form
     {
-        public frmLapPhieuNhap()
+        public frmLapPhieuNhap(Form parent)
         {
             InitializeComponent();
+            _frmParent = parent;
         }
 
         #region Private Properties
         private List<NhaXuatBan> _DMNXB;
+        private Form _frmParent;
         #endregion
 
         #region Form Control Listen
