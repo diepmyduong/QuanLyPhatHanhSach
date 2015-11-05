@@ -9,6 +9,15 @@ namespace Core.DAL
 {
     public class NhaXuatBanManager
     {
+        public static partial class Properties
+        {
+            public const string MaSoNXB = "Mã Nhà Xuất Bản";
+            public const string TenNXB = "Tên Nhà Xuất Bản";
+            public const string DiaChi = "Địa chỉ";
+            public const string SoDienThoai = "Số điện thoại";
+            public const string SoTaiKhoan = "Số tài khoản";
+            public const string Sach = "Sách";
+        }
         public static List<NhaXuatBan> getAll()
         {
             using(EntitiesDataContext db = new EntitiesDataContext())

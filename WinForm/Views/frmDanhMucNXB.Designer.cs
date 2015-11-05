@@ -30,20 +30,20 @@
         {
             this.panelContainer = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.txbSoTaiKhoan = new System.Windows.Forms.TextBox();
+            this.txbSoDienThoai = new System.Windows.Forms.TextBox();
+            this.btnCapNhat = new System.Windows.Forms.Button();
+            this.txbDiaChi = new System.Windows.Forms.TextBox();
+            this.txbTenNXB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txbMaSoNXB = new System.Windows.Forms.TextBox();
-            this.txbTenNXB = new System.Windows.Forms.TextBox();
-            this.txbDiaChi = new System.Windows.Forms.TextBox();
-            this.txbSoDienThoai = new System.Windows.Forms.TextBox();
-            this.txbSoTaiKhoan = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThemNXB = new System.Windows.Forms.Button();
             this.btnXemCongNo = new System.Windows.Forms.Button();
-            this.btnCapNhat = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
             this.gdvDMNXB = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
@@ -101,6 +101,53 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(764, 541);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // txbSoTaiKhoan
+            // 
+            this.txbSoTaiKhoan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbSoTaiKhoan, 2);
+            this.txbSoTaiKhoan.Location = new System.Drawing.Point(117, 125);
+            this.txbSoTaiKhoan.Name = "txbSoTaiKhoan";
+            this.txbSoTaiKhoan.Size = new System.Drawing.Size(452, 20);
+            this.txbSoTaiKhoan.TabIndex = 9;
+            // 
+            // txbSoDienThoai
+            // 
+            this.txbSoDienThoai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbSoDienThoai, 2);
+            this.txbSoDienThoai.Location = new System.Drawing.Point(117, 95);
+            this.txbSoDienThoai.Name = "txbSoDienThoai";
+            this.txbSoDienThoai.Size = new System.Drawing.Size(452, 20);
+            this.txbSoDienThoai.TabIndex = 8;
+            // 
+            // btnCapNhat
+            // 
+            this.btnCapNhat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCapNhat.Location = new System.Drawing.Point(117, 153);
+            this.btnCapNhat.Name = "btnCapNhat";
+            this.btnCapNhat.Size = new System.Drawing.Size(223, 44);
+            this.btnCapNhat.TabIndex = 2;
+            this.btnCapNhat.Text = "Cập nhật";
+            this.btnCapNhat.UseVisualStyleBackColor = true;
+            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
+            // 
+            // txbDiaChi
+            // 
+            this.txbDiaChi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbDiaChi, 2);
+            this.txbDiaChi.Location = new System.Drawing.Point(117, 65);
+            this.txbDiaChi.Name = "txbDiaChi";
+            this.txbDiaChi.Size = new System.Drawing.Size(452, 20);
+            this.txbDiaChi.TabIndex = 7;
+            // 
+            // txbTenNXB
+            // 
+            this.txbTenNXB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbTenNXB, 2);
+            this.txbTenNXB.Location = new System.Drawing.Point(117, 35);
+            this.txbTenNXB.Name = "txbTenNXB";
+            this.txbTenNXB.Size = new System.Drawing.Size(452, 20);
+            this.txbTenNXB.TabIndex = 6;
             // 
             // label1
             // 
@@ -162,42 +209,6 @@
             this.txbMaSoNXB.Size = new System.Drawing.Size(452, 20);
             this.txbMaSoNXB.TabIndex = 5;
             // 
-            // txbTenNXB
-            // 
-            this.txbTenNXB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbTenNXB, 2);
-            this.txbTenNXB.Location = new System.Drawing.Point(117, 35);
-            this.txbTenNXB.Name = "txbTenNXB";
-            this.txbTenNXB.Size = new System.Drawing.Size(452, 20);
-            this.txbTenNXB.TabIndex = 6;
-            // 
-            // txbDiaChi
-            // 
-            this.txbDiaChi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbDiaChi, 2);
-            this.txbDiaChi.Location = new System.Drawing.Point(117, 65);
-            this.txbDiaChi.Name = "txbDiaChi";
-            this.txbDiaChi.Size = new System.Drawing.Size(452, 20);
-            this.txbDiaChi.TabIndex = 7;
-            // 
-            // txbSoDienThoai
-            // 
-            this.txbSoDienThoai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbSoDienThoai, 2);
-            this.txbSoDienThoai.Location = new System.Drawing.Point(117, 95);
-            this.txbSoDienThoai.Name = "txbSoDienThoai";
-            this.txbSoDienThoai.Size = new System.Drawing.Size(452, 20);
-            this.txbSoDienThoai.TabIndex = 8;
-            // 
-            // txbSoTaiKhoan
-            // 
-            this.txbSoTaiKhoan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbSoTaiKhoan, 2);
-            this.txbSoTaiKhoan.Location = new System.Drawing.Point(117, 125);
-            this.txbSoTaiKhoan.Name = "txbSoTaiKhoan";
-            this.txbSoTaiKhoan.Size = new System.Drawing.Size(452, 20);
-            this.txbSoTaiKhoan.TabIndex = 9;
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnThemNXB);
@@ -230,17 +241,6 @@
             this.btnXemCongNo.UseVisualStyleBackColor = true;
             this.btnXemCongNo.Click += new System.EventHandler(this.btnXemCongNo_Click);
             // 
-            // btnCapNhat
-            // 
-            this.btnCapNhat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCapNhat.Location = new System.Drawing.Point(117, 153);
-            this.btnCapNhat.Name = "btnCapNhat";
-            this.btnCapNhat.Size = new System.Drawing.Size(223, 44);
-            this.btnCapNhat.TabIndex = 2;
-            this.btnCapNhat.Text = "Cập nhật";
-            this.btnCapNhat.UseVisualStyleBackColor = true;
-            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
-            // 
             // btnXoa
             // 
             this.btnXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -256,6 +256,7 @@
             // 
             this.gdvDMNXB.AllowUserToAddRows = false;
             this.gdvDMNXB.AllowUserToDeleteRows = false;
+            this.gdvDMNXB.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvDMNXB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvDMNXB, 4);
             this.gdvDMNXB.Dock = System.Windows.Forms.DockStyle.Fill;

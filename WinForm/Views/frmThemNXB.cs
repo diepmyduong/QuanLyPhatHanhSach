@@ -36,7 +36,11 @@ namespace WinForm.Views
         //Khi Hủy Thêm
         private void btnThoat_Click(object sender, EventArgs e)
         {
-
+            this.Close();
+            if (_frmParent.GetType().Name == nameof(frmDanhMucNXB))
+            {
+                (_frmParent as frmDanhMucNXB).loadNXB();
+            }
         }
         #endregion
 

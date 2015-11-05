@@ -3,36 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.DAL;
+using System.ComponentModel;
 
 namespace Core.BIZ
 {
     public class Sach
     {
-        [System.ComponentModel.DisplayName("Mã số sách")]
+        [DisplayName(SachManager.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
-        [System.ComponentModel.DisplayName("Tên Sách")]
+        [DisplayName(SachManager.Properties.TenSach)]
         public String TenSach { get; set; }
-        [System.ComponentModel.DisplayName("Lĩnh Vực")]
+        [DisplayName(SachManager.Properties.LinhVucSach)]
         public LinhVuc LinhVucSach { get; set; }
-        [System.ComponentModel.DisplayName("Tác Giả")]
+        [DisplayName(SachManager.Properties.TenTacGia)]
         public String TenTacGia { get; set; }
-        [System.ComponentModel.DisplayName("Nhà Xuất Bản")]
+        [DisplayName(SachManager.Properties.NXB)]
         public NhaXuatBan NXB { get; set; }
-        [System.ComponentModel.DisplayName("Số lượng")]
+        [DisplayName(SachManager.Properties.Soluong)]
         public int Soluong { get; set; }
-        [System.ComponentModel.DisplayName("Giá Nhập")]
+        [DisplayName(SachManager.Properties.GiaNhap)]
         public int GiaNhap { get; set; }
-        [System.ComponentModel.DisplayName("Giá Bán")]
+        [DisplayName(SachManager.Properties.GiaBan)]
         public int GiaBan { get; set; }
-        [System.ComponentModel.DisplayName("Hình Ảnh")]
+        [DisplayName(SachManager.Properties.HinhAnh)]
         public String HinhAnh { get; set; }
+
+        public bool isExisted()
+        {
+            Sach sach = SachManager.find(this.MaSoSach);
+            if(sach == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool isContentExisted()
+        {
+            var obj = new { };
+            Dictionary<String, dynamic> param = new Dictionary<string, dynamic>();
+            param.Add(SachManager.Properties.TenSach, this.TenSach);
+            param.Add(SachManager.Properties.TenTacGia, this.TenTacGia);
+            param.Add(SachManager.Properties.LinhVucSach, this.LinhVucSach.MaSoLinhVuc);
+            param.Add(SachManager.Properties.NXB, this.NXB.MaSoNXB);
+            List<Sach> result = SachManager.findBy(param);
+            if (result.Count > 0)
+                return true;
+            return false;
+        }
 
         public override string ToString()
         {
             return this.TenSach;
         }
-
-       
 
     }
 }

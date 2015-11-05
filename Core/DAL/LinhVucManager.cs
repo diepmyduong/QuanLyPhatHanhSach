@@ -9,6 +9,12 @@ namespace Core.DAL
 {
     public class LinhVucManager
     {
+        public static partial class Properties
+        {
+            public const string MaSoLinhVuc = "Mã Số Lĩnh Vực";
+            public const string TenLinhVuc = "Tên Lĩnh Vực";
+            public const string Sach = "Sách";
+        }
         public static List<LinhVuc> getAll()
         {
             using (EntitiesDataContext db = new EntitiesDataContext())

@@ -34,19 +34,11 @@ namespace WinForm.Views
         {
 
             //Load các lĩnh vực
-            _DMLinhVuc = LinhVucManager.getAll();
-            cmbLinhVuc.DataSource = _DMLinhVuc;
-            cmbLinhVuc.DisplayMember = "TenLinhVuc";
-            cmbLinhVuc.ValueMember = "MaSoLinhVuc";
+            loadLinhVuc();
             //Load các NXB
-            _DMNXB = NhaXuatBanManager.getAll();
-            cmbNXB.DataSource = _DMNXB;
-            cmbNXB.DisplayMember = "TenNXB";
-            cmbNXB.ValueMember = "MaSoNXB";
+            loadNXB();
             //Load tất cả sách
-            _DMSach = SachManager.getAll();
-            gdvDanhMucSach.DataSource = _DMSach;
-            gdvDanhMucSach.Columns["HinhAnh"].Visible = false;
+            loadSach();
         }
         //Chọn Xem Danh mục Sách
         private void menuItemXemDanhMucSach_Click(object sender, EventArgs e)
@@ -56,47 +48,53 @@ namespace WinForm.Views
         //Chọn Xem Danh mục NXB
         private void menuItemXemDanhMucNXB_Click(object sender, EventArgs e)
         {
-
+            frmDanhMucNXB form = new frmDanhMucNXB(this);
+            form.ShowDialog(this);
         }
         //Chọn Tạo Phiếu Nhập
         private void menuItemTaoPhieuNhap_Click(object sender, EventArgs e)
         {
-
+            frmLapPhieuNhap form = new frmLapPhieuNhap(this);
+            form.ShowDialog(this);
         }
         //Chọn Xem Danh Mục Đại lý
         private void menuItemXemDanhMucDaiLy_Click(object sender, EventArgs e)
         {
-
+            frmDanhMucDaiLy form = new frmDanhMucDaiLy(this);
+            form.ShowDialog(this);
         }
         //Chọn tạo phiếu xuất
         private void menuItemTaoPhieuXuat_Click(object sender, EventArgs e)
         {
-
+            frmLapPhieuXuat form = new frmLapPhieuXuat(this);
+            form.ShowDialog(this);
         }
         //Chọn Thanh toán với Đại lý
         private void menuItemThanhToanDaiLy_Click(object sender, EventArgs e)
         {
-
+            frmThanhToanDaiLy form = new frmThanhToanDaiLy(this);
+            form.ShowDialog(this);
         }
         //Chọn thanh toán với NXB
         private void menuItemThanhToanNXB_Click(object sender, EventArgs e)
         {
-
         }
         //Chọn theo dõi nỡ với Đại lý
         private void menuItemNoDaiLy_Click(object sender, EventArgs e)
         {
-
+            frmCongNoDaiLy form = new frmCongNoDaiLy(this);
+            form.ShowDialog(this);
         }
         //Chọn theo dõi nợ với NXB
         private void menuItemNoNXB_Click(object sender, EventArgs e)
         {
-
+            frmCongNoNXB form = new frmCongNoNXB(this);
+            form.ShowDialog(this);
         }
         //Chọn xem thống kê tồn kho
         private void menuItemTonKho_Click(object sender, EventArgs e)
         {
-
+            
         }
         //Chọn xem thống ke Doanh Thu
         private void menuItemThongKeDoanhThu_Click(object sender, EventArgs e)
@@ -166,6 +164,12 @@ namespace WinForm.Views
             s.GiaBan = Int32.Parse(txbGiaBan.Text);
             s.GiaNhap = Int32.Parse(txbGiaMua.Text);
             s.HinhAnh = picHinhAnh.ImageLocation;
+            ////Kiểm tra trùng
+            //if (s.isContentExisted())
+            //{
+            //    MessageBox.Show("Thông tin bị trùng");
+            //    return;
+            //}
             //Cập nhật
             SachManager.edit(s);
             //Load lại form
@@ -197,12 +201,14 @@ namespace WinForm.Views
         //Chọn thêm NXB
         private void btnThemNXB_Click(object sender, EventArgs e)
         {
-
+            frmDanhMucNXB form = new frmDanhMucNXB(this);
+            form.ShowDialog(this);
         }
         //Chọn Lập Phiếu Nhập
         private void btnLapPhieuNhap_Click(object sender, EventArgs e)
         {
-
+            frmLapPhieuNhap form = new frmLapPhieuNhap(this);
+            form.ShowDialog(this);
         }
         //Chọn Lọc danh sách sách theo từ khóa
         private void btnLoc_Click(object sender, EventArgs e)
@@ -293,6 +299,35 @@ namespace WinForm.Views
         public void reload()
         {
             this.OnLoad(new EventArgs());
+        }
+        /// <summary>
+        /// Load danh sách NXB và add vào giao diện
+        /// </summary>
+        public void loadNXB()
+        {
+            _DMNXB = NhaXuatBanManager.getAll();
+            cmbNXB.DataSource = _DMNXB;
+            cmbNXB.DisplayMember = nameof(NhaXuatBanManager.Properties.TenNXB);
+            cmbNXB.ValueMember = nameof(NhaXuatBanManager.Properties.MaSoNXB);
+        }
+        /// <summary>
+        /// Load danh sách Lĩnh vực và add vào giao diện
+        /// </summary>
+        public void loadLinhVuc()
+        {
+            _DMLinhVuc = LinhVucManager.getAll();
+            cmbLinhVuc.DataSource = _DMLinhVuc;
+            cmbLinhVuc.DisplayMember = nameof(LinhVucManager.Properties.TenLinhVuc);
+            cmbLinhVuc.ValueMember = nameof(LinhVucManager.Properties.MaSoLinhVuc);
+        }
+        /// <summary>
+        /// Load danh sách Sách và add vào giao diện
+        /// </summary>
+        public void loadSach()
+        {
+            _DMSach = SachManager.getAll();
+            gdvDanhMucSach.DataSource = _DMSach;
+            gdvDanhMucSach.Columns[nameof(SachManager.Properties.HinhAnh)].Visible = false;
         }
         #endregion
 

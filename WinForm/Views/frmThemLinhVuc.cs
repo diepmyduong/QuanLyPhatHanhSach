@@ -61,9 +61,15 @@ namespace WinForm.Views
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
-            if(_frmParent.GetType().Name == "frmThemSach")
+            if(_frmParent.GetType().Name == nameof(frmThemSach))
             {
                 (_frmParent as frmThemSach).reloadLinhVuc();
+                return;
+            }
+            if (_frmParent.GetType().Name == nameof(frmMain))
+            {
+                (_frmParent as frmMain).loadLinhVuc();
+                return;
             }
         }
         //Khi cập nhật lĩnh vực sửa

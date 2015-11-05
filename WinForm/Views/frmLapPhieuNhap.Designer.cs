@@ -37,13 +37,18 @@
             this.txbMaPhieuNhap = new System.Windows.Forms.TextBox();
             this.cmbNhaXuatBan = new System.Windows.Forms.ComboBox();
             this.dtpNgayLap = new System.Windows.Forms.DateTimePicker();
-            this.dtpNgayGiao = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.lbTongTien = new System.Windows.Forms.Label();
             this.gdvChiTiet = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
+            this.txbNguoiGiao = new System.Windows.Forms.TextBox();
+            this.MaSoSach = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.TenSach = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThanhTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvChiTiet)).BeginInit();
@@ -73,11 +78,11 @@
             this.tableLayoutPanel1.Controls.Add(this.txbMaPhieuNhap, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmbNhaXuatBan, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.dtpNgayLap, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.dtpNgayGiao, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label5, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbTongTien, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.gdvChiTiet, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.txbNguoiGiao, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -87,6 +92,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(764, 541);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -157,14 +163,6 @@
             this.dtpNgayLap.Size = new System.Drawing.Size(337, 20);
             this.dtpNgayLap.TabIndex = 6;
             // 
-            // dtpNgayGiao
-            // 
-            this.dtpNgayGiao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpNgayGiao.Location = new System.Drawing.Point(117, 95);
-            this.dtpNgayGiao.Name = "dtpNgayGiao";
-            this.dtpNgayGiao.Size = new System.Drawing.Size(337, 20);
-            this.dtpNgayGiao.TabIndex = 7;
-            // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
@@ -193,13 +191,21 @@
             // 
             // gdvChiTiet
             // 
+            this.gdvChiTiet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gdvChiTiet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MaSoSach,
+            this.TenSach,
+            this.SoLuong,
+            this.DonGia,
+            this.ThanhTien});
             this.tableLayoutPanel1.SetColumnSpan(this.gdvChiTiet, 3);
             this.gdvChiTiet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gdvChiTiet.Location = new System.Drawing.Point(3, 123);
             this.gdvChiTiet.Name = "gdvChiTiet";
             this.gdvChiTiet.Size = new System.Drawing.Size(758, 365);
             this.gdvChiTiet.TabIndex = 10;
+            this.gdvChiTiet.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gdvChiTiet_EditingControlShowing);
             // 
             // flowLayoutPanel1
             // 
@@ -233,6 +239,47 @@
             this.btnLuu.UseVisualStyleBackColor = true;
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
+            // txbNguoiGiao
+            // 
+            this.txbNguoiGiao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbNguoiGiao.Location = new System.Drawing.Point(117, 95);
+            this.txbNguoiGiao.Name = "txbNguoiGiao";
+            this.txbNguoiGiao.Size = new System.Drawing.Size(337, 20);
+            this.txbNguoiGiao.TabIndex = 12;
+            // 
+            // MaSoSach
+            // 
+            this.MaSoSach.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.MaSoSach.HeaderText = "Mã Số Sách";
+            this.MaSoSach.Name = "MaSoSach";
+            this.MaSoSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.MaSoSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // TenSach
+            // 
+            this.TenSach.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.TenSach.HeaderText = "Tên Sách";
+            this.TenSach.Name = "TenSach";
+            this.TenSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TenSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // SoLuong
+            // 
+            this.SoLuong.HeaderText = "Số lượng";
+            this.SoLuong.Name = "SoLuong";
+            // 
+            // DonGia
+            // 
+            this.DonGia.HeaderText = "Đơn Giá";
+            this.DonGia.Name = "DonGia";
+            this.DonGia.ReadOnly = true;
+            // 
+            // ThanhTien
+            // 
+            this.ThanhTien.HeaderText = "Thành Tiền";
+            this.ThanhTien.Name = "ThanhTien";
+            this.ThanhTien.ReadOnly = true;
+            // 
             // frmLapPhieuNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,12 +311,17 @@
         private System.Windows.Forms.TextBox txbMaPhieuNhap;
         private System.Windows.Forms.ComboBox cmbNhaXuatBan;
         private System.Windows.Forms.DateTimePicker dtpNgayLap;
-        private System.Windows.Forms.DateTimePicker dtpNgayGiao;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lbTongTien;
         private System.Windows.Forms.DataGridView gdvChiTiet;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Button btnLuu;
+        private System.Windows.Forms.TextBox txbNguoiGiao;
+        private System.Windows.Forms.DataGridViewComboBoxColumn MaSoSach;
+        private System.Windows.Forms.DataGridViewComboBoxColumn TenSach;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SoLuong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ThanhTien;
     }
 }
