@@ -13,8 +13,7 @@ namespace Core.BIZ
         [DisplayName(LinhVucManager.Properties.MaSoLinhVuc)]
         public int MaSoLinhVuc { get; set; }
         [DisplayName(LinhVucManager.Properties.TenLinhVuc)]
-        public String TenLinhVuc { get; set; }
-
+        public string TenLinhVuc { get; set; }
         //Sách của lĩnh vực
         private List<Sach> _sach;
         [DisplayName(LinhVucManager.Properties.Sach)]
@@ -36,7 +35,7 @@ namespace Core.BIZ
             }
         }
 
-        public override String ToString()
+        public override string ToString()
         {
             return this.TenLinhVuc;
         }

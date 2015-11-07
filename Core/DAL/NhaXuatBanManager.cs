@@ -17,6 +17,8 @@ namespace Core.DAL
             public const string SoDienThoai = "Số điện thoại";
             public const string SoTaiKhoan = "Số tài khoản";
             public const string Sach = "Sách";
+            public const string PhieuNhap = "Phiếu nhập";
+            public const string CongNo = "Công nợ";
         }
         public static List<NhaXuatBan> getAll()
         {
@@ -32,6 +34,24 @@ namespace Core.DAL
                                     SoTaiKhoan = nxb.sotaikhoan
                                 };
                 return linqQuery.ToList<NhaXuatBan>();
+            }
+        }
+
+        public static NhaXuatBan find(int masonxb)
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from nxb in db.NXBs
+                                where nxb.masonxb.Equals(masonxb)
+                                select new NhaXuatBan
+                                {
+                                    MaSoNXB = nxb.masonxb,
+                                    TenNXB = nxb.ten,
+                                    DiaChi = nxb.diachi,
+                                    SoDienThoai = nxb.sodienthoai,
+                                    SoTaiKhoan = nxb.sotaikhoan
+                                };
+                return linqQuery.SingleOrDefault<NhaXuatBan>();
             }
         }
     }

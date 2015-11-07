@@ -10,19 +10,22 @@ namespace Core.BIZ
 {
     public class NhaXuatBan
     {
+        private List<Sach> _sach;
+        private List<PhieuNhap> _phieunhap;
+        private List<CongNoNXB> _congno;
+
+
         [DisplayName(NhaXuatBanManager.Properties.MaSoNXB)]
         public int MaSoNXB { get; set; }
         [DisplayName(NhaXuatBanManager.Properties.TenNXB)]
-        public String TenNXB { get; set; }
+        public string TenNXB { get; set; }
         [DisplayName(NhaXuatBanManager.Properties.DiaChi)]
-        public String DiaChi { get; set; }
+        public string DiaChi { get; set; }
         [DisplayName(NhaXuatBanManager.Properties.SoDienThoai)]
-        public String SoDienThoai { get; set; }
+        public string SoDienThoai { get; set; }
         [DisplayName(NhaXuatBanManager.Properties.SoTaiKhoan)]
-        public String SoTaiKhoan { get; set; }
-
+        public string SoTaiKhoan { get; set; }
         //Sách của NXB
-        private List<Sach> _sach;
         [DisplayName(NhaXuatBanManager.Properties.Sach)]
         public List<Sach> Sach
         {
@@ -39,6 +42,41 @@ namespace Core.BIZ
             set
             {
                 _sach = value;
+            }
+        }
+
+        //Phiếu nhập của NXB
+        [DisplayName(NhaXuatBanManager.Properties.PhieuNhap)]
+        public List<PhieuNhap> PhieuNhap
+        {
+            get
+            {
+                if(_phieunhap == null)
+                {
+                    _phieunhap = PhieuNhapManager.find(this.MaSoNXB);
+                }
+                return _phieunhap;
+            }
+            set
+            {
+                _phieunhap = value;
+            }
+        }
+        //Công nợ của NXB
+        [DisplayName(NhaXuatBanManager.Properties.CongNo)]
+        public List<CongNoNXB> CongNo
+        {
+            get
+            {
+                if(_congno == null)
+                {
+                    _congno = CongNoNXBManager.find(this.MaSoNXB);
+                }
+                return _congno;
+            }
+            set
+            {
+                _congno = value;
             }
         }
 

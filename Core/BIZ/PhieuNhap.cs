@@ -10,16 +10,34 @@ namespace Core.BIZ
 {
     public class PhieuNhap
     {
+
+        private NhaXuatBan _nxb;
+
         [DisplayName(PhieuNhapManager.Properties.MaSoPhieuNhap)]
         public int MaSoPhieuNhap { get; set; }
+        [DisplayName(PhieuNhapManager.Properties.MaSoNXB)]
+        public int MaSoNXB { get; set; }
         [DisplayName(PhieuNhapManager.Properties.NXB)]
-        public NhaXuatBan NXB { get; set; }
+        public NhaXuatBan NXB {
+            get
+            {
+                if(_nxb == null)
+                {
+                    _nxb = NhaXuatBanManager.find(this.MaSoNXB);
+                }
+                return _nxb;
+            }
+            set
+            {
+                _nxb = value;
+            }
+        }
         [DisplayName(PhieuNhapManager.Properties.NgayLap)]
         public DateTime NgayLap { get; set; }
         [DisplayName(PhieuNhapManager.Properties.NguoiGiao)]
         public string NguoiGiao { get; set; }
         [DisplayName(PhieuNhapManager.Properties.TongTien)]
-        public int TongTien { get; set; }
+        public decimal TongTien { get; set; }
         //Chi tiết phiếu nhập
         private List<ChiTietPhieuNhap> _chitiet;
         public List<ChiTietPhieuNhap> ChiTiet
@@ -53,6 +71,10 @@ namespace Core.BIZ
             _chitiet.Add(chitiet);
             return true;
         }
-        
+
+        public override string ToString()
+        {
+            return this.NgayLap.ToString();
+        }
     }
 }

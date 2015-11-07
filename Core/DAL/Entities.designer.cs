@@ -11,18 +11,18 @@
 
 namespace Core.DAL
 {
-    using System.Data.Linq;
-    using System.Data.Linq.Mapping;
-    using System.Data;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using System.ComponentModel;
-    using System;
-    using System.ComponentModel.DataAnnotations;
-
-    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QLPHS")]
+	using System.Data.Linq;
+	using System.Data.Linq.Mapping;
+	using System.Data;
+	using System.Collections.Generic;
+	using System.Reflection;
+	using System.Linq;
+	using System.Linq.Expressions;
+	using System.ComponentModel;
+	using System;
+	
+	
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QLPHS")]
 	public partial class EntitiesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -238,9 +238,9 @@ namespace Core.DAL
 		
 		private int _masosach;
 		
-		private int _soluong;
+		private decimal _soluong;
 		
-		private int _dongia;
+		private decimal _dongia;
 		
 		private EntityRef<HOADONDAILY> _HOADONDAILY;
 		
@@ -254,9 +254,9 @@ namespace Core.DAL
     partial void OnmasohoadonChanged();
     partial void OnmasosachChanging(int value);
     partial void OnmasosachChanged();
-    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
-    partial void OndongiaChanging(int value);
+    partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
     #endregion
 		
@@ -315,8 +315,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal soluong
 		{
 			get
 			{
@@ -335,8 +335,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Int NOT NULL")]
-		public int dongia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Decimal(18,0) NOT NULL")]
+		public decimal dongia
 		{
 			get
 			{
@@ -454,7 +454,7 @@ namespace Core.DAL
 		
 		private int _masosach;
 		
-		private int _soluong;
+		private decimal _soluong;
 		
 		private EntityRef<SACH> _SACH;
 		
@@ -466,7 +466,7 @@ namespace Core.DAL
     partial void OnngayghiChanged();
     partial void OnmasosachChanging(int value);
     partial void OnmasosachChanged();
-    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
     #endregion
 		
@@ -476,7 +476,7 @@ namespace Core.DAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngayghi", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngayghi", DbType="Date NOT NULL", IsPrimaryKey=true)]
 		public System.DateTime ngayghi
 		{
 			get
@@ -520,8 +520,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal soluong
 		{
 			get
 			{
@@ -605,9 +605,9 @@ namespace Core.DAL
 		
 		private int _masosach;
 		
-		private int _soluong;
+		private decimal _soluong;
 		
-		private int _dongia;
+		private decimal _dongia;
 		
 		private EntityRef<HOADONNXB> _HOADONNXB;
 		
@@ -621,9 +621,9 @@ namespace Core.DAL
     partial void OnmasohoadonChanged();
     partial void OnmasosachChanging(int value);
     partial void OnmasosachChanged();
-    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
-    partial void OndongiaChanging(int value);
+    partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
     #endregion
 		
@@ -682,8 +682,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal soluong
 		{
 			get
 			{
@@ -702,8 +702,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Int NOT NULL")]
-		public int dongia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Decimal(18,0) NOT NULL")]
+		public decimal dongia
 		{
 			get
 			{
@@ -821,9 +821,9 @@ namespace Core.DAL
 		
 		private int _masosach;
 		
-		private int _soluong;
+		private decimal _soluong;
 		
-		private int _dongia;
+		private decimal _dongia;
 		
 		private EntityRef<PHIEUNHAP> _PHIEUNHAP;
 		
@@ -837,9 +837,9 @@ namespace Core.DAL
     partial void OnmasophieunhapChanged();
     partial void OnmasosachChanging(int value);
     partial void OnmasosachChanged();
-    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
-    partial void OndongiaChanging(int value);
+    partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
     #endregion
 		
@@ -898,8 +898,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal soluong
 		{
 			get
 			{
@@ -918,8 +918,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Int NOT NULL")]
-		public int dongia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Decimal(18,0) NOT NULL")]
+		public decimal dongia
 		{
 			get
 			{
@@ -1037,9 +1037,9 @@ namespace Core.DAL
 		
 		private int _masosach;
 		
-		private int _soluong;
+		private decimal _soluong;
 		
-		private int _dongia;
+		private decimal _dongia;
 		
 		private EntityRef<PHIEUXUAT> _PHIEUXUAT;
 		
@@ -1053,9 +1053,9 @@ namespace Core.DAL
     partial void OnmasophieuxuatChanged();
     partial void OnmasosachChanging(int value);
     partial void OnmasosachChanged();
-    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
-    partial void OndongiaChanging(int value);
+    partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
     #endregion
 		
@@ -1114,8 +1114,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal soluong
 		{
 			get
 			{
@@ -1134,8 +1134,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Int NOT NULL")]
-		public int dongia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Decimal(18,0) NOT NULL")]
+		public decimal dongia
 		{
 			get
 			{
@@ -1255,9 +1255,9 @@ namespace Core.DAL
 		
 		private System.DateTime _thang;
 		
-		private int _soluong;
+		private decimal _soluong;
 		
-		private int _dongia;
+		private decimal _dongia;
 		
 		private EntityRef<DAILY> _DAILY;
 		
@@ -1273,9 +1273,9 @@ namespace Core.DAL
     partial void OnmasodailyChanged();
     partial void OnthangChanging(System.DateTime value);
     partial void OnthangChanged();
-    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
-    partial void OndongiaChanging(int value);
+    partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
     #endregion
 		
@@ -1354,8 +1354,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal soluong
 		{
 			get
 			{
@@ -1374,8 +1374,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Int NOT NULL")]
-		public int dongia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Decimal(18,0) NOT NULL")]
+		public decimal dongia
 		{
 			get
 			{
@@ -1495,9 +1495,9 @@ namespace Core.DAL
 		
 		private System.DateTime _thang;
 		
-		private int _soluong;
+		private decimal _soluong;
 		
-		private int _dongia;
+		private decimal _dongia;
 		
 		private EntityRef<NXB> _NXB;
 		
@@ -1513,9 +1513,9 @@ namespace Core.DAL
     partial void OnmasonxbChanged();
     partial void OnthangChanging(System.DateTime value);
     partial void OnthangChanged();
-    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
-    partial void OndongiaChanging(int value);
+    partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
     #endregion
 		
@@ -1594,8 +1594,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal soluong
 		{
 			get
 			{
@@ -1614,8 +1614,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Int NOT NULL")]
-		public int dongia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dongia", DbType="Decimal(18,0) NOT NULL")]
+		public decimal dongia
 		{
 			get
 			{
@@ -1739,6 +1739,8 @@ namespace Core.DAL
 		
 		private string _sotaikhoan;
 		
+		private string _trangthai;
+		
 		private EntitySet<CONGNODAILY> _CONGNODAILies;
 		
 		private EntitySet<HOADONDAILY> _HOADONDAILies;
@@ -1759,6 +1761,8 @@ namespace Core.DAL
     partial void OnsodienthoaiChanged();
     partial void OnsotaikhoanChanging(string value);
     partial void OnsotaikhoanChanged();
+    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public DAILY()
@@ -1865,6 +1869,26 @@ namespace Core.DAL
 					this._sotaikhoan = value;
 					this.SendPropertyChanged("sotaikhoan");
 					this.OnsotaikhoanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
+		public string trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -1977,7 +2001,9 @@ namespace Core.DAL
 		
 		private System.DateTime _ngaylap;
 		
-		private int _tongtien;
+		private decimal _tongtien;
+		
+		private string _trangthai;
 		
 		private EntitySet<CHITIETHOADONDAILY> _CHITIETHOADONDAILies;
 		
@@ -1993,8 +2019,10 @@ namespace Core.DAL
     partial void OnmasodailyChanged();
     partial void OnngaylapChanging(System.DateTime value);
     partial void OnngaylapChanged();
-    partial void OntongtienChanging(int value);
+    partial void OntongtienChanging(decimal value);
     partial void OntongtienChanged();
+    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public HOADONDAILY()
@@ -2048,7 +2076,7 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaylap", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaylap", DbType="Date NOT NULL")]
 		public System.DateTime ngaylap
 		{
 			get
@@ -2068,8 +2096,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tongtien", DbType="Int NOT NULL")]
-		public int tongtien
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tongtien", DbType="Decimal(18,0) NOT NULL")]
+		public decimal tongtien
 		{
 			get
 			{
@@ -2084,6 +2112,26 @@ namespace Core.DAL
 					this._tongtien = value;
 					this.SendPropertyChanged("tongtien");
 					this.OntongtienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
+		public string trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -2180,7 +2228,9 @@ namespace Core.DAL
 		
 		private System.DateTime _ngaylap;
 		
-		private int _tongtien;
+		private decimal _tongtien;
+		
+		private string _trangthai;
 		
 		private EntitySet<CHITIETHOADONNXB> _CHITIETHOADONNXBs;
 		
@@ -2196,8 +2246,10 @@ namespace Core.DAL
     partial void OnmasonxbChanged();
     partial void OnngaylapChanging(System.DateTime value);
     partial void OnngaylapChanged();
-    partial void OntongtienChanging(int value);
+    partial void OntongtienChanging(decimal value);
     partial void OntongtienChanged();
+    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public HOADONNXB()
@@ -2251,7 +2303,7 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaylap", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaylap", DbType="Date NOT NULL")]
 		public System.DateTime ngaylap
 		{
 			get
@@ -2271,8 +2323,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tongtien", DbType="Int NOT NULL")]
-		public int tongtien
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tongtien", DbType="Decimal(18,0) NOT NULL")]
+		public decimal tongtien
 		{
 			get
 			{
@@ -2287,6 +2339,26 @@ namespace Core.DAL
 					this._tongtien = value;
 					this.SendPropertyChanged("tongtien");
 					this.OntongtienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
+		public string trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -2381,6 +2453,8 @@ namespace Core.DAL
 		
 		private string _ten;
 		
+		private string _trangthai;
+		
 		private EntitySet<SACH> _SACHes;
 		
     #region Extensibility Method Definitions
@@ -2391,6 +2465,8 @@ namespace Core.DAL
     partial void OnmasolinhvucChanged();
     partial void OntenChanging(string value);
     partial void OntenChanged();
+    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public LINHVUC()
@@ -2435,6 +2511,26 @@ namespace Core.DAL
 					this._ten = value;
 					this.SendPropertyChanged("ten");
 					this.OntenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
+		public string trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -2501,6 +2597,8 @@ namespace Core.DAL
 		
 		private string _sotaikhoan;
 		
+		private string _trangthai;
+		
 		private EntitySet<CONGNONXB> _CONGNONXBs;
 		
 		private EntitySet<HOADONNXB> _HOADONNXBs;
@@ -2523,6 +2621,8 @@ namespace Core.DAL
     partial void OnsodienthoaiChanged();
     partial void OnsotaikhoanChanging(string value);
     partial void OnsotaikhoanChanged();
+    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public NXB()
@@ -2630,6 +2730,26 @@ namespace Core.DAL
 					this._sotaikhoan = value;
 					this.SendPropertyChanged("sotaikhoan");
 					this.OnsotaikhoanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
+		public string trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -2769,7 +2889,9 @@ namespace Core.DAL
 		
 		private System.DateTime _ngaylap;
 		
-		private int _tongtien;
+		private decimal _tongtien;
+		
+		private string _trangthai;
 		
 		private EntitySet<CHITIETPHIEUNHAP> _CHITIETPHIEUNHAPs;
 		
@@ -2787,8 +2909,10 @@ namespace Core.DAL
     partial void OnnguoigiaosachChanged();
     partial void OnngaylapChanging(System.DateTime value);
     partial void OnngaylapChanged();
-    partial void OntongtienChanging(int value);
+    partial void OntongtienChanging(decimal value);
     partial void OntongtienChanged();
+    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public PHIEUNHAP()
@@ -2862,7 +2986,7 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaylap", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaylap", DbType="Date NOT NULL")]
 		public System.DateTime ngaylap
 		{
 			get
@@ -2882,8 +3006,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tongtien", DbType="Int NOT NULL")]
-		public int tongtien
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tongtien", DbType="Decimal(18,0) NOT NULL")]
+		public decimal tongtien
 		{
 			get
 			{
@@ -2898,6 +3022,26 @@ namespace Core.DAL
 					this._tongtien = value;
 					this.SendPropertyChanged("tongtien");
 					this.OntongtienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
+		public string trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -2996,7 +3140,9 @@ namespace Core.DAL
 		
 		private System.DateTime _ngaylap;
 		
-		private int _tongtien;
+		private decimal _tongtien;
+		
+		private string _trangthai;
 		
 		private EntitySet<CHITIETPHIEUXUAT> _CHITIETPHIEUXUATs;
 		
@@ -3014,8 +3160,10 @@ namespace Core.DAL
     partial void OnnguoinhasachChanged();
     partial void OnngaylapChanging(System.DateTime value);
     partial void OnngaylapChanged();
-    partial void OntongtienChanging(int value);
+    partial void OntongtienChanging(decimal value);
     partial void OntongtienChanged();
+    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public PHIEUXUAT()
@@ -3089,7 +3237,7 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaylap", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaylap", DbType="Date NOT NULL")]
 		public System.DateTime ngaylap
 		{
 			get
@@ -3109,8 +3257,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tongtien", DbType="Int NOT NULL")]
-		public int tongtien
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tongtien", DbType="Decimal(18,0) NOT NULL")]
+		public decimal tongtien
 		{
 			get
 			{
@@ -3125,6 +3273,26 @@ namespace Core.DAL
 					this._tongtien = value;
 					this.SendPropertyChanged("tongtien");
 					this.OntongtienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
+		public string trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -3210,12 +3378,12 @@ namespace Core.DAL
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SACH")]
-    public partial class SACH : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class SACH : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-        
-        private int _masosach;
+		
+		private int _masosach;
 		
 		private int _masonxb;
 		
@@ -3225,13 +3393,15 @@ namespace Core.DAL
 		
 		private string _tacgia;
 		
-		private int _giaban;
+		private decimal _giaban;
 		
-		private int _gianhap;
+		private decimal _gianhap;
 		
-		private int _soluong;
+		private decimal _soluong;
 		
 		private string _hinhanh;
+		
+		private string _trangthai;
 		
 		private EntitySet<CHITIETHOADONDAILY> _CHITIETHOADONDAILies;
 		
@@ -3265,14 +3435,16 @@ namespace Core.DAL
     partial void OntensachChanged();
     partial void OntacgiaChanging(string value);
     partial void OntacgiaChanged();
-    partial void OngiabanChanging(int value);
+    partial void OngiabanChanging(decimal value);
     partial void OngiabanChanged();
-    partial void OngianhapChanging(int value);
+    partial void OngianhapChanging(decimal value);
     partial void OngianhapChanged();
-    partial void OnsoluongChanging(int value);
+    partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
     partial void OnhinhanhChanging(string value);
     partial void OnhinhanhChanged();
+    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public SACH()
@@ -3290,7 +3462,6 @@ namespace Core.DAL
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masosach", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-        
 		public int masosach
 		{
 			get
@@ -3398,8 +3569,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_giaban", DbType="Int NOT NULL")]
-		public int giaban
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_giaban", DbType="Decimal(18,0) NOT NULL")]
+		public decimal giaban
 		{
 			get
 			{
@@ -3418,8 +3589,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_gianhap", DbType="Int NOT NULL")]
-		public int gianhap
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_gianhap", DbType="Decimal(18,0) NOT NULL")]
+		public decimal gianhap
 		{
 			get
 			{
@@ -3438,8 +3609,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Int NOT NULL")]
-		public int soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soluong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal soluong
 		{
 			get
 			{
@@ -3474,6 +3645,26 @@ namespace Core.DAL
 					this._hinhanh = value;
 					this.SendPropertyChanged("hinhanh");
 					this.OnhinhanhChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
+		public string trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}

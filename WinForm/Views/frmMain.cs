@@ -160,9 +160,9 @@ namespace WinForm.Views
             s.LinhVucSach = _DMLinhVuc[cmbLinhVuc.SelectedIndex];
             s.TenTacGia = txbTacGia.Text;
             s.NXB = _DMNXB[cmbNXB.SelectedIndex];
-            s.Soluong = Int32.Parse(txbSoLuong.Text);
-            s.GiaBan = Int32.Parse(txbGiaBan.Text);
-            s.GiaNhap = Int32.Parse(txbGiaMua.Text);
+            s.Soluong = Decimal.Parse(txbSoLuong.Text);
+            s.GiaBan = Decimal.Parse(txbGiaBan.Text);
+            s.GiaNhap = Decimal.Parse(txbGiaMua.Text);
             s.HinhAnh = picHinhAnh.ImageLocation;
             ////Kiểm tra trùng
             //if (s.isContentExisted())
@@ -328,6 +328,8 @@ namespace WinForm.Views
             _DMSach = SachManager.getAll();
             gdvDanhMucSach.DataSource = _DMSach;
             gdvDanhMucSach.Columns[nameof(SachManager.Properties.HinhAnh)].Visible = false;
+            gdvDanhMucSach.Columns[nameof(SachManager.Properties.MaSoNXB)].Visible = false;
+            gdvDanhMucSach.Columns[nameof(SachManager.Properties.MaSoLinhVuc)].Visible = false;
         }
         #endregion
 

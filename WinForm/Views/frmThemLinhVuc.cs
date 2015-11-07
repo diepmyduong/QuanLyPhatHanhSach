@@ -32,8 +32,7 @@ namespace WinForm.Views
         private void frmThemLinhVuc_Load(object sender, EventArgs e)
         {
             //Load danh mục Lĩnh vực
-            _DMLinhVuc = LinhVucManager.getAll();
-            gdvDMLinhVuc.DataSource = _DMLinhVuc;
+            loadLinhVuc();
 
         }
         //Khi chọn Thêm Lĩnh vực
@@ -120,6 +119,11 @@ namespace WinForm.Views
             this.OnLoad(new EventArgs());
         }
 
+        private void loadLinhVuc()
+        {
+            _DMLinhVuc = LinhVucManager.getAll();
+            gdvDMLinhVuc.DataSource = _DMLinhVuc;
+        }
         #endregion
 
     }

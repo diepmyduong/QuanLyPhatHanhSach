@@ -58,21 +58,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BIZ\ChiTietHoaDonDaiLy.cs" />
     <Compile Include="BIZ\ChiTietPhieuNhap.cs" />
+    <Compile Include="BIZ\ChiTietPhieuXuat.cs" />
+    <Compile Include="BIZ\CongNoDaiLy.cs" />
+    <Compile Include="BIZ\CongNoNXB.cs" />
     <Compile Include="BIZ\DaiLy.cs" />
+    <Compile Include="BIZ\HoaDonDaiLy.cs" />
     <Compile Include="BIZ\NhaXuatBan.cs" />
     <Compile Include="BIZ\PhieuNhap.cs" />
+    <Compile Include="BIZ\PhieuXuat.cs" />
     <Compile Include="BIZ\Sach.cs" />
     <Compile Include="BIZ\LinhVuc.cs" />
+    <Compile Include="DAL\CongNoDaiLyManager.cs" />
+    <Compile Include="DAL\CongNoNXBManager.cs" />
     <Compile Include="DAL\DaiLyManager.cs" />
     <Compile Include="DAL\Entities.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.dbml</DependentUpon>
     </Compile>
+    <Compile Include="DAL\HoaDonDaiLyManager.cs" />
     <Compile Include="DAL\LinhVucManager.cs" />
     <Compile Include="DAL\NhaXuatBanManager.cs" />
     <Compile Include="DAL\PhieuNhapManager.cs" />
+    <Compile Include="DAL\PhieuXuatManager.cs" />
     <Compile Include="DAL\SachManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

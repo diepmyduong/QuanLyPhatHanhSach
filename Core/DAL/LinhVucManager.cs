@@ -30,6 +30,44 @@ namespace Core.DAL
 
         }
 
+        public static LinhVuc find(int masolinhvuc)
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from lv in db.LINHVUCs
+                                where lv.masolinhvuc.Equals(masolinhvuc)
+                                select new LinhVuc
+                                {
+                                    MaSoLinhVuc = lv.masolinhvuc,
+                                    TenLinhVuc = lv.ten
+                                };
+                return linqQuery.SingleOrDefault<LinhVuc>();
+            };
+        }
+
+        public static List<LinhVuc> findBy(Dictionary<string,dynamic> Params)
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                dynamic value;
+
+                var linqQuery = (from lv in db.LINHVUCs
+                                 select new LinhVuc
+                                 {
+                                     MaSoLinhVuc = lv.masolinhvuc,
+                                     TenLinhVuc = lv.ten
+                                 })
+                                 .Where(lv => lv.MaSoLinhVuc.Equals(
+                                        Params.TryGetValue(Properties.MaSoLinhVuc, out value) ? value as int?
+                                        : lv.MaSoLinhVuc
+                                 )).Where(lv => lv.MaSoLinhVuc.Equals(
+                                        Params.TryGetValue(Properties.TenLinhVuc, out value) ? value as string
+                                        : lv.TenLinhVuc
+                                 ));
+                return linqQuery.ToList<LinhVuc>();
+            }
+        }
+
         public static bool add(LinhVuc linhvuc)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())

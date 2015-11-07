@@ -10,24 +10,95 @@ namespace Core.BIZ
 {
     public class Sach
     {
+        private NhaXuatBan _nxb;
+        private LinhVuc _linhvuc;
+        private List<CongNoDaiLy> _congnodaily;
+        private List<CongNoNXB> _congnonxb;
+
         [DisplayName(SachManager.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
         [DisplayName(SachManager.Properties.TenSach)]
-        public String TenSach { get; set; }
+        public string TenSach { get; set; }
+        [DisplayName(SachManager.Properties.MaSoLinhVuc)]
+        public int MaSoLinhVuc { get; set; }
         [DisplayName(SachManager.Properties.LinhVucSach)]
-        public LinhVuc LinhVucSach { get; set; }
+        public LinhVuc LinhVucSach {
+            get
+            {
+                if (_linhvuc == null)
+                {
+                    _linhvuc = LinhVucManager.find(this.MaSoLinhVuc);
+                }
+                return _linhvuc;
+            }
+            set
+            {
+                _linhvuc = value;
+            }
+        }
         [DisplayName(SachManager.Properties.TenTacGia)]
-        public String TenTacGia { get; set; }
+        public string TenTacGia { get; set; }
+        [DisplayName(SachManager.Properties.MaSoNXB)]
+        public int MaSoNXB { get; set; }
         [DisplayName(SachManager.Properties.NXB)]
-        public NhaXuatBan NXB { get; set; }
+        public NhaXuatBan NXB {
+            get
+            {
+                if (_nxb == null)
+                {
+                    _nxb = NhaXuatBanManager.find(this.MaSoNXB);
+                }
+                return _nxb;
+            }
+            set
+            {
+                _nxb = value;
+            }
+        }
         [DisplayName(SachManager.Properties.Soluong)]
-        public int Soluong { get; set; }
+        public decimal Soluong { get; set; }
         [DisplayName(SachManager.Properties.GiaNhap)]
-        public int GiaNhap { get; set; }
+        public decimal GiaNhap { get; set; }
         [DisplayName(SachManager.Properties.GiaBan)]
-        public int GiaBan { get; set; }
+        public decimal GiaBan { get; set; }
         [DisplayName(SachManager.Properties.HinhAnh)]
-        public String HinhAnh { get; set; }
+        public string HinhAnh { get; set; }
+        [DisplayName(SachManager.Properties.CongNoDaiLy)]
+        public List<CongNoDaiLy> CongNoDaiLy
+        {
+            get
+            {
+                if(_congnodaily == null)
+                {
+                    var param = new Dictionary<string, dynamic>();
+                    param.Add(CongNoDaiLyManager.Properties.MaSoSach, this.MaSoSach);
+                    _congnodaily = CongNoDaiLyManager.findBy(param);
+                }
+                return _congnodaily;
+            }
+            set
+            {
+                _congnodaily = value;
+            }
+        }
+        [DisplayName(SachManager.Properties.CongNoNXB)]
+        public List<CongNoNXB> CongNoNXB
+        {
+            get
+            {
+                if(_congnonxb == null)
+                {
+                    var param = new Dictionary<string, dynamic>();
+                    param.Add(CongNoNXBManager.Properties.MaSoSach, this.MaSoSach);
+                    _congnonxb = CongNoNXBManager.findBy(param);
+                }
+                return _congnonxb;
+            }
+            set
+            {
+                _congnonxb = value;
+            }
+        }
 
         public bool isExisted()
         {

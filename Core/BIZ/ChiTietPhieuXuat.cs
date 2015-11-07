@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.DAL;
 using System.ComponentModel;
+using Core.DAL;
 
 namespace Core.BIZ
 {
-    public class ChiTietPhieuNhap
+    public class ChiTietPhieuXuat
     {
         private Sach _sach;
 
-        [DisplayName(PhieuNhapManager.ChiTiet.Properties.MaSoSach)]
+        [DisplayName(PhieuXuatManager.Chitiet.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
-        [DisplayName(PhieuNhapManager.ChiTiet.Properties.Sach)]
+        [DisplayName(PhieuXuatManager.Chitiet.Properties.Sach)]
         public Sach Sach {
             get
             {
@@ -29,21 +29,21 @@ namespace Core.BIZ
                 _sach = value;
             }
         }
-        [DisplayName(PhieuNhapManager.ChiTiet.Properties.SoLuong)]
-        public decimal Soluong { get; set; }
-        [DisplayName(PhieuNhapManager.ChiTiet.Properties.DonGia)]
+        [DisplayName(PhieuXuatManager.Chitiet.Properties.SoLuong)]
+        public decimal SoLuong { get; set; }
+        [DisplayName(PhieuXuatManager.Chitiet.Properties.DonGia)]
         public decimal DonGia { get; set; }
-        [DisplayName(PhieuNhapManager.ChiTiet.Properties.ThanhTien)]
+        [DisplayName(PhieuXuatManager.Chitiet.Properties.ThanhTien)]
         public decimal ThanhTien {
             get
             {
-                return this.Soluong * this.DonGia;
+                return this.SoLuong * this.DonGia;
             }
         }
 
         public override bool Equals(object obj)
         {
-            return this.Sach.MaSoSach.Equals(((ChiTietPhieuNhap)obj).Sach.MaSoSach);
+            return this.Sach.MaSoSach.Equals(((ChiTietPhieuXuat)obj).Sach.MaSoSach);
         }
         public override int GetHashCode()
         {

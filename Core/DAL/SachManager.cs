@@ -14,13 +14,17 @@ namespace Core.DAL
            
             public const string MaSoSach = "Mã Số Sách";
             public const string TenSach = "Tên Sách";
+            public const string MaSoLinhVuc = "Mã số lĩnh vực";
             public const string LinhVucSach = "Lĩnh Vực Sách";
             public const string TenTacGia = "Tên Tác Giả";
+            public const string MaSoNXB = "Mã số NXB";
             public const string NXB = "Nhà Xuất Bản";
             public const string Soluong = "Số Lượng";
             public const string GiaNhap = "Giá Nhập";
             public const string GiaBan = "Giá Bán";
             public const string HinhAnh = "Hình Ảnh";
+            public const string CongNoDaiLy = "Công Nợ Đại Lý";
+            public const string CongNoNXB = "Công Nợ NXB";
         }
         public static List<Sach> getAll()
         {
@@ -33,12 +37,14 @@ namespace Core.DAL
                                 {
                                     MaSoSach = s.masosach,
                                     TenSach = s.tensach,
+                                    MaSoLinhVuc = s.masolinhvuc,
                                     LinhVucSach = new LinhVuc
                                     {
                                         MaSoLinhVuc = s.masolinhvuc,
                                         TenLinhVuc = lv.ten
                                     },
                                     TenTacGia = s.tacgia,
+                                    MaSoNXB = s.masonxb,
                                     NXB = new NhaXuatBan
                                     {
                                         MaSoNXB = s.masonxb,
@@ -114,12 +120,14 @@ namespace Core.DAL
                                 {
                                     MaSoSach = s.masosach,
                                     TenSach = s.tensach,
+                                    MaSoLinhVuc = s.masolinhvuc,
                                     LinhVucSach = new LinhVuc
                                     {
                                         MaSoLinhVuc = s.masolinhvuc,
                                         TenLinhVuc = lv.ten
                                     },
                                     TenTacGia = s.tacgia,
+                                    MaSoNXB = s.masonxb,
                                     NXB = new NhaXuatBan
                                     {
                                         MaSoNXB = s.masonxb,
@@ -150,12 +158,14 @@ namespace Core.DAL
                                  {
                                      MaSoSach = s.masosach,
                                      TenSach = s.tensach,
+                                     MaSoLinhVuc = s.masolinhvuc,
                                      LinhVucSach = new LinhVuc
                                      {
                                          MaSoLinhVuc = s.masolinhvuc,
                                          TenLinhVuc = lv.ten
                                      },
                                      TenTacGia = s.tacgia,
+                                     MaSoNXB = s.masonxb,
                                      NXB = new NhaXuatBan
                                      {
                                          MaSoNXB = s.masonxb,
@@ -190,15 +200,15 @@ namespace Core.DAL
                                         : s.NXB.MaSoNXB
                                  ))
                                  .Where(s => s.Soluong.Equals(
-                                        Params.TryGetValue(Properties.Soluong, out value) ? value as int?
+                                        Params.TryGetValue(Properties.Soluong, out value) ? value as decimal?
                                         : s.Soluong
                                  ))
                                  .Where(s => s.GiaBan.Equals(
-                                        Params.TryGetValue(Properties.GiaBan, out value) ? value as int?
+                                        Params.TryGetValue(Properties.GiaBan, out value) ? value as decimal?
                                         : s.GiaBan
                                  ))
                                  .Where(s => s.GiaNhap.Equals(
-                                        Params.TryGetValue(Properties.GiaNhap, out value) ? value as int?
+                                        Params.TryGetValue(Properties.GiaNhap, out value) ? value as decimal?
                                         : s.GiaNhap
                                  ));
                 return linqQuery.ToList<Sach>();

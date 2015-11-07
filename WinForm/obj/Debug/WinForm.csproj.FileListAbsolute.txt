@@ -12,3 +12,15 @@ C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucSach.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemSach.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemLinhVuc.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoDaiLy.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoNXB.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoDaiLy.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoNXB.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucDaiLy.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucNXB.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuNhap.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuXuat.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanDaiLy.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemDaiLy.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemNXB.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.ThanhToanNXB.resources

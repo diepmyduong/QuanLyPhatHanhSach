@@ -34,17 +34,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txbMaPhieuXuat = new System.Windows.Forms.TextBox();
-            this.cmbDaiLy = new System.Windows.Forms.ComboBox();
-            this.dtpNgayLap = new System.Windows.Forms.DateTimePicker();
-            this.dtpNgayNhan = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.lbTongTien = new System.Windows.Forms.Label();
             this.gdvChiTiet = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
+            this.txbMaPhieuXuat = new System.Windows.Forms.TextBox();
+            this.cmbDaiLy = new System.Windows.Forms.ComboBox();
+            this.dtpNgayLap = new System.Windows.Forms.DateTimePicker();
             this.btnThemDaiLy = new System.Windows.Forms.Button();
+            this.txbNguoiNhan = new System.Windows.Forms.TextBox();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvChiTiet)).BeginInit();
@@ -79,8 +79,8 @@
             this.tableLayoutPanel1.Controls.Add(this.txbMaPhieuXuat, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmbDaiLy, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.dtpNgayLap, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.dtpNgayNhan, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnThemDaiLy, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txbNguoiNhan, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -127,48 +127,11 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(46, 98);
+            this.label4.Location = new System.Drawing.Point(43, 98);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Ngày nhận :";
-            // 
-            // txbMaPhieuXuat
-            // 
-            this.txbMaPhieuXuat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbMaPhieuXuat, 2);
-            this.txbMaPhieuXuat.Enabled = false;
-            this.txbMaPhieuXuat.Location = new System.Drawing.Point(117, 5);
-            this.txbMaPhieuXuat.Name = "txbMaPhieuXuat";
-            this.txbMaPhieuXuat.Size = new System.Drawing.Size(337, 20);
-            this.txbMaPhieuXuat.TabIndex = 4;
-            // 
-            // cmbDaiLy
-            // 
-            this.cmbDaiLy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbDaiLy.FormattingEnabled = true;
-            this.cmbDaiLy.Location = new System.Drawing.Point(117, 34);
-            this.cmbDaiLy.Name = "cmbDaiLy";
-            this.cmbDaiLy.Size = new System.Drawing.Size(185, 21);
-            this.cmbDaiLy.TabIndex = 5;
-            // 
-            // dtpNgayLap
-            // 
-            this.dtpNgayLap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.dtpNgayLap, 2);
-            this.dtpNgayLap.Location = new System.Drawing.Point(117, 65);
-            this.dtpNgayLap.Name = "dtpNgayLap";
-            this.dtpNgayLap.Size = new System.Drawing.Size(337, 20);
-            this.dtpNgayLap.TabIndex = 6;
-            // 
-            // dtpNgayNhan
-            // 
-            this.dtpNgayNhan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.dtpNgayNhan, 2);
-            this.dtpNgayNhan.Location = new System.Drawing.Point(117, 95);
-            this.dtpNgayNhan.Name = "dtpNgayNhan";
-            this.dtpNgayNhan.Size = new System.Drawing.Size(337, 20);
-            this.dtpNgayNhan.TabIndex = 7;
+            this.label4.Text = "Người nhận :";
             // 
             // label5
             // 
@@ -238,6 +201,34 @@
             this.btnLuu.UseVisualStyleBackColor = true;
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
+            // txbMaPhieuXuat
+            // 
+            this.txbMaPhieuXuat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbMaPhieuXuat, 2);
+            this.txbMaPhieuXuat.Enabled = false;
+            this.txbMaPhieuXuat.Location = new System.Drawing.Point(117, 5);
+            this.txbMaPhieuXuat.Name = "txbMaPhieuXuat";
+            this.txbMaPhieuXuat.Size = new System.Drawing.Size(337, 20);
+            this.txbMaPhieuXuat.TabIndex = 4;
+            // 
+            // cmbDaiLy
+            // 
+            this.cmbDaiLy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbDaiLy.FormattingEnabled = true;
+            this.cmbDaiLy.Location = new System.Drawing.Point(117, 34);
+            this.cmbDaiLy.Name = "cmbDaiLy";
+            this.cmbDaiLy.Size = new System.Drawing.Size(185, 21);
+            this.cmbDaiLy.TabIndex = 5;
+            // 
+            // dtpNgayLap
+            // 
+            this.dtpNgayLap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.dtpNgayLap, 2);
+            this.dtpNgayLap.Location = new System.Drawing.Point(117, 65);
+            this.dtpNgayLap.Name = "dtpNgayLap";
+            this.dtpNgayLap.Size = new System.Drawing.Size(337, 20);
+            this.dtpNgayLap.TabIndex = 6;
+            // 
             // btnThemDaiLy
             // 
             this.btnThemDaiLy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -248,6 +239,15 @@
             this.btnThemDaiLy.Text = "Thêm Đại lý";
             this.btnThemDaiLy.UseVisualStyleBackColor = true;
             this.btnThemDaiLy.Click += new System.EventHandler(this.btnThemDaiLy_Click);
+            // 
+            // txbNguoiNhan
+            // 
+            this.txbNguoiNhan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbNguoiNhan, 2);
+            this.txbNguoiNhan.Location = new System.Drawing.Point(117, 95);
+            this.txbNguoiNhan.Name = "txbNguoiNhan";
+            this.txbNguoiNhan.Size = new System.Drawing.Size(337, 20);
+            this.txbNguoiNhan.TabIndex = 13;
             // 
             // frmLapPhieuXuat
             // 
@@ -286,7 +286,7 @@
         private System.Windows.Forms.TextBox txbMaPhieuXuat;
         private System.Windows.Forms.ComboBox cmbDaiLy;
         private System.Windows.Forms.DateTimePicker dtpNgayLap;
-        private System.Windows.Forms.DateTimePicker dtpNgayNhan;
         private System.Windows.Forms.Button btnThemDaiLy;
+        private System.Windows.Forms.TextBox txbNguoiNhan;
     }
 }
