@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.BIZ;
 using Core.DAL;
+using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace WinForm.Views
 {
@@ -25,6 +27,7 @@ namespace WinForm.Views
         private List<Sach> _DMSach;
         private List<LinhVuc> _DMLinhVuc;
         private List<NhaXuatBan> _DMNXB;
+        private Sach _currentSach;
 
         #endregion
 
@@ -32,13 +35,15 @@ namespace WinForm.Views
         //Khi Load Form
         private void frmMain_Load(object sender, EventArgs e)
         {
-
             //Load các lĩnh vực
             loadLinhVuc();
             //Load các NXB
             loadNXB();
             //Load tất cả sách
             loadSach();
+            txbLoc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txbLoc.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txbLoc.AutoCompleteCustomSource = null;
         }
         //Chọn Xem Danh mục Sách
         private void menuItemXemDanhMucSach_Click(object sender, EventArgs e)
@@ -213,21 +218,40 @@ namespace WinForm.Views
         //Chọn Lọc danh sách sách theo từ khóa
         private void btnLoc_Click(object sender, EventArgs e)
         {
-            gdvDanhMucSach.DataSource = filter(txbLoc.Text);
+            gdvDanhMucSach.DataSource = SachManager.filter(txbLoc.Text,_DMSach);
         }
         //Khi gõ vào thanh lọc
         private void txbLoc_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Return)
+            if (e.KeyChar == 123)
             {
-                gdvDanhMucSach.DataSource = filter(txbLoc.Text);
+                txbLoc.Text = txbLoc.Text + "{";
+                string request = txbLoc.Text;
+                var pros = typeof(SachManager.Properties).GetFields();
+                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+                foreach (FieldInfo info in pros)
+                {
+                    source.Add(request + info.Name);
+                }
+                txbLoc.AutoCompleteCustomSource = source;
+            }
+
+        }
+        private void txbLoc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                gdvDanhMucSach.DataSource = SachManager.filter(txbLoc.Text, _DMSach);
             }
         }
         //Khi chọn một sách thì duyệt lên chi tiết
         private void gdvDanhMucSach_SelectionChanged(object sender, EventArgs e)
         {
-            int index = Int32.Parse((sender as DataGridView).CurrentRow.Cells["MaSoSach"].Value.ToString());
-            selectBook(_DMSach.Find(s => s.MaSoSach.Equals(index)));
+            //int index = Int32.Parse((sender as DataGridView).CurrentRow.Cells["MaSoSach"].Value.ToString());
+            //selectBook(_DMSach.Find(s => s.MaSoSach.Equals(index)));
+            int index = ((DataGridView)sender).CurrentRow.Index;
+            _currentSach = (((DataGridView)sender).DataSource as List<Sach>)[index];
+            selectBook(_currentSach);
         }
         #endregion
         #region Form Services
@@ -258,35 +282,6 @@ namespace WinForm.Views
                 
             }
 
-        }
-        /// <summary>
-        /// Thực hiện lọc dữ liệu với tham số cho trước
-        /// </summary>
-        private List<Sach> filter(string request)
-        {
-            request = txbLoc.Text.ToLower();
-            int number;
-            bool isNumber = Int32.TryParse(request, out number);
-            if (isNumber)
-            {
-                var linqQuery = _DMSach.Where
-                (s => s.MaSoSach.Equals(number)
-                || s.Soluong.Equals(number)
-                || s.GiaNhap.Equals(number)
-                || s.GiaBan.Equals(number)
-                );
-                return linqQuery.ToList<Sach>();
-            }
-            else
-            {
-                var linqQuery = _DMSach.Where
-                (s => s.TenSach.ToLower().Contains(request)
-                || s.LinhVucSach.TenLinhVuc.ToLower().Contains(request)
-                || s.TenTacGia.ToLower().Contains(request)
-                || s.NXB.TenNXB.ToLower().Contains(request)
-                );
-                return linqQuery.ToList<Sach>();
-            }
         }
 
         public void addSach(Sach sach)
@@ -331,9 +326,11 @@ namespace WinForm.Views
             gdvDanhMucSach.Columns[nameof(SachManager.Properties.MaSoNXB)].Visible = false;
             gdvDanhMucSach.Columns[nameof(SachManager.Properties.MaSoLinhVuc)].Visible = false;
         }
+
+
+
         #endregion
 
-
-
+        
     }
 }

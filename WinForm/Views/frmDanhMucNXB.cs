@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.BIZ;
 using Core.DAL;
+using System.Reflection;
 
 namespace WinForm.Views
 {
@@ -23,6 +24,7 @@ namespace WinForm.Views
         #region Private Propertites
         private Form _frmParent;
         private List<NhaXuatBan> _DMNXB;
+        private NhaXuatBan _currentNXB;
         #endregion
 
         #region Form Control Listener
@@ -31,6 +33,9 @@ namespace WinForm.Views
         {
             //Load Danh mục NXB
             loadNXB();
+            txbLoc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txbLoc.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txbLoc.AutoCompleteCustomSource = null;
         }
         //Khi Cập nhật thông tin NXB
         private void btnCapNhat_Click(object sender, EventArgs e)
@@ -51,7 +56,8 @@ namespace WinForm.Views
         //Khi Chọn Xem Công nợ NXB
         private void btnXemCongNo_Click(object sender, EventArgs e)
         {
-
+            frmCongNoNXB form = new frmCongNoNXB(this, _currentNXB);
+            form.ShowDialog(this);
         }
         //Khi Chọn Thoát
         private void btnThoat_Click(object sender, EventArgs e)
@@ -66,7 +72,40 @@ namespace WinForm.Views
         //Khi chọn 1 NXB từ Danh mục NXB
         private void gdvDMNXB_SelectionChanged(object sender, EventArgs e)
         {
+            int index = ((DataGridView)sender).CurrentRow.Index;
+            _currentNXB = (((DataGridView)sender).DataSource as List<NhaXuatBan>)[index];
+            selectNXB(_currentNXB);
+        }
+        private void txbLoc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 123)
+            {
+                txbLoc.Text = txbLoc.Text + "{";
+                string request = txbLoc.Text;
+                var pros = typeof(NhaXuatBanManager.Properties).GetFields();
+                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+                foreach (FieldInfo info in pros)
+                {
+                    source.Add(request + info.Name);
+                }
+                txbLoc.AutoCompleteCustomSource = source;
+            }
+        }
 
+        private void txbLoc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                gdvDMNXB.DataSource = NhaXuatBanManager.filter(txbLoc.Text, _DMNXB);
+            }
+        }
+
+        private void btnLoc_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(txbLoc.Text))
+            {
+                gdvDMNXB.DataSource = NhaXuatBanManager.filter(txbLoc.Text, _DMNXB);
+            }
         }
         #endregion
 
@@ -79,7 +118,20 @@ namespace WinForm.Views
             _DMNXB = NhaXuatBanManager.getAll();
             gdvDMNXB.DataSource = _DMNXB;
         }
+
+        public void selectNXB(NhaXuatBan nxb)
+        {
+            if(nxb != null)
+            {
+                txbMaSoNXB.Text = nxb.MaSoNXB.ToString();
+                txbTenNXB.Text = nxb.TenNXB;
+                txbDiaChi.Text = nxb.DiaChi;
+                txbSoDienThoai.Text = nxb.SoDienThoai;
+                txbSoTaiKhoan.Text = nxb.SoTaiKhoan;
+            }
+        }
         #endregion
 
+        
     }
 }

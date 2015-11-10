@@ -612,6 +612,7 @@
             this.txbLoc.Name = "txbLoc";
             this.txbLoc.Size = new System.Drawing.Size(482, 20);
             this.txbLoc.TabIndex = 20;
+            this.txbLoc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbLoc_KeyDown);
             this.txbLoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbLoc_KeyPress);
             // 
             // gdvDanhMucSach
