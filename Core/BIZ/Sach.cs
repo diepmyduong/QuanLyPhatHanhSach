@@ -14,6 +14,10 @@ namespace Core.BIZ
         private LinhVuc _linhvuc;
         private List<CongNoDaiLy> _congnodaily;
         private List<CongNoNXB> _congnonxb;
+        private List<ChiTietHoaDonDaiLy> _hoadondaily;
+        private List<ChiTietHoaDonNXB> _hoadonnxb;
+        private List<ChiTietPhieuNhap> _phieunhap;
+        private List<ChiTietPhieuXuat> _phieuxuat;
 
         [DisplayName(SachManager.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
@@ -97,6 +101,80 @@ namespace Core.BIZ
             set
             {
                 _congnonxb = value;
+            }
+        }
+        [DisplayName(SachManager.Properties.HoaDonDaiLy)]
+        public List<ChiTietHoaDonDaiLy> HoaDonDaiLy
+        {
+            get
+            {
+                if(_hoadondaily == null)
+                {
+                    var param = new Dictionary<string, dynamic>();
+                    param.Add(HoaDonDaiLyManager.ChiTiet.Properties.MaSoSach, this.MaSoSach);
+                    _hoadondaily = HoaDonDaiLyManager.ChiTiet.findBy(param);
+                }
+                return _hoadondaily;
+
+            }
+            set
+            {
+                _hoadondaily = value;
+            }
+        }
+        [DisplayName(SachManager.Properties.HoaDonNXB)]
+        public List<ChiTietHoaDonNXB> HoaDonNXB
+        {
+            get
+            {
+                if (_hoadonnxb == null)
+                {
+                    var param = new Dictionary<string, dynamic>();
+                    param.Add(HoaDonNXBManager.ChiTiet.Properties.MaSoSach, this.MaSoSach);
+                    _hoadonnxb = HoaDonNXBManager.ChiTiet.findBy(param);
+                }
+                return _hoadonnxb;
+
+            }
+            set
+            {
+                _hoadonnxb = value;
+            }
+        }
+        [DisplayName(SachManager.Properties.PhieuNhap)]
+        public List<ChiTietPhieuNhap> PhieuNhap
+        {
+            get
+            {
+                if(_phieunhap == null)
+                {
+                    var param = new Dictionary<string, dynamic>();
+                    param.Add(PhieuNhapManager.ChiTiet.Properties.MaSoSach, this.MaSoSach);
+                    _phieunhap = PhieuNhapManager.ChiTiet.findBy(param);
+                }
+                return _phieunhap;
+            }
+            set
+            {
+                _phieunhap = value;
+            }
+        }
+        [DisplayName(SachManager.Properties.PhieuXuat)]
+        public List<ChiTietPhieuXuat> PhieuXuat
+        {
+            get
+            {
+                if(_phieuxuat == null)
+                {
+                    var param = new Dictionary<string, dynamic>();
+                    param.Add(PhieuXuatManager.Chitiet.Properties.MaSoSach, this.MaSoSach);
+                    _phieuxuat = PhieuXuatManager.Chitiet.findBy(param);
+                }
+                return _phieuxuat;
+            }
+            set
+            {
+                _phieuxuat = value;
             }
         }
 

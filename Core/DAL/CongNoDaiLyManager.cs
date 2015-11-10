@@ -9,6 +9,7 @@ namespace Core.DAL
 {
     public class CongNoDaiLyManager
     {
+        //Thuộc tính của 1 BIZ
         public static partial class Properties
         {
             public const string MaSoSach = "Mã số sách";
@@ -26,10 +27,34 @@ namespace Core.DAL
             using(EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from cn in db.CONGNODAILies
+                                join s in db.SACHes
+                                on cn.masosach equals s.masosach
+                                join d in db.DAILies
+                                on cn.masodaily equals d.masodaily
                                 select new CongNoDaiLy()
                                 {
                                     MaSoSach = cn.masosach,
+                                    Sach = new Sach()
+                                    {
+                                        MaSoSach = s.masosach,
+                                        TenSach = s.tensach,
+                                        TenTacGia = s.tacgia,
+                                        MaSoLinhVuc = s.masolinhvuc,
+                                        MaSoNXB = s.masonxb,
+                                        Soluong = s.soluong,
+                                        GiaBan = s.giaban,
+                                        GiaNhap = s.gianhap,
+                                        HinhAnh = s.hinhanh
+                                    },
                                     MaSoDaiLy = cn.masodaily,
+                                    DaiLy = new DaiLy()
+                                    {
+                                        MaSoDaiLy = d.masodaily,
+                                        TenDaiLy = d.ten,
+                                        DiaChi = d.diachi,
+                                        SoDienThoai = d.sodienthoai,
+                                        SoTaiKhoan = d.sotaikhoan
+                                    },
                                     SoLuong = cn.soluong,
                                     DonGia = cn.dongia,
                                     Thang = cn.thang
@@ -43,11 +68,35 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from cn in db.CONGNODAILies
+                                join s in db.SACHes
+                                on cn.masosach equals s.masosach
+                                join d in db.DAILies
+                                on cn.masodaily equals d.masodaily
                                 where cn.masodaily.Equals(masodaily)
                                 select new CongNoDaiLy()
                                 {
                                     MaSoSach = cn.masosach,
+                                    Sach = new Sach()
+                                    {
+                                        MaSoSach = s.masosach,
+                                        TenSach = s.tensach,
+                                        TenTacGia = s.tacgia,
+                                        MaSoLinhVuc = s.masolinhvuc,
+                                        MaSoNXB = s.masonxb,
+                                        Soluong = s.soluong,
+                                        GiaBan = s.giaban,
+                                        GiaNhap = s.gianhap,
+                                        HinhAnh = s.hinhanh
+                                    },
                                     MaSoDaiLy = cn.masodaily,
+                                    DaiLy = new DaiLy()
+                                    {
+                                        MaSoDaiLy = d.masodaily,
+                                        TenDaiLy = d.ten,
+                                        DiaChi = d.diachi,
+                                        SoDienThoai = d.sodienthoai,
+                                        SoTaiKhoan = d.sotaikhoan
+                                    },
                                     SoLuong = cn.soluong,
                                     DonGia = cn.dongia,
                                     Thang = cn.thang
@@ -63,10 +112,34 @@ namespace Core.DAL
                 dynamic value;
 
                 var linqQuery = (from cn in db.CONGNODAILies
+                                 join s in db.SACHes
+                                 on cn.masosach equals s.masosach
+                                 join d in db.DAILies
+                                 on cn.masodaily equals d.masodaily
                                  select new CongNoDaiLy()
                                  {
                                      MaSoSach = cn.masosach,
+                                     Sach = new Sach()
+                                     {
+                                         MaSoSach = s.masosach,
+                                         TenSach = s.tensach,
+                                         TenTacGia = s.tacgia,
+                                         MaSoLinhVuc = s.masolinhvuc,
+                                         MaSoNXB = s.masonxb,
+                                         Soluong = s.soluong,
+                                         GiaBan = s.giaban,
+                                         GiaNhap = s.gianhap,
+                                         HinhAnh = s.hinhanh
+                                     },
                                      MaSoDaiLy = cn.masodaily,
+                                     DaiLy = new DaiLy()
+                                     {
+                                         MaSoDaiLy = d.masodaily,
+                                         TenDaiLy = d.ten,
+                                         DiaChi = d.diachi,
+                                         SoDienThoai = d.sodienthoai,
+                                         SoTaiKhoan = d.sotaikhoan
+                                     },
                                      SoLuong = cn.soluong,
                                      DonGia = cn.dongia,
                                      Thang = cn.thang

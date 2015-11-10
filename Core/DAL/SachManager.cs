@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.BIZ;
+using System.Text.RegularExpressions;
 
 namespace Core.DAL
 {
@@ -25,6 +26,10 @@ namespace Core.DAL
             public const string HinhAnh = "Hình Ảnh";
             public const string CongNoDaiLy = "Công Nợ Đại Lý";
             public const string CongNoNXB = "Công Nợ NXB";
+            public const string HoaDonDaiLy = "Hóa Đơn Đại lý";
+            public const string HoaDonNXB = "Hóa Đơn NXB";
+            public const string PhieuNhap = "Phiếu Nhập";
+            public const string PhieuXuat = "Phiếu Xuất";
         }
         public static List<Sach> getAll()
         {
@@ -196,7 +201,7 @@ namespace Core.DAL
                                         : s.TenTacGia
                                  ))
                                  .Where(s => s.NXB.MaSoNXB.Equals(
-                                        Params.TryGetValue(Properties.NXB, out value) ? value as int?
+                                        Params.TryGetValue(Properties.MaSoNXB, out value) ? value as int?
                                         : s.NXB.MaSoNXB
                                  ))
                                  .Where(s => s.Soluong.Equals(
@@ -214,5 +219,83 @@ namespace Core.DAL
                 return linqQuery.ToList<Sach>();
             }
         }
+
+        public static List<Sach> filter(string request, List<Sach> DMSach)
+        {
+
+            if (Regex.IsMatch(request, @"[{=<>!}]"))
+            {
+                var linqQuery = from s in DMSach
+                                select s;
+
+                MatchCollection args = Regex.Matches(request, @"({).*?(})");
+                foreach (var arg in args)
+                {
+                    MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
+                    string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
+                    string param = "";
+                    for (int i = 1; i < Params.Count; i++)
+                    {
+                        param += " " + Params[i];
+                    }
+                    param = param.Trim();
+                    switch (Params[0].ToString())
+                    {
+                        case nameof(Properties.MaSoSach):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoSach, Int32.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TenSach):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TenSach, param, method, true));
+                            break;
+                        case nameof(Properties.TenTacGia):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TenTacGia, param, method, true));
+                            break;
+                        case nameof(Properties.NXB):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NXB.TenNXB, param, method, true));
+                            break;
+                        case nameof(Properties.LinhVucSach):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.LinhVucSach.TenLinhVuc, param, method, true));
+                            break;
+                        case nameof(Properties.Soluong):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.Soluong, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.GiaBan):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.GiaBan, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.GiaNhap):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.GiaNhap, Decimal.Parse(param), method, false));
+                            break;
+                    }
+                }
+                return linqQuery.ToList();
+            }
+            else
+            {
+                int number;
+                bool isNumber = Int32.TryParse(request, out number);
+                request = request.ToLower();
+                if (isNumber)
+                {
+                    var linqQuery = DMSach.Where
+                    (s => s.MaSoSach.Equals(number)
+                    || s.Soluong.Equals(number)
+                    || s.GiaNhap.Equals(number)
+                    || s.GiaBan.Equals(number)
+                    );
+                    return linqQuery.ToList<Sach>();
+                }
+                else
+                {
+                    var linqQuery = DMSach.Where
+                    (s => s.TenSach.ToLower().Contains(request)
+                    || s.LinhVucSach.TenLinhVuc.ToLower().Contains(request)
+                    || s.TenTacGia.ToLower().Contains(request)
+                    || s.NXB.TenNXB.ToLower().Contains(request)
+                    );
+                    return linqQuery.ToList<Sach>();
+                }
+            }
+        }
+        
     }
 }

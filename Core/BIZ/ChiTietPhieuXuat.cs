@@ -11,6 +11,7 @@ namespace Core.BIZ
     public class ChiTietPhieuXuat
     {
         private Sach _sach;
+        private PhieuXuat _phieuxuat;
 
         [DisplayName(PhieuXuatManager.Chitiet.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
@@ -40,10 +41,36 @@ namespace Core.BIZ
                 return this.SoLuong * this.DonGia;
             }
         }
+        [DisplayName(PhieuXuatManager.Chitiet.Properties.MaSoPhieuXuat)]
+        public int MaSoPhieuXuat { get; set; }
+        [DisplayName(PhieuXuatManager.Chitiet.Properties.PhieuXuat)]
+        public PhieuXuat PhieuXuat
+        {
+            get
+            {
+                if(_phieuxuat == null)
+                {
+                    _phieuxuat = PhieuXuatManager.find(this.MaSoPhieuXuat);
+                }
+                return _phieuxuat;
+            }
+            set
+            {
+                _phieuxuat = value;
+            }
+        }
 
         public override bool Equals(object obj)
         {
-            return this.Sach.MaSoSach.Equals(((ChiTietPhieuXuat)obj).Sach.MaSoSach);
+            try
+            {
+                return this.Sach.MaSoSach.Equals(((ChiTietPhieuXuat)obj).Sach.MaSoSach);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            
         }
         public override int GetHashCode()
         {

@@ -11,6 +11,7 @@ namespace Core.BIZ
     public class PhieuXuat
     {
         private DaiLy _daily;
+        private List<ChiTietPhieuXuat> _chitiet;
 
         [DisplayName(PhieuXuatManager.Properties.MaSoPhieuXuat)]
         public int MaSoPhieuXuat { get; set; }
@@ -39,7 +40,6 @@ namespace Core.BIZ
         public decimal TongTien { get; set; }
 
         //Chi tiết phiếu xuát
-        private List<ChiTietPhieuXuat> _chitiet;
         [DisplayName(PhieuXuatManager.Properties.ChiTiet)]
         public List<ChiTietPhieuXuat> ChiTiet
         {

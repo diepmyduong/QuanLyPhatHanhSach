@@ -46,13 +46,14 @@ namespace Core.DAL
             }
         }
 
-        public static List<PhieuXuat> find(int masodaily)
+        public static PhieuXuat find(int masophieuxuat)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from phieu in db.PHIEUXUATs
                                 join dl in db.DAILies
                                 on phieu.masodaily equals dl.masodaily
+                                where phieu.masophieuxuat.Equals(masophieuxuat)
                                 select new PhieuXuat
                                 {
                                     MaSoPhieuXuat = phieu.masophieuxuat,
@@ -68,7 +69,7 @@ namespace Core.DAL
                                     NguoiNhan = phieu.nguoinhasach,
                                     TongTien = phieu.tongtien
                                 };
-                return linqQuery.ToList<PhieuXuat>();
+                return linqQuery.SingleOrDefault<PhieuXuat>();
             }
         }
 
@@ -108,9 +109,9 @@ namespace Core.DAL
                                  )).Where(phieu => phieu.TongTien.Equals(
                                         Params.TryGetValue(Properties.TongTien, out value) ? value as decimal?
                                         : phieu.TongTien
-                                 )).Where(phieu => phieu.Daily.MaSoDaiLy.Equals(
-                                        Params.TryGetValue(Properties.DaiLy, out value) ? value as int?
-                                        : phieu.Daily.MaSoDaiLy
+                                 )).Where(phieu => phieu.MaSoDaiLy.Equals(
+                                        Params.TryGetValue(Properties.MaSoDaiLy, out value) ? value as int?
+                                        : phieu.MaSoDaiLy
                                  ));
                 return linqQuery.ToList<PhieuXuat>();
             }
@@ -127,6 +128,8 @@ namespace Core.DAL
                 public const string SoLuong = "Số lượng";
                 public const string DonGia = "Đơn Giá";
                 public const string ThanhTien = "Thành tiền";
+                public const string MaSoPhieuXuat = "Mã số phiếu xuất";
+                public const string PhieuXuat = "Ngày lập";
             }
 
             public static List<ChiTietPhieuXuat> getAll()
@@ -138,6 +141,7 @@ namespace Core.DAL
                                     on ct.masosach equals s.masosach
                                     select new ChiTietPhieuXuat()
                                     {
+                                        MaSoPhieuXuat = ct.masophieuxuat,
                                         MaSoSach = ct.masosach,
                                         Sach = new Sach()
                                         {
@@ -168,6 +172,7 @@ namespace Core.DAL
                                     where ct.masophieuxuat.Equals(masophieuxuat)
                                     select new ChiTietPhieuXuat()
                                     {
+                                        MaSoPhieuXuat = ct.masophieuxuat,
                                         MaSoSach = ct.masosach,
                                         Sach = new Sach()
                                         {
@@ -184,6 +189,51 @@ namespace Core.DAL
                                         SoLuong = ct.soluong,
                                         DonGia = ct.dongia
                                     };
+                    return linqQuery.ToList<ChiTietPhieuXuat>();
+                }
+            }
+
+            public static List<ChiTietPhieuXuat> findBy(Dictionary<string,dynamic> Params)
+            {
+                using (EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    dynamic value;
+
+                    var linqQuery = (from ct in db.CHITIETPHIEUXUATs
+                                     join s in db.SACHes
+                                     on ct.masosach equals s.masosach
+                                     select new ChiTietPhieuXuat()
+                                     {
+                                         MaSoPhieuXuat = ct.masophieuxuat,
+                                         MaSoSach = ct.masosach,
+                                         Sach = new Sach()
+                                         {
+                                             MaSoSach = s.masosach,
+                                             TenSach = s.tensach,
+                                             TenTacGia = s.tacgia,
+                                             MaSoLinhVuc = s.masolinhvuc,
+                                             MaSoNXB = s.masonxb,
+                                             Soluong = s.soluong,
+                                             GiaBan = s.giaban,
+                                             GiaNhap = s.gianhap,
+                                             HinhAnh = s.hinhanh
+                                         },
+                                         SoLuong = ct.soluong,
+                                         DonGia = ct.dongia
+                                     })
+                                     .Where(ct => ct.MaSoPhieuXuat.Equals(
+                                            Params.TryGetValue(Properties.MaSoPhieuXuat, out value) ? value as int?
+                                            : ct.MaSoPhieuXuat
+                                     )).Where(ct => ct.MaSoSach.Equals(
+                                            Params.TryGetValue(Properties.MaSoSach, out value) ? value as int?
+                                            : ct.MaSoSach
+                                     )).Where(ct => ct.SoLuong.Equals(
+                                            Params.TryGetValue(Properties.SoLuong, out value) ? value as decimal?
+                                            : ct.SoLuong
+                                     )).Where(ct => ct.DonGia.Equals(
+                                            Params.TryGetValue(Properties.DonGia, out value) ? value as decimal?
+                                            : ct.DonGia
+                                     ));
                     return linqQuery.ToList<ChiTietPhieuXuat>();
                 }
             }

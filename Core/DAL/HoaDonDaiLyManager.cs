@@ -72,6 +72,47 @@ namespace Core.DAL
             }
         }
 
+        public static List<HoaDonDaiLy> findBy(Dictionary<string, dynamic> Params)
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                dynamic value;
+
+                var linqQuery = (from hd in db.HOADONDAILies
+                                 join dl in db.DAILies
+                                 on hd.masodaily equals dl.masodaily
+                                 select new HoaDonDaiLy()
+                                 {
+                                     MaSoHoaDon = hd.masohoadon,
+                                     MaSoDaiLy = hd.masodaily,
+                                     DaiLy = new DaiLy()
+                                     {
+                                         MaSoDaiLy = dl.masodaily,
+                                         TenDaiLy = dl.ten,
+                                         DiaChi = dl.diachi,
+                                         SoDienThoai = dl.sodienthoai,
+                                         SoTaiKhoan = dl.sotaikhoan
+                                     },
+                                     TongTien = hd.tongtien,
+                                     NgayLap = hd.ngaylap
+                                 })
+                                 .Where(hd => hd.MaSoHoaDon.Equals(
+                                        Params.TryGetValue(Properties.MaSoHoaDon, out value) ? value as int?
+                                        : hd.MaSoHoaDon
+                                 )).Where(hd => hd.MaSoDaiLy.Equals(
+                                        Params.TryGetValue(Properties.MaSoDaiLy, out value) ? value as int?
+                                        : hd.MaSoDaiLy
+                                 )).Where(hd => hd.NgayLap.Equals(
+                                        Params.TryGetValue(Properties.NgayLap, out value) ? value as DateTime?
+                                        : hd.NgayLap
+                                 )).Where(hd => hd.TongTien.Equals(
+                                        Params.TryGetValue(Properties.MaSoHoaDon, out value) ? value as decimal?
+                                        : hd.TongTien
+                                 ));
+                return linqQuery.ToList<HoaDonDaiLy>();
+            }
+        }
+
 
 
         //Chi tiết hóa đơn
@@ -86,6 +127,36 @@ namespace Core.DAL
                 public const string ThanhTien = "Thành tiền";
                 public const string MaSoHoaDon = "Mã Số Hóa Đơn";
                 public const string HoaDon = "Hóa đơn";
+            }
+
+            public static List<ChiTietHoaDonDaiLy> getAll()
+            {
+                using (EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    var linqQuery = from ct in db.CHITIETHOADONDAILies
+                                    join s in db.SACHes
+                                    on ct.masosach equals s.masosach
+                                    select new ChiTietHoaDonDaiLy()
+                                    {
+                                        MaSoHoaDon = ct.masohoadon,
+                                        MaSoSach = ct.masosach,
+                                        Sach = new Sach()
+                                        {
+                                            MaSoSach = s.masosach,
+                                            TenSach = s.tensach,
+                                            MaSoLinhVuc = s.masolinhvuc,
+                                            TenTacGia = s.tacgia,
+                                            MaSoNXB = s.masonxb,
+                                            Soluong = s.soluong,
+                                            GiaBan = s.giaban,
+                                            GiaNhap = s.gianhap,
+                                            HinhAnh = s.hinhanh
+                                        },
+                                        SoLuong = ct.soluong,
+                                        DonGia = ct.dongia
+                                    };
+                    return linqQuery.ToList<ChiTietHoaDonDaiLy>();
+                }
             }
 
             public static List<ChiTietHoaDonDaiLy> find(int masohoadon)
@@ -118,6 +189,53 @@ namespace Core.DAL
                     return linqQuery.ToList<ChiTietHoaDonDaiLy>();
                 }
             }
+
+            public static List<ChiTietHoaDonDaiLy> findBy(Dictionary<string, dynamic> Params)
+            {
+                using (EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    dynamic value;
+
+                    var linqQuery = (from ct in db.CHITIETHOADONDAILies
+                                     join s in db.SACHes
+                                     on ct.masosach equals s.masosach
+                                     select new ChiTietHoaDonDaiLy()
+                                     {
+                                         MaSoHoaDon = ct.masohoadon,
+                                         MaSoSach = ct.masosach,
+                                         Sach = new Sach()
+                                         {
+                                             MaSoSach = s.masosach,
+                                             TenSach = s.tensach,
+                                             MaSoLinhVuc = s.masolinhvuc,
+                                             TenTacGia = s.tacgia,
+                                             MaSoNXB = s.masonxb,
+                                             Soluong = s.soluong,
+                                             GiaBan = s.giaban,
+                                             GiaNhap = s.gianhap,
+                                             HinhAnh = s.hinhanh
+                                         },
+                                         SoLuong = ct.soluong,
+                                         DonGia = ct.dongia
+                                     })
+                                     .Where(ct => ct.MaSoHoaDon.Equals(
+                                            Params.TryGetValue(Properties.MaSoHoaDon, out value) ? value as int?
+                                            : ct.MaSoHoaDon
+                                     )).Where(ct => ct.MaSoSach.Equals(
+                                            Params.TryGetValue(Properties.MaSoSach, out value) ? value as int?
+                                            : ct.MaSoSach
+                                     )).Where(ct => ct.SoLuong.Equals(
+                                            Params.TryGetValue(Properties.SoLuong, out value) ? value as decimal?
+                                            : ct.SoLuong
+                                     )).Where(ct => ct.DonGia.Equals(
+                                            Params.TryGetValue(Properties.DonGia, out value) ? value as decimal?
+                                            : ct.DonGia
+                                     ));
+                    return linqQuery.ToList<ChiTietHoaDonDaiLy>();
+                }
+            }
         }
+
+        
     }
 }

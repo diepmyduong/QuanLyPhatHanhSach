@@ -10,12 +10,13 @@ namespace Core.BIZ
 {
     public class LinhVuc
     {
+        private List<Sach> _sach;
+
         [DisplayName(LinhVucManager.Properties.MaSoLinhVuc)]
         public int MaSoLinhVuc { get; set; }
         [DisplayName(LinhVucManager.Properties.TenLinhVuc)]
         public string TenLinhVuc { get; set; }
         //Sách của lĩnh vực
-        private List<Sach> _sach;
         [DisplayName(LinhVucManager.Properties.Sach)]
         public List<Sach> Sach
         {

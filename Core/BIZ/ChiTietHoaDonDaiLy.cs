@@ -64,7 +64,7 @@ namespace Core.BIZ
 
         public override string ToString()
         {
-            return this.Sach.ToString();
+            return this.Sach.TenSach;
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Core.BIZ
 {
     public class PhieuNhap
     {
-
         private NhaXuatBan _nxb;
+        private List<ChiTietPhieuNhap> _chitiet;
 
         [DisplayName(PhieuNhapManager.Properties.MaSoPhieuNhap)]
         public int MaSoPhieuNhap { get; set; }
@@ -39,7 +39,6 @@ namespace Core.BIZ
         [DisplayName(PhieuNhapManager.Properties.TongTien)]
         public decimal TongTien { get; set; }
         //Chi tiết phiếu nhập
-        private List<ChiTietPhieuNhap> _chitiet;
         public List<ChiTietPhieuNhap> ChiTiet
         {
             get

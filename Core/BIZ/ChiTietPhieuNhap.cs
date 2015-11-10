@@ -11,6 +11,7 @@ namespace Core.BIZ
     public class ChiTietPhieuNhap
     {
         private Sach _sach;
+        private PhieuNhap _phieunhap;
 
         [DisplayName(PhieuNhapManager.ChiTiet.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
@@ -30,20 +31,46 @@ namespace Core.BIZ
             }
         }
         [DisplayName(PhieuNhapManager.ChiTiet.Properties.SoLuong)]
-        public decimal Soluong { get; set; }
+        public decimal SoLuong { get; set; }
         [DisplayName(PhieuNhapManager.ChiTiet.Properties.DonGia)]
         public decimal DonGia { get; set; }
         [DisplayName(PhieuNhapManager.ChiTiet.Properties.ThanhTien)]
         public decimal ThanhTien {
             get
             {
-                return this.Soluong * this.DonGia;
+                return this.SoLuong * this.DonGia;
+            }
+        }
+        [DisplayName(PhieuNhapManager.ChiTiet.Properties.MaSoPhieuNhap)]
+        public int MaSoPhieuNhap { get; set; }
+        [DisplayName(PhieuNhapManager.ChiTiet.Properties.PhieuNhap)]
+        public PhieuNhap PhieuNhap
+        {
+            get
+            {
+                if(_phieunhap == null)
+                {
+                    _phieunhap = PhieuNhapManager.find(this.MaSoPhieuNhap);
+                }
+                return _phieunhap;
+            }
+            set
+            {
+                _phieunhap = value;
             }
         }
 
         public override bool Equals(object obj)
         {
-            return this.Sach.MaSoSach.Equals(((ChiTietPhieuNhap)obj).Sach.MaSoSach);
+            try
+            {
+                return this.Sach.MaSoSach.Equals(((ChiTietPhieuNhap)obj).Sach.MaSoSach);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
         public override int GetHashCode()
         {

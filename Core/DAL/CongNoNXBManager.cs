@@ -26,10 +26,34 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from cn in db.CONGNONXBs
+                                join s in db.SACHes
+                                on cn.masosach equals s.masosach
+                                join nxb in db.NXBs
+                                on cn.masonxb equals nxb.masonxb
                                 select new CongNoNXB()
                                 {
                                     MaSoSach = cn.masosach,
+                                    Sach = new Sach()
+                                    {
+                                        MaSoSach = s.masosach,
+                                        TenSach = s.tensach,
+                                        TenTacGia = s.tacgia,
+                                        MaSoLinhVuc = s.masolinhvuc,
+                                        MaSoNXB = s.masonxb,
+                                        Soluong = s.soluong,
+                                        GiaBan = s.giaban,
+                                        GiaNhap = s.gianhap,
+                                        HinhAnh = s.hinhanh
+                                    },
                                     MaSoNXB = cn.masonxb,
+                                    NXB = new NhaXuatBan
+                                    {
+                                        MaSoNXB = nxb.masonxb,
+                                        TenNXB = nxb.ten,
+                                        DiaChi = nxb.diachi,
+                                        SoDienThoai = nxb.sodienthoai,
+                                        SoTaiKhoan = nxb.sotaikhoan
+                                    },
                                     SoLuong = cn.soluong,
                                     DonGia = cn.dongia,
                                     Thang = cn.thang
@@ -43,11 +67,35 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from cn in db.CONGNONXBs
+                                join s in db.SACHes
+                                on cn.masosach equals s.masosach
+                                join nxb in db.NXBs
+                                on cn.masonxb equals nxb.masonxb
                                 where cn.masonxb.Equals(masonxb)
                                 select new CongNoNXB()
                                 {
                                     MaSoSach = cn.masosach,
+                                    Sach = new Sach()
+                                    {
+                                        MaSoSach = s.masosach,
+                                        TenSach = s.tensach,
+                                        TenTacGia = s.tacgia,
+                                        MaSoLinhVuc = s.masolinhvuc,
+                                        MaSoNXB = s.masonxb,
+                                        Soluong = s.soluong,
+                                        GiaBan = s.giaban,
+                                        GiaNhap = s.gianhap,
+                                        HinhAnh = s.hinhanh
+                                    },
                                     MaSoNXB = cn.masonxb,
+                                    NXB = new NhaXuatBan
+                                    {
+                                        MaSoNXB = nxb.masonxb,
+                                        TenNXB = nxb.ten,
+                                        DiaChi = nxb.diachi,
+                                        SoDienThoai = nxb.sodienthoai,
+                                        SoTaiKhoan = nxb.sotaikhoan
+                                    },
                                     SoLuong = cn.soluong,
                                     DonGia = cn.dongia,
                                     Thang = cn.thang
@@ -63,10 +111,34 @@ namespace Core.DAL
                 dynamic value;
 
                 var linqQuery = (from cn in db.CONGNONXBs
+                                 join s in db.SACHes
+                                 on cn.masosach equals s.masosach
+                                 join nxb in db.NXBs
+                                 on cn.masonxb equals nxb.masonxb
                                  select new CongNoNXB()
                                  {
                                      MaSoSach = cn.masosach,
+                                     Sach = new Sach()
+                                     {
+                                         MaSoSach = s.masosach,
+                                         TenSach = s.tensach,
+                                         TenTacGia = s.tacgia,
+                                         MaSoLinhVuc = s.masolinhvuc,
+                                         MaSoNXB = s.masonxb,
+                                         Soluong = s.soluong,
+                                         GiaBan = s.giaban,
+                                         GiaNhap = s.gianhap,
+                                         HinhAnh = s.hinhanh
+                                     },
                                      MaSoNXB = cn.masonxb,
+                                     NXB = new NhaXuatBan
+                                     {
+                                         MaSoNXB = nxb.masonxb,
+                                         TenNXB = nxb.ten,
+                                         DiaChi = nxb.diachi,
+                                         SoDienThoai = nxb.sodienthoai,
+                                         SoTaiKhoan = nxb.sotaikhoan
+                                     },
                                      SoLuong = cn.soluong,
                                      DonGia = cn.dongia,
                                      Thang = cn.thang
