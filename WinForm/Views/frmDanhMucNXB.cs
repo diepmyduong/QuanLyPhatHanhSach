@@ -56,7 +56,7 @@ namespace WinForm.Views
         //Khi Chọn Xem Công nợ NXB
         private void btnXemCongNo_Click(object sender, EventArgs e)
         {
-            frmCongNoNXB form = new frmCongNoNXB(this, _currentNXB);
+            frmChiTietCongNoNXB form = new frmChiTietCongNoNXB(this,_currentNXB);
             form.ShowDialog(this);
         }
         //Khi Chọn Thoát
@@ -117,6 +117,7 @@ namespace WinForm.Views
         {
             _DMNXB = NhaXuatBanManager.getAll();
             gdvDMNXB.DataSource = _DMNXB;
+            gdvDMNXB.Columns[nameof(NhaXuatBanManager.Properties.TongTienNo)].Visible = false;
         }
 
         public void selectNXB(NhaXuatBan nxb)

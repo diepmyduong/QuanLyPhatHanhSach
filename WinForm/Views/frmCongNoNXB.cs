@@ -21,16 +21,9 @@ namespace WinForm.Views
             _frmParent = parent;
         }
 
-        public frmCongNoNXB(Form parent, NhaXuatBan nxb)
-            :this(parent)
-        {
-            _currentNXB = nxb;
-        }
-
         #region Private Properties
         private Form _frmParent;
         private NhaXuatBan _currentNXB;
-        private List<CongNoNXB> _DMCongNo;
         private List<NhaXuatBan> _DMNXB;
         private int _startMonth;
         private int _startYear;
@@ -72,12 +65,14 @@ namespace WinForm.Views
         //Khi chọn xem chi tiết
         private void btnXemChiTiet_Click(object sender, EventArgs e)
         {
-
+            frmChiTietCongNoNXB form = new frmChiTietCongNoNXB(this, _currentNXB);
+            form.ShowDialog(this);
         }
         //Khi chọn thanh toán
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-
+            frmThanhToanNXB form = new frmThanhToanNXB(this, _currentNXB);
+            form.ShowDialog(this);
         }
         //Khi chọn nút lọc
         private void btnLoc_Click(object sender, EventArgs e)
@@ -87,7 +82,7 @@ namespace WinForm.Views
         //Khi chọn nút thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
         //Khi chọn thắng bắt đầu
         private void cmbStartMonth_SelectedIndexChanged(object sender, EventArgs e)

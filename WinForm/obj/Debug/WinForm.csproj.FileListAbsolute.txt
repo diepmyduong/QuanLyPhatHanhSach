@@ -23,4 +23,4 @@ C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanDaiLy.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemDaiLy.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemNXB.resources
-C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.ThanhToanNXB.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanNXB.resources

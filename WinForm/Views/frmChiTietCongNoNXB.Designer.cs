@@ -430,6 +430,7 @@
             // 
             this.gdvChiTiet.AllowUserToAddRows = false;
             this.gdvChiTiet.AllowUserToDeleteRows = false;
+            this.gdvChiTiet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvChiTiet, 6);
             this.gdvChiTiet.Dock = System.Windows.Forms.DockStyle.Fill;

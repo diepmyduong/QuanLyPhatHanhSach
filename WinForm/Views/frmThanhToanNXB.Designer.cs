@@ -1,6 +1,6 @@
 ﻿namespace WinForm.Views
 {
-    partial class ThanhToanNXB
+    partial class frmThanhToanNXB
     {
         /// <summary>
         /// Required designer variable.

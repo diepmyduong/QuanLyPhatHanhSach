@@ -138,6 +138,16 @@ namespace Core.BIZ
                         && p.NgayLap <= endDate).ToList()
                         .Sum(p => p.TongTien);
         }
+
+        public List<CongNoNXB> CongNoTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            DateTime startDate = new DateTime(startYear, startMonth, 1);
+            DateTime endDate = new DateTime(endYear, endMonth, 1);
+            endDate = endDate.AddMonths(1).AddDays(-1);
+            return this.CongNo.Where(cn =>
+                        cn.Thang >= startDate
+                        && cn.Thang <= endDate).ToList();
+        }
         #endregion
 
 

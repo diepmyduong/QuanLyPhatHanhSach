@@ -83,6 +83,8 @@ namespace WinForm.Views
         //Chọn thanh toán với NXB
         private void menuItemThanhToanNXB_Click(object sender, EventArgs e)
         {
+            frmThanhToanNXB form = new frmThanhToanNXB(this);
+            form.ShowDialog(this);
         }
         //Chọn theo dõi nỡ với Đại lý
         private void menuItemNoDaiLy_Click(object sender, EventArgs e)

@@ -78,7 +78,7 @@ namespace Core.BIZ
             get
             {
                 var years = new Dictionary<string, int>();
-                for(var i = 1990; i <= DateTime.Now.Year; i++)
+                for(var i = DateTime.Now.Year; i >= 1990; i--)
                 {
                     years.Add(i.ToString(), i);
                 }

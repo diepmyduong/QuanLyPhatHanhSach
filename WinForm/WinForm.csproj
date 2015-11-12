@@ -140,11 +140,11 @@
       <DependentUpon>frmThemSach.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Prompt.cs" />
-    <Compile Include="Views\ThanhToanNXB.cs">
+    <Compile Include="Views\frmThanhToanNXB.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ThanhToanNXB.Designer.cs">
-      <DependentUpon>ThanhToanNXB.cs</DependentUpon>
+    <Compile Include="Views\frmThanhToanNXB.Designer.cs">
+      <DependentUpon>frmThanhToanNXB.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -201,8 +201,8 @@
     <EmbeddedResource Include="Views\frmThemSach.resx">
       <DependentUpon>frmThemSach.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ThanhToanNXB.resx">
-      <DependentUpon>ThanhToanNXB.cs</DependentUpon>
+    <EmbeddedResource Include="Views\frmThanhToanNXB.resx">
+      <DependentUpon>frmThanhToanNXB.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -98,5 +98,7 @@ namespace Core.BIZ
                         && cn.Thang <= endDate).ToList()
                         .Sum(cn => cn.ThanhTien);
         }
+
+        
     }
 }
