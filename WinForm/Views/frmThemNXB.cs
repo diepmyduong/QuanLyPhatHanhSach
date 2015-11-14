@@ -31,7 +31,7 @@ namespace WinForm.Views
         //Khi Chọn Thêm
         private void btnThem_Click(object sender, EventArgs e)
         {
-
+            
         }
         //Khi Hủy Thêm
         private void btnThoat_Click(object sender, EventArgs e)

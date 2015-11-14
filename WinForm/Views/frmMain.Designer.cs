@@ -79,6 +79,8 @@
             this.btnLoc = new System.Windows.Forms.Button();
             this.txbLoc = new System.Windows.Forms.TextBox();
             this.gdvDanhMucSach = new System.Windows.Forms.DataGridView();
+            this.tùyChọnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemThoat = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.panelRows.SuspendLayout();
@@ -96,7 +98,8 @@
             this.nhậpSáchToolStripMenuItem,
             this.xuấtSáchToolStripMenuItem,
             this.thanhToánToolStripMenuItem,
-            this.menuItemThongKeTonKho});
+            this.menuItemThongKeTonKho,
+            this.tùyChọnToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(784, 24);
@@ -210,28 +213,28 @@
             // menuItemTonKho
             // 
             this.menuItemTonKho.Name = "menuItemTonKho";
-            this.menuItemTonKho.Size = new System.Drawing.Size(130, 22);
+            this.menuItemTonKho.Size = new System.Drawing.Size(152, 22);
             this.menuItemTonKho.Text = "Tồn kho";
             this.menuItemTonKho.Click += new System.EventHandler(this.menuItemTonKho_Click);
             // 
             // menuItemThongKeDoanhThu
             // 
             this.menuItemThongKeDoanhThu.Name = "menuItemThongKeDoanhThu";
-            this.menuItemThongKeDoanhThu.Size = new System.Drawing.Size(130, 22);
+            this.menuItemThongKeDoanhThu.Size = new System.Drawing.Size(152, 22);
             this.menuItemThongKeDoanhThu.Text = "Doanh thu";
             this.menuItemThongKeDoanhThu.Click += new System.EventHandler(this.menuItemThongKeDoanhThu_Click);
             // 
             // menuItemThongKeSach
             // 
             this.menuItemThongKeSach.Name = "menuItemThongKeSach";
-            this.menuItemThongKeSach.Size = new System.Drawing.Size(130, 22);
+            this.menuItemThongKeSach.Size = new System.Drawing.Size(152, 22);
             this.menuItemThongKeSach.Text = "Sách";
             this.menuItemThongKeSach.Click += new System.EventHandler(this.menuItemThongKeSach_Click);
             // 
             // menuItemThongKeCongNo
             // 
             this.menuItemThongKeCongNo.Name = "menuItemThongKeCongNo";
-            this.menuItemThongKeCongNo.Size = new System.Drawing.Size(130, 22);
+            this.menuItemThongKeCongNo.Size = new System.Drawing.Size(152, 22);
             this.menuItemThongKeCongNo.Text = "Công nợ";
             this.menuItemThongKeCongNo.Click += new System.EventHandler(this.menuItemThongKeCongNo_Click);
             // 
@@ -629,6 +632,21 @@
             this.gdvDanhMucSach.TabIndex = 1;
             this.gdvDanhMucSach.SelectionChanged += new System.EventHandler(this.gdvDanhMucSach_SelectionChanged);
             // 
+            // tùyChọnToolStripMenuItem
+            // 
+            this.tùyChọnToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemThoat});
+            this.tùyChọnToolStripMenuItem.Name = "tùyChọnToolStripMenuItem";
+            this.tùyChọnToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.tùyChọnToolStripMenuItem.Text = "Tùy chọn";
+            // 
+            // menuItemThoat
+            // 
+            this.menuItemThoat.Name = "menuItemThoat";
+            this.menuItemThoat.Size = new System.Drawing.Size(152, 22);
+            this.menuItemThoat.Text = "Thoát";
+            this.menuItemThoat.Click += new System.EventHandler(this.menuItemThoat_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -712,5 +730,7 @@
         private System.Windows.Forms.TextBox txbLoc;
         private System.Windows.Forms.DataGridView gdvDanhMucSach;
         private System.Windows.Forms.TextBox txbSoLuong;
+        private System.Windows.Forms.ToolStripMenuItem tùyChọnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemThoat;
     }
 }

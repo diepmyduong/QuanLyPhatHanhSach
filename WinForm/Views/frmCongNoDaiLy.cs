@@ -31,12 +31,14 @@ namespace WinForm.Views
         //Khi chọn xem chi tiết CÔng nợ
         private void btnXemChiTiet_Click(object sender, EventArgs e)
         {
-
+            frmChiTietCongNoDaiLy form = new frmChiTietCongNoDaiLy(this);
+            form.ShowDialog(this);
         }
         //Khi chọn thanh toán
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-
+            frmThanhToanDaiLy form = new frmThanhToanDaiLy(this);
+            form.ShowDialog(this);
         }
         //Khi chọn lọc
         private void btnLoc_Click(object sender, EventArgs e)
@@ -46,7 +48,7 @@ namespace WinForm.Views
         //Khi chọn Thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
         //Khi chọn công nợ của 1 đại lý
         private void gdvDMCongNo_SelectionChanged(object sender, EventArgs e)

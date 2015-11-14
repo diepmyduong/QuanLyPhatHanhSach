@@ -10,6 +10,7 @@ namespace Core.BIZ
 {
     public class Sach
     {
+        #region Private Properties
         private NhaXuatBan _nxb;
         private LinhVuc _linhvuc;
         private List<CongNoDaiLy> _congnodaily;
@@ -18,7 +19,13 @@ namespace Core.BIZ
         private List<ChiTietHoaDonNXB> _hoadonnxb;
         private List<ChiTietPhieuNhap> _phieunhap;
         private List<ChiTietPhieuXuat> _phieuxuat;
+        private decimal? _tongLuongNhap;
+        private decimal? _tongLuongXuat;
+        private decimal? _tongTienNhap;
+        private decimal? _tongTienXuat;
+        #endregion
 
+        #region Public Properties
         [DisplayName(SachManager.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
         [DisplayName(SachManager.Properties.TenSach)]
@@ -26,7 +33,8 @@ namespace Core.BIZ
         [DisplayName(SachManager.Properties.MaSoLinhVuc)]
         public int MaSoLinhVuc { get; set; }
         [DisplayName(SachManager.Properties.LinhVucSach)]
-        public LinhVuc LinhVucSach {
+        public LinhVuc LinhVucSach
+        {
             get
             {
                 if (_linhvuc == null)
@@ -45,7 +53,8 @@ namespace Core.BIZ
         [DisplayName(SachManager.Properties.MaSoNXB)]
         public int MaSoNXB { get; set; }
         [DisplayName(SachManager.Properties.NXB)]
-        public NhaXuatBan NXB {
+        public NhaXuatBan NXB
+        {
             get
             {
                 if (_nxb == null)
@@ -72,7 +81,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_congnodaily == null)
+                if (_congnodaily == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(CongNoDaiLyManager.Properties.MaSoSach, this.MaSoSach);
@@ -90,7 +99,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_congnonxb == null)
+                if (_congnonxb == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(CongNoNXBManager.Properties.MaSoSach, this.MaSoSach);
@@ -108,7 +117,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_hoadondaily == null)
+                if (_hoadondaily == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(HoaDonDaiLyManager.ChiTiet.Properties.MaSoSach, this.MaSoSach);
@@ -146,7 +155,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_phieunhap == null)
+                if (_phieunhap == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(PhieuNhapManager.ChiTiet.Properties.MaSoSach, this.MaSoSach);
@@ -164,7 +173,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_phieuxuat == null)
+                if (_phieuxuat == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(PhieuXuatManager.Chitiet.Properties.MaSoSach, this.MaSoSach);
@@ -177,11 +186,61 @@ namespace Core.BIZ
                 _phieuxuat = value;
             }
         }
+        [DisplayName(SachManager.Properties.TongSoLuongNhap)]
+        public decimal? TongSoLuongNhap
+        {
+            get
+            {
+                if(_tongLuongNhap == null)
+                {
+                    _tongLuongNhap = this.PhieuNhap.Sum(p => p.SoLuong);
+                }
+                return _tongLuongNhap;
+            }
+        }
+        [DisplayName(SachManager.Properties.TongSoLuongXuat)]
+        public decimal? TongSoLuongXuat
+        {
+            get
+            {
+                if(_tongLuongXuat == null)
+                {
+                    _tongLuongXuat = this.PhieuXuat.Sum(p => p.SoLuong);
+                }
+                return _tongLuongXuat;
+            }
+        }
+        [DisplayName(SachManager.Properties.TongTienNhap)]
+        public decimal? TongTienNhap
+        {
+            get
+            {
+                if(_tongTienNhap == null)
+                {
+                    _tongTienNhap = this.PhieuNhap.Sum(p => p.ThanhTien);
+                }
+                return _tongTienNhap;
+            }
+        }
+        [DisplayName(SachManager.Properties.TongTienXuat)]
+        public decimal? TongTienXuat
+        {
+            get
+            {
+                if (_tongTienXuat == null)
+                {
+                    _tongTienXuat = this.PhieuXuat.Sum(p => p.ThanhTien);
+                }
+                return _tongTienXuat;
+            }
+        }
+        #endregion
 
+        #region Services
         public bool isExisted()
         {
             Sach sach = SachManager.find(this.MaSoSach);
-            if(sach == null)
+            if (sach == null)
             {
                 return false;
             }
@@ -202,10 +261,54 @@ namespace Core.BIZ
             return false;
         }
 
+        public decimal? tongTienNhapTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            DateTime startDate = new DateTime(startYear, startMonth, 1);
+            DateTime endDate = new DateTime(endYear, endMonth, 1);
+            endDate = endDate.AddMonths(1).AddDays(-1);
+            return this.PhieuNhap.Where(p =>
+                        p.PhieuNhap.NgayLap >= startDate
+                        && p.PhieuNhap.NgayLap <= endDate).ToList()
+                        .Sum(p => p.ThanhTien);
+        }
+
+        public decimal? tongTienXuatTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            DateTime startDate = new DateTime(startYear, startMonth, 1);
+            DateTime endDate = new DateTime(endYear, endMonth, 1);
+            endDate = endDate.AddMonths(1).AddDays(-1);
+            return this.PhieuXuat.Where(p =>
+                        p.PhieuXuat.NgayLap >= startDate
+                        && p.PhieuXuat.NgayLap <= endDate).ToList()
+                        .Sum(p => p.ThanhTien);
+        }
+        public decimal? tongSoLuongNhapTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            DateTime startDate = new DateTime(startYear, startMonth, 1);
+            DateTime endDate = new DateTime(endYear, endMonth, 1);
+            endDate = endDate.AddMonths(1).AddDays(-1);
+            return this.PhieuNhap.Where(p =>
+                        p.PhieuNhap.NgayLap >= startDate
+                        && p.PhieuNhap.NgayLap <= endDate).ToList()
+                        .Sum(p => p.SoLuong);
+        }
+        public decimal? tongSoLuongXuatTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            DateTime startDate = new DateTime(startYear, startMonth, 1);
+            DateTime endDate = new DateTime(endYear, endMonth, 1);
+            endDate = endDate.AddMonths(1).AddDays(-1);
+            return this.PhieuXuat.Where(p =>
+                        p.PhieuXuat.NgayLap >= startDate
+                        && p.PhieuXuat.NgayLap <= endDate).ToList()
+                        .Sum(p => p.SoLuong);
+        }
+        #endregion
+
+        #region Override Methods
         public override string ToString()
         {
             return this.TenSach;
         }
-
+        #endregion
     }
 }

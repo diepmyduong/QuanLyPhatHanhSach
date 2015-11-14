@@ -41,17 +41,19 @@ namespace WinForm.Views
         //Khi Thêm Mới Đại lý
         private void btnThemDaiLy_Click(object sender, EventArgs e)
         {
-
+            frmDanhMucDaiLy form = new frmDanhMucDaiLy(this);
+            form.ShowDialog(this);
         }
         //Khi Chọn Xem Công Nợ Đại lý
         private void btnXemCongNo_Click(object sender, EventArgs e)
         {
-
+            frmCongNoDaiLy form = new frmCongNoDaiLy(this);
+            form.ShowDialog(this);
         }
         //Khi Chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
         //Khi Chọn Đại lý từ Danh Mục Đại lý
         private void gdvDMDaiLy_SelectionChanged(object sender, EventArgs e)

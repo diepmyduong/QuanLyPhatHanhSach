@@ -30,7 +30,8 @@ namespace WinForm.Views
         //Khi chọn thêm mới đại lý
         private void btnThemDaiLy_Click(object sender, EventArgs e)
         {
-
+            frmDanhMucDaiLy form = new frmDanhMucDaiLy(this);
+            form.ShowDialog(this);
         }
         //Khi chọn lưu lại đơn xuất
         private void btnLuu_Click(object sender, EventArgs e)
@@ -40,7 +41,7 @@ namespace WinForm.Views
         //Khi chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
         #endregion
 

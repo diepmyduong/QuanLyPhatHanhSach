@@ -31,12 +31,13 @@ namespace WinForm.Views
         //Khi chọn thanh toán
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-
+            frmThanhToanDaiLy form = new frmThanhToanDaiLy(this);
+            form.ShowDialog(this);
         }
         //Khi chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
         //Khi chọn tháng bắt đầu
         private void cmbStartMonth_SelectedIndexChanged(object sender, EventArgs e)

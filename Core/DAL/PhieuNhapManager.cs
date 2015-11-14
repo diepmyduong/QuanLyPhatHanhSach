@@ -155,7 +155,7 @@ namespace Core.DAL
                 public const string SoLuong = "Số lượng";
                 public const string DonGia = "Đơn Giá";
                 public const string ThanhTien = "Thành tiền";
-                public const string MaSoPhieuNhap = "Mã số phiếu nhap";
+                public const string MaSoPhieuNhap = "Mã số phiếu";
                 public const string PhieuNhap = "Ngày lập";
             }
             public static List<ChiTietPhieuNhap> getAll()
@@ -187,6 +187,7 @@ namespace Core.DAL
                     return linqQuery.ToList<ChiTietPhieuNhap>();
                 }
             }
+            
 
             public static List<ChiTietPhieuNhap> find(int masophieunhap)
             {

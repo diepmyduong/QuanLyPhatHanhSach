@@ -36,7 +36,7 @@ namespace WinForm.Views
         //Khi hủy thêm
         private void btnThoat_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
         #endregion
 

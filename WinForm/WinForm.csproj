@@ -61,6 +61,24 @@
     <Compile Include="Views\frmChiTietCongNoNXB.Designer.cs">
       <DependentUpon>frmChiTietCongNoNXB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmChiTietHoaDonDaiLy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmChiTietHoaDonDaiLy.Designer.cs">
+      <DependentUpon>frmChiTietHoaDonDaiLy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmChiTietHoaDonNXB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmChiTietHoaDonNXB.Designer.cs">
+      <DependentUpon>frmChiTietHoaDonNXB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmChiTietLoNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmChiTietLoNhap.Designer.cs">
+      <DependentUpon>frmChiTietLoNhap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmCongNoDaiLy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +157,54 @@
     <Compile Include="Views\frmThemSach.Designer.cs">
       <DependentUpon>frmThemSach.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmThongKeCongNo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThongKeCongNo.Designer.cs">
+      <DependentUpon>frmThongKeCongNo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmThongKeDoanhThu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThongKeDoanhThu.Designer.cs">
+      <DependentUpon>frmThongKeDoanhThu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmThongKeLoNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThongKeLoNhap.Designer.cs">
+      <DependentUpon>frmThongKeLoNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmThongKeLoXuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThongKeLoXuat.Designer.cs">
+      <DependentUpon>frmThongKeLoXuat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmThongKeNguonChi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThongKeNguonChi.Designer.cs">
+      <DependentUpon>frmThongKeNguonChi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmThongKeNguonThu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThongKeNguonThu.Designer.cs">
+      <DependentUpon>frmThongKeNguonThu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmThongKeSachBan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThongKeSachBan.Designer.cs">
+      <DependentUpon>frmThongKeSachBan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmThongKeTonKho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmThongKeTonKho.Designer.cs">
+      <DependentUpon>frmThongKeTonKho.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Prompt.cs" />
     <Compile Include="Views\frmThanhToanNXB.cs">
       <SubType>Form</SubType>
@@ -161,6 +227,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmChiTietCongNoNXB.resx">
       <DependentUpon>frmChiTietCongNoNXB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmChiTietHoaDonDaiLy.resx">
+      <DependentUpon>frmChiTietHoaDonDaiLy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmChiTietHoaDonNXB.resx">
+      <DependentUpon>frmChiTietHoaDonNXB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmChiTietLoNhap.resx">
+      <DependentUpon>frmChiTietLoNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmCongNoDaiLy.resx">
       <DependentUpon>frmCongNoDaiLy.cs</DependentUpon>
@@ -203,6 +278,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmThanhToanNXB.resx">
       <DependentUpon>frmThanhToanNXB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThongKeCongNo.resx">
+      <DependentUpon>frmThongKeCongNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThongKeDoanhThu.resx">
+      <DependentUpon>frmThongKeDoanhThu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThongKeLoNhap.resx">
+      <DependentUpon>frmThongKeLoNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThongKeLoXuat.resx">
+      <DependentUpon>frmThongKeLoXuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThongKeNguonChi.resx">
+      <DependentUpon>frmThongKeNguonChi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThongKeNguonThu.resx">
+      <DependentUpon>frmThongKeNguonThu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThongKeSachBan.resx">
+      <DependentUpon>frmThongKeSachBan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmThongKeTonKho.resx">
+      <DependentUpon>frmThongKeTonKho.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

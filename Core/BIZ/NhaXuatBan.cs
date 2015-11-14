@@ -10,13 +10,15 @@ namespace Core.BIZ
 {
     public class NhaXuatBan
     {
+        #region Private Properties
         private List<Sach> _sach;
         private List<PhieuNhap> _phieunhap;
         private List<CongNoNXB> _congno;
         private List<HoaDonNXB> _hoadon;
         private decimal? _tongtienno;
+        #endregion
 
-
+        #region Public Properties
         [DisplayName(NhaXuatBanManager.Properties.MaSoNXB)]
         public int MaSoNXB { get; set; }
         [DisplayName(NhaXuatBanManager.Properties.TenNXB)]
@@ -33,7 +35,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_sach == null)
+                if (_sach == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(SachManager.Properties.MaSoNXB, this.MaSoNXB);
@@ -53,7 +55,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_phieunhap == null)
+                if (_phieunhap == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(PhieuNhapManager.Properties.MaSoNXB, this.MaSoNXB);
@@ -72,7 +74,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_congno == null)
+                if (_congno == null)
                 {
                     _congno = CongNoNXBManager.find(this.MaSoNXB);
                 }
@@ -90,7 +92,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_hoadon == null)
+                if (_hoadon == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(HoaDonNXBManager.Properties.MaSoNXB, this.MaSoNXB);
@@ -108,13 +110,14 @@ namespace Core.BIZ
         {
             get
             {
-                if(_tongtienno == null)
+                if (_tongtienno == null)
                 {
                     _tongtienno = this.CongNo.Sum(cn => cn.ThanhTien);
                 }
                 return _tongtienno;
             }
         }
+        #endregion
 
         #region Services
         public decimal? TongTienNoThang(int startMonth, int startYear, int endMonth, int endYear)

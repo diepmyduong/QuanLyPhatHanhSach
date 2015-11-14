@@ -35,6 +35,7 @@ namespace WinForm.Views
         //Khi Load Form
         private void frmMain_Load(object sender, EventArgs e)
         {
+            createGridViewColumns();
             //Load các lĩnh vực
             loadLinhVuc();
             //Load các NXB
@@ -101,22 +102,30 @@ namespace WinForm.Views
         //Chọn xem thống kê tồn kho
         private void menuItemTonKho_Click(object sender, EventArgs e)
         {
-            
+            frmThongKeTonKho form = new frmThongKeTonKho(this);
+            form.ShowDialog(this);
         }
         //Chọn xem thống ke Doanh Thu
         private void menuItemThongKeDoanhThu_Click(object sender, EventArgs e)
         {
-
+            frmThongKeDoanhThu form = new frmThongKeDoanhThu(this);
+            form.ShowDialog(this);
         }
         //Chọn xem thống kê Sách bán
         private void menuItemThongKeSach_Click(object sender, EventArgs e)
         {
-
+            frmThongKeSachBan form = new frmThongKeSachBan(this);
+            form.ShowDialog(this);
         }
         //Chọn xem Thống kê Công nợ
         private void menuItemThongKeCongNo_Click(object sender, EventArgs e)
         {
-
+            frmThongKeCongNo form = new frmThongKeCongNo(this);
+            form.ShowDialog(this);
+        }
+        private void menuItemThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
         //Chọn cập nhật thông tin Sách
         private void btnCapNhat_Click(object sender, EventArgs e)
@@ -324,15 +333,49 @@ namespace WinForm.Views
         {
             _DMSach = SachManager.getAll();
             gdvDanhMucSach.DataSource = _DMSach;
-            gdvDanhMucSach.Columns[nameof(SachManager.Properties.HinhAnh)].Visible = false;
-            gdvDanhMucSach.Columns[nameof(SachManager.Properties.MaSoNXB)].Visible = false;
-            gdvDanhMucSach.Columns[nameof(SachManager.Properties.MaSoLinhVuc)].Visible = false;
+        }
+        private void createGridViewColumns()
+        {
+            gdvDanhMucSach.AutoGenerateColumns = false;
+            gdvDanhMucSach.ColumnCount = 8;
+            setColumn(gdvDanhMucSach.Columns[0]
+                , nameof(SachManager.Properties.MaSoSach)
+                , SachManager.Properties.MaSoSach);
+            setColumn(gdvDanhMucSach.Columns[1]
+                , nameof(SachManager.Properties.TenSach)
+                , SachManager.Properties.TenSach);
+            setColumn(gdvDanhMucSach.Columns[2]
+                , nameof(SachManager.Properties.LinhVucSach)
+                , SachManager.Properties.LinhVucSach);
+            setColumn(gdvDanhMucSach.Columns[3]
+                , nameof(SachManager.Properties.TenTacGia)
+                , SachManager.Properties.TenTacGia);
+            setColumn(gdvDanhMucSach.Columns[4]
+                , nameof(SachManager.Properties.NXB)
+                , SachManager.Properties.NXB);
+            setColumn(gdvDanhMucSach.Columns[5]
+                , nameof(SachManager.Properties.Soluong)
+                , SachManager.Properties.Soluong);
+            setColumn(gdvDanhMucSach.Columns[6]
+                , nameof(SachManager.Properties.GiaBan)
+                , SachManager.Properties.GiaBan);
+            setColumn(gdvDanhMucSach.Columns[7]
+                , nameof(SachManager.Properties.GiaNhap)
+                , SachManager.Properties.GiaNhap);
+
+        }
+
+        private void setColumn(DataGridViewColumn column, string propertyName, string name)
+        {
+            column.Name = propertyName;
+            column.DataPropertyName = propertyName;
+            column.HeaderText = name;
         }
 
 
 
         #endregion
 
-        
+
     }
 }

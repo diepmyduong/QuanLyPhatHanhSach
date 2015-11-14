@@ -24,3 +24,14 @@ C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemDaiLy.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemNXB.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanNXB.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoNhap.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeTonKho.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonDaiLy.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonNXB.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeCongNo.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeDoanhThu.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoXuat.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonChi.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonThu.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeSachBan.resources
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietLoNhap.resources

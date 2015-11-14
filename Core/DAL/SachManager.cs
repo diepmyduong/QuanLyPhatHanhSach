@@ -12,7 +12,6 @@ namespace Core.DAL
     {
         public static partial class Properties
         {
-           
             public const string MaSoSach = "Mã Số Sách";
             public const string TenSach = "Tên Sách";
             public const string MaSoLinhVuc = "Mã số lĩnh vực";
@@ -30,6 +29,15 @@ namespace Core.DAL
             public const string HoaDonNXB = "Hóa Đơn NXB";
             public const string PhieuNhap = "Phiếu Nhập";
             public const string PhieuXuat = "Phiếu Xuất";
+            public const string TongSoLuongNhap = "Tổng Số lượng nhập";
+            public const string SoLuongNhapTheoThang = "Số lượng nhập";
+            public const string TongSoLuongXuat = "Tổng Số lượng xuất";
+            public const string SoLuongXuatTheoThang = "Số lượng xuất";
+            public const string TongTienNhap = "Tổng tiền nhập";
+            public const string TongTienNhapTheoThang = "Tiền nhập";
+            public const string TongTienXuat = "Tổng tiền xuất";
+            public const string TongTienXuatTheoThang = "Tiền xuất";
+
         }
         public static List<Sach> getAll()
         {
