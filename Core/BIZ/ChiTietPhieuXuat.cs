@@ -10,16 +10,20 @@ namespace Core.BIZ
 {
     public class ChiTietPhieuXuat
     {
+        #region Private Properties
         private Sach _sach;
         private PhieuXuat _phieuxuat;
+        #endregion
 
+        #region Public Properties
         [DisplayName(PhieuXuatManager.Chitiet.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
         [DisplayName(PhieuXuatManager.Chitiet.Properties.Sach)]
-        public Sach Sach {
+        public Sach Sach
+        {
             get
             {
-                if(_sach == null)
+                if (_sach == null)
                 {
                     _sach = SachManager.find(this.MaSoSach);
                 }
@@ -35,7 +39,8 @@ namespace Core.BIZ
         [DisplayName(PhieuXuatManager.Chitiet.Properties.DonGia)]
         public decimal DonGia { get; set; }
         [DisplayName(PhieuXuatManager.Chitiet.Properties.ThanhTien)]
-        public decimal ThanhTien {
+        public decimal ThanhTien
+        {
             get
             {
                 return this.SoLuong * this.DonGia;
@@ -48,7 +53,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_phieuxuat == null)
+                if (_phieuxuat == null)
                 {
                     _phieuxuat = PhieuXuatManager.find(this.MaSoPhieuXuat);
                 }
@@ -59,18 +64,25 @@ namespace Core.BIZ
                 _phieuxuat = value;
             }
         }
+        #endregion
 
+        #region Services
+        #endregion
+
+        #region Override Methods
         public override bool Equals(object obj)
         {
             try
             {
-                return this.Sach.MaSoSach.Equals(((ChiTietPhieuXuat)obj).Sach.MaSoSach);
-            }catch(Exception ex)
+                var chitiet = (ChiTietPhieuXuat)obj;
+                return this.MaSoSach.Equals(chitiet.MaSoSach) && this.MaSoPhieuXuat.Equals(chitiet.MaSoPhieuXuat);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;
             }
-            
+
         }
         public override int GetHashCode()
         {
@@ -81,5 +93,11 @@ namespace Core.BIZ
         {
             return this.Sach.TenSach;
         }
+        #endregion
+
+
+
+
+
     }
 }

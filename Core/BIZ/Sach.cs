@@ -5,6 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.DAL;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Data.Linq;
+using System.Drawing.Imaging;
 
 namespace Core.BIZ
 {
@@ -23,6 +29,7 @@ namespace Core.BIZ
         private decimal? _tongLuongXuat;
         private decimal? _tongTienNhap;
         private decimal? _tongTienXuat;
+        private Image _image;
         #endregion
 
         #region Public Properties
@@ -234,6 +241,29 @@ namespace Core.BIZ
                 return _tongTienXuat;
             }
         }
+        [DisplayName(SachManager.Properties.Anh)]
+        public Binary Anh { get; set; }
+
+        public Image Image
+        {
+            get
+            {
+                if(_image == null)
+                {
+                    _image = ImagesHelper.BinaryToImage(this.Anh);
+                }
+                return _image;
+            }
+            set
+            {
+                _image = value;
+                if(_image != null)
+                {
+                    _image = ImagesHelper.ResizeImage(_image, 300, 400);
+                    this.Anh = ImagesHelper.ImageToBinary(_image);
+                }
+            }
+        }
         #endregion
 
         #region Services
@@ -302,6 +332,16 @@ namespace Core.BIZ
                         && p.PhieuXuat.NgayLap <= endDate).ToList()
                         .Sum(p => p.SoLuong);
         }
+
+        public string ImageFolderPath()
+        {
+            var imageFolderPath = (new Uri(Assembly.GetExecutingAssembly().CodeBase)).AbsolutePath;
+            imageFolderPath = Regex.Match(imageFolderPath, ".*QuanLyPhatHanhSach/").ToString()
+                                + "Core/Images/";
+            return imageFolderPath.Replace("%20"," ");
+        }
+        
+
         #endregion
 
         #region Override Methods

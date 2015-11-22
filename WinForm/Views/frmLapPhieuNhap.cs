@@ -80,11 +80,10 @@ namespace WinForm.Views
             var currentRow = (sender as DataGridView).CurrentRow;
             var cellMaSoSach = (DataGridViewComboBoxCell)currentRow.Cells[nameof(SachManager.Properties.MaSoSach)];
             var cellTenSach = (DataGridViewComboBoxCell)currentRow.Cells[nameof(SachManager.Properties.TenSach)];
-            cellMaSoSach.DataSource = _DMSach;
+            cellMaSoSach.DataSource = cellTenSach.DataSource = _DMSach;
             cellMaSoSach.DisplayMember = nameof(SachManager.Properties.MaSoSach);
-            cellMaSoSach.ValueMember = nameof(SachManager.Properties.MaSoSach);
-            cellTenSach.DataSource = _DMSach;
             cellTenSach.DisplayMember = nameof(SachManager.Properties.TenSach);
+            cellMaSoSach.ValueMember = nameof(SachManager.Properties.MaSoSach);
             cellTenSach.ValueMember = nameof(SachManager.Properties.MaSoSach);
             ComboBox cmbBx = e.Control as ComboBox;
             if (cmbBx != null)

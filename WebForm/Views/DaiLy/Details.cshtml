@@ -1,0 +1,60 @@
+﻿@model Core.BIZ.DaiLy
+
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@Model.TenDaiLy</h2>
+
+<div>
+    <h4>@Model.SoDienThoai</h4>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MaSoDaiLy }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaSoDaiLy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaSoDaiLy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenDaiLy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenDaiLy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoDienThoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoDienThoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoTaiKhoan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoTaiKhoan)
+        </dd>
+
+    </dl>
+</div>
+

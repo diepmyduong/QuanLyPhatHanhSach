@@ -1739,7 +1739,7 @@ namespace Core.DAL
 		
 		private string _sotaikhoan;
 		
-		private string _trangthai;
+		private System.Nullable<int> _trangthai;
 		
 		private EntitySet<CONGNODAILY> _CONGNODAILies;
 		
@@ -1761,7 +1761,7 @@ namespace Core.DAL
     partial void OnsodienthoaiChanged();
     partial void OnsotaikhoanChanging(string value);
     partial void OnsotaikhoanChanged();
-    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
     #endregion
 		
@@ -1873,8 +1873,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
-		public string trangthai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
 		{
 			get
 			{
@@ -2003,7 +2003,7 @@ namespace Core.DAL
 		
 		private decimal _tongtien;
 		
-		private string _trangthai;
+		private System.Nullable<int> _trangthai;
 		
 		private EntitySet<CHITIETHOADONDAILY> _CHITIETHOADONDAILies;
 		
@@ -2021,7 +2021,7 @@ namespace Core.DAL
     partial void OnngaylapChanged();
     partial void OntongtienChanging(decimal value);
     partial void OntongtienChanged();
-    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
     #endregion
 		
@@ -2116,8 +2116,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
-		public string trangthai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
 		{
 			get
 			{
@@ -2230,7 +2230,7 @@ namespace Core.DAL
 		
 		private decimal _tongtien;
 		
-		private string _trangthai;
+		private System.Nullable<int> _trangthai;
 		
 		private EntitySet<CHITIETHOADONNXB> _CHITIETHOADONNXBs;
 		
@@ -2248,7 +2248,7 @@ namespace Core.DAL
     partial void OnngaylapChanged();
     partial void OntongtienChanging(decimal value);
     partial void OntongtienChanged();
-    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
     #endregion
 		
@@ -2343,8 +2343,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
-		public string trangthai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
 		{
 			get
 			{
@@ -2453,7 +2453,7 @@ namespace Core.DAL
 		
 		private string _ten;
 		
-		private string _trangthai;
+		private System.Nullable<int> _trangthai;
 		
 		private EntitySet<SACH> _SACHes;
 		
@@ -2465,7 +2465,7 @@ namespace Core.DAL
     partial void OnmasolinhvucChanged();
     partial void OntenChanging(string value);
     partial void OntenChanged();
-    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
     #endregion
 		
@@ -2515,8 +2515,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
-		public string trangthai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
 		{
 			get
 			{
@@ -2597,7 +2597,7 @@ namespace Core.DAL
 		
 		private string _sotaikhoan;
 		
-		private string _trangthai;
+		private System.Nullable<int> _trangthai;
 		
 		private EntitySet<CONGNONXB> _CONGNONXBs;
 		
@@ -2621,7 +2621,7 @@ namespace Core.DAL
     partial void OnsodienthoaiChanged();
     partial void OnsotaikhoanChanging(string value);
     partial void OnsotaikhoanChanged();
-    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
     #endregion
 		
@@ -2734,8 +2734,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
-		public string trangthai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
 		{
 			get
 			{
@@ -2891,7 +2891,7 @@ namespace Core.DAL
 		
 		private decimal _tongtien;
 		
-		private string _trangthai;
+		private System.Nullable<int> _trangthai;
 		
 		private EntitySet<CHITIETPHIEUNHAP> _CHITIETPHIEUNHAPs;
 		
@@ -2911,7 +2911,7 @@ namespace Core.DAL
     partial void OnngaylapChanged();
     partial void OntongtienChanging(decimal value);
     partial void OntongtienChanged();
-    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
     #endregion
 		
@@ -3026,8 +3026,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
-		public string trangthai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
 		{
 			get
 			{
@@ -3142,7 +3142,7 @@ namespace Core.DAL
 		
 		private decimal _tongtien;
 		
-		private string _trangthai;
+		private System.Nullable<int> _trangthai;
 		
 		private EntitySet<CHITIETPHIEUXUAT> _CHITIETPHIEUXUATs;
 		
@@ -3162,7 +3162,7 @@ namespace Core.DAL
     partial void OnngaylapChanged();
     partial void OntongtienChanging(decimal value);
     partial void OntongtienChanged();
-    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
     #endregion
 		
@@ -3277,8 +3277,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
-		public string trangthai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
 		{
 			get
 			{
@@ -3401,7 +3401,9 @@ namespace Core.DAL
 		
 		private string _hinhanh;
 		
-		private string _trangthai;
+		private System.Nullable<int> _trangthai;
+		
+		private System.Data.Linq.Binary _anh;
 		
 		private EntitySet<CHITIETHOADONDAILY> _CHITIETHOADONDAILies;
 		
@@ -3443,8 +3445,10 @@ namespace Core.DAL
     partial void OnsoluongChanged();
     partial void OnhinhanhChanging(string value);
     partial void OnhinhanhChanged();
-    partial void OntrangthaiChanging(string value);
+    partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
+    partial void OnanhChanging(System.Data.Linq.Binary value);
+    partial void OnanhChanged();
     #endregion
 		
 		public SACH()
@@ -3649,8 +3653,8 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="NVarChar(50)")]
-		public string trangthai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
 		{
 			get
 			{
@@ -3665,6 +3669,26 @@ namespace Core.DAL
 					this._trangthai = value;
 					this.SendPropertyChanged("trangthai");
 					this.OntrangthaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_anh", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary anh
+		{
+			get
+			{
+				return this._anh;
+			}
+			set
+			{
+				if ((this._anh != value))
+				{
+					this.OnanhChanging(value);
+					this.SendPropertyChanging();
+					this._anh = value;
+					this.SendPropertyChanged("anh");
+					this.OnanhChanged();
 				}
 			}
 		}

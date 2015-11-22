@@ -1,0 +1,60 @@
+﻿@model Core.BIZ.NhaXuatBan
+
+@{
+    ViewBag.Title = "Xem Chi tiết";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.TenNXB)</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model=> model.SoDienThoai)</h4>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MaSoNXB }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaSoNXB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaSoNXB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenNXB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenNXB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoDienThoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoDienThoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoTaiKhoan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoTaiKhoan)
+        </dd>
+
+    </dl>
+</div>
+

@@ -10,18 +10,22 @@ namespace Core.BIZ
 {
     public class PhieuNhap
     {
+        #region Private Properties
         private NhaXuatBan _nxb;
         private List<ChiTietPhieuNhap> _chitiet;
+        #endregion
 
+        #region Public Properties
         [DisplayName(PhieuNhapManager.Properties.MaSoPhieuNhap)]
         public int MaSoPhieuNhap { get; set; }
         [DisplayName(PhieuNhapManager.Properties.MaSoNXB)]
         public int MaSoNXB { get; set; }
         [DisplayName(PhieuNhapManager.Properties.NXB)]
-        public NhaXuatBan NXB {
+        public NhaXuatBan NXB
+        {
             get
             {
-                if(_nxb == null)
+                if (_nxb == null)
                 {
                     _nxb = NhaXuatBanManager.find(this.MaSoNXB);
                 }
@@ -39,6 +43,7 @@ namespace Core.BIZ
         [DisplayName(PhieuNhapManager.Properties.TongTien)]
         public decimal TongTien { get; set; }
         //Chi tiết phiếu nhập
+        [DisplayName(PhieuNhapManager.Properties.ChiTiet)]
         public List<ChiTietPhieuNhap> ChiTiet
         {
             get
@@ -46,7 +51,7 @@ namespace Core.BIZ
                 if (_chitiet == null)
                 {
                     _chitiet = PhieuNhapManager.ChiTiet.find(this.MaSoPhieuNhap);
-                    
+
                 }
                 return _chitiet;
             }
@@ -55,12 +60,16 @@ namespace Core.BIZ
                 _chitiet = value;
             }
         }
+        [DisplayName(PhieuNhapManager.Properties.TrangThai)]
+        public int TrangThai { get; set; }
+        #endregion
 
+        #region Services
         public bool isDetailExisted(ChiTietPhieuNhap chitiet)
         {
             return _chitiet.Contains(chitiet);
         }
-        
+
         public bool addDetail(ChiTietPhieuNhap chitiet)
         {
             if (isDetailExisted(chitiet))
@@ -70,10 +79,13 @@ namespace Core.BIZ
             _chitiet.Add(chitiet);
             return true;
         }
+        #endregion
 
+        #region Override Methods
         public override string ToString()
         {
             return this.NgayLap.ToString();
         }
+        #endregion
     }
 }

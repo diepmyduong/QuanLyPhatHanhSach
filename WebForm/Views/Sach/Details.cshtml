@@ -1,0 +1,105 @@
+﻿
+@model Core.BIZ.Sach
+@{
+    ViewBag.Title = "Xem Chi Tiết";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+   
+}
+
+<h2>@Html.DisplayFor(model => model.TenSach)</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.TenTacGia)</h4>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MaSoSach }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            @if (ViewBag.DefaultImage == null)
+            {
+                <a href="#" class="thumbnail">
+                    @*@Html.DisplayFor(model => model.Image)*@
+                    <img src="@ViewBag.imgSrc" alt="">
+                </a>
+            }
+            else
+            {
+                <a href="#" class="thumbnail">
+                    <img src="@ViewBag.DefaultImage" alt="">
+                </a>
+            }
+        </div>
+        <div class="col-md-8">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.MaSoSach)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MaSoSach)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TenSach)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenSach)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LinhVucSach)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LinhVucSach.TenLinhVuc)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TenTacGia)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenTacGia)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NXB)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NXB.TenNXB)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Soluong)
+                </dt>
+
+                <dd>
+                    @String.Format("{0:0}",Model.Soluong)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GiaNhap)
+                </dt>
+
+                <dd>
+                    @String.Format(ViewBag.cultureInfo, "{0:c}", Model.GiaNhap)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GiaBan)
+                </dt>
+
+                <dd>
+                    @String.Format(ViewBag.cultureInfo, "{0:c}", Model.GiaBan)
+                </dd>
+
+            </dl>
+            
+        </div>
+    </div>
+</div>
+

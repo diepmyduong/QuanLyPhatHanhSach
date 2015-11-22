@@ -10,9 +10,12 @@ namespace Core.BIZ
 {
     public class HoaDonDaiLy
     {
+        #region Private Properties
         private DaiLy _daily;
         private List<ChiTietHoaDonDaiLy> _chitiet;
+        #endregion
 
+        #region Public Properties
         [DisplayName(HoaDonDaiLyManager.Properties.MaSoHoaDon)]
         public int MaSoHoaDon { get; set; }
         [DisplayName(HoaDonDaiLyManager.Properties.MaSoDaiLy)]
@@ -42,7 +45,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_chitiet == null)
+                if (_chitiet == null)
                 {
                     _chitiet = HoaDonDaiLyManager.ChiTiet.find(this.MaSoHoaDon);
                 }
@@ -53,10 +56,18 @@ namespace Core.BIZ
                 _chitiet = value;
             }
         }
+        [DisplayName(HoaDonDaiLyManager.Properties.TrangThai)]
+        public int? TrangThai { get; set; }
+        #endregion
 
+        #region Services
+        #endregion
+
+        #region Override Methods
         public override string ToString()
         {
             return this.NgayLap.ToString();
         }
+        #endregion
     }
 }

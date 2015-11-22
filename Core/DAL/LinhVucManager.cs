@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.BIZ;
+using System.Text.RegularExpressions;
 
 namespace Core.DAL
 {
@@ -20,31 +21,31 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from lv in db.LINHVUCs
+                                where lv.trangthai == null
                                 select new LinhVuc
                                 {
                                     MaSoLinhVuc = lv.masolinhvuc,
                                     TenLinhVuc = lv.ten
                                 };
-                return linqQuery.ToList<LinhVuc>();
+                return linqQuery.ToList();
             };
 
         }
-
         public static LinhVuc find(int masolinhvuc)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from lv in db.LINHVUCs
                                 where lv.masolinhvuc.Equals(masolinhvuc)
+                                && lv.trangthai == null
                                 select new LinhVuc
                                 {
                                     MaSoLinhVuc = lv.masolinhvuc,
                                     TenLinhVuc = lv.ten
                                 };
-                return linqQuery.SingleOrDefault<LinhVuc>();
+                return linqQuery.SingleOrDefault();
             };
         }
-
         public static List<LinhVuc> findBy(Dictionary<string,dynamic> Params)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
@@ -52,6 +53,7 @@ namespace Core.DAL
                 dynamic value;
 
                 var linqQuery = (from lv in db.LINHVUCs
+                                 where lv.trangthai == null
                                  select new LinhVuc
                                  {
                                      MaSoLinhVuc = lv.masolinhvuc,
@@ -67,24 +69,74 @@ namespace Core.DAL
                 return linqQuery.ToList<LinhVuc>();
             }
         }
+        public static List<LinhVuc> filter(string request, List<LinhVuc> DMLinhVuc)
+        {
 
-        public static bool add(LinhVuc linhvuc)
+            if (Regex.IsMatch(request, @"[{=<>!}]"))
+            {
+                var linqQuery = from lv in DMLinhVuc
+                                select lv;
+
+                MatchCollection args = Regex.Matches(request, @"({).*?(})");
+                foreach (var arg in args)
+                {
+                    MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
+                    string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
+                    string param = "";
+                    for (int i = 1; i < Params.Count; i++)
+                    {
+                        param += " " + Params[i];
+                    }
+                    param = param.Trim();
+                    switch (Params[0].ToString())
+                    {
+                        case nameof(Properties.MaSoLinhVuc):
+                            linqQuery = linqQuery.Where(lv => FilterHelper.compare(lv.MaSoLinhVuc, Int32.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TenLinhVuc):
+                            linqQuery = linqQuery.Where(lv => FilterHelper.compare(lv.TenLinhVuc, param, method, true));
+                            break;
+                    }
+                }
+                return linqQuery.ToList();
+            }
+            else
+            {
+                int number;
+                bool isNumber = Int32.TryParse(request, out number);
+                request = request.ToLower();
+                if (isNumber)
+                {
+                    var linqQuery = DMLinhVuc.Where
+                    (lv => lv.MaSoLinhVuc.Equals(number)
+                    );
+                    return linqQuery.ToList();
+                }
+                else
+                {
+                    var linqQuery = DMLinhVuc.Where
+                    (lv => lv.TenLinhVuc.Contains(request)
+                    );
+                    return linqQuery.ToList();
+                }
+            }
+        }
+        public static List<LinhVuc> filter(string request)
+        {
+            var DMLinhVuc = getAll();
+            return filter(request, DMLinhVuc);
+        }
+        public static int add(LinhVuc linhvuc)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
-                LINHVUC lv;
-                lv = (from b in db.LINHVUCs
-                     where b.ten.Equals(linhvuc.TenLinhVuc)
-                     select b).SingleOrDefault();
-                if (lv != null) return false;
-                lv = new LINHVUC();
+                var lv = new LINHVUC();
                 lv.ten = linhvuc.TenLinhVuc;
                 db.LINHVUCs.InsertOnSubmit(lv);
                 db.SubmitChanges();
-                return true;
+                return lv.masolinhvuc;
             }
         }
-
         public static bool edit(LinhVuc linhvuc)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
@@ -98,6 +150,28 @@ namespace Core.DAL
                 lv.ten = linhvuc.TenLinhVuc;
                 db.SubmitChanges();
                 return true;
+            }
+        }
+        public static bool delete(int masolinhvuc)
+        {
+            try
+            {
+                using (EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    //Kiểm tra lĩnh vực có tồn tại không
+                    LINHVUC lv;
+                    lv = (from b in db.LINHVUCs
+                          where b.masolinhvuc.Equals(masolinhvuc)
+                          select b).SingleOrDefault();
+                    if (lv == null) return false;
+                    db.LINHVUCs.DeleteOnSubmit(lv);
+                    db.SubmitChanges();
+                    return true;
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
     }

@@ -29,6 +29,7 @@ namespace Core.DAL
             using(EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from nxb in db.NXBs
+                                where nxb.trangthai == null
                                 select new NhaXuatBan
                                 {
                                     MaSoNXB = nxb.masonxb,
@@ -37,7 +38,7 @@ namespace Core.DAL
                                     SoDienThoai = nxb.sodienthoai,
                                     SoTaiKhoan = nxb.sotaikhoan
                                 };
-                return linqQuery.ToList<NhaXuatBan>();
+                return linqQuery.ToList();
             }
         }
 
@@ -47,6 +48,7 @@ namespace Core.DAL
             {
                 var linqQuery = from nxb in db.NXBs
                                 where nxb.masonxb.Equals(masonxb)
+                                && nxb.trangthai == null
                                 select new NhaXuatBan
                                 {
                                     MaSoNXB = nxb.masonxb,
@@ -55,7 +57,7 @@ namespace Core.DAL
                                     SoDienThoai = nxb.sodienthoai,
                                     SoTaiKhoan = nxb.sotaikhoan
                                 };
-                return linqQuery.SingleOrDefault<NhaXuatBan>();
+                return linqQuery.SingleOrDefault();
             }
         }
 
@@ -66,6 +68,7 @@ namespace Core.DAL
                 dynamic value;
 
                 var linqQuery = (from nxb in db.NXBs
+                                 where nxb.trangthai == null
                                  select new NhaXuatBan
                                  {
                                      MaSoNXB = nxb.masonxb,
@@ -156,6 +159,80 @@ namespace Core.DAL
                     );
                     return linqQuery.ToList<NhaXuatBan>();
                 }
+            }
+        }
+        public static List<NhaXuatBan> filter(string request)
+        {
+            var DMNXB = getAll();
+            return filter(request, DMNXB);
+        }
+        public static int add(NhaXuatBan nhaxuatban)
+        {
+            try
+            {
+                using(EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    var nxb = new NXB
+                    {
+                        ten = nhaxuatban.TenNXB,
+                        diachi = nhaxuatban.DiaChi,
+                        sodienthoai = nhaxuatban.SoDienThoai,
+                        sotaikhoan = nhaxuatban.SoTaiKhoan
+                    }
+                    db.NXBs.InsertOnSubmit(nxb);
+                    db.SubmitChanges();
+                    return nxb.masonxb;
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
+        }
+        public static bool edit(NhaXuatBan nhaxuatban)
+        {
+            try
+            {
+                using(EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    NXB nxb;
+                    nxb = (from n in db.NXBs
+                           where n.masonxb.Equals(nhaxuatban.MaSoNXB)
+                           select n).SingleOrDefault();
+                    if (nxb == null) return false;
+                    nxb.ten = nhaxuatban.TenNXB;
+                    nxb.diachi = nhaxuatban.DiaChi;
+                    nxb.sodienthoai = nhaxuatban.SoDienThoai;
+                    nxb.sotaikhoan = nhaxuatban.SoTaiKhoan;
+                    db.SubmitChanges();
+                    return true;
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+        public static bool delete(int masonxb)
+        {
+            try
+            {
+                using (EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    NXB nxb;
+                    nxb = (from n in db.NXBs
+                           where n.masonxb.Equals(masonxb)
+                           select n).SingleOrDefault();
+                    if (nxb == null) return false;
+                    db.NXBs.DeleteOnSubmit(nxb);
+                    db.SubmitChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
     }

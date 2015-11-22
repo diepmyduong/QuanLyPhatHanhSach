@@ -304,7 +304,7 @@ namespace WinForm.Views
         /// </summary>
         public void reload()
         {
-            this.OnLoad(new EventArgs());
+            loadSach();
         }
         /// <summary>
         /// Load danh sách NXB và add vào giao diện
@@ -336,8 +336,8 @@ namespace WinForm.Views
         }
         private void createGridViewColumns()
         {
-            gdvDanhMucSach.AutoGenerateColumns = false;
-            gdvDanhMucSach.ColumnCount = 8;
+            gdvDanhMucSach.AutoGenerateColumns = false; // Bỏ auto generate Columns
+            gdvDanhMucSach.ColumnCount = 8; // Xác định số columns có
             setColumn(gdvDanhMucSach.Columns[0]
                 , nameof(SachManager.Properties.MaSoSach)
                 , SachManager.Properties.MaSoSach);

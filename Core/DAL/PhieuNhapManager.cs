@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.BIZ;
 using Core.DAL;
+using System.Text.RegularExpressions;
 
 namespace Core.DAL
 {
@@ -19,6 +20,7 @@ namespace Core.DAL
             public const string NguoiGiao = "Người giao";
             public const string TongTien = "Tổng tiền";
             public const string ChiTiet = "Chi Tiết";
+            public const string TrangThai = "Trạng Thái";
             
         }
 
@@ -119,31 +121,158 @@ namespace Core.DAL
                 return linqQuery.ToList<PhieuNhap>();
             }
         }
-        public static bool add(PhieuNhap phieunhap)
+        public static List<PhieuNhap> filter(string request, List<PhieuNhap> DMPhieuNhap)
+        {
+
+            if (Regex.IsMatch(request, @"[{=<>!}]"))
+            {
+                var linqQuery = from s in DMPhieuNhap
+                                select s;
+
+                MatchCollection args = Regex.Matches(request, @"({).*?(})");
+                foreach (var arg in args)
+                {
+                    MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
+                    string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
+                    string param = "";
+                    for (int i = 1; i < Params.Count; i++)
+                    {
+                        param += " " + Params[i];
+                    }
+                    param = param.Trim();
+                    switch (Params[0].ToString())
+                    {
+                        case nameof(Properties.MaSoPhieuNhap):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoPhieuNhap, Int32.Parse(param), method, false));
+                            break;
+                        case nameof(DaiLyManager.Properties.TenDaiLy):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NXB.TenNXB, param, method, true));
+                            break;
+                        case nameof(Properties.NguoiGiao):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NguoiGiao, param, method, true));
+                            break;
+                        case nameof(Properties.NgayLap):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NgayLap, param, method, true));
+                            break;
+                        case nameof(Properties.TongTien):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, param, method, false));
+                            break;
+                    }
+                }
+                return linqQuery.ToList();
+            }
+            else
+            {
+                int number;
+                bool isNumber = Int32.TryParse(request, out number);
+                request = request.ToLower();
+                if (isNumber)
+                {
+                    var linqQuery = DMPhieuNhap.Where
+                    (s => s.MaSoPhieuNhap.Equals(number)
+                    || s.TongTien.Equals(number)
+                    );
+                    return linqQuery.ToList();
+                }
+                else
+                {
+                    var linqQuery = DMPhieuNhap.Where
+                    (s => s.NgayLap.ToString().ToLower().Contains(request)
+                    || s.NXB.TenNXB.ToLower().Contains(request)
+                    || s.NguoiGiao.ToLower().Contains(request)
+                    );
+                    return linqQuery.ToList();
+                }
+            }
+        }
+
+        public static List<PhieuNhap> filter(string request)
+        {
+            var DMPhieuNhap = getAll();
+            return filter(request, DMPhieuNhap);
+        }
+        public static int add(PhieuNhap phieunhap)
         {
             try
             {
                 using (EntitiesDataContext db = new EntitiesDataContext())
                 {
                     var phieu = new PHIEUNHAP()
-                    {
-                        masonxb = phieunhap.NXB.MaSoNXB,
-                        ngaylap = phieunhap.NgayLap,
-                        nguoigiaosach = phieunhap.NguoiGiao,
-                        tongtien = phieunhap.TongTien,
-                    };
+                            {
+                                masonxb = phieunhap.NXB.MaSoNXB,
+                                ngaylap = phieunhap.NgayLap,
+                                nguoigiaosach = phieunhap.NguoiGiao,
+                                tongtien = phieunhap.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia)
+                            };
                     db.PHIEUNHAPs.InsertOnSubmit(phieu);
                     db.SubmitChanges();
-                    PhieuNhapManager.ChiTiet.add(phieunhap.ChiTiet, phieunhap.MaSoPhieuNhap);
-                    return true;
+                    ChiTiet.add(phieunhap.ChiTiet, phieu.masophieunhap);
+                    return phieu.masophieunhap;
                 }
             }catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return 0;
             }
             
         }
+        public static bool edit(PhieuNhap phieu)
+        {
+            try
+            {
+                using (EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    PHIEUNHAP px;
+                    px = (from p in db.PHIEUNHAPs
+                          where p.masophieunhap.Equals(phieu.MaSoPhieuNhap)
+                          select p).SingleOrDefault();
+                    if (px == null) return false;
+                    px.masonxb = phieu.MaSoNXB;
+                    px.ngaylap = phieu.NgayLap;
+                    px.nguoigiaosach = phieu.NguoiGiao;
+                    px.trangthai = phieu.TrangThai;
+                    px.tongtien = phieu.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia); // tính tổng tiền các chi tiết
+                    foreach (CHITIETPHIEUNHAP ct in px.CHITIETPHIEUNHAPs)
+                    {
+                        db.CHITIETPHIEUNHAPs.DeleteOnSubmit(ct);
+                    }
+                    foreach (ChiTietPhieuNhap ct in phieu.ChiTiet)
+                    {
+                        ChiTiet.add(ct);
+                    }
+                    db.SubmitChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+        public static bool delete(int masophieunhap)
+        {
+            try
+            {
+                using (EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    PHIEUNHAP phieu;
+                    phieu = (from p in db.PHIEUNHAPs
+                             where p.masophieunhap.Equals(masophieunhap)
+                             select p).SingleOrDefault();
+                    if (phieu == null) return false;
+                    db.PHIEUNHAPs.DeleteOnSubmit(phieu);
+                    db.SubmitChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
 
         //Chi tiết phiếu nhập
         public partial class ChiTiet
@@ -187,8 +316,6 @@ namespace Core.DAL
                     return linqQuery.ToList<ChiTietPhieuNhap>();
                 }
             }
-            
-
             public static List<ChiTietPhieuNhap> find(int masophieunhap)
             {
                 using (EntitiesDataContext db = new EntitiesDataContext())
@@ -263,20 +390,29 @@ namespace Core.DAL
                     return linqQuery.ToList<ChiTietPhieuNhap>();
                 }
             }
-
+            public static bool add(ChiTietPhieuNhap chitiet)
+            {
+                return add(chitiet, chitiet.MaSoPhieuNhap);
+            }
             public static bool add(ChiTietPhieuNhap chitiet,int masophieunhap)
             {
                 try
                 {
                     using (EntitiesDataContext db = new EntitiesDataContext())
                     {
-                        CHITIETPHIEUNHAP ct = new CHITIETPHIEUNHAP()
-                        {
-                            masosach = chitiet.Sach.MaSoSach,
-                            dongia = chitiet.DonGia,
-                            soluong = chitiet.SoLuong,
-                            masophieunhap = masophieunhap
-                        };
+                        CHITIETPHIEUNHAP ct;
+                        ct = (from c in db.CHITIETPHIEUNHAPs
+                              where c.masophieunhap.Equals(masophieunhap)
+                              && c.masosach.Equals(chitiet.MaSoSach)
+                              select c).SingleOrDefault();
+                        if (ct != null) return false;
+                        ct = new CHITIETPHIEUNHAP()
+                            {
+                                masosach = chitiet.Sach.MaSoSach,
+                                dongia = chitiet.DonGia,
+                                soluong = chitiet.SoLuong,
+                                masophieunhap = masophieunhap
+                            };
                         db.CHITIETPHIEUNHAPs.InsertOnSubmit(ct);
                         db.SubmitChanges();
                         return true;
@@ -306,6 +442,52 @@ namespace Core.DAL
                             };
                             db.CHITIETPHIEUNHAPs.InsertOnSubmit(ct);
                         }
+                        db.SubmitChanges();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+            }
+            public static bool edit(ChiTietPhieuNhap chitiet)
+            {
+                try
+                {
+                    using (EntitiesDataContext db = new EntitiesDataContext())
+                    {
+                        CHITIETPHIEUNHAP ct;
+                        ct = (from c in db.CHITIETPHIEUNHAPs
+                              where c.masophieunhap.Equals(chitiet.MaSoPhieuNhap)
+                              && c.masosach.Equals(chitiet.MaSoSach)
+                              select c).SingleOrDefault();
+                        if (ct == null) return false;
+                        ct.soluong = chitiet.SoLuong;
+                        db.SubmitChanges();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+            }
+            public static bool delete(ChiTietPhieuNhap chitiet)
+            {
+                try
+                {
+                    using (EntitiesDataContext db = new EntitiesDataContext())
+                    {
+                        CHITIETPHIEUNHAP ct;
+                        ct = (from c in db.CHITIETPHIEUNHAPs
+                              where c.masophieunhap.Equals(chitiet.MaSoPhieuNhap)
+                              && c.masosach.Equals(chitiet.MaSoSach)
+                              select c).SingleOrDefault();
+                        if (ct == null) return false;
+                        db.CHITIETPHIEUNHAPs.DeleteOnSubmit(ct);
                         db.SubmitChanges();
                         return true;
                     }

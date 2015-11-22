@@ -77,7 +77,7 @@
       <Column Name="diachi" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="sodienthoai" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
       <Column Name="sotaikhoan" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="trangthai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="DAILY_CONGNODAILY" Member="CONGNODAILies" ThisKey="masodaily" OtherKey="masodaily" Type="CONGNODAILY" />
       <Association Name="DAILY_HOADONDAILY" Member="HOADONDAILies" ThisKey="masodaily" OtherKey="masodaily" Type="HOADONDAILY" />
       <Association Name="DAILY_PHIEUXUAT" Member="PHIEUXUATs" ThisKey="masodaily" OtherKey="masodaily" Type="PHIEUXUAT" />
@@ -89,7 +89,7 @@
       <Column Name="masodaily" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ngaylap" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="tongtien" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="trangthai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="HOADONDAILY_CHITIETHOADONDAILY" Member="CHITIETHOADONDAILies" ThisKey="masohoadon" OtherKey="masohoadon" Type="CHITIETHOADONDAILY" />
       <Association Name="DAILY_HOADONDAILY" Member="DAILY" ThisKey="masodaily" OtherKey="masodaily" Type="DAILY" IsForeignKey="true" />
     </Type>
@@ -100,7 +100,7 @@
       <Column Name="masonxb" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ngaylap" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="tongtien" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="trangthai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="HOADONNXB_CHITIETHOADONNXB" Member="CHITIETHOADONNXBs" ThisKey="masohoadon" OtherKey="masohoadon" Type="CHITIETHOADONNXB" />
       <Association Name="NXB_HOADONNXB" Member="NXB" ThisKey="masonxb" OtherKey="masonxb" Type="NXB" IsForeignKey="true" />
     </Type>
@@ -109,7 +109,7 @@
     <Type Name="LINHVUC">
       <Column Name="masolinhvuc" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="trangthai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="LINHVUC_SACH" Member="SACHes" ThisKey="masolinhvuc" OtherKey="masolinhvuc" Type="SACH" />
     </Type>
   </Table>
@@ -120,7 +120,7 @@
       <Column Name="diachi" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="sodienthoai" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
       <Column Name="sotaikhoan" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="trangthai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="NXB_CONGNONXB" Member="CONGNONXBs" ThisKey="masonxb" OtherKey="masonxb" Type="CONGNONXB" />
       <Association Name="NXB_HOADONNXB" Member="HOADONNXBs" ThisKey="masonxb" OtherKey="masonxb" Type="HOADONNXB" />
       <Association Name="NXB_PHIEUNHAP" Member="PHIEUNHAPs" ThisKey="masonxb" OtherKey="masonxb" Type="PHIEUNHAP" />
@@ -134,7 +134,7 @@
       <Column Name="nguoigiaosach" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="ngaylap" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="tongtien" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="trangthai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="PHIEUNHAP_CHITIETPHIEUNHAP" Member="CHITIETPHIEUNHAPs" ThisKey="masophieunhap" OtherKey="masophieunhap" Type="CHITIETPHIEUNHAP" />
       <Association Name="NXB_PHIEUNHAP" Member="NXB" ThisKey="masonxb" OtherKey="masonxb" Type="NXB" IsForeignKey="true" />
     </Type>
@@ -146,7 +146,7 @@
       <Column Name="nguoinhasach" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="ngaylap" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="tongtien" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="trangthai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="PHIEUXUAT_CHITIETPHIEUXUAT" Member="CHITIETPHIEUXUATs" ThisKey="masophieuxuat" OtherKey="masophieuxuat" Type="CHITIETPHIEUXUAT" />
       <Association Name="DAILY_PHIEUXUAT" Member="DAILY" ThisKey="masodaily" OtherKey="masodaily" Type="DAILY" IsForeignKey="true" />
     </Type>
@@ -162,7 +162,8 @@
       <Column Name="gianhap" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="hinhanh" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="trangthai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="anh" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="SACH_CHITIETHOADONDAILY" Member="CHITIETHOADONDAILies" ThisKey="masosach" OtherKey="masosach" Type="CHITIETHOADONDAILY" />
       <Association Name="SACH_THEKHO" Member="THEKHOs" ThisKey="masosach" OtherKey="masosach" Type="THEKHO" />
       <Association Name="SACH_CHITIETHOADONNXB" Member="CHITIETHOADONNXBs" ThisKey="masosach" OtherKey="masosach" Type="CHITIETHOADONNXB" />
