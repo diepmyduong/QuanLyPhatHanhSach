@@ -8,6 +8,26 @@
     }
     @section AddToFooter{
         <script src="@Url.Content("~/Scripts/fileinput.min.js")"></script>
+        <script>
+            $("#hinh-anh").fileinput({
+                @*uploadUrl: "@Url.Action("Edit",new { Model })",// you must set a valid URL here else you will get an error*@
+                allowedFileExtensions : ['jpg', 'png','jpeg'],
+                overwriteInitial: false,
+                maxFileSize: 1000,
+                maxFilesNum: 1,
+                //allowedFileTypes: ['image', 'video', 'flash'],
+                slugCallback: function(filename) {
+                    return filename.replace('(', '_').replace(']', '_');
+                },
+                showCaption: true,
+                showPreview: true,
+                showRemove: true,
+                showUpload: false,
+                browseLabel: 'Tải ảnh &hellip;',
+                removeLabel: 'Xóa',
+                uploadLabel: 'Upload'
+            });
+        </script>
     }
 }
 
@@ -29,7 +49,7 @@
                 <div class="col-md-4">
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <input id="file-4" type="file" class="file" data-upload-url="#">
+                            <input id="hinh-anh" name="file" class="file" type="file" data-max-file-count="1">
                         </div>
                     </div>
                 </div>

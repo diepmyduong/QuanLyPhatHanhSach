@@ -161,9 +161,8 @@
       <Column Name="giaban" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="gianhap" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="hinhanh" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="anh" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="hinhanh" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="SACH_CHITIETHOADONDAILY" Member="CHITIETHOADONDAILies" ThisKey="masosach" OtherKey="masosach" Type="CHITIETHOADONDAILY" />
       <Association Name="SACH_THEKHO" Member="THEKHOs" ThisKey="masosach" OtherKey="masosach" Type="THEKHO" />
       <Association Name="SACH_CHITIETHOADONNXB" Member="CHITIETHOADONNXBs" ThisKey="masosach" OtherKey="masosach" Type="CHITIETHOADONNXB" />

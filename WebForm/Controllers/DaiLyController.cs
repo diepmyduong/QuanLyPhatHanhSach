@@ -105,7 +105,7 @@ namespace WebForm.Controllers
 
         // POST: DaiLy/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(DaiLy model, FormCollection collection)
         {
             try
             {

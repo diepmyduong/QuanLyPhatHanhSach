@@ -179,13 +179,7 @@ namespace WinForm.Views
             s.Soluong = Decimal.Parse(txbSoLuong.Text);
             s.GiaBan = Decimal.Parse(txbGiaBan.Text);
             s.GiaNhap = Decimal.Parse(txbGiaMua.Text);
-            s.HinhAnh = picHinhAnh.ImageLocation;
-            ////Kiểm tra trùng
-            //if (s.isContentExisted())
-            //{
-            //    MessageBox.Show("Thông tin bị trùng");
-            //    return;
-            //}
+            s.HinhAnhTypeImage = picHinhAnh.Image;
             //Cập nhật
             SachManager.edit(s);
             //Load lại form
@@ -284,7 +278,7 @@ namespace WinForm.Views
                 txbGiaMua.Text = s.GiaNhap.ToString();
                 if(s.HinhAnh != null)
                 {
-                    picHinhAnh.ImageLocation = s.HinhAnh;
+                    picHinhAnh.Image = s.HinhAnhTypeImage;
                 }
                 else
                 {

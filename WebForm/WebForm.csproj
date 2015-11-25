@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -188,6 +192,7 @@
     <Compile Include="Controllers\LinhVucController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NhaXuatBanController.cs" />
+    <Compile Include="Controllers\PhieuNhapController.cs" />
     <Compile Include="Controllers\SachController.cs" />
     <Compile Include="Controllers\ThongKeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -231,7 +236,6 @@
     <Content Include="Resources\DefaultImage.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Fakes Include="Fakes\System.Data.Linq.fakes" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -299,9 +303,17 @@
     <Content Include="Views\ThongKe\LoNhap.cshtml" />
     <Content Include="Views\ThongKe\LoNhapDetails.cshtml" />
     <Content Include="Views\DaiLy\Delete.cshtml" />
+    <Content Include="Views\Sach\Delete.cshtml" />
+    <Content Include="Views\PhieuNhap\Edit.cshtml" />
+    <Content Include="Views\PhieuNhap\ChiTietEditorRow.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\PhieuNhap\Details.cshtml" />
+    <Content Include="Views\PhieuNhap\ChiTietRow.cshtml" />
+    <Content Include="Views\PhieuNhap\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Fakes\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>

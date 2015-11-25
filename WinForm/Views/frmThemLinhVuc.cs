@@ -42,7 +42,8 @@ namespace WinForm.Views
             if (!String.IsNullOrEmpty(tensach))
             {
                 LinhVuc lv = new LinhVuc() { TenLinhVuc = tensach };
-                if (LinhVucManager.add(lv))
+                var result = LinhVucManager.add(lv);
+                if (result != 0)
                 {
                     MessageBox.Show("Đã thêm.");
                     reload();

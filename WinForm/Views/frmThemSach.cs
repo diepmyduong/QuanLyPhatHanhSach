@@ -94,10 +94,11 @@ namespace WinForm.Views
                 Soluong = Decimal.ToInt32(nmbSoLuong.Value),
                 GiaBan = Int32.Parse(txbGiaBan.Text),
                 GiaNhap = Int32.Parse(txbGiaNhap.Text),
-                HinhAnh = picHinhAnh.ImageLocation,
+                HinhAnhTypeImage = picHinhAnh.Image,
             };
             //Thêm vào database
-            if (SachManager.add(_sach))
+            var result = SachManager.add(_sach);
+            if (result != 0)
             {
                 MessageBox.Show("Tạo mới thành công");
                 reset();

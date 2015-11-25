@@ -39,7 +39,6 @@ namespace Core.DAL
             public const string TongTienNhapTheoThang = "Tiền nhập";
             public const string TongTienXuat = "Tổng tiền xuất";
             public const string TongTienXuatTheoThang = "Tiền xuất";
-            public const string Anh = "Hình ảnh";
 
         }
         public static List<Sach> getAll()
@@ -73,8 +72,7 @@ namespace Core.DAL
                                     Soluong = s.soluong,
                                     GiaBan = s.giaban,
                                     GiaNhap = s.gianhap,
-                                    HinhAnh = s.hinhanh,
-                                    Anh = s.anh
+                                    HinhAnh = s.hinhanh
                                 };
                 return linqQuery.ToList();
             }
@@ -111,8 +109,7 @@ namespace Core.DAL
                                     Soluong = s.soluong,
                                     GiaBan = s.giaban,
                                     GiaNhap = s.gianhap,
-                                    HinhAnh = s.hinhanh,
-                                    Anh = s.anh
+                                    HinhAnh = s.hinhanh
                                 };
                 return linqQuery.SingleOrDefault();
             }
@@ -284,7 +281,6 @@ namespace Core.DAL
                 s.giaban = sach.GiaBan;
                 s.gianhap = sach.GiaNhap;
                 s.hinhanh = sach.HinhAnh;
-                s.anh = sach.Anh;
                 db.SubmitChanges();
                 return true;
             }

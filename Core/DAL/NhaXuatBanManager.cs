@@ -178,7 +178,7 @@ namespace Core.DAL
                         diachi = nhaxuatban.DiaChi,
                         sodienthoai = nhaxuatban.SoDienThoai,
                         sotaikhoan = nhaxuatban.SoTaiKhoan
-                    }
+                    };
                     db.NXBs.InsertOnSubmit(nxb);
                     db.SubmitChanges();
                     return nxb.masonxb;

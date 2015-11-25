@@ -52,9 +52,10 @@ namespace WebForm.Controllers
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
-                    if (LinhVucManager.add(model))
+                    var result = LinhVucManager.add(model);
+                    if (result != 0)
                     {
-                        RedirectToAction("Index");
+                        RedirectToAction("Details",new { id = result });
                     }
                 }
                 return View(model);

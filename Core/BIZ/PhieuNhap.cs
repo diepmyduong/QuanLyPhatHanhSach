@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
@@ -18,6 +19,7 @@ namespace Core.BIZ
         #region Public Properties
         [DisplayName(PhieuNhapManager.Properties.MaSoPhieuNhap)]
         public int MaSoPhieuNhap { get; set; }
+        [Required]
         [DisplayName(PhieuNhapManager.Properties.MaSoNXB)]
         public int MaSoNXB { get; set; }
         [DisplayName(PhieuNhapManager.Properties.NXB)]
@@ -36,8 +38,10 @@ namespace Core.BIZ
                 _nxb = value;
             }
         }
+        [Required]
         [DisplayName(PhieuNhapManager.Properties.NgayLap)]
         public DateTime NgayLap { get; set; }
+        [Required]
         [DisplayName(PhieuNhapManager.Properties.NguoiGiao)]
         public string NguoiGiao { get; set; }
         [DisplayName(PhieuNhapManager.Properties.TongTien)]
@@ -61,7 +65,7 @@ namespace Core.BIZ
             }
         }
         [DisplayName(PhieuNhapManager.Properties.TrangThai)]
-        public int TrangThai { get; set; }
+        public int? TrangThai { get; set; }
         #endregion
 
         #region Services
@@ -78,6 +82,18 @@ namespace Core.BIZ
             }
             _chitiet.Add(chitiet);
             return true;
+        }
+        public bool deleteDetail(int masosach)
+        {
+            foreach(ChiTietPhieuNhap ct in _chitiet)
+            {
+                if (ct.MaSoSach.Equals(masosach))
+                {
+                    _chitiet.Remove(ct);
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 

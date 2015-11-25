@@ -43,7 +43,11 @@ namespace Core.BIZ
 
             return destImage;
         }
-
+        /// <summary>
+        /// Chuyển kiểu Binary thành Image
+        /// </summary>
+        /// <param name="binaryData"></param>
+        /// <returns></returns>
         public static  Image BinaryToImage(System.Data.Linq.Binary binaryData)
         {
             if (binaryData == null) return null;
@@ -53,6 +57,11 @@ namespace Core.BIZ
             memStream.Write(buffer, 0, buffer.Length);
             return Image.FromStream(memStream);
         }
+        /// <summary>
+        /// Chuyển kiểu Image thành Binary
+        /// </summary>
+        /// <param name="img"></param>
+        /// <returns></returns>
         public static byte[] ImageToBinary(Image img)
         {
 
@@ -61,6 +70,15 @@ namespace Core.BIZ
             BinaryReader streamreader = new BinaryReader(stream);
             var data = stream.GetBuffer();
             return data;
+        }
+        public static string ImageToBase64String(Image img)
+        {
+            return Convert.ToBase64String(ImageToBinary(img));
+        }
+
+        public static string ImageToDataBase64String(Image img)
+        {
+            return String.Format("data:image/gif;base64,{0}", ImageToBase64String(img));
         }
     }
 }

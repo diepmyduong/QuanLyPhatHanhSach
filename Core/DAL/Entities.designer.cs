@@ -3399,11 +3399,9 @@ namespace Core.DAL
 		
 		private decimal _soluong;
 		
-		private string _hinhanh;
-		
 		private System.Nullable<int> _trangthai;
 		
-		private System.Data.Linq.Binary _anh;
+		private System.Data.Linq.Binary _hinhanh;
 		
 		private EntitySet<CHITIETHOADONDAILY> _CHITIETHOADONDAILies;
 		
@@ -3443,12 +3441,10 @@ namespace Core.DAL
     partial void OngianhapChanged();
     partial void OnsoluongChanging(decimal value);
     partial void OnsoluongChanged();
-    partial void OnhinhanhChanging(string value);
-    partial void OnhinhanhChanged();
     partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
-    partial void OnanhChanging(System.Data.Linq.Binary value);
-    partial void OnanhChanged();
+    partial void OnhinhanhChanging(System.Data.Linq.Binary value);
+    partial void OnhinhanhChanged();
     #endregion
 		
 		public SACH()
@@ -3633,26 +3629,6 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hinhanh", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string hinhanh
-		{
-			get
-			{
-				return this._hinhanh;
-			}
-			set
-			{
-				if ((this._hinhanh != value))
-				{
-					this.OnhinhanhChanging(value);
-					this.SendPropertyChanging();
-					this._hinhanh = value;
-					this.SendPropertyChanged("hinhanh");
-					this.OnhinhanhChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
 		public System.Nullable<int> trangthai
 		{
@@ -3673,22 +3649,22 @@ namespace Core.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_anh", DbType="Image", UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary anh
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hinhanh", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary hinhanh
 		{
 			get
 			{
-				return this._anh;
+				return this._hinhanh;
 			}
 			set
 			{
-				if ((this._anh != value))
+				if ((this._hinhanh != value))
 				{
-					this.OnanhChanging(value);
+					this.OnhinhanhChanging(value);
 					this.SendPropertyChanging();
-					this._anh = value;
-					this.SendPropertyChanged("anh");
-					this.OnanhChanged();
+					this._hinhanh = value;
+					this.SendPropertyChanged("hinhanh");
+					this.OnhinhanhChanged();
 				}
 			}
 		}

@@ -45,9 +45,10 @@ namespace Core.DAL
                                     },
                                     NgayLap = phieu.ngaylap,
                                     NguoiGiao = phieu.nguoigiaosach,
-                                    TongTien = phieu.tongtien
+                                    TongTien = phieu.tongtien,
+                                    TrangThai = phieu.trangthai
                                 };
-                return linqQuery.ToList<PhieuNhap>();
+                return linqQuery.ToList();
             }
         }
         public static PhieuNhap find(int masophieunhap)
@@ -72,9 +73,10 @@ namespace Core.DAL
                                     },
                                     NgayLap = phieu.ngaylap,
                                     NguoiGiao = phieu.nguoigiaosach,
-                                    TongTien = phieu.tongtien
+                                    TongTien = phieu.tongtien,
+                                    TrangThai = phieu.trangthai
                                 };
-                return linqQuery.SingleOrDefault<PhieuNhap>();
+                return linqQuery.SingleOrDefault();
             }
         }
         public static List<PhieuNhap> findBy(Dictionary<string, dynamic> Params)
@@ -100,7 +102,8 @@ namespace Core.DAL
                                      },
                                      NgayLap = phieu.ngaylap,
                                      NguoiGiao = phieu.nguoigiaosach,
-                                     TongTien = phieu.tongtien
+                                     TongTien = phieu.tongtien,
+                                     TrangThai = phieu.trangthai
                                  })
                                  .Where(phieu => phieu.MaSoPhieuNhap.Equals(
                                         Params.TryGetValue(Properties.MaSoPhieuNhap, out value) ? value as int?
@@ -118,7 +121,7 @@ namespace Core.DAL
                                         Params.TryGetValue(Properties.MaSoNXB, out value) ? value as int?
                                         : phieu.MaSoNXB
                                  ));
-                return linqQuery.ToList<PhieuNhap>();
+                return linqQuery.ToList();
             }
         }
         public static List<PhieuNhap> filter(string request, List<PhieuNhap> DMPhieuNhap)
@@ -198,12 +201,13 @@ namespace Core.DAL
                 using (EntitiesDataContext db = new EntitiesDataContext())
                 {
                     var phieu = new PHIEUNHAP()
-                            {
-                                masonxb = phieunhap.NXB.MaSoNXB,
-                                ngaylap = phieunhap.NgayLap,
-                                nguoigiaosach = phieunhap.NguoiGiao,
-                                tongtien = phieunhap.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia)
-                            };
+                    {
+                        masonxb = phieunhap.NXB.MaSoNXB,
+                        ngaylap = phieunhap.NgayLap,
+                        nguoigiaosach = phieunhap.NguoiGiao,
+                        tongtien = phieunhap.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia),
+                        trangthai = 0
+                    };
                     db.PHIEUNHAPs.InsertOnSubmit(phieu);
                     db.SubmitChanges();
                     ChiTiet.add(phieunhap.ChiTiet, phieu.masophieunhap);

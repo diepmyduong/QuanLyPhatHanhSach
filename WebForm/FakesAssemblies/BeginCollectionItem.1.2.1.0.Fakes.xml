@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BeginCollectionItem.1.2.1.0.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions">
+            <summary>Shim type of HtmlHelpers.BeginCollectionItem.HtmlPrefixScopeExtensions</summary>
+        </member>
+        <member name="M:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="P:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions.BeginCollectionItemHtmlHelperString">
+            <summary>Sets the shim of HtmlPrefixScopeExtensions.BeginCollectionItem(HtmlHelper html, String collectionName)</summary>
+        </member>
+        <member name="P:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions.BeginCollectionItemHtmlHelperStringTextWriter">
+            <summary>Sets the shim of HtmlPrefixScopeExtensions.BeginCollectionItem(HtmlHelper html, String collectionName, TextWriter writer)</summary>
+        </member>
+        <member name="P:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions.BeginHtmlFieldPrefixScopeHtmlHelperString">
+            <summary>Sets the shim of HtmlPrefixScopeExtensions.BeginHtmlFieldPrefixScope(HtmlHelper html, String htmlFieldPrefix)</summary>
+        </member>
+        <member name="M:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:HtmlHelpers.BeginCollectionItem.Fakes.ShimHtmlPrefixScopeExtensions.GetIdsToReuseHttpContextBaseString">
+            <summary>Sets the shim of HtmlPrefixScopeExtensions.GetIdsToReuse(HttpContextBase httpContext, String collectionName)</summary>
+        </member>
+    </members>
+</doc>

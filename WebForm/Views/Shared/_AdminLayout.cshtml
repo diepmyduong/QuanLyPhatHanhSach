@@ -137,7 +137,7 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse ">
                 <ul class="nav navbar-nav side-nav scrollbar-style scrollbar">
-                    <li class="@if(currentCotroller == "Sach") { @Html.Raw("active")}">
+                    <li class="@if(currentCotroller == "Sach" || currentCotroller == "PhieuNhap" ) { @Html.Raw("active")}">
                         <a href="javascript:;" data-toggle="collapse" data-target="#sach"><i class="fa fa-fw fa-book"></i> Sách <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="sach" class="collapse">
                             <li>
@@ -147,10 +147,10 @@
                                 @Html.ActionLink("Thêm Sách", "Create", "Sach", null, null)
                             </li>
                             <li>
-                                <a href="#">Tạo phiếu nhập</a>
+                                @Html.ActionLink("Tạo phiếu nhập", "Create", "PhieuNhap", null, null)
                             </li>
                             <li>
-                                <a href="#">Tạo phiếu nhập</a>
+                                <a href="#">Tạo phiếu xuất</a>
                             </li>
                         </ul>
                     </li>

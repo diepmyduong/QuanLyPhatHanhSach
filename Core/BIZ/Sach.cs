@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Data.Linq;
 using System.Drawing.Imaging;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
@@ -35,8 +36,10 @@ namespace Core.BIZ
         #region Public Properties
         [DisplayName(SachManager.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
+        [Required]
         [DisplayName(SachManager.Properties.TenSach)]
         public string TenSach { get; set; }
+        [Required]
         [DisplayName(SachManager.Properties.MaSoLinhVuc)]
         public int MaSoLinhVuc { get; set; }
         [DisplayName(SachManager.Properties.LinhVucSach)]
@@ -55,8 +58,10 @@ namespace Core.BIZ
                 _linhvuc = value;
             }
         }
+        [Required]
         [DisplayName(SachManager.Properties.TenTacGia)]
         public string TenTacGia { get; set; }
+        [Required]
         [DisplayName(SachManager.Properties.MaSoNXB)]
         public int MaSoNXB { get; set; }
         [DisplayName(SachManager.Properties.NXB)]
@@ -77,12 +82,14 @@ namespace Core.BIZ
         }
         [DisplayName(SachManager.Properties.Soluong)]
         public decimal Soluong { get; set; }
+        [Required]
         [DisplayName(SachManager.Properties.GiaNhap)]
         public decimal GiaNhap { get; set; }
+        [Required]
         [DisplayName(SachManager.Properties.GiaBan)]
         public decimal GiaBan { get; set; }
         [DisplayName(SachManager.Properties.HinhAnh)]
-        public string HinhAnh { get; set; }
+        public Binary HinhAnh { get; set; }
         [DisplayName(SachManager.Properties.CongNoDaiLy)]
         public List<CongNoDaiLy> CongNoDaiLy
         {
@@ -241,16 +248,14 @@ namespace Core.BIZ
                 return _tongTienXuat;
             }
         }
-        [DisplayName(SachManager.Properties.Anh)]
-        public Binary Anh { get; set; }
 
-        public Image Image
+        public Image HinhAnhTypeImage
         {
             get
             {
                 if(_image == null)
                 {
-                    _image = ImagesHelper.BinaryToImage(this.Anh);
+                    _image = ImagesHelper.BinaryToImage(this.HinhAnh);
                 }
                 return _image;
             }
@@ -259,8 +264,8 @@ namespace Core.BIZ
                 _image = value;
                 if(_image != null)
                 {
-                    _image = ImagesHelper.ResizeImage(_image, 300, 400);
-                    this.Anh = ImagesHelper.ImageToBinary(_image);
+                    _image = ImagesHelper.ResizeImage(_image, 350, 400);
+                    this.HinhAnh = ImagesHelper.ImageToBinary(_image);
                 }
             }
         }
