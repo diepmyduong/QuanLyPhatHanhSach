@@ -31,34 +31,7 @@ namespace Core.DAL
                                 on cn.masosach equals s.masosach
                                 join d in db.DAILies
                                 on cn.masodaily equals d.masodaily
-                                select new CongNoDaiLy()
-                                {
-                                    MaSoSach = cn.masosach,
-                                    Sach = new Sach()
-                                    {
-                                        MaSoSach = s.masosach,
-                                        TenSach = s.tensach,
-                                        TenTacGia = s.tacgia,
-                                        MaSoLinhVuc = s.masolinhvuc,
-                                        MaSoNXB = s.masonxb,
-                                        Soluong = s.soluong,
-                                        GiaBan = s.giaban,
-                                        GiaNhap = s.gianhap,
-                                        HinhAnh = s.hinhanh
-                                    },
-                                    MaSoDaiLy = cn.masodaily,
-                                    DaiLy = new DaiLy()
-                                    {
-                                        MaSoDaiLy = d.masodaily,
-                                        TenDaiLy = d.ten,
-                                        DiaChi = d.diachi,
-                                        SoDienThoai = d.sodienthoai,
-                                        SoTaiKhoan = d.sotaikhoan
-                                    },
-                                    SoLuong = cn.soluong,
-                                    DonGia = cn.dongia,
-                                    Thang = cn.thang
-                                };
+                                select new CongNoDaiLy(cn,d,s);
                 return linqQuery.ToList();
             }
         }
@@ -72,34 +45,7 @@ namespace Core.DAL
                                 join d in db.DAILies
                                 on cn.masodaily equals d.masodaily
                                 where cn.masodaily.Equals(masodaily)
-                                select new CongNoDaiLy()
-                                {
-                                    MaSoSach = cn.masosach,
-                                    Sach = new Sach()
-                                    {
-                                        MaSoSach = s.masosach,
-                                        TenSach = s.tensach,
-                                        TenTacGia = s.tacgia,
-                                        MaSoLinhVuc = s.masolinhvuc,
-                                        MaSoNXB = s.masonxb,
-                                        Soluong = s.soluong,
-                                        GiaBan = s.giaban,
-                                        GiaNhap = s.gianhap,
-                                        HinhAnh = s.hinhanh
-                                    },
-                                    MaSoDaiLy = cn.masodaily,
-                                    DaiLy = new DaiLy()
-                                    {
-                                        MaSoDaiLy = d.masodaily,
-                                        TenDaiLy = d.ten,
-                                        DiaChi = d.diachi,
-                                        SoDienThoai = d.sodienthoai,
-                                        SoTaiKhoan = d.sotaikhoan
-                                    },
-                                    SoLuong = cn.soluong,
-                                    DonGia = cn.dongia,
-                                    Thang = cn.thang
-                                };
+                                select new CongNoDaiLy(cn,d, s);
                 return linqQuery.ToList();
             }
         }
@@ -108,39 +54,7 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 dynamic value;
-                var linqQuery = (from cn in db.CONGNODAILies
-                                 join s in db.SACHes
-                                 on cn.masosach equals s.masosach
-                                 join d in db.DAILies
-                                 on cn.masodaily equals d.masodaily
-                                 select new CongNoDaiLy()
-                                 {
-                                     MaSoSach = cn.masosach,
-                                     Sach = new Sach()
-                                     {
-                                         MaSoSach = s.masosach,
-                                         TenSach = s.tensach,
-                                         TenTacGia = s.tacgia,
-                                         MaSoLinhVuc = s.masolinhvuc,
-                                         MaSoNXB = s.masonxb,
-                                         Soluong = s.soluong,
-                                         GiaBan = s.giaban,
-                                         GiaNhap = s.gianhap,
-                                         HinhAnh = s.hinhanh
-                                     },
-                                     MaSoDaiLy = cn.masodaily,
-                                     DaiLy = new DaiLy()
-                                     {
-                                         MaSoDaiLy = d.masodaily,
-                                         TenDaiLy = d.ten,
-                                         DiaChi = d.diachi,
-                                         SoDienThoai = d.sodienthoai,
-                                         SoTaiKhoan = d.sotaikhoan
-                                     },
-                                     SoLuong = cn.soluong,
-                                     DonGia = cn.dongia,
-                                     Thang = cn.thang
-                                 })
+                var linqQuery = getAll()
                                  .Where(cn => cn.MaSoSach.Equals(
                                         Params.TryGetValue(Properties.MaSoSach, out value) ? value as int?
                                         : cn.MaSoSach
@@ -174,9 +88,34 @@ namespace Core.DAL
                     MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
                     string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
                     string param = "";
+                    int? year = null, month = null, day = null;
                     for (int i = 1; i < Params.Count; i++)
                     {
                         param += " " + Params[i];
+                        if (i == 1)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                year = number;
+                            }
+                        }
+                        if (i == 2)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                month = number;
+                            }
+                        }
+                        if (i == 3)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                day = number;
+                            }
+                        }
                     }
                     param = param.Trim();
                     switch (Params[0].ToString())
@@ -194,7 +133,7 @@ namespace Core.DAL
                             linqQuery = linqQuery.Where(cn => FilterHelper.compare(cn.DonGia, Decimal.Parse(param), method, false));
                             break;
                         case nameof(Properties.Thang):
-                            linqQuery = linqQuery.Where(cn => FilterHelper.compare(cn.Thang, param, method, true));
+                            linqQuery = linqQuery.Where(cn => FilterHelper.compareDate(cn.Thang, year, month, day, method));
                             break;
                         case nameof(Properties.ThanhTien):
                             linqQuery = linqQuery.Where(cn => FilterHelper.compare(cn.ThanhTien, Decimal.Parse(param), method, false));
@@ -227,6 +166,7 @@ namespace Core.DAL
                     var linqQuery = DMCongNo.Where
                     (cn => cn.DaiLy.TenDaiLy.Contains(request)
                     || cn.Sach.TenSach.Contains(request)
+                    || cn.Thang.ToString().Contains(request)
                     );
                     return linqQuery.ToList();
                 }
@@ -253,7 +193,6 @@ namespace Core.DAL
                     if (cn != null)
                     {
                         cn.soluong += congno.SoLuong;
-                        cn.thang = congno.Thang;
                         db.SubmitChanges();
                         return 1;
                     }
@@ -294,7 +233,6 @@ namespace Core.DAL
                     if (cn == null) return false; //Nếu đại lý không tồn tại
                     cn.soluong = congno.SoLuong;
                     cn.dongia = congno.DonGia;
-                    cn.thang = congno.Thang;
                     db.SubmitChanges();
                     return true;
                 }

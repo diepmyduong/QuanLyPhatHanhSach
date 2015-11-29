@@ -11,28 +11,56 @@ namespace WebForm.Controllers
 {
     public class LinhVucController : Controller
     {
+
+        #region Private Properties
+        private List<string> _propertiesName; // Danh sách tên cách thuộc tính
+        #endregion
+
+        #region Public Properties
+        public List<string> PropertiesName
+        {
+            get
+            {
+                if (_propertiesName == null)
+                {
+                    var pros = typeof(LinhVucManager.Properties).GetFields();
+                    _propertiesName = pros.Select(p => p.Name).ToList();
+                }
+                return _propertiesName;
+            }
+        }
+        #endregion
+
+        #region Actions
         // GET: LinhVuc
         public ActionResult Index(int page = 1, int pageSize = 10, string search = null)
         {
             List<LinhVuc> DMLinhVuc = null;
-            //if (!String.IsNullOrEmpty(search))
-            //{
-            //    DMLinhVuc = LinhVucManager.filter(search);
-            //    ViewBag.SearchKey = search;
-            //}
-            //else
-            //{
-            //    DMLinhVuc = LinhVucManager.getAll();
-            //}
-            DMLinhVuc = LinhVucManager.getAll();
+            if (!String.IsNullOrEmpty(search))
+            {
+                DMLinhVuc = LinhVucManager.filter(search);
+                ViewBag.SearchKey = search;
+            }
+            else
+            {
+                DMLinhVuc = LinhVucManager.getAll();
+            }
             var models = DMLinhVuc.ToPagedList(page, pageSize);
             return View(models);
         }
 
         // GET: LinhVuc/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var model = LinhVucManager.find(id);
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request");
+            }
+            var model = LinhVucManager.find((int)id);
+            if (model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
             return View(model);
         }
 
@@ -55,7 +83,7 @@ namespace WebForm.Controllers
                     var result = LinhVucManager.add(model);
                     if (result != 0)
                     {
-                        RedirectToAction("Details",new { id = result });
+                        RedirectToAction("Details", new { id = result });
                     }
                 }
                 return View(model);
@@ -67,9 +95,17 @@ namespace WebForm.Controllers
         }
 
         // GET: LinhVuc/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var model = LinhVucManager.find(id);
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request");
+            }
+            var model = LinhVucManager.find((int)id);
+            if (model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
             return View(model);
         }
 
@@ -96,25 +132,55 @@ namespace WebForm.Controllers
         }
 
         // GET: LinhVuc/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if(id == null)
+            {
+                return new HttpNotFoundResult("Bad Request");
+            }
+            var model = LinhVucManager.find((int)id);
+            if(model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
+            return View(model);
         }
 
         // POST: LinhVuc/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int? id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (id == null)
+                {
+                    return new HttpNotFoundResult("Bad Request");
+                }
+                if (LinhVucManager.delete((int)id))
+                {
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
             catch
             {
                 return View();
             }
         }
+        #endregion
+
+
+        #region JSON REQUEST
+        public JsonResult GetProperties(string request)
+        {
+            List<string> results = new List<string>();
+            foreach (string pro in PropertiesName)
+            {
+                results.Add(request + pro);
+            }
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

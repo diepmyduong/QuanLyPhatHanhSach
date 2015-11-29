@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Core.DAL;
 using Core.BIZ;
 using System.Globalization;
+using PagedList;
 
 namespace WebForm.Controllers
 {
@@ -14,7 +15,7 @@ namespace WebForm.Controllers
 
         #region Private Properties
         private static PhieuNhap _phieu;
-        private static int? currentPhieu;
+        private static int? _currentPhieu;
         private CultureInfo _cultureInfo; // Thông tin văn hóa
         #endregion
 
@@ -32,9 +33,22 @@ namespace WebForm.Controllers
         }
         #endregion
         // GET: PhieuNhap
-        public ActionResult Index()
+        public ActionResult All(int page = 1, int pageSize = 10, string search = null)
         {
-            return View();
+            List<PhieuNhap> DMPhieu = null;
+            ViewBag.cultureInfo = CultureInfo;
+            if (!String.IsNullOrEmpty(search))
+            {
+                DMPhieu = PhieuNhapManager.filter(search);
+                ViewBag.SearchKey = search;
+            }
+            else
+            {
+                DMPhieu = PhieuNhapManager.getAll();
+            }
+
+            var models = DMPhieu.ToPagedList(page, pageSize);
+            return View(models);
         }
 
         // GET: PhieuNhap/Details/5
@@ -121,13 +135,19 @@ namespace WebForm.Controllers
         {
             if(id != null)
             {
-                if(currentPhieu == null || currentPhieu != id)
+                if(_currentPhieu == null || _currentPhieu != id)
                 {
-                    currentPhieu = id;
+                    _currentPhieu = id;
                     _phieu = PhieuNhapManager.find((int)id);
                     if (_phieu == null)
                     {
                         return new HttpNotFoundResult("Not Found!");
+                    }
+                    if(_phieu.TrangThai == 1)
+                    {
+                        //Nếu đã duyệt thì không cho sửa, chuyển sang trang chi tiết
+                        _currentPhieu = null;
+                        return RedirectToAction("Details", new { id = id });
                     }
                 }
                 ViewBag.cultureInfo = CultureInfo;
@@ -142,13 +162,25 @@ namespace WebForm.Controllers
 
         // POST: PhieuNhap/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(PhieuNhap model, FormCollection collection)
         {
             try
             {
+                if (ModelState.IsValid)
+                {
+                    if (PhieuNhapManager.edit(model))
+                    {
+                        _currentPhieu = null;
+                        return RedirectToAction("Details", new { id = model.MaSoPhieuNhap });
+                    }
+                }
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                _phieu = model;
+                ViewBag.currentNXB = _phieu.NXB;
+                ViewBag.DMSach = new SelectList(_phieu.NXB.Sach,
+                                        nameof(SachManager.Properties.MaSoSach),
+                                        nameof(SachManager.Properties.TenSach), "");
+                return View(_phieu);
             }
             catch
             {
@@ -159,7 +191,16 @@ namespace WebForm.Controllers
         // GET: PhieuNhap/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = PhieuNhapManager.find(id);
+            if(model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
+            if(model.TrangThai == 1)
+            {
+                return RedirectToAction("Details", new { id = model.MaSoPhieuNhap });
+            }
+            return View(model);
         }
 
         // POST: PhieuNhap/Delete/5
@@ -168,14 +209,35 @@ namespace WebForm.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (PhieuNhapManager.delete(id))
+                {
+                    return RedirectToAction("All");
+                }
+                return View(id);
             }
             catch
             {
-                return View();
+                return View(id);
             }
+        }
+
+        //Duyệt phiếu
+        public ActionResult Accept(int id)
+        {
+            var model = PhieuNhapManager.find(id);
+            if (model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
+            if(model.TrangThai == 1)
+            {
+                return RedirectToAction("Details", new { id = id });
+            }
+            if (model.accept())
+            {
+                return RedirectToAction("Details", new { id = id });
+            }
+            return View();
         }
 
         #region REQUEST
@@ -261,6 +323,7 @@ namespace WebForm.Controllers
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion
     }
 }

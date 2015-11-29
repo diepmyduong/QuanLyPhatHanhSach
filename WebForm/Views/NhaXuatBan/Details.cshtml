@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>@Html.DisplayFor(model => model.TenNXB)</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>@Html.DisplayFor(model=> model.SoDienThoai)</h4>
+    <h4>Nhà xuất bản</h4>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.MaSoNXB }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoNXB }) |
+        @Html.ActionLink("Trở lại danh sách", "Index")
     </p>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.MaSoNXB)
+            @Html.DisplayNameFor(model => model.MaSoNXB) :
         </dt>
 
         <dd>
@@ -24,7 +24,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TenNXB)
+            @Html.DisplayNameFor(model => model.TenNXB) :
         </dt>
 
         <dd>
@@ -32,7 +32,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
+            @Html.DisplayNameFor(model => model.DiaChi) :
         </dt>
 
         <dd>
@@ -40,7 +40,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SoDienThoai)
+            @Html.DisplayNameFor(model => model.SoDienThoai) :
         </dt>
 
         <dd>
@@ -48,7 +48,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SoTaiKhoan)
+            @Html.DisplayNameFor(model => model.SoTaiKhoan) :
         </dt>
 
         <dd>

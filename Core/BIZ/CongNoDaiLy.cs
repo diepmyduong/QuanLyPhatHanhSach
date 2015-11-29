@@ -5,14 +5,44 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
     public class CongNoDaiLy
     {
+        public CongNoDaiLy() { }
+        public CongNoDaiLy(CONGNODAILY congno)
+        {
+            MaSoSach = congno.masosach;
+            MaSoDaiLy = congno.masodaily;
+            SoLuong = congno.soluong;
+            DonGia = congno.dongia;
+            Thang = congno.thang;
+        }
+        public CongNoDaiLy(CONGNODAILY congno, DAILY daily)
+            :this(congno)
+        {
+            DaiLy = new DaiLy(daily);
+        }
+        public CongNoDaiLy(CONGNODAILY congno, SACH sach)
+            : this(congno)
+        {
+            Sach = new Sach(sach);
+        }
+        public CongNoDaiLy(CONGNODAILY congno, DAILY daily, SACH sach)
+            :this(congno,daily)
+        {
+            Sach = new Sach(sach);
+        }
+
+        #region Private Properties
         private Sach _sach;
         private DaiLy _daily;
+        #endregion
 
+        #region Public Properties
+        [Required]
         [DisplayName(CongNoDaiLyManager.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
         [DisplayName(CongNoDaiLyManager.Properties.Sach)]
@@ -20,7 +50,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_sach == null)
+                if (_sach == null)
                 {
                     _sach = SachManager.find(this.MaSoSach);
                 }
@@ -31,6 +61,7 @@ namespace Core.BIZ
                 _sach = value;
             }
         }
+        [Required]
         [DisplayName(CongNoDaiLyManager.Properties.MaSoDaiLy)]
         public int MaSoDaiLy { get; set; }
         [DisplayName(CongNoDaiLyManager.Properties.DaiLy)]
@@ -38,7 +69,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_daily == null)
+                if (_daily == null)
                 {
                     _daily = DaiLyManager.find(this.MaSoDaiLy);
                 }
@@ -49,23 +80,38 @@ namespace Core.BIZ
                 _daily = value;
             }
         }
+        [Required]
         [DisplayName(CongNoDaiLyManager.Properties.SoLuong)]
         public decimal SoLuong { get; set; }
+        [Required]
         [DisplayName(CongNoDaiLyManager.Properties.DonGia)]
         public decimal DonGia { get; set; }
         [DisplayName(CongNoDaiLyManager.Properties.ThanhTien)]
-        public decimal ThanhTien {
+        public decimal ThanhTien
+        {
             get
             {
                 return this.SoLuong * this.DonGia;
             }
         }
+        [Required]
         [DisplayName(CongNoDaiLyManager.Properties.Thang)]
-        public DateTime Thang { get; set;}
+        public DateTime Thang { get; set; }
+        #endregion
 
+        #region Services
+        #endregion
+
+        #region Override Methods
         public override string ToString()
         {
             return this.Thang.ToString();
         }
+        #endregion
+
+
+
+
+
     }
 }

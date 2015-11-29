@@ -242,6 +242,8 @@ namespace Core.DAL
 		
 		private decimal _dongia;
 		
+		private System.Nullable<int> _trangthai;
+		
 		private EntityRef<HOADONDAILY> _HOADONDAILY;
 		
 		private EntityRef<SACH> _SACH;
@@ -258,6 +260,8 @@ namespace Core.DAL
     partial void OnsoluongChanged();
     partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
+    partial void OntrangthaiChanging(System.Nullable<int> value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public CHITIETHOADONDAILY()
@@ -351,6 +355,26 @@ namespace Core.DAL
 					this._dongia = value;
 					this.SendPropertyChanged("dongia");
 					this.OndongiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -609,6 +633,8 @@ namespace Core.DAL
 		
 		private decimal _dongia;
 		
+		private System.Nullable<int> _trangthai;
+		
 		private EntityRef<HOADONNXB> _HOADONNXB;
 		
 		private EntityRef<SACH> _SACH;
@@ -625,6 +651,8 @@ namespace Core.DAL
     partial void OnsoluongChanged();
     partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
+    partial void OntrangthaiChanging(System.Nullable<int> value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public CHITIETHOADONNXB()
@@ -718,6 +746,26 @@ namespace Core.DAL
 					this._dongia = value;
 					this.SendPropertyChanged("dongia");
 					this.OndongiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -825,6 +873,8 @@ namespace Core.DAL
 		
 		private decimal _dongia;
 		
+		private System.Nullable<int> _trangthai;
+		
 		private EntityRef<PHIEUNHAP> _PHIEUNHAP;
 		
 		private EntityRef<SACH> _SACH;
@@ -841,6 +891,8 @@ namespace Core.DAL
     partial void OnsoluongChanged();
     partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
+    partial void OntrangthaiChanging(System.Nullable<int> value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public CHITIETPHIEUNHAP()
@@ -934,6 +986,26 @@ namespace Core.DAL
 					this._dongia = value;
 					this.SendPropertyChanged("dongia");
 					this.OndongiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}
@@ -1041,6 +1113,8 @@ namespace Core.DAL
 		
 		private decimal _dongia;
 		
+		private System.Nullable<int> _trangthai;
+		
 		private EntityRef<PHIEUXUAT> _PHIEUXUAT;
 		
 		private EntityRef<SACH> _SACH;
@@ -1057,6 +1131,8 @@ namespace Core.DAL
     partial void OnsoluongChanged();
     partial void OndongiaChanging(decimal value);
     partial void OndongiaChanged();
+    partial void OntrangthaiChanging(System.Nullable<int> value);
+    partial void OntrangthaiChanged();
     #endregion
 		
 		public CHITIETPHIEUXUAT()
@@ -1150,6 +1226,26 @@ namespace Core.DAL
 					this._dongia = value;
 					this.SendPropertyChanged("dongia");
 					this.OndongiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int")]
+		public System.Nullable<int> trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
 				}
 			}
 		}

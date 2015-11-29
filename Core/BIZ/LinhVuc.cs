@@ -5,15 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
     public class LinhVuc
     {
-        private List<Sach> _sach;
+        public LinhVuc() { }
+        public LinhVuc(LINHVUC linhvuc)
+        {
+            MaSoLinhVuc = linhvuc.masolinhvuc;
+            TenLinhVuc = linhvuc.ten;
+            TrangThai = linhvuc.trangthai;
+        }
 
+        #region Private Properties
+        private List<Sach> _sach;
+        #endregion
+
+        #region Public Properties
+        [Required]
         [DisplayName(LinhVucManager.Properties.MaSoLinhVuc)]
         public int MaSoLinhVuc { get; set; }
+        [Required]
         [DisplayName(LinhVucManager.Properties.TenLinhVuc)]
         public string TenLinhVuc { get; set; }
         //Sách của lĩnh vực
@@ -22,10 +36,11 @@ namespace Core.BIZ
         {
             get
             {
-                if(_sach == null)
+                if (_sach == null)
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(SachManager.Properties.LinhVucSach, this.MaSoLinhVuc);
+                    param.Add(SachManager.Properties.TrangThai, null);
                     _sach = SachManager.findBy(param);
                 }
                 return _sach;
@@ -35,10 +50,23 @@ namespace Core.BIZ
                 _sach = value;
             }
         }
+        [DisplayName(LinhVucManager.Properties.TrangThai)]
+        public int? TrangThai { get; set; }
+        #endregion
 
+        #region Services
+        public bool delete()
+        {
+            this.TrangThai = 0;
+            return LinhVucManager.edit(this);
+        }
+        #endregion
+
+        #region Override Methods
         public override string ToString()
         {
             return this.TenLinhVuc;
         }
+        #endregion
     }
 }

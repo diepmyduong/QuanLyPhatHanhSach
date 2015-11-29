@@ -15,18 +15,25 @@ namespace Core.DAL
             public const string MaSoLinhVuc = "Mã Số Lĩnh Vực";
             public const string TenLinhVuc = "Tên Lĩnh Vực";
             public const string Sach = "Sách";
+            public const string TrangThai = "Trạng Thái";
         }
         public static List<LinhVuc> getAll()
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from lv in db.LINHVUCs
+                                select new LinhVuc(lv);
+                return linqQuery.ToList();
+            };
+
+        }
+        public static List<LinhVuc> getAllALive()
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from lv in db.LINHVUCs
                                 where lv.trangthai == null
-                                select new LinhVuc
-                                {
-                                    MaSoLinhVuc = lv.masolinhvuc,
-                                    TenLinhVuc = lv.ten
-                                };
+                                select new LinhVuc(lv);
                 return linqQuery.ToList();
             };
 
@@ -37,12 +44,7 @@ namespace Core.DAL
             {
                 var linqQuery = from lv in db.LINHVUCs
                                 where lv.masolinhvuc.Equals(masolinhvuc)
-                                && lv.trangthai == null
-                                select new LinhVuc
-                                {
-                                    MaSoLinhVuc = lv.masolinhvuc,
-                                    TenLinhVuc = lv.ten
-                                };
+                                select new LinhVuc(lv);
                 return linqQuery.SingleOrDefault();
             };
         }
@@ -52,21 +54,18 @@ namespace Core.DAL
             {
                 dynamic value;
 
-                var linqQuery = (from lv in db.LINHVUCs
-                                 where lv.trangthai == null
-                                 select new LinhVuc
-                                 {
-                                     MaSoLinhVuc = lv.masolinhvuc,
-                                     TenLinhVuc = lv.ten
-                                 })
+                var linqQuery = getAll()
                                  .Where(lv => lv.MaSoLinhVuc.Equals(
                                         Params.TryGetValue(Properties.MaSoLinhVuc, out value) ? value as int?
                                         : lv.MaSoLinhVuc
                                  )).Where(lv => lv.MaSoLinhVuc.Equals(
                                         Params.TryGetValue(Properties.TenLinhVuc, out value) ? value as string
                                         : lv.TenLinhVuc
+                                 )).Where(lv => lv.TrangThai.Equals(
+                                        Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
+                                        : lv.TrangThai
                                  ));
-                return linqQuery.ToList<LinhVuc>();
+                return linqQuery.ToList();
             }
         }
         public static List<LinhVuc> filter(string request, List<LinhVuc> DMLinhVuc)
@@ -115,7 +114,7 @@ namespace Core.DAL
                 else
                 {
                     var linqQuery = DMLinhVuc.Where
-                    (lv => lv.TenLinhVuc.Contains(request)
+                    (lv => lv.TenLinhVuc.ToLower().Contains(request)
                     );
                     return linqQuery.ToList();
                 }
@@ -123,7 +122,7 @@ namespace Core.DAL
         }
         public static List<LinhVuc> filter(string request)
         {
-            var DMLinhVuc = getAll();
+            var DMLinhVuc = getAllALive();
             return filter(request, DMLinhVuc);
         }
         public static int add(LinhVuc linhvuc)
@@ -148,6 +147,7 @@ namespace Core.DAL
                       select b).SingleOrDefault();
                 if (lv == null) return false;
                 lv.ten = linhvuc.TenLinhVuc;
+                lv.trangthai = linhvuc.TrangThai;
                 db.SubmitChanges();
                 return true;
             }

@@ -59,7 +59,7 @@ namespace WebForm.Controllers
             }
             else
             {
-                DMSach = SachManager.getAll();
+                DMSach = SachManager.getAllAlive();
             }
 
             var models = DMSach.ToPagedList(page, pageSize);
@@ -67,13 +67,21 @@ namespace WebForm.Controllers
         }
 
         // GET: Sach/Details/5
-        public ActionResult Details(int id) // id là mã số sách
+        public ActionResult Details(int? id) // id là mã số sách
         {
+            if(id == null)
+            {
+                return new HttpNotFoundResult("Bad Request!");
+            }
             ViewBag.cultureInfo = CultureInfo; // Sử dụng cho hiển thị tiền tệ VNĐ
-            var model = SachManager.find(id);
+            var model = SachManager.find((int)id);
             if(model == null)
             {
-                return new HttpNotFoundResult("Không tìm thấy");
+                return new HttpNotFoundResult("Not Found!");
+            }
+            if (model.TrangThai == 0)
+            {
+                return new HttpNotFoundResult("Not Found!");
             }
             if (model.HinhAnh == null)
             {
@@ -129,12 +137,16 @@ namespace WebForm.Controllers
         }
 
         // GET: Sach/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var model = SachManager.find(id);
-            if (model == null)
+            if(id == null)
             {
-                return new HttpNotFoundResult("Không tìm thấy");
+                return new HttpNotFoundResult("Bad Request!");
+            }
+            var model = SachManager.find((int)id);
+            if (model == null || model.TrangThai == 0)
+            {
+                return new HttpNotFoundResult("Not Found!");
             }
             //Combobox Nhà xuất bản
             ViewBag.DMNXB = new SelectList(NhaXuatBanManager.getAll(),
@@ -178,13 +190,17 @@ namespace WebForm.Controllers
         }
 
         // GET: Sach/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            ViewBag.cultureInfo = CultureInfo; // Sử dụng cho hiển thị tiền tệ VNĐ
-            var model = SachManager.find(id);
-            if (model == null)
+            if(id == null)
             {
-                return new HttpNotFoundResult("Không tìm thấy");
+                return new HttpNotFoundResult("Bad Request!");
+            }
+            ViewBag.cultureInfo = CultureInfo; // Sử dụng cho hiển thị tiền tệ VNĐ
+            var model = SachManager.find((int)id);
+            if (model == null || model.TrangThai == 0)
+            {
+                return new HttpNotFoundResult("Not Found!");
             }
             if (model.HinhAnh == null)
             {
@@ -199,12 +215,21 @@ namespace WebForm.Controllers
 
         // POST: Sach/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int? id, FormCollection collection)
         {
             try
             {
+                if(id == null)
+                {
+                    return new HttpNotFoundResult("Bad Request");
+                }
+                var model = SachManager.find((int)id);
+                if(model == null || model.TrangThai == 0)
+                {
+                    return new HttpNotFoundResult("Not Found!");
+                }
                 // TODO: Add delete logic here
-                if (SachManager.delete(id))
+                if (model.delete())
                 {
                     return RedirectToAction("Index");
                 }

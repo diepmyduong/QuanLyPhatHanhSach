@@ -39,6 +39,7 @@ namespace Core.DAL
             public const string TongTienNhapTheoThang = "Tiền nhập";
             public const string TongTienXuat = "Tổng tiền xuất";
             public const string TongTienXuatTheoThang = "Tiền xuất";
+            public const string TrangThai = "Trạng thái";
 
         }
         public static List<Sach> getAll()
@@ -48,32 +49,19 @@ namespace Core.DAL
                 var linqQuery = from s in db.SACHes
                                 join nxb in db.NXBs on s.masonxb equals nxb.masonxb
                                 join lv in db.LINHVUCs on s.masolinhvuc equals lv.masolinhvuc
+                                select new Sach(s,nxb,lv);
+                return linqQuery.ToList();
+            }
+        }
+        public static List<Sach> getAllAlive()
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from s in db.SACHes
+                                join nxb in db.NXBs on s.masonxb equals nxb.masonxb
+                                join lv in db.LINHVUCs on s.masolinhvuc equals lv.masolinhvuc
                                 where s.trangthai == null
-                                select new Sach
-                                {
-                                    MaSoSach = s.masosach,
-                                    TenSach = s.tensach,
-                                    MaSoLinhVuc = s.masolinhvuc,
-                                    LinhVucSach = new LinhVuc
-                                    {
-                                        MaSoLinhVuc = s.masolinhvuc,
-                                        TenLinhVuc = lv.ten
-                                    },
-                                    TenTacGia = s.tacgia,
-                                    MaSoNXB = s.masonxb,
-                                    NXB = new NhaXuatBan
-                                    {
-                                        MaSoNXB = s.masonxb,
-                                        TenNXB = nxb.ten,
-                                        DiaChi = nxb.diachi,
-                                        SoDienThoai = nxb.sodienthoai,
-                                        SoTaiKhoan = nxb.sotaikhoan
-                                    },
-                                    Soluong = s.soluong,
-                                    GiaBan = s.giaban,
-                                    GiaNhap = s.gianhap,
-                                    HinhAnh = s.hinhanh
-                                };
+                                select new Sach(s,nxb, lv);
                 return linqQuery.ToList();
             }
         }
@@ -85,32 +73,7 @@ namespace Core.DAL
                                 join nxb in db.NXBs on s.masonxb equals nxb.masonxb
                                 join lv in db.LINHVUCs on s.masolinhvuc equals lv.masolinhvuc
                                 where s.masosach.Equals(masosach)
-                                && s.trangthai == null
-                                select new Sach
-                                {
-                                    MaSoSach = s.masosach,
-                                    TenSach = s.tensach,
-                                    MaSoLinhVuc = s.masolinhvuc,
-                                    LinhVucSach = new LinhVuc
-                                    {
-                                        MaSoLinhVuc = s.masolinhvuc,
-                                        TenLinhVuc = lv.ten
-                                    },
-                                    TenTacGia = s.tacgia,
-                                    MaSoNXB = s.masonxb,
-                                    NXB = new NhaXuatBan
-                                    {
-                                        MaSoNXB = s.masonxb,
-                                        TenNXB = nxb.ten,
-                                        DiaChi = nxb.diachi,
-                                        SoDienThoai = nxb.sodienthoai,
-                                        SoTaiKhoan = nxb.sotaikhoan
-                                    },
-                                    Soluong = s.soluong,
-                                    GiaBan = s.giaban,
-                                    GiaNhap = s.gianhap,
-                                    HinhAnh = s.hinhanh
-                                };
+                                select new Sach(s, nxb, lv);
                 return linqQuery.SingleOrDefault();
             }
         }
@@ -120,35 +83,7 @@ namespace Core.DAL
             {
                 dynamic value;
 
-                var linqQuery = (from s in db.SACHes
-                                 join nxb in db.NXBs on s.masonxb equals nxb.masonxb
-                                 join lv in db.LINHVUCs on s.masolinhvuc equals lv.masolinhvuc
-                                 where s.trangthai == null
-                                 select new Sach
-                                 {
-                                     MaSoSach = s.masosach,
-                                     TenSach = s.tensach,
-                                     MaSoLinhVuc = s.masolinhvuc,
-                                     LinhVucSach = new LinhVuc
-                                     {
-                                         MaSoLinhVuc = s.masolinhvuc,
-                                         TenLinhVuc = lv.ten
-                                     },
-                                     TenTacGia = s.tacgia,
-                                     MaSoNXB = s.masonxb,
-                                     NXB = new NhaXuatBan
-                                     {
-                                         MaSoNXB = s.masonxb,
-                                         TenNXB = nxb.ten,
-                                         DiaChi = nxb.diachi,
-                                         SoDienThoai = nxb.sodienthoai,
-                                         SoTaiKhoan = nxb.sotaikhoan
-                                     },
-                                     Soluong = s.soluong,
-                                     GiaBan = s.giaban,
-                                     GiaNhap = s.gianhap,
-                                     HinhAnh = s.hinhanh
-                                 })
+                var linqQuery = getAll()
                                  .Where(s => s.MaSoSach.Equals(
                                         Params.TryGetValue(Properties.MaSoSach, out value) ? value as int?
                                         : s.MaSoSach
@@ -180,8 +115,11 @@ namespace Core.DAL
                                  .Where(s => s.GiaNhap.Equals(
                                         Params.TryGetValue(Properties.GiaNhap, out value) ? value as decimal?
                                         : s.GiaNhap
+                                 )).Where(s => s.TrangThai.Equals(
+                                        Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
+                                        : s.TrangThai
                                  ));
-                return linqQuery.ToList<Sach>();
+                return linqQuery.ToList();
             }
         }
         public static List<Sach> filter(string request, List<Sach> DMSach)
@@ -246,7 +184,7 @@ namespace Core.DAL
                     || s.GiaNhap.Equals(number)
                     || s.GiaBan.Equals(number)
                     );
-                    return linqQuery.ToList<Sach>();
+                    return linqQuery.ToList();
                 }
                 else
                 {
@@ -256,13 +194,13 @@ namespace Core.DAL
                     || s.TenTacGia.ToLower().Contains(request)
                     || s.NXB.TenNXB.ToLower().Contains(request)
                     );
-                    return linqQuery.ToList<Sach>();
+                    return linqQuery.ToList();
                 }
             }
         }
         public static List<Sach> filter(string request)
         {
-            var DMSach = getAll();
+            var DMSach = getAllAlive();
             return filter(request, DMSach);
         }
         public static bool edit(Sach sach)
@@ -281,26 +219,35 @@ namespace Core.DAL
                 s.giaban = sach.GiaBan;
                 s.gianhap = sach.GiaNhap;
                 s.hinhanh = sach.HinhAnh;
+                s.trangthai = sach.TrangThai;
                 db.SubmitChanges();
                 return true;
             }
         }
         public static int add(Sach sach)
         {
-            using (EntitiesDataContext db = new EntitiesDataContext())
+            try
             {
-                var s = new SACH();
-                s.tensach = sach.TenSach;
-                s.masolinhvuc = sach.LinhVucSach.MaSoLinhVuc;
-                s.masonxb = sach.NXB.MaSoNXB;
-                s.tacgia = sach.TenTacGia;
-                s.soluong = sach.Soluong;
-                s.giaban = sach.GiaBan;
-                s.gianhap = sach.GiaNhap;
-                s.hinhanh = sach.HinhAnh;
-                db.SACHes.InsertOnSubmit(s);
-                db.SubmitChanges();
-                return s.masosach;
+                using (EntitiesDataContext db = new EntitiesDataContext())
+                {
+                    var s = new SACH();
+                    s.tensach = sach.TenSach;
+                    s.masolinhvuc = sach.LinhVucSach.MaSoLinhVuc;
+                    s.masonxb = sach.NXB.MaSoNXB;
+                    s.tacgia = sach.TenTacGia;
+                    s.soluong = sach.Soluong;
+                    s.giaban = sach.GiaBan;
+                    s.gianhap = sach.GiaNhap;
+                    s.hinhanh = sach.HinhAnh;
+                    db.SACHes.InsertOnSubmit(s);
+                    db.SubmitChanges();
+                    return s.masosach;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
             }
         }
         public static bool delete(int masosach)
@@ -314,7 +261,7 @@ namespace Core.DAL
                             where s.masosach.Equals(masosach)
                             select s).SingleOrDefault();
                     if (sach == null) return false;
-                    sach.trangthai = 0; // Trạng thái xóa
+                    db.SACHes.DeleteOnSubmit(sach);
                     db.SubmitChanges();
                     return true;
                 }

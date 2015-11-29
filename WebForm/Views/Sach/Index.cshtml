@@ -64,7 +64,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm Sách", "Create")
 </p>
 <hr />
 @using (Html.BeginForm("Index", "Sach", FormMethod.Get, new { @class = "form" }))
@@ -139,9 +139,9 @@
             @String.Format(ViewBag.cultureInfo,"{0:c}",item.GiaBan)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.MaSoSach }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaSoSach }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaSoSach })
+            @Html.ActionLink("Sửa", "Edit", new {  id=item.MaSoSach }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSoSach }) |
+            @Html.ActionLink("Xóa", "Delete", new { id = item.MaSoSach })
         </td>
     </tr>
 }

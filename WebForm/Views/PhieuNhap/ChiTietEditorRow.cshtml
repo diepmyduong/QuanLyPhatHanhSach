@@ -5,6 +5,7 @@
 <tr class="@Model.MaSoSach">
     @using (Html.BeginCollectionItem("chitiet"))
     {
+        @Html.HiddenFor(model => model.MaSoPhieuNhap, new { @class = "form-control", @readonly = "readonly" })
         <td class="@nameof(Core.DAL.SachManager.Properties.MaSoSach)">
             @Html.DisplayFor(model => model.MaSoSach)
             @Html.HiddenFor(model => model.MaSoSach)

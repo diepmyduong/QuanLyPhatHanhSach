@@ -5,13 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
     public class TheKho
     {
-        private Sach _sach;
+        public TheKho() { }
+        public TheKho(THEKHO thekho)
+        {
+            MaSoSach = thekho.masosach;
+            SoLuong = thekho.soluong;
+            NgayGhi = thekho.ngayghi;
+        }
+        public TheKho(THEKHO thekho,SACH sach)
+            :this(thekho)
+        {
+            Sach = new Sach(sach);
+        }
 
+        #region Private Properties
+        private Sach _sach;
+        #endregion
+
+        #region Public Properties
+        [Required]
         [DisplayName(TheKhoManager.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
         [DisplayName(TheKhoManager.Properties.Sach)]
@@ -19,7 +37,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_sach == null)
+                if (_sach == null)
                 {
                     _sach = SachManager.find(this.MaSoSach);
                 }
@@ -30,14 +48,27 @@ namespace Core.BIZ
                 _sach = value;
             }
         }
+        [Required]
         [DisplayName(TheKhoManager.Properties.SoLuong)]
         public decimal SoLuong { get; set; }
+        [Required]
         [DisplayName(TheKhoManager.Properties.NgayGhi)]
         public DateTime NgayGhi { get; set; }
+        #endregion
 
+        #region Services
+        #endregion
+
+        #region Override Methods
         public override string ToString()
         {
             return this.Sach.TenSach;
         }
+        #endregion
+
+
+
+
+
     }
 }

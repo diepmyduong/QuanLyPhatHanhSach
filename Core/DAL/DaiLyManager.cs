@@ -20,6 +20,7 @@ namespace Core.DAL
             public const string PhieuXuat = "Phiếu Xuất";
             public const string CongNo = "Công nợ";
             public const string HoaDon = "Hóa đơn";
+            public const string TrangThai = "Trạng thái";
         }
 
         public static List<DaiLy> getAll()
@@ -27,15 +28,17 @@ namespace Core.DAL
             using(EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from d in db.DAILies
+                                select new DaiLy(d);
+                return linqQuery.ToList();
+            }
+        }
+        public static List<DaiLy> getAllAlive()
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from d in db.DAILies
                                 where d.trangthai == null
-                                select new DaiLy()
-                                {
-                                    MaSoDaiLy = d.masodaily,
-                                    TenDaiLy = d.ten,
-                                    DiaChi = d.diachi,
-                                    SoDienThoai = d.sodienthoai,
-                                    SoTaiKhoan = d.sotaikhoan
-                                };
+                                select new DaiLy(d);
                 return linqQuery.ToList();
             }
         }
@@ -45,15 +48,7 @@ namespace Core.DAL
             {
                 var linqQuery = from d in db.DAILies
                                 where d.masodaily.Equals(masodaily)
-                                && d.trangthai == null
-                                select new DaiLy()
-                                {
-                                    MaSoDaiLy = d.masodaily,
-                                    TenDaiLy = d.ten,
-                                    DiaChi = d.diachi,
-                                    SoDienThoai = d.sodienthoai,
-                                    SoTaiKhoan = d.sotaikhoan
-                                };
+                                select new DaiLy(d);
                 return linqQuery.SingleOrDefault();
             }
         }
@@ -62,16 +57,7 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 dynamic value;
-                var linqQuery = (from d in db.DAILies
-                                 where d.trangthai == null
-                                 select new DaiLy()
-                                 {
-                                     MaSoDaiLy = d.masodaily,
-                                     TenDaiLy = d.ten,
-                                     DiaChi = d.diachi,
-                                     SoDienThoai = d.sodienthoai,
-                                     SoTaiKhoan = d.sotaikhoan
-                                 })
+                var linqQuery = getAll()
                                  .Where(d => d.MaSoDaiLy.Equals(
                                         Params.TryGetValue(Properties.MaSoDaiLy, out value) ? value as int?
                                         : d.MaSoDaiLy
@@ -87,6 +73,9 @@ namespace Core.DAL
                                  )).Where(d => d.SoTaiKhoan.Equals(
                                         Params.TryGetValue(Properties.SoTaiKhoan, out value) ? value as string
                                         : d.SoTaiKhoan
+                                 )).Where(d => d.TrangThai.Equals(
+                                        Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
+                                        : d.TrangThai
                                  ));
                 return linqQuery.ToList();
             }
@@ -157,7 +146,7 @@ namespace Core.DAL
         }
         public static List<DaiLy> filter(string request)
         {
-            var DMDaiLy = getAll();
+            var DMDaiLy = getAllAlive();
             return filter(request, DMDaiLy);
         }
         public static int add(DaiLy daily)
@@ -205,6 +194,7 @@ namespace Core.DAL
                     dl.diachi = daily.DiaChi;
                     dl.sodienthoai = daily.SoDienThoai;
                     dl.sotaikhoan = daily.SoTaiKhoan;
+                    dl.trangthai = daily.TrangThai;
                     db.SubmitChanges();
                     return true;
                 }
@@ -225,7 +215,7 @@ namespace Core.DAL
                           where d.masodaily.Equals(daily.MaSoDaiLy)
                           select d).SingleOrDefault();
                     if (dl == null) return false; //Nếu đại lý không tồn tại
-                    dl.trangthai = 0;
+                    db.DAILies.DeleteOnSubmit(dl);
                     db.SubmitChanges();
                     return true;
                 }

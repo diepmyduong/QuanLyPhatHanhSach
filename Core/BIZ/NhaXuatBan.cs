@@ -5,30 +5,52 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
     public class NhaXuatBan
     {
+        public NhaXuatBan() { }
+        public NhaXuatBan(NXB nxb)
+        {
+            MaSoNXB = nxb.masonxb;
+            TenNXB = nxb.ten;
+            DiaChi = nxb.diachi;
+            SoDienThoai = nxb.sodienthoai;
+            SoTaiKhoan = nxb.sotaikhoan;
+            TrangThai = nxb.trangthai;
+        }
+
         #region Private Properties
         private List<Sach> _sach;
         private List<PhieuNhap> _phieunhap;
         private List<CongNoNXB> _congno;
         private List<HoaDonNXB> _hoadon;
         private decimal? _tongtienno;
+        private decimal? _tongTienNoTheoThang;
+        private decimal? _tongTienNhapTheoThang;
         #endregion
 
         #region Public Properties
+        [Required]
         [DisplayName(NhaXuatBanManager.Properties.MaSoNXB)]
         public int MaSoNXB { get; set; }
+        [Required]
         [DisplayName(NhaXuatBanManager.Properties.TenNXB)]
         public string TenNXB { get; set; }
+        [Required]
         [DisplayName(NhaXuatBanManager.Properties.DiaChi)]
         public string DiaChi { get; set; }
+        [Required]
         [DisplayName(NhaXuatBanManager.Properties.SoDienThoai)]
         public string SoDienThoai { get; set; }
+        [Required]
         [DisplayName(NhaXuatBanManager.Properties.SoTaiKhoan)]
         public string SoTaiKhoan { get; set; }
+        [Required]
+        [DisplayName(NhaXuatBanManager.Properties.TrangThai)]
+        public int? TrangThai { get; set; }
         //Sách của NXB
         [DisplayName(NhaXuatBanManager.Properties.Sach)]
         public List<Sach> Sach
@@ -59,6 +81,7 @@ namespace Core.BIZ
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(PhieuNhapManager.Properties.MaSoNXB, this.MaSoNXB);
+                    param.Add(PhieuNhapManager.Properties.TrangThai, 1);
                     _phieunhap = PhieuNhapManager.findBy(param);
                 }
                 return _phieunhap;
@@ -96,6 +119,7 @@ namespace Core.BIZ
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(HoaDonNXBManager.Properties.MaSoNXB, this.MaSoNXB);
+                    param.Add(HoaDonNXBManager.Properties.TrangThai, 1);
                     _hoadon = HoaDonNXBManager.findBy(param);
                 }
                 return _hoadon;
@@ -122,13 +146,9 @@ namespace Core.BIZ
         #region Services
         public decimal? TongTienNoThang(int startMonth, int startYear, int endMonth, int endYear)
         {
-            DateTime startDate = new DateTime(startYear, startMonth, 1);
-            DateTime endDate = new DateTime(endYear, endMonth, 1);
-            endDate = endDate.AddMonths(1).AddDays(-1);
-            return this.CongNo.Where(cn =>
-                        cn.Thang >= startDate
-                        && cn.Thang <= endDate).ToList()
-                        .Sum(cn => cn.ThanhTien);
+            _tongTienNoTheoThang = CongNoTheoThang(startMonth,startYear,endMonth,endYear)
+                                    .Sum(cn => cn.ThanhTien);
+            return _tongTienNoTheoThang;
         }
 
         public decimal? TongTienNhapThang(int startMonth, int startYear, int endMonth, int endYear)
@@ -150,6 +170,12 @@ namespace Core.BIZ
             return this.CongNo.Where(cn =>
                         cn.Thang >= startDate
                         && cn.Thang <= endDate).ToList();
+        }
+
+        public bool delete()
+        {
+            this.TrangThai = 0;
+            return NhaXuatBanManager.edit(this);
         }
         #endregion
 

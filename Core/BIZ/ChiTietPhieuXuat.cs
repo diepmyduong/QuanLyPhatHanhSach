@@ -5,17 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
     public class ChiTietPhieuXuat
     {
+        public ChiTietPhieuXuat() { }
+        public ChiTietPhieuXuat(CHITIETPHIEUXUAT chitiet)
+        {
+            MaSoSach = chitiet.masosach;
+            SoLuong = chitiet.soluong;
+            DonGia = chitiet.dongia;
+            TrangThai = chitiet.trangthai;
+        }
+        public ChiTietPhieuXuat(CHITIETPHIEUXUAT chitiet, SACH sach)
+            : this(chitiet)
+        {
+            Sach = new Sach(sach);
+        }
+
         #region Private Properties
         private Sach _sach;
         private PhieuXuat _phieuxuat;
         #endregion
 
         #region Public Properties
+        [Required]
         [DisplayName(PhieuXuatManager.Chitiet.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
         [DisplayName(PhieuXuatManager.Chitiet.Properties.Sach)]
@@ -34,8 +50,10 @@ namespace Core.BIZ
                 _sach = value;
             }
         }
+        [Required]
         [DisplayName(PhieuXuatManager.Chitiet.Properties.SoLuong)]
         public decimal SoLuong { get; set; }
+        [Required]
         [DisplayName(PhieuXuatManager.Chitiet.Properties.DonGia)]
         public decimal DonGia { get; set; }
         [DisplayName(PhieuXuatManager.Chitiet.Properties.ThanhTien)]
@@ -64,6 +82,8 @@ namespace Core.BIZ
                 _phieuxuat = value;
             }
         }
+        [DisplayName(PhieuXuatManager.Chitiet.Properties.TrangThai)]
+        public int? TrangThai { get; set; }
         #endregion
 
         #region Services

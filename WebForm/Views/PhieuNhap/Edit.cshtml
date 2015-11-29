@@ -113,12 +113,21 @@
         using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            @Html.ActionLink("Chọn lại nhà xuất bản", "Create");
             <div class="form-horizontal">
                 @*<h4>PhieuNhap</h4>*@
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.NXB.TenNXB, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.MaSoNXB, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.TrangThai, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.TongTien, new { @class = "form-control", @readonly = "readonly" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaSoPhieuNhap, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.MaSoPhieuNhap, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.MaSoPhieuNhap, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
                 <div class="form-group">
                     @Html.LabelFor(model => model.NXB, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-2">
@@ -141,42 +150,61 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-2 col-md-offset-2">
-                        <a class="btn btn-default" href="#" role="button">Thêm Sách</a>
+                        @Html.ActionLink("Thêm sách","Create","Sach",null,null)
                     </div>
                 </div>
                 <hr />
                 <table class="table">
-                    <tr>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.MaSoSach
-                        </th>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.Sach
-                        </th>
-                        <th>
-                            @Core.DAL.SachManager.Properties.TenTacGia
-                        </th>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong
-                        </th>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia
-                        </th>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.ThanhTien
-                        </th>
-                        <th></th>
-                    </tr>
-                    @foreach (var item in Model.ChiTiet)
-                    {
-                        Html.RenderPartial("ChiTietEditorRow", item);
-                    }
+                    <thead>
+                        <tr>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.MaSoSach
+                            </th>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.Sach
+                            </th>
+                            <th>
+                                @Core.DAL.SachManager.Properties.TenTacGia
+                            </th>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong
+                            </th>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia
+                            </th>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.ThanhTien
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ChiTiet)
+                        {
+                            Html.RenderPartial("ChiTietEditorRow", item);
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Tổng tiền</th>
+                            <th>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", Model.ChiTiet.Sum(ct => ct.ThanhTien))
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
                 @Html.ActionLink("Thêm chi tiết", "BlankEditorRow", new { masonxb = Model.MaSoNXB },new { id = "themChiTiet"})
                 <hr />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Lưu" class="btn btn-default" />
+                        @Html.ActionLink("Hủy","Delete",new { id = Model.MaSoPhieuNhap }, new { @class ="btn btn-danger"})
+                        @Html.ActionLink("Duyệt", "Accept", new { id = Model.MaSoPhieuNhap }, new { @class = "btn btn-success" })
                     </div>
                 </div>
             </div>

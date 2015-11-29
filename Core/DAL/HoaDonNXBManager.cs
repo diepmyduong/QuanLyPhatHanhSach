@@ -28,22 +28,7 @@ namespace Core.DAL
                 var linqQuery = from hd in db.HOADONNXBs
                                 join nxb in db.NXBs
                                 on hd.masonxb equals nxb.masonxb
-                                select new HoaDonNXB()
-                                {
-                                    MaSoHoaDon = hd.masohoadon,
-                                    MaSoNXB = hd.masonxb,
-                                    NXB = new NhaXuatBan
-                                    {
-                                        MaSoNXB = nxb.masonxb,
-                                        TenNXB = nxb.ten,
-                                        DiaChi = nxb.diachi,
-                                        SoDienThoai = nxb.sodienthoai,
-                                        SoTaiKhoan = nxb.sotaikhoan
-                                    },
-                                    NgayLap = hd.ngaylap,
-                                    TongTien = hd.tongtien,
-                                    TrangThai = hd.trangthai
-                                };
+                                select new HoaDonNXB(hd,nxb);
                 return linqQuery.ToList();
             }
         }
@@ -55,22 +40,7 @@ namespace Core.DAL
                                 join nxb in db.NXBs
                                 on hd.masonxb equals nxb.masonxb
                                 where hd.masohoadon.Equals(masohoadon)
-                                select new HoaDonNXB()
-                                {
-                                    MaSoHoaDon = hd.masohoadon,
-                                    MaSoNXB = hd.masonxb,
-                                    NXB = new NhaXuatBan
-                                    {
-                                        MaSoNXB = nxb.masonxb,
-                                        TenNXB = nxb.ten,
-                                        DiaChi = nxb.diachi,
-                                        SoDienThoai = nxb.sodienthoai,
-                                        SoTaiKhoan = nxb.sotaikhoan
-                                    },
-                                    NgayLap = hd.ngaylap,
-                                    TongTien = hd.tongtien,
-                                    TrangThai = hd.trangthai
-                                };
+                                select new HoaDonNXB(hd,nxb);
                 return linqQuery.SingleOrDefault();
             }
         }
@@ -80,25 +50,7 @@ namespace Core.DAL
             {
                 dynamic value;
 
-                var linqQuery = (from hd in db.HOADONNXBs
-                                 join nxb in db.NXBs
-                                 on hd.masonxb equals nxb.masonxb
-                                 select new HoaDonNXB()
-                                 {
-                                     MaSoHoaDon = hd.masohoadon,
-                                     MaSoNXB = hd.masonxb,
-                                     NXB = new NhaXuatBan
-                                     {
-                                         MaSoNXB = nxb.masonxb,
-                                         TenNXB = nxb.ten,
-                                         DiaChi = nxb.diachi,
-                                         SoDienThoai = nxb.sodienthoai,
-                                         SoTaiKhoan = nxb.sotaikhoan
-                                     },
-                                     NgayLap = hd.ngaylap,
-                                     TongTien = hd.tongtien,
-                                     TrangThai = hd.trangthai
-                                 })
+                var linqQuery = getAll()
                                  .Where(hd => hd.MaSoHoaDon.Equals(
                                         Params.TryGetValue(Properties.MaSoHoaDon, out value) ? value as int?
                                         : hd.MaSoHoaDon
@@ -111,6 +63,9 @@ namespace Core.DAL
                                  )).Where(hd => hd.TongTien.Equals(
                                         Params.TryGetValue(Properties.MaSoHoaDon, out value) ? value as decimal?
                                         : hd.TongTien
+                                 )).Where(hd => hd.TrangThai.Equals(
+                                        Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
+                                        : hd.TrangThai
                                  ));
                 return linqQuery.ToList();
             }
@@ -129,9 +84,34 @@ namespace Core.DAL
                     MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
                     string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
                     string param = "";
+                    int? year = null, month = null, day = null;
                     for (int i = 1; i < Params.Count; i++)
                     {
                         param += " " + Params[i];
+                        if (i == 1)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                year = number;
+                            }
+                        }
+                        if (i == 2)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                month = number;
+                            }
+                        }
+                        if (i == 3)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                day = number;
+                            }
+                        }
                     }
                     param = param.Trim();
                     switch (Params[0].ToString())
@@ -146,7 +126,7 @@ namespace Core.DAL
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoNXB, Int32.Parse(param), method, false));
                             break;
                         case nameof(Properties.NgayLap):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NgayLap, param, method, true));
+                            linqQuery = linqQuery.Where(s => FilterHelper.compareDate(s.NgayLap, year, month, day, method));
                             break;
                         case nameof(Properties.TongTien):
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, param, method, false));
@@ -199,12 +179,10 @@ namespace Core.DAL
                     hd.ngaylap = hoadon.NgayLap;
                     hd.trangthai = hoadon.TrangThai;
                     hd.tongtien = hoadon.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia); // tính tổng tiền các chi tiết
-                    foreach (CHITIETHOADONNXB ct in hd.CHITIETHOADONNXBs)
-                    {
-                        db.CHITIETHOADONNXBs.DeleteOnSubmit(ct);
-                    }
+                    db.CHITIETHOADONNXBs.DeleteAllOnSubmit(hd.CHITIETHOADONNXBs);
                     foreach (ChiTietHoaDonNXB ct in hoadon.ChiTiet)
                     {
+                        ct.MaSoHoaDon = hoadon.MaSoHoaDon;
                         ChiTiet.add(ct);
                     }
                     db.SubmitChanges();
@@ -227,7 +205,8 @@ namespace Core.DAL
                     {
                         masonxb = hoadon.MaSoNXB,
                         ngaylap = hoadon.NgayLap,
-                        tongtien = hoadon.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia)
+                        tongtien = hoadon.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia),
+                        trangthai = 0                    
                     };
                     db.HOADONNXBs.InsertOnSubmit(hd);
                     db.SubmitChanges();
@@ -255,6 +234,7 @@ namespace Core.DAL
                              where p.masohoadon.Equals(masohoadon)
                              select p).SingleOrDefault();
                     if (hd == null) return false;
+                    db.CHITIETHOADONNXBs.DeleteAllOnSubmit(hd.CHITIETHOADONNXBs);
                     db.HOADONNXBs.DeleteOnSubmit(hd);
                     db.SubmitChanges();
                     return true;
@@ -279,6 +259,7 @@ namespace Core.DAL
                 public const string ThanhTien = "Thành tiền";
                 public const string MaSoHoaDon = "Mã Số Hóa Đơn";
                 public const string HoaDon = "Hóa đơn";
+                public const string TrangThai = "Trạng Thái";
             }
 
             public static List<ChiTietHoaDonNXB> getAll()
@@ -288,25 +269,7 @@ namespace Core.DAL
                     var linqQuery = from ct in db.CHITIETHOADONNXBs
                                     join s in db.SACHes
                                     on ct.masosach equals s.masosach
-                                    select new ChiTietHoaDonNXB()
-                                    {
-                                        MaSoHoaDon = ct.masohoadon,
-                                        MaSoSach = ct.masosach,
-                                        Sach = new Sach()
-                                        {
-                                            MaSoSach = s.masosach,
-                                            TenSach = s.tensach,
-                                            MaSoLinhVuc = s.masolinhvuc,
-                                            TenTacGia = s.tacgia,
-                                            MaSoNXB = s.masonxb,
-                                            Soluong = s.soluong,
-                                            GiaBan = s.giaban,
-                                            GiaNhap = s.gianhap,
-                                            HinhAnh = s.hinhanh
-                                        },
-                                        SoLuong = ct.soluong,
-                                        DonGia = ct.dongia
-                                    };
+                                    select new ChiTietHoaDonNXB(ct, s);
                     return linqQuery.ToList();
                 }
             }
@@ -318,25 +281,7 @@ namespace Core.DAL
                                     join s in db.SACHes
                                     on ct.masosach equals s.masosach
                                     where ct.masohoadon.Equals(masohoadon)
-                                    select new ChiTietHoaDonNXB()
-                                    {
-                                        MaSoHoaDon = ct.masohoadon,
-                                        MaSoSach = ct.masosach,
-                                        Sach = new Sach()
-                                        {
-                                            MaSoSach = s.masosach,
-                                            TenSach = s.tensach,
-                                            MaSoLinhVuc = s.masolinhvuc,
-                                            TenTacGia = s.tacgia,
-                                            MaSoNXB = s.masonxb,
-                                            Soluong = s.soluong,
-                                            GiaBan = s.giaban,
-                                            GiaNhap = s.gianhap,
-                                            HinhAnh = s.hinhanh
-                                        },
-                                        SoLuong = ct.soluong,
-                                        DonGia = ct.dongia
-                                    };
+                                    select new ChiTietHoaDonNXB(ct, s);
                     return linqQuery.ToList();
                 }
             }
@@ -346,28 +291,7 @@ namespace Core.DAL
                 {
                     dynamic value;
 
-                    var linqQuery = (from ct in db.CHITIETHOADONDAILies
-                                     join s in db.SACHes
-                                     on ct.masosach equals s.masosach
-                                     select new ChiTietHoaDonNXB()
-                                     {
-                                         MaSoHoaDon = ct.masohoadon,
-                                         MaSoSach = ct.masosach,
-                                         Sach = new Sach()
-                                         {
-                                             MaSoSach = s.masosach,
-                                             TenSach = s.tensach,
-                                             MaSoLinhVuc = s.masolinhvuc,
-                                             TenTacGia = s.tacgia,
-                                             MaSoNXB = s.masonxb,
-                                             Soluong = s.soluong,
-                                             GiaBan = s.giaban,
-                                             GiaNhap = s.gianhap,
-                                             HinhAnh = s.hinhanh
-                                         },
-                                         SoLuong = ct.soluong,
-                                         DonGia = ct.dongia
-                                     })
+                    var linqQuery = getAll()
                                      .Where(ct => ct.MaSoHoaDon.Equals(
                                             Params.TryGetValue(Properties.MaSoHoaDon, out value) ? value as int?
                                             : ct.MaSoHoaDon
@@ -380,6 +304,9 @@ namespace Core.DAL
                                      )).Where(ct => ct.DonGia.Equals(
                                             Params.TryGetValue(Properties.DonGia, out value) ? value as decimal?
                                             : ct.DonGia
+                                     )).Where(ct => ct.TrangThai.Equals(
+                                            Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
+                                            : ct.TrangThai
                                      ));
                     return linqQuery.ToList();
                 }
@@ -405,7 +332,8 @@ namespace Core.DAL
                             masohoadon = masohoadon,
                             masosach = chitiet.MaSoSach,
                             soluong = chitiet.SoLuong,
-                            dongia = chitiet.DonGia
+                            dongia = chitiet.DonGia,
+                            trangthai = 0
                         };
                         db.CHITIETHOADONNXBs.InsertOnSubmit(ct);
                         db.SubmitChanges();
@@ -431,6 +359,7 @@ namespace Core.DAL
                               select c).SingleOrDefault();
                         if (ct == null) return false;
                         ct.soluong = chitiet.SoLuong;
+                        ct.trangthai = chitiet.TrangThai;
                         db.SubmitChanges();
                         return true;
                     }

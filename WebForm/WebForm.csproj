@@ -310,6 +310,10 @@
     <Content Include="Views\PhieuNhap\Details.cshtml" />
     <Content Include="Views\PhieuNhap\ChiTietRow.cshtml" />
     <Content Include="Views\PhieuNhap\Create.cshtml" />
+    <Content Include="Views\PhieuNhap\Delete.cshtml" />
+    <Content Include="Views\PhieuNhap\All.cshtml" />
+    <Content Include="Views\LinhVuc\Delete.cshtml" />
+    <Content Include="Views\NhaXuatBan\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -25,25 +25,8 @@ namespace Core.DAL
                 var linqQuery = from tk in db.THEKHOs
                                 join s in db.SACHes
                                 on tk.masosach equals s.masosach
-                                select new TheKho
-                                {
-                                    MaSoSach = tk.masosach,
-                                    Sach = new Sach()
-                                    {
-                                        MaSoSach = s.masosach,
-                                        TenSach = s.tensach,
-                                        TenTacGia = s.tacgia,
-                                        MaSoLinhVuc = s.masolinhvuc,
-                                        MaSoNXB = s.masonxb,
-                                        Soluong = s.soluong,
-                                        GiaBan = s.giaban,
-                                        GiaNhap = s.gianhap,
-                                        HinhAnh = s.hinhanh
-                                    },
-                                    SoLuong = tk.soluong,
-                                    NgayGhi = tk.ngayghi
-                                };
-                return linqQuery.ToList<TheKho>();
+                                select new TheKho(tk, s);
+                return linqQuery.ToList();
             }
         }
 
@@ -60,25 +43,8 @@ namespace Core.DAL
                                 .Join(db.SACHes
                                     , tk => tk.masosach
                                     , s => s.masosach
-                                    , (tk, s) => new TheKho
-                                    {
-                                        MaSoSach = tk.masosach,
-                                        Sach = new Sach()
-                                        {
-                                            MaSoSach = s.masosach,
-                                            TenSach = s.tensach,
-                                            TenTacGia = s.tacgia,
-                                            MaSoLinhVuc = s.masolinhvuc,
-                                            MaSoNXB = s.masonxb,
-                                            Soluong = s.soluong,
-                                            GiaBan = s.giaban,
-                                            GiaNhap = s.gianhap,
-                                            HinhAnh = s.hinhanh
-                                        },
-                                        SoLuong = tk.soluong,
-                                        NgayGhi = tk.ngayghi
-                                    });
-                return linqQuery.ToList<TheKho>();
+                                    , (tk, s) => new TheKho(tk,s));
+                return linqQuery.ToList();
             }
         }
 
@@ -90,25 +56,8 @@ namespace Core.DAL
                                 join s in db.SACHes
                                 on tk.masosach equals s.masosach
                                 where tk.masosach.Equals(masosach)
-                                select new TheKho
-                                {
-                                    MaSoSach = tk.masosach,
-                                    Sach = new Sach()
-                                    {
-                                        MaSoSach = s.masosach,
-                                        TenSach = s.tensach,
-                                        TenTacGia = s.tacgia,
-                                        MaSoLinhVuc = s.masolinhvuc,
-                                        MaSoNXB = s.masonxb,
-                                        Soluong = s.soluong,
-                                        GiaBan = s.giaban,
-                                        GiaNhap = s.gianhap,
-                                        HinhAnh = s.hinhanh
-                                    },
-                                    SoLuong = tk.soluong,
-                                    NgayGhi = tk.ngayghi
-                                };
-                return linqQuery.ToList<TheKho>();
+                                select new TheKho(tk, s);
+                return linqQuery.ToList();
             }
         }
 
@@ -125,25 +74,8 @@ namespace Core.DAL
                                 .Join(db.SACHes
                                     , tk => tk.masosach
                                     , s => s.masosach
-                                    , (tk, s) => new TheKho
-                                    {
-                                        MaSoSach = tk.masosach,
-                                        Sach = new Sach()
-                                        {
-                                            MaSoSach = s.masosach,
-                                            TenSach = s.tensach,
-                                            TenTacGia = s.tacgia,
-                                            MaSoLinhVuc = s.masolinhvuc,
-                                            MaSoNXB = s.masonxb,
-                                            Soluong = s.soluong,
-                                            GiaBan = s.giaban,
-                                            GiaNhap = s.gianhap,
-                                            HinhAnh = s.hinhanh
-                                        },
-                                        SoLuong = tk.soluong,
-                                        NgayGhi = tk.ngayghi
-                                    });
-                return linqQuery.SingleOrDefault<TheKho>();
+                                    , (tk, s) => new TheKho(tk, s));
+                return linqQuery.SingleOrDefault();
             }
         }
 
@@ -153,27 +85,7 @@ namespace Core.DAL
             {
                 dynamic value;
 
-                var linqQuery = (from tk in db.THEKHOs
-                                 join s in db.SACHes
-                                 on tk.masosach equals s.masosach
-                                 select new TheKho
-                                 {
-                                     MaSoSach = tk.masosach,
-                                     Sach = new Sach()
-                                     {
-                                         MaSoSach = s.masosach,
-                                         TenSach = s.tensach,
-                                         TenTacGia = s.tacgia,
-                                         MaSoLinhVuc = s.masolinhvuc,
-                                         MaSoNXB = s.masonxb,
-                                         Soluong = s.soluong,
-                                         GiaBan = s.giaban,
-                                         GiaNhap = s.gianhap,
-                                         HinhAnh = s.hinhanh
-                                     },
-                                     SoLuong = tk.soluong,
-                                     NgayGhi = tk.ngayghi
-                                 })
+                var linqQuery = getAll()
                                  .Where(s => s.MaSoSach.Equals(
                                         Params.TryGetValue(Properties.MaSoSach, out value) ? value as int?
                                         : s.MaSoSach
@@ -190,7 +102,7 @@ namespace Core.DAL
                                         Params.TryGetValue(Properties.NgayGhi, out value) ? value as DateTime?
                                         : s.NgayGhi
                                  ));
-                return linqQuery.ToList<TheKho>();
+                return linqQuery.ToList();
             }
         }
 
@@ -208,9 +120,34 @@ namespace Core.DAL
                     MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
                     string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
                     string param = "";
+                    int? year = null, month = null, day = null;
                     for (int i = 1; i < Params.Count; i++)
                     {
                         param += " " + Params[i];
+                        if (i == 1)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                year = number;
+                            }
+                        }
+                        if (i == 2)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                month = number;
+                            }
+                        }
+                        if (i == 3)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                day = number;
+                            }
+                        }
                     }
                     param = param.Trim();
                     switch (Params[0].ToString())
@@ -228,7 +165,7 @@ namespace Core.DAL
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.SoLuong, param, method, false));
                             break;
                         case nameof(Properties.NgayGhi):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NgayGhi, param, method, true));
+                            linqQuery = linqQuery.Where(s => FilterHelper.compareDate(s.NgayGhi, year, month, day, method));
                             break;
                     }
                 }
@@ -245,7 +182,7 @@ namespace Core.DAL
                     (s => s.MaSoSach.Equals(number)
                     || s.SoLuong.Equals(number)
                     );
-                    return linqQuery.ToList<TheKho>();
+                    return linqQuery.ToList();
                 }
                 else
                 {
@@ -253,8 +190,9 @@ namespace Core.DAL
                     (s => s.NgayGhi.ToString().ToLower().Contains(request)
                     || s.Sach.TenSach.ToLower().Contains(request)
                     || s.Sach.TenSach.ToLower().Contains(request)
+                    || s.NgayGhi.ToString().Contains(request)
                     );
-                    return linqQuery.ToList<TheKho>();
+                    return linqQuery.ToList();
                 }
             }
         }

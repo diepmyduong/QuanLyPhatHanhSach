@@ -29,7 +29,8 @@
                 uploadLabel: 'Upload',
                 initialPreview: [ 
                     "@if(ViewBag.imgSrc != null){<img src='@ViewBag.imgSrc' class='file-preview-image' alt='' title=''>}"
-                ]
+                ],
+                msgSelected : 'Đã có {n} hình'
             });
         </script>
     }
@@ -45,7 +46,7 @@
     <div class="form-horizontal">
         <h4>Sách</h4>
         <div>
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Trở lại danh sách", "Index")
         </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

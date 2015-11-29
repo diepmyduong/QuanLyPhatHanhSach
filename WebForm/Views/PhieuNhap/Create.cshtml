@@ -141,36 +141,53 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-2 col-md-offset-2">
-                        <a class="btn btn-default" href="#" role="button">Thêm Sách</a>
+                        @Html.ActionLink("Thêm Sách","Create","Sach",null,null)
                     </div>
                 </div>
                 <hr />
                 <table class="table">
-                    <tr>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.MaSoSach
-                        </th>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.Sach
-                        </th>
-                        <th>
-                            @Core.DAL.SachManager.Properties.TenTacGia
-                        </th>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong
-                        </th>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia
-                        </th>
-                        <th>
-                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.ThanhTien
-                        </th>
-                        <th></th>
-                    </tr>
-                    @foreach (var item in Model.ChiTiet)
-                    {
-                        Html.RenderPartial("ChiTietEditorRow", item);
-                    }
+                    <thead>
+                        <tr>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.MaSoSach
+                            </th>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.Sach
+                            </th>
+                            <th>
+                                @Core.DAL.SachManager.Properties.TenTacGia
+                            </th>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong
+                            </th>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia
+                            </th>
+                            <th>
+                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.ThanhTien
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ChiTiet)
+                        {
+                            Html.RenderPartial("ChiTietEditorRow", item);
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Tổng tiền</th>
+                            <th>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", Model.ChiTiet.Sum(ct => ct.ThanhTien))
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
                 @Html.ActionLink("Thêm chi tiết", "BlankEditorRow", new { masonxb = Model.MaSoNXB },new { id = "themChiTiet"})
                 <hr />

@@ -6,6 +6,7 @@
       <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="dongia" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="HOADONDAILY_CHITIETHOADONDAILY" Member="HOADONDAILY" ThisKey="masohoadon" OtherKey="masohoadon" Type="HOADONDAILY" IsForeignKey="true" />
       <Association Name="SACH_CHITIETHOADONDAILY" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
@@ -24,6 +25,7 @@
       <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="dongia" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="HOADONNXB_CHITIETHOADONNXB" Member="HOADONNXB" ThisKey="masohoadon" OtherKey="masohoadon" Type="HOADONNXB" IsForeignKey="true" />
       <Association Name="SACH_CHITIETHOADONNXB" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
@@ -34,6 +36,7 @@
       <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="dongia" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="PHIEUNHAP_CHITIETPHIEUNHAP" Member="PHIEUNHAP" ThisKey="masophieunhap" OtherKey="masophieunhap" Type="PHIEUNHAP" IsForeignKey="true" />
       <Association Name="SACH_CHITIETPHIEUNHAP" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
@@ -44,6 +47,7 @@
       <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="dongia" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="PHIEUXUAT_CHITIETPHIEUXUAT" Member="PHIEUXUAT" ThisKey="masophieuxuat" OtherKey="masophieuxuat" Type="PHIEUXUAT" IsForeignKey="true" />
       <Association Name="SACH_CHITIETPHIEUXUAT" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>

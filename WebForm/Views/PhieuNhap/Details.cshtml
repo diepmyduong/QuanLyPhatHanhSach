@@ -10,8 +10,14 @@
 <div>
     @*<h4>PhieuNhap</h4>*@
     <p>
-        @Html.ActionLink("Edit", "Edit", new {  id = Model.MaSoPhieuNhap }) |
-        @Html.ActionLink("Back to List", "Index")
+        @if (Model.TrangThai == 0)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.MaSoPhieuNhap })
+            @Html.Raw(" | ")
+                                                                              
+        }
+        
+        @Html.ActionLink("Back to List", "All")
     </p>
     <hr />
     <div class="row">

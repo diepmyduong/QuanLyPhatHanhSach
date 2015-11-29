@@ -15,24 +15,31 @@ namespace WebForm.Controllers
         public ActionResult Index(int page = 1, int pageSize = 10, string search = null)
         {
             List<NhaXuatBan> DMNXB = null;
-            //if (!String.IsNullOrEmpty(search))
-            //{
-            //    DMNXB = NhaXuatBanManager.filter(search);
-            //    ViewBag.SearchKey = search;
-            //}
-            //else
-            //{
-            //    DMNXB = NhaXuatBanManager.getAll();
-            //}
-            DMNXB = NhaXuatBanManager.getAll();
+            if (!String.IsNullOrEmpty(search))
+            {
+                DMNXB = NhaXuatBanManager.filter(search);
+                ViewBag.searchKey = search;
+            }
+            else
+            {
+                DMNXB = NhaXuatBanManager.getAll();
+            }
             var models = DMNXB.ToPagedList(page, pageSize);
             return View(models);
         }
 
         // GET: NhaXuatBan/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var model = NhaXuatBanManager.find(id);
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request");
+            }
+            var model = NhaXuatBanManager.find((int)id);
+            if (model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
             return View(model);
         }
 
@@ -45,13 +52,20 @@ namespace WebForm.Controllers
 
         // POST: NhaXuatBan/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(NhaXuatBan model, FormCollection collection)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var result = NhaXuatBanManager.add(model);
+                    if(result != 0)
+                    {
+                        return RedirectToAction("Details", new { id = result });
+                    }
+                }
+                return View(model);
             }
             catch
             {
@@ -60,21 +74,44 @@ namespace WebForm.Controllers
         }
 
         // GET: NhaXuatBan/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var model = NhaXuatBanManager.find(id);
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request");
+            }
+            var model = NhaXuatBanManager.find((int)id);
+            if (model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
             return View(model);
         }
 
         // POST: NhaXuatBan/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int? id, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (id == null)
+                {
+                    return new HttpNotFoundResult("Bad Request");
+                }
+                var model = NhaXuatBanManager.find((int)id);
+                if (model == null)
+                {
+                    return new HttpNotFoundResult("Not Found!");
+                }
+                if (ModelState.IsValid)
+                {
+                    if (NhaXuatBanManager.edit(model))
+                    {
+                        return RedirectToAction("Details", new { id = id });
+                    }
+                }
+                return View(model);
             }
             catch
             {
@@ -83,20 +120,36 @@ namespace WebForm.Controllers
         }
 
         // GET: NhaXuatBan/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request");
+            }
+            var model = NhaXuatBanManager.find((int)id);
+            if (model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
+            return View(model);
         }
 
         // POST: NhaXuatBan/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int? id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (id == null)
+                {
+                    return new HttpNotFoundResult("Bad Request");
+                }
+                if (NhaXuatBanManager.delete((int)id))
+                {
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
             catch
             {

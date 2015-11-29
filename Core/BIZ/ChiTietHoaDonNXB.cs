@@ -5,14 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
     public class ChiTietHoaDonNXB
     {
+        public ChiTietHoaDonNXB() { }
+        public ChiTietHoaDonNXB(CHITIETHOADONNXB chitiet)
+        {
+            MaSoSach = chitiet.masosach;
+            SoLuong = chitiet.soluong;
+            DonGia = chitiet.dongia;
+            MaSoHoaDon = chitiet.masohoadon;
+            TrangThai = chitiet.trangthai;
+        }
+        public ChiTietHoaDonNXB(CHITIETHOADONNXB chitiet, SACH sach)
+            :this(chitiet)
+        {
+            Sach = new Sach(sach);
+        }
+
+        #region Private Properties
         private Sach _sach;
         private HoaDonNXB _hoadon;
+        #endregion
 
+        #region Public Properties
+        [Required]
         [DisplayName(HoaDonNXBManager.ChiTiet.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
         [DisplayName(HoaDonNXBManager.ChiTiet.Properties.Sach)]
@@ -20,7 +40,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_sach == null)
+                if (_sach == null)
                 {
                     _sach = SachManager.find(this.MaSoSach);
                 }
@@ -31,8 +51,10 @@ namespace Core.BIZ
                 _sach = value;
             }
         }
+        [Required]
         [DisplayName(HoaDonNXBManager.ChiTiet.Properties.SoLuong)]
         public decimal SoLuong { get; set; }
+        [Required]
         [DisplayName(HoaDonNXBManager.ChiTiet.Properties.DonGia)]
         public decimal DonGia { get; set; }
         [DisplayName(HoaDonNXBManager.ChiTiet.Properties.ThanhTien)]
@@ -43,6 +65,7 @@ namespace Core.BIZ
                 return this.SoLuong * this.DonGia;
             }
         }
+        [Required]
         [DisplayName(HoaDonNXBManager.ChiTiet.Properties.MaSoHoaDon)]
         public int MaSoHoaDon { get; set; }
         [DisplayName(HoaDonNXBManager.ChiTiet.Properties.HoaDon)]
@@ -50,7 +73,7 @@ namespace Core.BIZ
         {
             get
             {
-                if(_hoadon == null)
+                if (_hoadon == null)
                 {
                     _hoadon = HoaDonNXBManager.find(this.MaSoHoaDon);
                 }
@@ -61,10 +84,23 @@ namespace Core.BIZ
                 _hoadon = value;
             }
         }
+        [DisplayName(HoaDonNXBManager.ChiTiet.Properties.TrangThai)]
+        public int? TrangThai { get; set; }
+        #endregion
 
+        #region Services
+        #endregion
+
+        #region Override Methods
         public override string ToString()
         {
             return this.Sach.TenSach;
         }
+        #endregion
+
+
+
+
+
     }
 }

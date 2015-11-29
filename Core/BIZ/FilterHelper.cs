@@ -59,6 +59,141 @@ namespace Core.BIZ
                 return false;
             }
         }
+        public static bool compareDate(DateTime a, int? year, int? month, int? day, string method)
+        {
+            try
+            {
+                bool result;
+                switch (method)
+                {
+                    case "=":
+                        if(year != null && month != null && day != null)
+                        {
+                            result = a.Year.Equals(year) && a.Month.Equals(month) && a.Day.Equals(day);
+                        }
+                        else if(year != null && month != null)
+                        {
+                            result = a.Year.Equals(year) && a.Month.Equals(month);
+                        }else if(year != null)
+                        {
+                            result = a.Year.Equals(year);
+                        }
+                        else
+                        {
+                            result = false;
+                        }
+                        break;
+                    case ">=":
+                        if (year != null && month != null && day != null)
+                        {
+                            var b = new DateTime((int)year, (int)month, (int)day);
+                            result = a >= b;
+                        }
+                        else if (year != null && month != null)
+                        {
+                            var b = new DateTime((int)year, (int)month, 1);
+                            b = b.AddMonths(1).AddDays(-1);
+                            result = a >= b;
+                        }
+                        else if (year != null)
+                        {
+                            result = a.Year >= year;
+                        }
+                        else
+                        {
+                            result = false;
+                        }
+                        break;
+                    case "<=":
+                        if (year != null && month != null && day != null)
+                        {
+                            var b = new DateTime((int)year, (int)month, (int)day);
+                            result = a <= b;
+                        }
+                        else if (year != null && month != null)
+                        {
+                            var b = new DateTime((int)year, (int)month, 1);
+                            result = a <= b;
+                        }
+                        else if (year != null)
+                        {
+                            result = a.Year <= year;
+                        }
+                        else
+                        {
+                            result = false;
+                        }
+                        break;
+                    case "!=":
+                        if (year != null && month != null && day != null)
+                        {
+                            result = !(a.Year.Equals(year) && a.Month.Equals(month) && a.Day.Equals(day));
+                        }
+                        else if (year != null && month != null)
+                        {
+                            result = !(a.Year.Equals(year) && a.Month.Equals(month));
+                        }
+                        else if (year != null)
+                        {
+                            result = !(a.Year.Equals(year));
+                        }
+                        else
+                        {
+                            result = false;
+                        }
+                        break;
+                    case ">":
+                        if (year != null && month != null && day != null)
+                        {
+                            var b = new DateTime((int)year, (int)month, (int)day);
+                            result = a > b;
+                        }
+                        else if (year != null && month != null)
+                        {
+                            var b = new DateTime((int)year, (int)month, 1);
+                            b = b.AddMonths(1).AddDays(-1);
+                            result = a > b;
+                        }
+                        else if (year != null)
+                        {
+                            result = a.Year > year;
+                        }
+                        else
+                        {
+                            result = false;
+                        }
+                        break;
+                    case "<":
+                        if (year != null && month != null && day != null)
+                        {
+                            var b = new DateTime((int)year, (int)month, (int)day);
+                            result = a < b;
+                        }
+                        else if (year != null && month != null)
+                        {
+                            var b = new DateTime((int)year, (int)month, 1);
+                            result = a < b;
+                        }
+                        else if (year != null)
+                        {
+                            result = a.Year < year;
+                        }
+                        else
+                        {
+                            result = false;
+                        }
+                        break;
+                    default:
+                        return false;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
 
         public static Dictionary<string,int> Monthes
         {

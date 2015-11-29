@@ -5,19 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
     public class HoaDonDaiLy
     {
+        public HoaDonDaiLy() { }
+        public HoaDonDaiLy(HOADONDAILY hoadon)
+        {
+            MaSoHoaDon = hoadon.masohoadon;
+            MaSoDaiLy = hoadon.masodaily;
+            NgayLap = hoadon.ngaylap;
+            TongTien = hoadon.tongtien;
+            TrangThai = hoadon.trangthai;
+        }
+        public HoaDonDaiLy(HOADONDAILY hoadon, DAILY daily)
+            :this(hoadon)
+        {
+            DaiLy = new DaiLy(daily);
+        }
+
+
         #region Private Properties
         private DaiLy _daily;
         private List<ChiTietHoaDonDaiLy> _chitiet;
         #endregion
 
         #region Public Properties
+        [Required]
         [DisplayName(HoaDonDaiLyManager.Properties.MaSoHoaDon)]
         public int MaSoHoaDon { get; set; }
+        [Required]
         [DisplayName(HoaDonDaiLyManager.Properties.MaSoDaiLy)]
         public int MaSoDaiLy { get; set; }
         [DisplayName(HoaDonDaiLyManager.Properties.DaiLy)]
@@ -36,8 +55,10 @@ namespace Core.BIZ
                 _daily = value;
             }
         }
+        [Required]
         [DisplayName(HoaDonDaiLyManager.Properties.NgayLap)]
         public DateTime NgayLap { get; set; }
+        [Required]
         [DisplayName(HoaDonDaiLyManager.Properties.TongTien)]
         public decimal TongTien { get; set; }
         [DisplayName(HoaDonDaiLyManager.Properties.ChiTiet)]

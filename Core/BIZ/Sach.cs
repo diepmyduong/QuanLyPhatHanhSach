@@ -17,6 +17,36 @@ namespace Core.BIZ
 {
     public class Sach
     {
+        public Sach() { }
+        public Sach(SACH sach)
+        {
+            MaSoSach = sach.masosach;
+            MaSoNXB = sach.masonxb;
+            MaSoLinhVuc = sach.masolinhvuc;
+            TenSach = sach.tensach;
+            TenTacGia = sach.tacgia;
+            Soluong = sach.soluong;
+            GiaNhap = sach.gianhap;
+            GiaBan = sach.giaban;
+            HinhAnh = sach.hinhanh;
+            TrangThai = sach.trangthai;
+        }
+        public Sach(SACH sach,NXB nxb)
+            : this(sach)
+        {
+            NXB = new NhaXuatBan(nxb);
+        }
+        public Sach(SACH sach, LINHVUC linhvuc)
+            : this(sach)
+        {
+            LinhVucSach = new LinhVuc(linhvuc);
+        }
+        public Sach(SACH sach, NXB nxb, LINHVUC linhvuc)
+            : this(sach, nxb)
+        {
+            LinhVucSach = new LinhVuc(linhvuc);
+        }
+
         #region Private Properties
         private NhaXuatBan _nxb;
         private LinhVuc _linhvuc;
@@ -31,9 +61,14 @@ namespace Core.BIZ
         private decimal? _tongTienNhap;
         private decimal? _tongTienXuat;
         private Image _image;
+        private decimal? _tongTienNhapTheoThang;
+        private decimal? _tongTienXuatTheoThang;
+        private decimal? _tongSoLuongNhapTheoThang;
+        private decimal? _tongSoLuongXuatTheoThang;
         #endregion
 
         #region Public Properties
+        [Required]
         [DisplayName(SachManager.Properties.MaSoSach)]
         public int MaSoSach { get; set; }
         [Required]
@@ -135,6 +170,7 @@ namespace Core.BIZ
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(HoaDonDaiLyManager.ChiTiet.Properties.MaSoSach, this.MaSoSach);
+                    param.Add(HoaDonDaiLyManager.ChiTiet.Properties.TrangThai, 1);
                     _hoadondaily = HoaDonDaiLyManager.ChiTiet.findBy(param);
                 }
                 return _hoadondaily;
@@ -154,6 +190,7 @@ namespace Core.BIZ
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(HoaDonNXBManager.ChiTiet.Properties.MaSoSach, this.MaSoSach);
+                    param.Add(HoaDonNXBManager.ChiTiet.Properties.TrangThai, 1);
                     _hoadonnxb = HoaDonNXBManager.ChiTiet.findBy(param);
                 }
                 return _hoadonnxb;
@@ -173,6 +210,7 @@ namespace Core.BIZ
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(PhieuNhapManager.ChiTiet.Properties.MaSoSach, this.MaSoSach);
+                    param.Add(PhieuNhapManager.ChiTiet.Properties.TrangThai, 1);
                     _phieunhap = PhieuNhapManager.ChiTiet.findBy(param);
                 }
                 return _phieunhap;
@@ -191,6 +229,7 @@ namespace Core.BIZ
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(PhieuXuatManager.Chitiet.Properties.MaSoSach, this.MaSoSach);
+                    param.Add(PhieuXuatManager.Chitiet.Properties.TrangThai, 1);
                     _phieuxuat = PhieuXuatManager.Chitiet.findBy(param);
                 }
                 return _phieuxuat;
@@ -248,6 +287,8 @@ namespace Core.BIZ
                 return _tongTienXuat;
             }
         }
+        [DisplayName(SachManager.Properties.TrangThai)]
+        public int? TrangThai { get; set;}
 
         public Image HinhAnhTypeImage
         {
@@ -301,10 +342,11 @@ namespace Core.BIZ
             DateTime startDate = new DateTime(startYear, startMonth, 1);
             DateTime endDate = new DateTime(endYear, endMonth, 1);
             endDate = endDate.AddMonths(1).AddDays(-1);
-            return this.PhieuNhap.Where(p =>
+            _tongTienNhapTheoThang = this.PhieuNhap.Where(p =>
                         p.PhieuNhap.NgayLap >= startDate
                         && p.PhieuNhap.NgayLap <= endDate).ToList()
                         .Sum(p => p.ThanhTien);
+            return _tongTienNhapTheoThang;
         }
 
         public decimal? tongTienXuatTheoThang(int startMonth, int startYear, int endMonth, int endYear)
@@ -312,30 +354,33 @@ namespace Core.BIZ
             DateTime startDate = new DateTime(startYear, startMonth, 1);
             DateTime endDate = new DateTime(endYear, endMonth, 1);
             endDate = endDate.AddMonths(1).AddDays(-1);
-            return this.PhieuXuat.Where(p =>
+            _tongTienXuatTheoThang = this.PhieuXuat.Where(p =>
                         p.PhieuXuat.NgayLap >= startDate
                         && p.PhieuXuat.NgayLap <= endDate).ToList()
                         .Sum(p => p.ThanhTien);
+            return _tongTienXuatTheoThang;
         }
         public decimal? tongSoLuongNhapTheoThang(int startMonth, int startYear, int endMonth, int endYear)
         {
             DateTime startDate = new DateTime(startYear, startMonth, 1);
             DateTime endDate = new DateTime(endYear, endMonth, 1);
             endDate = endDate.AddMonths(1).AddDays(-1);
-            return this.PhieuNhap.Where(p =>
+            _tongSoLuongNhapTheoThang = this.PhieuNhap.Where(p =>
                         p.PhieuNhap.NgayLap >= startDate
                         && p.PhieuNhap.NgayLap <= endDate).ToList()
                         .Sum(p => p.SoLuong);
+            return _tongSoLuongNhapTheoThang;
         }
         public decimal? tongSoLuongXuatTheoThang(int startMonth, int startYear, int endMonth, int endYear)
         {
             DateTime startDate = new DateTime(startYear, startMonth, 1);
             DateTime endDate = new DateTime(endYear, endMonth, 1);
             endDate = endDate.AddMonths(1).AddDays(-1);
-            return this.PhieuXuat.Where(p =>
+            _tongSoLuongXuatTheoThang = this.PhieuXuat.Where(p =>
                         p.PhieuXuat.NgayLap >= startDate
                         && p.PhieuXuat.NgayLap <= endDate).ToList()
                         .Sum(p => p.SoLuong);
+            return _tongSoLuongXuatTheoThang;
         }
 
         public string ImageFolderPath()
@@ -345,8 +390,12 @@ namespace Core.BIZ
                                 + "Core/Images/";
             return imageFolderPath.Replace("%20"," ");
         }
-        
 
+        public bool delete()
+        {
+            this.TrangThai = 0;
+            return SachManager.edit(this);
+        }
         #endregion
 
         #region Override Methods

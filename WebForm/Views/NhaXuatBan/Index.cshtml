@@ -3,6 +3,57 @@
 @{
     ViewBag.Title = "Danh mục Nhà Xuất Bản";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    @section AddToHead{
+        <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
+        <script>
+            $(function() {
+            var availableTags = []
+            function getAutoCompleteSource(request) {
+                $.getJSON('@Url.Action("GetProperties")',{ request : request}, function (data) {
+                    availableTags = data;
+                });
+            }
+            function split( val ) {
+              return val.split( /{\s*/ );
+            }
+            function extractLast( term ) {
+              return split( term ).pop();
+            }
+            
+            $( "#search" )
+              // don't navigate away from the field on tab when selecting an item
+              .bind( "keydown", function( event ) {
+                if ( event.keyCode === $.ui.keyCode.TAB &&
+                    $( this ).autocomplete( "instance" ).menu.active ) {
+                  event.preventDefault();
+                }
+                if (event.shiftKey && event.keyCode == 219) {
+                    getAutoCompleteSource($(this).val()+"{");
+                }
+              })
+              .autocomplete({
+                minLength: 0,
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                  response( $.ui.autocomplete.filter(
+                    availableTags, extractLast( request.term ) ) );
+                  console.log($.ui.autocomplete.filter(
+                    availableTags, extractLast( request.term ) ));
+                },
+                focus: function() {
+                  // prevent value inserted on focus
+                  return true;
+                },
+                select: function( event, ui ) {
+                  return false;
+                }
+              });
+          });
+        </script>
+    }
 }
 @using PagedList;
 @using PagedList.Mvc;
@@ -11,10 +62,10 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm Nhà xuất bản", "Create")
 </p>
 <hr />
-@using (Html.BeginForm("Index", "Sach", FormMethod.Get, new { @class = "form" }))
+@using (Html.BeginForm("Index", "NhaXuatBan", FormMethod.Get, new { @class = "form" }))
 {
     @Html.ValidationSummary(true)
     <div class="row ">
@@ -68,9 +119,9 @@
             @Html.DisplayFor(modelItem => item.SoTaiKhoan)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MaSoNXB }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaSoNXB }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MaSoNXB })
+            @Html.ActionLink("Sửa", "Edit", new { id = item.MaSoNXB }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSoNXB }) |
+            @Html.ActionLink("Xóa", "Delete", new { id = item.MaSoNXB })
         </td>
     </tr>
 }

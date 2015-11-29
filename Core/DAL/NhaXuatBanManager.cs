@@ -23,60 +23,44 @@ namespace Core.DAL
             public const string HoaDon = "Hóa đơn";
             public const string TongTienNo = "Tổng tiền nợ";
             public const string TongTienNoThang = "Tổng tiền nợ tháng";
+            public const string TrangThai = "Trạng thái";
         }
         public static List<NhaXuatBan> getAll()
         {
             using(EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from nxb in db.NXBs
-                                where nxb.trangthai == null
-                                select new NhaXuatBan
-                                {
-                                    MaSoNXB = nxb.masonxb,
-                                    TenNXB = nxb.ten,
-                                    DiaChi = nxb.diachi,
-                                    SoDienThoai = nxb.sodienthoai,
-                                    SoTaiKhoan = nxb.sotaikhoan
-                                };
+                                select new NhaXuatBan(nxb);
                 return linqQuery.ToList();
             }
         }
-
+        public static List<NhaXuatBan> getAllAlive()
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from nxb in db.NXBs
+                                where nxb.trangthai == null
+                                select new NhaXuatBan(nxb);
+                return linqQuery.ToList();
+            }
+        }
         public static NhaXuatBan find(int masonxb)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from nxb in db.NXBs
                                 where nxb.masonxb.Equals(masonxb)
-                                && nxb.trangthai == null
-                                select new NhaXuatBan
-                                {
-                                    MaSoNXB = nxb.masonxb,
-                                    TenNXB = nxb.ten,
-                                    DiaChi = nxb.diachi,
-                                    SoDienThoai = nxb.sodienthoai,
-                                    SoTaiKhoan = nxb.sotaikhoan
-                                };
+                                select new NhaXuatBan(nxb);
                 return linqQuery.SingleOrDefault();
             }
         }
-
         public static List<NhaXuatBan> findBy(Dictionary<string,dynamic> Params)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 dynamic value;
 
-                var linqQuery = (from nxb in db.NXBs
-                                 where nxb.trangthai == null
-                                 select new NhaXuatBan
-                                 {
-                                     MaSoNXB = nxb.masonxb,
-                                     TenNXB = nxb.ten,
-                                     DiaChi = nxb.diachi,
-                                     SoDienThoai = nxb.sodienthoai,
-                                     SoTaiKhoan = nxb.sotaikhoan
-                                 })
+                var linqQuery = getAll()
                                  .Where(nxb => nxb.MaSoNXB.Equals(
                                         Params.TryGetValue(Properties.MaSoNXB, out value) ? value as int?
                                         : nxb.MaSoNXB
@@ -92,11 +76,14 @@ namespace Core.DAL
                                  )).Where(nxb => nxb.SoTaiKhoan.Equals(
                                         Params.TryGetValue(Properties.SoTaiKhoan, out value) ? value as string
                                         : nxb.SoTaiKhoan
+                                 ))
+                                 .Where(nxb => nxb.TrangThai.Equals(
+                                        Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
+                                        : nxb.TrangThai
                                  ));
-                return linqQuery.ToList<NhaXuatBan>();
+                return linqQuery.ToList();
             }
         }
-
         public static List<NhaXuatBan> filter(string request, List<NhaXuatBan> DMNXB)
         {
 
@@ -149,7 +136,7 @@ namespace Core.DAL
                     || nxb.SoDienThoai.Contains(number.ToString())
                     || nxb.SoTaiKhoan.Contains(number.ToString())
                     );
-                    return linqQuery.ToList<NhaXuatBan>();
+                    return linqQuery.ToList();
                 }
                 else
                 {
@@ -157,13 +144,13 @@ namespace Core.DAL
                     (nxb => nxb.TenNXB.Contains(request)
                     || nxb.DiaChi.Contains(request)
                     );
-                    return linqQuery.ToList<NhaXuatBan>();
+                    return linqQuery.ToList();
                 }
             }
         }
         public static List<NhaXuatBan> filter(string request)
         {
-            var DMNXB = getAll();
+            var DMNXB = getAllAlive();
             return filter(request, DMNXB);
         }
         public static int add(NhaXuatBan nhaxuatban)
@@ -204,6 +191,7 @@ namespace Core.DAL
                     nxb.diachi = nhaxuatban.DiaChi;
                     nxb.sodienthoai = nhaxuatban.SoDienThoai;
                     nxb.sotaikhoan = nhaxuatban.SoTaiKhoan;
+                    nxb.trangthai = nhaxuatban.TrangThai;
                     db.SubmitChanges();
                     return true;
                 }

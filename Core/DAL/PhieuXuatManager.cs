@@ -29,25 +29,10 @@ namespace Core.DAL
                 var linqQuery = from phieu in db.PHIEUXUATs
                                 join dl in db.DAILies
                                 on phieu.masodaily equals dl.masodaily
-                                select new PhieuXuat
-                                {
-                                    MaSoPhieuXuat = phieu.masophieuxuat,
-                                    Daily = new DaiLy()
-                                    {
-                                        MaSoDaiLy = dl.masodaily,
-                                        TenDaiLy = dl.ten,
-                                        DiaChi = dl.diachi,
-                                        SoDienThoai = dl.sodienthoai,
-                                        SoTaiKhoan = dl.sotaikhoan
-                                    },
-                                    NgayLap = phieu.ngaylap,
-                                    NguoiNhan = phieu.nguoinhasach,
-                                    TongTien = phieu.tongtien
-                                };
-                return linqQuery.ToList<PhieuXuat>();
+                                select new PhieuXuat(phieu, dl);
+                return linqQuery.ToList();
             }
         }
-
         public static PhieuXuat find(int masophieuxuat)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
@@ -56,22 +41,8 @@ namespace Core.DAL
                                 join dl in db.DAILies
                                 on phieu.masodaily equals dl.masodaily
                                 where phieu.masophieuxuat.Equals(masophieuxuat)
-                                select new PhieuXuat
-                                {
-                                    MaSoPhieuXuat = phieu.masophieuxuat,
-                                    Daily = new DaiLy()
-                                    {
-                                        MaSoDaiLy = dl.masodaily,
-                                        TenDaiLy = dl.ten,
-                                        DiaChi = dl.diachi,
-                                        SoDienThoai = dl.sodienthoai,
-                                        SoTaiKhoan = dl.sotaikhoan
-                                    },
-                                    NgayLap = phieu.ngaylap,
-                                    NguoiNhan = phieu.nguoinhasach,
-                                    TongTien = phieu.tongtien
-                                };
-                return linqQuery.SingleOrDefault<PhieuXuat>();
+                                select new PhieuXuat(phieu, dl);
+                return linqQuery.SingleOrDefault();
             }
         }
 
@@ -81,24 +52,7 @@ namespace Core.DAL
             {
                 dynamic value;
 
-                var linqQuery = (from phieu in db.PHIEUXUATs
-                                 join dl in db.DAILies
-                                 on phieu.masodaily equals dl.masodaily
-                                 select new PhieuXuat
-                                 {
-                                     MaSoPhieuXuat = phieu.masophieuxuat,
-                                     Daily = new DaiLy()
-                                     {
-                                         MaSoDaiLy = dl.masodaily,
-                                         TenDaiLy = dl.ten,
-                                         DiaChi = dl.diachi,
-                                         SoDienThoai = dl.sodienthoai,
-                                         SoTaiKhoan = dl.sotaikhoan
-                                     },
-                                     NgayLap = phieu.ngaylap,
-                                     NguoiNhan = phieu.nguoinhasach,
-                                     TongTien = phieu.tongtien
-                                 })
+                var linqQuery = getAll()
                                  .Where(phieu => phieu.MaSoPhieuXuat.Equals(
                                         Params.TryGetValue(Properties.MaSoPhieuXuat, out value) ? value as int?
                                         : phieu.MaSoPhieuXuat
@@ -114,8 +68,11 @@ namespace Core.DAL
                                  )).Where(phieu => phieu.MaSoDaiLy.Equals(
                                         Params.TryGetValue(Properties.MaSoDaiLy, out value) ? value as int?
                                         : phieu.MaSoDaiLy
+                                 )).Where(phieu => phieu.TrangThai.Equals(
+                                        Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
+                                        : phieu.TrangThai
                                  ));
-                return linqQuery.ToList<PhieuXuat>();
+                return linqQuery.ToList();
             }
         }
 
@@ -133,9 +90,34 @@ namespace Core.DAL
                     MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
                     string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
                     string param = "";
+                    int? year = null, month = null, day = null;
                     for (int i = 1; i < Params.Count; i++)
                     {
                         param += " " + Params[i];
+                        if (i == 1)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                year = number;
+                            }
+                        }
+                        if (i == 2)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                month = number;
+                            }
+                        }
+                        if (i == 3)
+                        {
+                            int number;
+                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            {
+                                day = number;
+                            }
+                        }
                     }
                     param = param.Trim();
                     switch (Params[0].ToString())
@@ -150,10 +132,13 @@ namespace Core.DAL
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NguoiNhan, param, method, true));
                             break;
                         case nameof(Properties.NgayLap):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NgayLap, param, method, true));
+                            linqQuery = linqQuery.Where(s => FilterHelper.compareDate(s.NgayLap, year, month, day, method));
                             break;
                         case nameof(Properties.TongTien):
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, param, method, false));
+                            break;
+                        case nameof(Properties.TrangThai):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TrangThai == 0 ? "Đã duyệt" : "Chưa duyệt", param, method, true));
                             break;
                     }
                 }
@@ -178,6 +163,8 @@ namespace Core.DAL
                     (s => s.NgayLap.ToString().ToLower().Contains(request)
                     || s.Daily.TenDaiLy.ToLower().Contains(request)
                     || s.NguoiNhan.ToLower().Contains(request)
+                    || (s.TrangThai == 0 ? "đã duyệt" : "chưa duyệt").Contains(request)
+                    || s.NgayLap.ToString().Contains(request)
                     );
                     return linqQuery.ToList();
                 }
@@ -206,12 +193,10 @@ namespace Core.DAL
                     px.nguoinhasach = phieu.NguoiNhan;
                     px.trangthai = phieu.TrangThai;
                     px.tongtien = phieu.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia); // tính tổng tiền các chi tiết
-                    foreach(CHITIETPHIEUXUAT ct in px.CHITIETPHIEUXUATs)
-                    {
-                        db.CHITIETPHIEUXUATs.DeleteOnSubmit(ct);
-                    }
+                    db.CHITIETPHIEUXUATs.DeleteAllOnSubmit(px.CHITIETPHIEUXUATs);
                     foreach(ChiTietPhieuXuat ct in phieu.ChiTiet)
                     {
+                        ct.MaSoPhieuXuat = phieu.MaSoPhieuXuat;
                         Chitiet.add(ct);
                     }
                     db.SubmitChanges();
@@ -235,7 +220,8 @@ namespace Core.DAL
                         masodaily = phieuxuat.MaSoDaiLy,
                         ngaylap = phieuxuat.NgayLap,
                         nguoinhasach = phieuxuat.NguoiNhan,
-                        tongtien = phieuxuat.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia)
+                        tongtien = phieuxuat.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia),
+                        trangthai = 0
                     };
                     db.PHIEUXUATs.InsertOnSubmit(phieu);
                     db.SubmitChanges();
@@ -263,6 +249,7 @@ namespace Core.DAL
                              where p.masophieuxuat.Equals(masophieuxuat)
                              select p).SingleOrDefault();
                     if (phieu == null) return false;
+                    db.CHITIETPHIEUXUATs.DeleteAllOnSubmit(phieu.CHITIETPHIEUXUATs);
                     db.PHIEUXUATs.DeleteOnSubmit(phieu);
                     db.SubmitChanges();
                     return true;
@@ -287,6 +274,7 @@ namespace Core.DAL
                 public const string ThanhTien = "Thành tiền";
                 public const string MaSoPhieuXuat = "Mã số phiếu xuất";
                 public const string PhieuXuat = "Ngày lập";
+                public const string TrangThai = "Trạng thái";
             }
 
             public static List<ChiTietPhieuXuat> getAll()
@@ -296,26 +284,8 @@ namespace Core.DAL
                     var linqQuery = from ct in db.CHITIETPHIEUXUATs
                                     join s in db.SACHes
                                     on ct.masosach equals s.masosach
-                                    select new ChiTietPhieuXuat()
-                                    {
-                                        MaSoPhieuXuat = ct.masophieuxuat,
-                                        MaSoSach = ct.masosach,
-                                        Sach = new Sach()
-                                        {
-                                            MaSoSach = s.masosach,
-                                            TenSach = s.tensach,
-                                            TenTacGia = s.tacgia,
-                                            MaSoLinhVuc = s.masolinhvuc,
-                                            MaSoNXB = s.masonxb,
-                                            Soluong = s.soluong,
-                                            GiaBan = s.giaban,
-                                            GiaNhap = s.gianhap,
-                                            HinhAnh = s.hinhanh
-                                        },
-                                        SoLuong = ct.soluong,
-                                        DonGia = ct.dongia
-                                    };
-                    return linqQuery.ToList<ChiTietPhieuXuat>();
+                                    select new ChiTietPhieuXuat(ct, s);
+                    return linqQuery.ToList();
                 }
             }
 
@@ -327,26 +297,8 @@ namespace Core.DAL
                                     join s in db.SACHes
                                     on ct.masosach equals s.masosach
                                     where ct.masophieuxuat.Equals(masophieuxuat)
-                                    select new ChiTietPhieuXuat()
-                                    {
-                                        MaSoPhieuXuat = ct.masophieuxuat,
-                                        MaSoSach = ct.masosach,
-                                        Sach = new Sach()
-                                        {
-                                            MaSoSach = s.masosach,
-                                            TenSach = s.tensach,
-                                            TenTacGia = s.tacgia,
-                                            MaSoLinhVuc = s.masolinhvuc,
-                                            MaSoNXB = s.masonxb,
-                                            Soluong = s.soluong,
-                                            GiaBan = s.giaban,
-                                            GiaNhap = s.gianhap,
-                                            HinhAnh = s.hinhanh
-                                        },
-                                        SoLuong = ct.soluong,
-                                        DonGia = ct.dongia
-                                    };
-                    return linqQuery.ToList<ChiTietPhieuXuat>();
+                                    select new ChiTietPhieuXuat(ct, s);
+                    return linqQuery.ToList();
                 }
             }
 
@@ -356,28 +308,7 @@ namespace Core.DAL
                 {
                     dynamic value;
 
-                    var linqQuery = (from ct in db.CHITIETPHIEUXUATs
-                                     join s in db.SACHes
-                                     on ct.masosach equals s.masosach
-                                     select new ChiTietPhieuXuat()
-                                     {
-                                         MaSoPhieuXuat = ct.masophieuxuat,
-                                         MaSoSach = ct.masosach,
-                                         Sach = new Sach()
-                                         {
-                                             MaSoSach = s.masosach,
-                                             TenSach = s.tensach,
-                                             TenTacGia = s.tacgia,
-                                             MaSoLinhVuc = s.masolinhvuc,
-                                             MaSoNXB = s.masonxb,
-                                             Soluong = s.soluong,
-                                             GiaBan = s.giaban,
-                                             GiaNhap = s.gianhap,
-                                             HinhAnh = s.hinhanh
-                                         },
-                                         SoLuong = ct.soluong,
-                                         DonGia = ct.dongia
-                                     })
+                    var linqQuery = getAll()
                                      .Where(ct => ct.MaSoPhieuXuat.Equals(
                                             Params.TryGetValue(Properties.MaSoPhieuXuat, out value) ? value as int?
                                             : ct.MaSoPhieuXuat
@@ -390,8 +321,11 @@ namespace Core.DAL
                                      )).Where(ct => ct.DonGia.Equals(
                                             Params.TryGetValue(Properties.DonGia, out value) ? value as decimal?
                                             : ct.DonGia
+                                     )).Where(ct => ct.TrangThai.Equals(
+                                            Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
+                                            : ct.TrangThai
                                      ));
-                    return linqQuery.ToList<ChiTietPhieuXuat>();
+                    return linqQuery.ToList();
                 }
             }
 
@@ -417,7 +351,8 @@ namespace Core.DAL
                             masophieuxuat = masophieuxuat,
                             masosach = chitiet.MaSoSach,
                             soluong = chitiet.SoLuong,
-                            dongia = chitiet.DonGia
+                            dongia = chitiet.DonGia,
+                            trangthai = 0
                         };
                         db.CHITIETPHIEUXUATs.InsertOnSubmit(ct);
                         db.SubmitChanges();
@@ -444,6 +379,7 @@ namespace Core.DAL
                               select c).SingleOrDefault();
                         if (ct == null) return false;
                         ct.soluong = chitiet.SoLuong;
+                        ct.trangthai = chitiet.TrangThai;
                         db.SubmitChanges();
                         return true;
                     }

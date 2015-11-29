@@ -5,11 +5,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Core.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.BIZ
 {
     public class PhieuXuat
     {
+        public PhieuXuat() { }
+        public PhieuXuat(PHIEUXUAT phieu)
+        {
+            MaSoPhieuXuat = phieu.masophieuxuat;
+            MaSoDaiLy = phieu.masodaily;
+            NgayLap = phieu.ngaylap;
+            NguoiNhan = phieu.nguoinhasach;
+            TongTien = phieu.tongtien;
+            TrangThai = phieu.trangthai;
+        }
+        public PhieuXuat(PHIEUXUAT phieu, DAILY daily)
+            :this(phieu)
+        {
+            Daily = new DaiLy(daily);
+        }
 
         #region Private Properties
         private DaiLy _daily;
@@ -17,8 +33,10 @@ namespace Core.BIZ
         #endregion
 
         #region Public Properties
+        [Required]
         [DisplayName(PhieuXuatManager.Properties.MaSoPhieuXuat)]
         public int MaSoPhieuXuat { get; set; }
+        [Required]
         [DisplayName(PhieuXuatManager.Properties.MaSoDaiLy)]
         public int MaSoDaiLy { get; set; }
         [DisplayName(PhieuXuatManager.Properties.DaiLy)]
@@ -37,10 +55,13 @@ namespace Core.BIZ
                 _daily = value;
             }
         }
+        [Required]
         [DisplayName(PhieuXuatManager.Properties.NgayLap)]
         public DateTime NgayLap { get; set; }
+        [Required]
         [DisplayName(PhieuXuatManager.Properties.NguoiNhan)]
         public string NguoiNhan { get; set; }
+        [Required]
         [DisplayName(PhieuXuatManager.Properties.TongTien)]
         public decimal TongTien { get; set; }
 
@@ -62,7 +83,7 @@ namespace Core.BIZ
             }
         }
         [DisplayName(PhieuXuatManager.Properties.TrangThai)]
-        public int TrangThai { get; set; }
+        public int? TrangThai { get; set; }
         #endregion
 
         #region Services
