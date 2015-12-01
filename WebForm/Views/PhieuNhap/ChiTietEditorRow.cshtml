@@ -18,7 +18,7 @@
         </td>
         <td class="@nameof(Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong)">
             @*@String.Format("{0:0}", item.SoLuong)*@
-            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control soluong", oldvalue = Model.SoLuong } })
+            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control soluong", oldvalue = Model.SoLuong , type = "number" } })
         </td>
         <td class="@nameof(Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia)">
             @String.Format(ViewBag.cultureInfo, "{0:c}", Model.Sach.GiaNhap)

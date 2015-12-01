@@ -11,6 +11,13 @@ namespace WebForm.Controllers
 {
     public class NhaXuatBanController : Controller
     {
+        #region Private Properties
+        #endregion
+
+        #region Public Properties
+        #endregion
+
+        #region Actions
         // GET: NhaXuatBan
         public ActionResult Index(int page = 1, int pageSize = 10, string search = null)
         {
@@ -22,7 +29,7 @@ namespace WebForm.Controllers
             }
             else
             {
-                DMNXB = NhaXuatBanManager.getAll();
+                DMNXB = NhaXuatBanManager.getAllAlive();
             }
             var models = DMNXB.ToPagedList(page, pageSize);
             return View(models);
@@ -60,7 +67,7 @@ namespace WebForm.Controllers
                 if (ModelState.IsValid)
                 {
                     var result = NhaXuatBanManager.add(model);
-                    if(result != 0)
+                    if (result != 0)
                     {
                         return RedirectToAction("Details", new { id = result });
                     }
@@ -90,25 +97,15 @@ namespace WebForm.Controllers
 
         // POST: NhaXuatBan/Edit/5
         [HttpPost]
-        public ActionResult Edit(int? id, FormCollection collection)
+        public ActionResult Edit(NhaXuatBan model, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-                if (id == null)
-                {
-                    return new HttpNotFoundResult("Bad Request");
-                }
-                var model = NhaXuatBanManager.find((int)id);
-                if (model == null)
-                {
-                    return new HttpNotFoundResult("Not Found!");
-                }
                 if (ModelState.IsValid)
                 {
                     if (NhaXuatBanManager.edit(model))
                     {
-                        return RedirectToAction("Details", new { id = id });
+                        return RedirectToAction("Details", new { id = model.MaSoNXB });
                     }
                 }
                 return View(model);
@@ -145,16 +142,35 @@ namespace WebForm.Controllers
                 {
                     return new HttpNotFoundResult("Bad Request");
                 }
-                if (NhaXuatBanManager.delete((int)id))
+                var model = NhaXuatBanManager.find((int)id);
+                if (model == null)
+                {
+                    return new HttpNotFoundResult("Not Found!");
+                }
+                if (model.delete())
                 {
                     return RedirectToAction("Index");
                 }
-                return View();
+                return View(model);
             }
             catch
             {
                 return View();
             }
         }
+        #endregion
+
+        #region JSON REQUEST
+        public JsonResult GetProperties(string request)
+        {
+            List<string> results = new List<string>();
+            foreach (string pro in NhaXuatBan.searchKeys())
+            {
+                results.Add(request + pro);
+            }
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        
     }
 }

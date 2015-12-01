@@ -158,6 +158,8 @@ namespace Core.DAL
                     || cn.SoLuong.Equals(number)
                     || cn.DonGia.Equals(number)
                     || cn.ThanhTien.Equals(number)
+                    || cn.Thang.Year.Equals(number)
+                    || cn.Thang.Month.Equals(number)
                     );
                     return linqQuery.ToList();
                 }

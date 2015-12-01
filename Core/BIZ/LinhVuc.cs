@@ -21,6 +21,7 @@ namespace Core.BIZ
 
         #region Private Properties
         private List<Sach> _sach;
+        private static List<string> _searchKeys;
         #endregion
 
         #region Public Properties
@@ -59,6 +60,16 @@ namespace Core.BIZ
         {
             this.TrangThai = 0;
             return LinhVucManager.edit(this);
+        }
+        public static List<string> searchKeys()
+        {
+            if (_searchKeys == null)
+            {
+                _searchKeys = new List<string>();
+                _searchKeys.Add(nameof(LinhVucManager.Properties.MaSoLinhVuc));
+                _searchKeys.Add(nameof(LinhVucManager.Properties.TenLinhVuc));
+            }
+            return _searchKeys;
         }
         #endregion
 

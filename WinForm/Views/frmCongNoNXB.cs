@@ -131,9 +131,9 @@ namespace WinForm.Views
             {
                 DataGridViewCell cellTongTienNo = row.Cells[nameof(NhaXuatBanManager.Properties.TongTienNoThang)];
                 var nxb = (((DataGridView)sender).DataSource as List<NhaXuatBan>)[row.Index];
-                decimal? tienNoThang = nxb.TongTienNoThang(_startMonth, _startYear, _endMonth, _endYear);
+                decimal? tienNoThang = nxb.tongTienNoThang(_startMonth, _startYear, _endMonth, _endYear);
                 cellTongTienNo.Value = tienNoThang;
-                decimal? tienNhapThang = nxb.TongTienNhapThang(_startMonth, _startYear, _endMonth, _endYear);
+                decimal? tienNhapThang = nxb.tongTienNhapThang(_startMonth, _startYear, _endMonth, _endYear);
                 _tongTienNo += tienNoThang;
                 _tongTienNhap += tienNhapThang;
             }
@@ -154,8 +154,8 @@ namespace WinForm.Views
         {
             if(nxb != null)
             {
-                decimal? tienNhapThang = nxb.TongTienNhapThang(_startMonth, _startYear, _endMonth, _endYear);
-                decimal? tienNoThang = nxb.TongTienNoThang(_startMonth, _startYear, _endMonth, _endYear);
+                decimal? tienNhapThang = nxb.tongTienNhapThang(_startMonth, _startYear, _endMonth, _endYear);
+                decimal? tienNoThang = nxb.tongTienNoThang(_startMonth, _startYear, _endMonth, _endYear);
                 lbMaSoNXB.Text = nxb.MaSoNXB.ToString();
                 lbTenNXB.Text = nxb.TenNXB;
                 lbTienSachNXB.Text = String.Format(_cultureInfo, "{0:c}", tienNhapThang);

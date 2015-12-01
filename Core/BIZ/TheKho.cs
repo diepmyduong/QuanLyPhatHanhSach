@@ -26,6 +26,7 @@ namespace Core.BIZ
 
         #region Private Properties
         private Sach _sach;
+        private static List<string> _searchKeys;
         #endregion
 
         #region Public Properties
@@ -57,6 +58,19 @@ namespace Core.BIZ
         #endregion
 
         #region Services
+        public static List<string> searchKeys()
+        {
+            if(_searchKeys == null)
+            {
+                _searchKeys = new List<string>();
+                _searchKeys.Add(nameof(TheKhoManager.Properties.MaSoSach));
+                _searchKeys.Add(nameof(SachManager.Properties.TenSach));
+                _searchKeys.Add(nameof(SachManager.Properties.TenTacGia));
+                _searchKeys.Add(nameof(TheKhoManager.Properties.SoLuong));
+                _searchKeys.Add(nameof(TheKhoManager.Properties.NgayGhi));
+            }
+            return _searchKeys;
+        }
         #endregion
 
         #region Override Methods

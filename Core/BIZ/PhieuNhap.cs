@@ -30,6 +30,7 @@ namespace Core.BIZ
         #region Private Properties
         private NhaXuatBan _nxb;
         private List<ChiTietPhieuNhap> _chitiet;
+        private static List<string> _searchKeys;
         #endregion
 
         #region Public Properties
@@ -118,7 +119,7 @@ namespace Core.BIZ
         public bool accept()
         {
             //Duyệt từng chi tiết
-            foreach(ChiTietPhieuNhap ct in this.ChiTiet)
+            foreach (ChiTietPhieuNhap ct in this.ChiTiet)
             {
                 //Cập nhật thông tin sách
                 ct.Sach.Soluong += ct.SoLuong;
@@ -141,6 +142,7 @@ namespace Core.BIZ
                     Thang = DateTime.Now
                 };
                 if (CongNoNXBManager.add(congno) == 0) return false;
+                ct.TrangThai = 1;
             }
             //Thay đổi trang thái phiếu nhập
             this.TrangThai = 1;
@@ -152,6 +154,20 @@ namespace Core.BIZ
             {
                 return false;
             }
+        }
+        public static List<string> searchKeys()
+        {
+            if (_searchKeys == null)
+            {
+                _searchKeys = new List<string>();
+                _searchKeys.Add(nameof(PhieuNhapManager.Properties.MaSoPhieuNhap));
+                _searchKeys.Add(nameof(PhieuNhapManager.Properties.NgayLap));
+                _searchKeys.Add(nameof(PhieuNhapManager.Properties.NguoiGiao));
+                _searchKeys.Add(nameof(PhieuNhapManager.Properties.TongTien));
+                _searchKeys.Add(nameof(PhieuNhapManager.Properties.TrangThai));
+                _searchKeys.Add(nameof(NhaXuatBanManager.Properties.TenNXB));
+            }
+            return _searchKeys;
         }
         #endregion
 

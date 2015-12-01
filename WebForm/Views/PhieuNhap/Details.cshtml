@@ -1,23 +1,23 @@
 ﻿@model Core.BIZ.PhieuNhap
 
 @{
-    ViewBag.Title = "Chi tiết phiếu nhập";
+    ViewBag.Title = "Xem Chi tiết";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div>
-    @*<h4>PhieuNhap</h4>*@
+    <h4>Phiếu nhập</h4>
     <p>
         @if (Model.TrangThai == 0)
         {
-            @Html.ActionLink("Edit", "Edit", new { id = Model.MaSoPhieuNhap })
+            @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoPhieuNhap })
             @Html.Raw(" | ")
                                                                               
         }
         
-        @Html.ActionLink("Back to List", "All")
+        @Html.ActionLink("Trở lại danh sách", "All")
     </p>
     <hr />
     <div class="row">
@@ -36,7 +36,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.NXB.TenNXB)
+                    @Html.ActionLink(Model.NXB.TenNXB,"Details","NhaXuatBan",new { id = Model.MaSoNXB},null)
                 </dd>
 
                 <dt>

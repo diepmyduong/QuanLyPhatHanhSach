@@ -96,6 +96,22 @@ namespace Core.BIZ
         {
             return this.Sach.TenSach;
         }
+        public override bool Equals(object obj)
+        {
+            try
+            {
+                return this.MaSoSach.Equals(((ChiTietHoaDonNXB)obj).MaSoSach);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         #endregion
 
 

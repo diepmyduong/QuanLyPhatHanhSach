@@ -6,10 +6,10 @@
    
 }
 
-<h2>@Html.DisplayFor(model => model.TenSach)</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>@Html.DisplayFor(model => model.TenTacGia)</h4>
+    <h4>Sách</h4>
     <p>
         @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoSach }) |
         @Html.ActionLink("Trở lại danh sách", "Index")
@@ -54,7 +54,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.LinhVucSach.TenLinhVuc)
+                    @Html.ActionLink(Model.LinhVucSach.TenLinhVuc,"Details","LinhVuc",new { id = Model.MaSoLinhVuc},null)
                 </dd>
 
                 <dt>
@@ -70,7 +70,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.NXB.TenNXB)
+                    @Html.ActionLink(Model.NXB.TenNXB, "Details", "NhaXuatBan", new { id = Model.MaSoNXB }, null)
                 </dd>
 
                 <dt>

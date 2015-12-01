@@ -6,33 +6,60 @@ using System.Web.Mvc;
 using Core.DAL;
 using Core.BIZ;
 using PagedList;
+using System.Globalization;
 
 namespace WebForm.Controllers
 {
     public class DaiLyController : Controller
     {
+        #region Private Properties
+        private CultureInfo _cultureInfo; // Thông tin văn hóa
+        #endregion
+
+        #region Public Properties
+        public CultureInfo CultureInfo
+        {
+            get
+            {
+                if (_cultureInfo == null)
+                {
+                    _cultureInfo = CultureInfo.GetCultureInfo("vi-VN");
+                }
+                return _cultureInfo;
+            }
+        }
+        #endregion
+
+        #region Actions
         // GET: DaiLy
         public ActionResult Index(int page = 1, int pageSize = 10, string search = null)
         {
             List<DaiLy> DMDaiLy = null;
-            //if (!String.IsNullOrEmpty(search))
-            //{
-            //    DMDaiLy = DaiLyManager.filter(search);
-            //    ViewBag.SearchKey = search;
-            //}
-            //else
-            //{
-            //    DMDaiLy = DaiLyManager.getAll();
-            //}
-            DMDaiLy = DaiLyManager.getAll();
+            if (!String.IsNullOrEmpty(search))
+            {
+                DMDaiLy = DaiLyManager.filter(search);
+                ViewBag.SearchKey = search;
+            }
+            else
+            {
+                DMDaiLy = DaiLyManager.getAllAlive();
+            }
             var models = DMDaiLy.ToPagedList(page, pageSize);
             return View(models);
         }
 
         // GET: DaiLy/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var model = DaiLyManager.find(id);
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request!");
+            }
+            var model = DaiLyManager.find((int)id);
+            if (model == null || model.TrangThai == 0)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
             return View(model);
         }
 
@@ -53,7 +80,7 @@ namespace WebForm.Controllers
                 if (ModelState.IsValid)
                 {
                     var result = DaiLyManager.add(model);
-                    if (result != -1)
+                    if (result != 0)
                     {
                         return RedirectToAction("Details", new { id = result });
                     }
@@ -67,9 +94,17 @@ namespace WebForm.Controllers
         }
 
         // GET: DaiLy/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var model = DaiLyManager.find(id);
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request!");
+            }
+            var model = DaiLyManager.find((int)id);
+            if (model == null || model.TrangThai == 0)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
             return View(model);
         }
 
@@ -96,21 +131,38 @@ namespace WebForm.Controllers
         }
 
         // GET: DaiLy/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            var model = DaiLyManager.find(id);
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request!");
+            }
+            var model = DaiLyManager.find((int)id);
+            if (model == null || model.TrangThai == 0)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
             return View(model);
 
         }
 
         // POST: DaiLy/Delete/5
         [HttpPost]
-        public ActionResult Delete(DaiLy model, FormCollection collection)
+        public ActionResult Delete(int? id, FormCollection collection)
         {
             try
             {
+                if (id == null)
+                {
+                    return new HttpNotFoundResult("Bad Request!");
+                }
+                var model = DaiLyManager.find((int)id);
+                if (model == null || model.TrangThai == 0)
+                {
+                    return new HttpNotFoundResult("Not Found!");
+                }
                 // TODO: Add delete logic here
-                if (DaiLyManager.delete(model))
+                if (model.delete())
                 {
                     return RedirectToAction("Index");
                 }
@@ -121,5 +173,19 @@ namespace WebForm.Controllers
                 return View();
             }
         }
+        #endregion
+
+        #region JSON REQUEST
+        public JsonResult GetProperties(string request)
+        {
+            List<string> results = new List<string>();
+            foreach (string pro in DaiLy.searchKeys())
+            {
+                results.Add(request + pro);
+            }
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        
     }
 }

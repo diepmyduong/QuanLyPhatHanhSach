@@ -47,6 +47,7 @@ namespace Core.BIZ
             LinhVucSach = new LinhVuc(linhvuc);
         }
 
+
         #region Private Properties
         private NhaXuatBan _nxb;
         private LinhVuc _linhvuc;
@@ -65,6 +66,10 @@ namespace Core.BIZ
         private decimal? _tongTienXuatTheoThang;
         private decimal? _tongSoLuongNhapTheoThang;
         private decimal? _tongSoLuongXuatTheoThang;
+        private static List<string> _searchKeys;
+        private static List<string> _searchKeysLoNhap;
+        private decimal? _tongSoLuongNXBNo;
+        private decimal? _tongSoLuongDaiLyNo;
         #endregion
 
         #region Public Properties
@@ -152,7 +157,8 @@ namespace Core.BIZ
                 {
                     var param = new Dictionary<string, dynamic>();
                     param.Add(CongNoNXBManager.Properties.MaSoSach, this.MaSoSach);
-                    _congnonxb = CongNoNXBManager.findBy(param);
+                    _congnonxb = CongNoNXBManager.findBy(param)
+                        .Where(cn => cn.SoLuong > 0).OrderBy(cn => cn.Thang).ToList();
                 }
                 return _congnonxb;
             }
@@ -287,8 +293,47 @@ namespace Core.BIZ
                 return _tongTienXuat;
             }
         }
+        [DisplayName(SachManager.Properties.SoLuongNhapTheoThang)]
+        public decimal? SoLuongNhapTheoThang
+        {
+            get
+            {
+                return _tongSoLuongNhapTheoThang;
+            }
+        }
+        [DisplayName(SachManager.Properties.TongTienNhapTheoThang)]
+        public decimal? TongTienNhapTheoThang
+        {
+            get
+            {
+                return _tongTienNhapTheoThang;
+            }
+        }
         [DisplayName(SachManager.Properties.TrangThai)]
         public int? TrangThai { get; set;}
+        [DisplayName(SachManager.Properties.TongSoLuongNXBNo)]
+        public decimal? TongSoLuongNXBNo {
+            get
+            {
+                if(_tongSoLuongNXBNo == null)
+                {
+                    _tongSoLuongNXBNo = CongNoNXB.Sum(cn => cn.SoLuong);
+                }
+                return _tongSoLuongNXBNo;
+            }
+        }
+        [DisplayName(SachManager.Properties.TongSoLuongDaiLyNo)]
+        public decimal? TongSoLuongDaiLyNo
+        {
+            get
+            {
+                if (_tongSoLuongDaiLyNo == null)
+                {
+                    _tongSoLuongDaiLyNo = CongNoDaiLy.Sum(cn => cn.SoLuong);
+                }
+                return _tongSoLuongDaiLyNo;
+            }
+        }
 
         public Image HinhAnhTypeImage
         {
@@ -336,7 +381,6 @@ namespace Core.BIZ
                 return true;
             return false;
         }
-
         public decimal? tongTienNhapTheoThang(int startMonth, int startYear, int endMonth, int endYear)
         {
             DateTime startDate = new DateTime(startYear, startMonth, 1);
@@ -395,6 +439,44 @@ namespace Core.BIZ
         {
             this.TrangThai = 0;
             return SachManager.edit(this);
+        }
+
+        public static List<string> searchKeys()
+        {
+            if (_searchKeys == null)
+            {
+                _searchKeys = new List<string>();
+                _searchKeys.Add(nameof(SachManager.Properties.MaSoSach));
+                _searchKeys.Add(nameof(SachManager.Properties.TenSach));
+                _searchKeys.Add(nameof(SachManager.Properties.TenTacGia));
+                _searchKeys.Add(nameof(SachManager.Properties.NXB));
+                _searchKeys.Add(nameof(SachManager.Properties.LinhVucSach));
+                _searchKeys.Add(nameof(SachManager.Properties.Soluong));
+                _searchKeys.Add(nameof(SachManager.Properties.GiaBan));
+                _searchKeys.Add(nameof(SachManager.Properties.GiaNhap));
+            }
+            return _searchKeys;
+        }
+
+        public static List<string> searchKeysLoNhap()
+        {
+            if (_searchKeysLoNhap == null)
+            {
+                _searchKeysLoNhap = new List<string>();
+                _searchKeysLoNhap.Add(nameof(SachManager.Properties.MaSoSach));
+                _searchKeysLoNhap.Add(nameof(SachManager.Properties.TenSach));
+                _searchKeysLoNhap.Add(nameof(SachManager.Properties.TenTacGia));
+                _searchKeysLoNhap.Add(nameof(SachManager.Properties.NXB));
+                _searchKeysLoNhap.Add(nameof(SachManager.Properties.LinhVucSach));
+                _searchKeysLoNhap.Add(nameof(SachManager.Properties.SoLuongNhapTheoThang));
+                _searchKeysLoNhap.Add(nameof(SachManager.Properties.TongTienNhapTheoThang));
+            }
+            return _searchKeysLoNhap;
+        }
+
+        public decimal tinhSoLuongSachDaiLyNo(int masodaily)
+        {
+            return CongNoDaiLy.Where(cn => cn.MaSoDaiLy == masodaily).Sum(cn => cn.SoLuong);
         }
         #endregion
 

@@ -26,6 +26,16 @@ namespace Core.BIZ
         private List<PhieuXuat> _phieuxuat;
         private List<CongNoDaiLy> _congno;
         private List<HoaDonDaiLy> _hoadon;
+        private static List<string> _searchKeys;
+        private decimal? _tongtienno;
+        private decimal? _tongSoLuongNo;
+        private decimal? _tongTienNoTheoThang;
+        private decimal? _tongSoLuongNoTheoThang;
+        private decimal? _tongTienXuat;
+        private decimal? _tongSoLuongXuat;
+        private decimal? _tongTienXuatTheoThang;
+        private decimal? _tongSoLuongXuatTheoThang;
+        private static List<string> _searchKeysTheoDoiNo;
         #endregion
 
         #region Public Properties
@@ -101,6 +111,86 @@ namespace Core.BIZ
                 _hoadon = value;
             }
         }
+        [DisplayName(DaiLyManager.Properties.TongTienNo)]
+        public decimal? TongTienNo
+        {
+            get
+            {
+                if (_tongtienno == null)
+                {
+                    _tongtienno = this.CongNo.Sum(cn => cn.ThanhTien);
+                }
+                return _tongtienno;
+            }
+        }
+        [DisplayName(DaiLyManager.Properties.TongTienNoThang)]
+        public decimal? TongTienNoThang
+        {
+            get
+            {
+                return _tongTienNoTheoThang;
+            }
+        }
+        [DisplayName(DaiLyManager.Properties.TongSoLuongNo)]
+        public decimal? TongSoLuongNo
+        {
+            get
+            {
+                if (_tongSoLuongNo == null)
+                {
+                    _tongSoLuongNo = CongNo.Sum(cn => cn.SoLuong);
+                }
+                return _tongSoLuongNo;
+            }
+        }
+        [DisplayName(DaiLyManager.Properties.TongSoLuongNoTheoThang)]
+        public decimal? TongSoLuongNoTheoThang
+        {
+            get
+            {
+                return _tongSoLuongNoTheoThang;
+            }
+        }
+        [DisplayName(DaiLyManager.Properties.TongTienXuat)]
+        public decimal? TongTienXuat
+        {
+            get
+            {
+                if (_tongTienXuat == null)
+                {
+                    _tongTienXuat = PhieuXuat.Sum(p => p.TongTien);
+                }
+                return _tongTienXuat;
+            }
+        }
+        [DisplayName(DaiLyManager.Properties.TongTienXuatTheoThang)]
+        public decimal? TongTienXuatTheoThang
+        {
+            get
+            {
+                return _tongTienXuatTheoThang;
+            }
+        }
+        [DisplayName(DaiLyManager.Properties.TongSoLuongXuat)]
+        public decimal? TongSoLuongXuat
+        {
+            get
+            {
+                if (_tongSoLuongXuat == null)
+                {
+                    _tongSoLuongXuat = PhieuXuat.Sum(ph => ph.ChiTiet.Sum(ct => ct.SoLuong));
+                }
+                return _tongSoLuongXuat;
+            }
+        }
+        [DisplayName(DaiLyManager.Properties.TongSoLuongXuatTheoThang)]
+        public decimal? TongSoLuongXuatTheoThang
+        {
+            get
+            {
+                return _tongSoLuongXuatTheoThang;
+            }
+        }
         #endregion
 
         #region Services
@@ -109,23 +199,88 @@ namespace Core.BIZ
             this.TrangThai = 0;
             return DaiLyManager.edit(this);
         }
+        public static List<string> searchKeys()
+        {
+            if (_searchKeys == null)
+            {
+                _searchKeys = new List<string>();
+                _searchKeys.Add(nameof(DaiLyManager.Properties.MaSoDaiLy));
+                _searchKeys.Add(nameof(DaiLyManager.Properties.TenDaiLy));
+                _searchKeys.Add(nameof(DaiLyManager.Properties.DiaChi));
+                _searchKeys.Add(nameof(DaiLyManager.Properties.SoDienThoai));
+                _searchKeys.Add(nameof(DaiLyManager.Properties.SoTaiKhoan));
+            }
+            return _searchKeys;
+        }
+        public static List<string> searchKeysTheoDoiNo()
+        {
+            if (_searchKeysTheoDoiNo == null)
+            {
+                _searchKeysTheoDoiNo = new List<string>();
+                _searchKeysTheoDoiNo.Add(nameof(DaiLyManager.Properties.MaSoDaiLy));
+                _searchKeysTheoDoiNo.Add(nameof(DaiLyManager.Properties.TenDaiLy));
+                _searchKeysTheoDoiNo.Add(nameof(DaiLyManager.Properties.SoDienThoai));
+                _searchKeysTheoDoiNo.Add(nameof(DaiLyManager.Properties.DiaChi));
+                _searchKeysTheoDoiNo.Add(nameof(DaiLyManager.Properties.TongTienNo));
+                _searchKeysTheoDoiNo.Add(nameof(DaiLyManager.Properties.TongTienNoThang));
+            }
+            return _searchKeysTheoDoiNo;
+        }
+        public List<Sach> getSachNo()
+        {
+            return CongNo
+                    .Where(cn=>cn.SoLuong > 0)
+                    .GroupBy(cn => cn.MaSoSach)
+                    .Select(group => SachManager.find(group.Key)).ToList();
+        }
+        public decimal? tongTienNoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            _tongTienNoTheoThang = congNoTheoThang(startMonth, startYear, endMonth, endYear)
+                                    .Sum(cn => cn.ThanhTien);
+            return _tongTienNoTheoThang;
+        }
+        public decimal? tongTienXuatThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            _tongTienXuatTheoThang = getPhieuXuatTheoThang(startMonth, startYear, endMonth, endYear)
+                        .Sum(p => p.TongTien);
+            return _tongTienXuatTheoThang;
+        }
+        public decimal? tinhTongSoLuongNoTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            _tongSoLuongNoTheoThang = congNoTheoThang(startMonth, startYear, endMonth, endYear)
+                                    .Sum(cn => cn.SoLuong);
+            return _tongSoLuongNoTheoThang;
+        }
+        public decimal? tinhTongSoLuongXuatTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            _tongSoLuongXuatTheoThang = getPhieuXuatTheoThang(startMonth, startYear, endMonth, endYear)
+                                    .Sum(ph => ph.ChiTiet.Sum(ct => ct.SoLuong));
+            return _tongSoLuongXuatTheoThang;
+        }
+        public List<CongNoDaiLy> congNoTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            DateTime startDate = new DateTime(startYear, startMonth, 1);
+            DateTime endDate = new DateTime(endYear, endMonth, 1);
+            endDate = endDate.AddMonths(1).AddDays(-1);
+            return this.CongNo.Where(cn =>
+                        cn.Thang >= startDate
+                        && cn.Thang <= endDate).ToList();
+        }
+        public List<PhieuXuat> getPhieuXuatTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            DateTime startDate = new DateTime(startYear, startMonth, 1);
+            DateTime endDate = new DateTime(endYear, endMonth, 1);
+            endDate = endDate.AddMonths(1).AddDays(-1);
+            return this.PhieuXuat.Where(p =>
+                        p.NgayLap >= startDate
+                        && p.NgayLap <= endDate).ToList();
+        }
         #endregion
 
         #region Override Methods
         public override string ToString()
         {
             return this.TenDaiLy;
-        }
-
-
-        public decimal TongTienNo(int startMonth, int startYear, int endMonth, int endYear)
-        {
-            DateTime startDate = new DateTime(startYear, startMonth, 1);
-            DateTime endDate = new DateTime(endYear, endMonth, 31);
-            return this.CongNo.Where(cn =>
-                        cn.Thang >= startDate
-                        && cn.Thang <= endDate).ToList()
-                        .Sum(cn => cn.ThanhTien);
         }
         #endregion
     }

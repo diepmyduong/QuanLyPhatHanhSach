@@ -5,6 +5,57 @@
 @{
     ViewBag.Title = "Danh mục phiếu nhập";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    @section AddToHead{
+        <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
+        <script>
+            $(function() {
+            var availableTags = []
+            function getAutoCompleteSource(request) {
+                $.getJSON('@Url.Action("GetProperties")',{ request : request}, function (data) {
+                    availableTags = data;
+                });
+            }
+            function split( val ) {
+              return val.split( /{\s*/ );
+            }
+            function extractLast( term ) {
+              return split( term ).pop();
+            }
+            
+            $( "#search" )
+              // don't navigate away from the field on tab when selecting an item
+              .bind( "keydown", function( event ) {
+                if ( event.keyCode === $.ui.keyCode.TAB &&
+                    $( this ).autocomplete( "instance" ).menu.active ) {
+                  event.preventDefault();
+                }
+                if (event.shiftKey && event.keyCode == 219) {
+                    getAutoCompleteSource($(this).val()+"{");
+                }
+              })
+              .autocomplete({
+                minLength: 0,
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                  response( $.ui.autocomplete.filter(
+                    availableTags, extractLast( request.term ) ) );
+                  console.log($.ui.autocomplete.filter(
+                    availableTags, extractLast( request.term ) ));
+                },
+                focus: function() {
+                  // prevent value inserted on focus
+                  return true;
+                },
+                select: function( event, ui ) {
+                  return false;
+                }
+              });
+          });
+        </script>
+    }
 }
 
 <h2>@ViewBag.Title</h2>
@@ -18,7 +69,7 @@
     @Html.ValidationSummary(true)
     <div class="row ">
         <div class="col-md-10 form-group input-group">
-            <input type="search" name="search" id="search" class="form-control"
+            <input type="search" name="search" id="search" class="form-control" 
                    value="@{if (ViewBag.SearchKey != null)
                             {
                                 @ViewBag.SearchKey;
@@ -30,70 +81,94 @@
     </div>
 }
 <table class="table">
-    <tr>
-        <th>
-            @Core.DAL.PhieuNhapManager.Properties.MaSoPhieuNhap
-        </th>
-        <th>
-            @Core.DAL.PhieuNhapManager.Properties.NXB
-        </th>
-        <th>
-            @Core.DAL.PhieuNhapManager.Properties.NguoiGiao
-        </th>
-        <th>
-            @Core.DAL.PhieuNhapManager.Properties.NgayLap
-        </th>
-        <th>
-            @Core.DAL.PhieuNhapManager.Properties.TongTien
-        </th>
-        <th>
-            @Core.DAL.PhieuNhapManager.Properties.TrangThai
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+                @Core.DAL.PhieuNhapManager.Properties.MaSoPhieuNhap
+            </th>
+            <th>
+                @Core.DAL.PhieuNhapManager.Properties.NXB
+            </th>
+            <th>
+                @Core.DAL.PhieuNhapManager.Properties.NguoiGiao
+            </th>
+            <th>
+                @Core.DAL.PhieuNhapManager.Properties.NgayLap
+            </th>
+            <th>
+                @Core.DAL.PhieuNhapManager.Properties.TongTien
+            </th>
+            <th>
+                @Core.DAL.PhieuNhapManager.Properties.TrangThai
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaSoPhieuNhap)
+                </td>
+                <td>
+                    @Html.ActionLink(item.NXB.TenNXB, "Details", "NhaXuatBan", new { id = item.MaSoNXB }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NguoiGiao)
+                </td>
+                <td>
+                    @String.Format("{0:dd/MM/yyyy}", item.NgayLap)
+                </td>
+                <td>
+                    @String.Format(ViewBag.cultureInfo, "{0:c}", item.TongTien)
+                </td>
+                <td>
+                    @if (item.TrangThai == 0)
+                    {
+                        <strong class="text-danger">Chưa duyệt</strong>
+                    }
+                    else
+                    {
+                        <strong class="text-success">Đã duyệt</strong>
+                    }
+                </td>
+                <td>
+                    @if (item.TrangThai == 0)
+                    {
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaSoPhieuNhap })
+                        @Html.Raw(" | ")
+                    }
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSoPhieuNhap })
+                    @if (item.TrangThai == 0)
+                    {
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaSoPhieuNhap })
+                    }
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaSoPhieuNhap)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NXB.TenNXB)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NguoiGiao)
-        </td>
-        <td>
-            @String.Format("{0:dd/MM/yyyy}", item.NgayLap)
-        </td>
-        <td>
-            @String.Format(ViewBag.cultureInfo, "{0:c}", item.TongTien)
-        </td>
-        <td>
-            @if (item.TrangThai == 0)
-            {
-                <strong class="text-danger">Chưa duyệt</strong>
-            }
-            else
-            {
-                <strong class="text-success">Đã duyệt</strong>
-            }
-        </td>
-        <td>
-            @if (item.TrangThai == 0)
-            {
-                @Html.ActionLink("Sửa", "Edit", new { id = item.MaSoPhieuNhap })
-                @Html.Raw(" | ")
-            }
-            @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSoPhieuNhap })
-            @if (item.TrangThai == 0)
-            {
-                @Html.Raw(" | ")
-                @Html.ActionLink("Xóa","Delete", new { id = item.MaSoPhieuNhap })
-            }
-        </td>
-    </tr>
-}
+    </tbody>
+    <tfoot class="alert-info">
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+            <th>
+                @String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTien)
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
 
 </table>
 <div class="row">

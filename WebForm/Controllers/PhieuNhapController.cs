@@ -32,6 +32,8 @@ namespace WebForm.Controllers
             }
         }
         #endregion
+
+        #region Actions
         // GET: PhieuNhap
         public ActionResult All(int page = 1, int pageSize = 10, string search = null)
         {
@@ -46,7 +48,7 @@ namespace WebForm.Controllers
             {
                 DMPhieu = PhieuNhapManager.getAll();
             }
-
+            ViewBag.tongTien = DMPhieu.Sum(ph => ph.TongTien);
             var models = DMPhieu.ToPagedList(page, pageSize);
             return View(models);
         }
@@ -54,16 +56,16 @@ namespace WebForm.Controllers
         // GET: PhieuNhap/Details/5
         public ActionResult Details(int? id)
         {
-            if(id != null)
+            if (id == null)
             {
-                var model = PhieuNhapManager.find((int)id);
-                if(model == null)
-                {
-                    return new HttpNotFoundResult("Not Found!");
-                }
-                return View(model);
+                return new HttpNotFoundResult("Bad Request!");
             }
-            return View();
+            var model = PhieuNhapManager.find((int)id);
+            if (model == null)
+            {
+                return new HttpNotFoundResult("Not Found!");
+            }
+            return View(model);
         }
 
         // GET: PhieuNhap/Create
@@ -72,16 +74,16 @@ namespace WebForm.Controllers
             if (masonxb != null)
             {
                 var nxb = NhaXuatBanManager.find((int)masonxb);
-                if(nxb == null)
+                if (nxb == null || nxb.TrangThai == 0)
                 {
-                    return new HttpNotFoundResult("nhà xuất bản không tồn tại");
+                    return new HttpNotFoundResult("Bad Request!");
                 }
                 ViewBag.cultureInfo = CultureInfo;
                 ViewBag.currentNXB = nxb;
                 ViewBag.DMSach = new SelectList(nxb.Sach,
                                         nameof(SachManager.Properties.MaSoSach),
                                         nameof(SachManager.Properties.TenSach), "");
-                if(_phieu == null)
+                if (_phieu == null)
                 {
                     _phieu = new PhieuNhap();
                 }
@@ -92,7 +94,7 @@ namespace WebForm.Controllers
             }
             else
             {
-                ViewBag.DMNXB = new SelectList(NhaXuatBanManager.getAll(),
+                ViewBag.DMNXB = new SelectList(NhaXuatBanManager.getAllAlive(),
                                         nameof(NhaXuatBanManager.Properties.MaSoNXB),
                                         nameof(NhaXuatBanManager.Properties.TenNXB), "");
                 _phieu = new PhieuNhap();
@@ -102,7 +104,7 @@ namespace WebForm.Controllers
 
         // POST: PhieuNhap/Create
         [HttpPost]
-        public ActionResult Create(PhieuNhap model,FormCollection collection)
+        public ActionResult Create(PhieuNhap model, FormCollection collection)
         {
             try
             {
@@ -133,31 +135,31 @@ namespace WebForm.Controllers
         // GET: PhieuNhap/Edit/5
         public ActionResult Edit(int? id)
         {
-            if(id != null)
+            if (id == null)
             {
-                if(_currentPhieu == null || _currentPhieu != id)
-                {
-                    _currentPhieu = id;
-                    _phieu = PhieuNhapManager.find((int)id);
-                    if (_phieu == null)
-                    {
-                        return new HttpNotFoundResult("Not Found!");
-                    }
-                    if(_phieu.TrangThai == 1)
-                    {
-                        //Nếu đã duyệt thì không cho sửa, chuyển sang trang chi tiết
-                        _currentPhieu = null;
-                        return RedirectToAction("Details", new { id = id });
-                    }
-                }
-                ViewBag.cultureInfo = CultureInfo;
-                ViewBag.currentNXB = _phieu.NXB;
-                ViewBag.DMSach = new SelectList(_phieu.NXB.Sach,
-                                        nameof(SachManager.Properties.MaSoSach),
-                                        nameof(SachManager.Properties.TenSach), "");
-                return View(_phieu);
+                return new HttpNotFoundResult("Bad Request");
             }
-            return View();
+            if (_currentPhieu == null || _currentPhieu != id)
+            {
+                _currentPhieu = id;
+                _phieu = PhieuNhapManager.find((int)id);
+                if (_phieu == null)
+                {
+                    return new HttpNotFoundResult("Not Found!");
+                }
+                if (_phieu.TrangThai == 1)
+                {
+                    //Nếu đã duyệt thì không cho sửa, chuyển sang trang chi tiết
+                    _currentPhieu = null;
+                    return RedirectToAction("Details", new { id = id });
+                }
+            }
+            ViewBag.cultureInfo = CultureInfo;
+            ViewBag.currentNXB = _phieu.NXB;
+            ViewBag.DMSach = new SelectList(_phieu.NXB.Sach,
+                                    nameof(SachManager.Properties.MaSoSach),
+                                    nameof(SachManager.Properties.TenSach), "");
+            return View(_phieu);
         }
 
         // POST: PhieuNhap/Edit/5
@@ -189,14 +191,18 @@ namespace WebForm.Controllers
         }
 
         // GET: PhieuNhap/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            var model = PhieuNhapManager.find(id);
-            if(model == null)
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request!");
+            }
+            var model = PhieuNhapManager.find((int)id);
+            if (model == null)
             {
                 return new HttpNotFoundResult("Not Found!");
             }
-            if(model.TrangThai == 1)
+            if (model.TrangThai == 1)
             {
                 return RedirectToAction("Details", new { id = model.MaSoPhieuNhap });
             }
@@ -205,11 +211,11 @@ namespace WebForm.Controllers
 
         // POST: PhieuNhap/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int? id, FormCollection collection)
         {
             try
             {
-                if (PhieuNhapManager.delete(id))
+                if (PhieuNhapManager.delete((int)id))
                 {
                     return RedirectToAction("All");
                 }
@@ -222,14 +228,19 @@ namespace WebForm.Controllers
         }
 
         //Duyệt phiếu
-        public ActionResult Accept(int id)
+        public ActionResult Accept(int? id)
         {
-            var model = PhieuNhapManager.find(id);
+
+            if (id == null)
+            {
+                return new HttpNotFoundResult("Bad Request!");
+            }
+            var model = PhieuNhapManager.find((int)id);
             if (model == null)
             {
                 return new HttpNotFoundResult("Not Found!");
             }
-            if(model.TrangThai == 1)
+            if (model.TrangThai == 1)
             {
                 return RedirectToAction("Details", new { id = id });
             }
@@ -239,6 +250,20 @@ namespace WebForm.Controllers
             }
             return View();
         }
+        #endregion
+
+        #region JSON REQUEST
+        public JsonResult GetProperties(string request)
+        {
+            List<string> results = new List<string>();
+            foreach (string pro in PhieuNhap.searchKeys())
+            {
+                results.Add(request + pro);
+            }
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        
 
         #region REQUEST
         public ViewResult BlankEditorRow(int masonxb, int masosach = 0)

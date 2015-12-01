@@ -92,7 +92,7 @@ namespace Core.BIZ
                         else if (year != null && month != null)
                         {
                             var b = new DateTime((int)year, (int)month, 1);
-                            b = b.AddMonths(1).AddDays(-1);
+                            
                             result = a >= b;
                         }
                         else if (year != null)
@@ -113,6 +113,7 @@ namespace Core.BIZ
                         else if (year != null && month != null)
                         {
                             var b = new DateTime((int)year, (int)month, 1);
+                            b = b.AddMonths(1).AddDays(-1);
                             result = a <= b;
                         }
                         else if (year != null)

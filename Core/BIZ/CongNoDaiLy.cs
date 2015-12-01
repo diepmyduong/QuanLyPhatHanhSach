@@ -39,6 +39,7 @@ namespace Core.BIZ
         #region Private Properties
         private Sach _sach;
         private DaiLy _daily;
+        private static List<string> _searchKeys;
         #endregion
 
         #region Public Properties
@@ -100,6 +101,21 @@ namespace Core.BIZ
         #endregion
 
         #region Services
+        public static List<string> searchKeys()
+        {
+            if (_searchKeys == null)
+            {
+                _searchKeys = new List<string>();
+                _searchKeys.Add(nameof(CongNoDaiLyManager.Properties.MaSoSach));
+                _searchKeys.Add(nameof(CongNoDaiLyManager.Properties.MaSoDaiLy));
+                _searchKeys.Add(nameof(CongNoDaiLyManager.Properties.SoLuong));
+                _searchKeys.Add(nameof(CongNoDaiLyManager.Properties.DonGia));
+                _searchKeys.Add(nameof(CongNoDaiLyManager.Properties.Thang));
+                _searchKeys.Add(nameof(CongNoDaiLyManager.Properties.ThanhTien));
+                _searchKeys.Add(nameof(DaiLyManager.Properties.TenDaiLy));
+            }
+            return _searchKeys;
+        }
         #endregion
 
         #region Override Methods

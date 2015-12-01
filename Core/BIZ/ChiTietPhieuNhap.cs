@@ -96,7 +96,7 @@ namespace Core.BIZ
         {
             try
             {
-                return this.Sach.MaSoSach.Equals(((ChiTietPhieuNhap)obj).Sach.MaSoSach);
+                return this.MaSoSach.Equals(((ChiTietPhieuNhap)obj).MaSoSach);
             }
             catch (Exception ex)
             {

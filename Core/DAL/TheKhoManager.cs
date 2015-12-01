@@ -162,7 +162,7 @@ namespace Core.DAL
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.Sach.TenTacGia, param, method, true));
                             break;
                         case nameof(Properties.SoLuong):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.SoLuong, param, method, false));
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.SoLuong, Decimal.Parse(param), method, false));
                             break;
                         case nameof(Properties.NgayGhi):
                             linqQuery = linqQuery.Where(s => FilterHelper.compareDate(s.NgayGhi, year, month, day, method));
@@ -181,6 +181,9 @@ namespace Core.DAL
                     var linqQuery = DMTheKho.Where
                     (s => s.MaSoSach.Equals(number)
                     || s.SoLuong.Equals(number)
+                    || s.NgayGhi.Year.Equals(number)
+                    || s.NgayGhi.Month.Equals(number)
+                    || s.NgayGhi.Day.Equals(number)
                     );
                     return linqQuery.ToList();
                 }

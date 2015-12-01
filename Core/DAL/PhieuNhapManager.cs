@@ -125,7 +125,7 @@ namespace Core.DAL
                         case nameof(Properties.MaSoPhieuNhap):
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoPhieuNhap, Int32.Parse(param), method, false));
                             break;
-                        case nameof(DaiLyManager.Properties.TenDaiLy):
+                        case nameof(NhaXuatBanManager.Properties.TenNXB):
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NXB.TenNXB, param, method, true));
                             break;
                         case nameof(Properties.NguoiGiao):
@@ -135,10 +135,10 @@ namespace Core.DAL
                             linqQuery = linqQuery.Where(s => FilterHelper.compareDate(s.NgayLap,year,month,day,method));
                             break;
                         case nameof(Properties.TongTien):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, param, method, false));
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, Decimal.Parse(param), method, false));
                             break;
                         case nameof(Properties.TrangThai):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TrangThai == 0?"Đã duyệt":"Chưa duyệt", param, method, true));
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TrangThai == 1?"Đã duyệt":"Chưa duyệt", param, method, true));
                             break;
                     }
                 }
@@ -154,6 +154,9 @@ namespace Core.DAL
                     var linqQuery = DMPhieuNhap.Where
                     (s => s.MaSoPhieuNhap.Equals(number)
                     || s.TongTien.Equals(number)
+                    || s.NgayLap.Year.Equals(number)
+                    || s.NgayLap.Month.Equals(number)
+                    || s.NgayLap.Day.Equals(number)
                     );
                     return linqQuery.ToList();
                 }
@@ -163,7 +166,7 @@ namespace Core.DAL
                     (s => s.NgayLap.ToString().ToLower().Contains(request)
                     || s.NXB.TenNXB.ToLower().Contains(request)
                     || s.NguoiGiao.ToLower().Contains(request)
-                    || (s.TrangThai == 0?"đã duyệt":"chưa duyệt").Contains(request)
+                    || (s.TrangThai == 1?"đã duyệt":"chưa duyệt").Contains(request)
                     );
                     return linqQuery.ToList();
                 }
@@ -222,7 +225,6 @@ namespace Core.DAL
                     foreach (ChiTietPhieuNhap ct in phieu.ChiTiet)
                     {
                         ct.MaSoPhieuNhap = phieu.MaSoPhieuNhap;
-                        ct.TrangThai = 0;
                         ChiTiet.add(ct);
                     }
                     return true;
@@ -344,8 +346,8 @@ namespace Core.DAL
                                 dongia = chitiet.DonGia,
                                 soluong = chitiet.SoLuong,
                                 masophieunhap = masophieunhap,
-                                trangthai = 0
-                            };
+                                trangthai = chitiet.TrangThai == null ? 0 : 1
+                        };
                         db.CHITIETPHIEUNHAPs.InsertOnSubmit(ct);
                         db.SubmitChanges();
                         return true;

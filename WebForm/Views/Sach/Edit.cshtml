@@ -107,7 +107,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.NXB, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            @Html.DropDownListFor(model => model.MaSoNXB, ViewBag.DMNXB as SelectList, new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.MaSoNXB, ViewBag.DMNXB as SelectList, new { @class = "form-control" , disabled = "disabled"})
                             @Html.ValidationMessageFor(model => model.MaSoNXB, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-4">

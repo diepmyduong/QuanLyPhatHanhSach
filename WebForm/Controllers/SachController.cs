@@ -17,7 +17,6 @@ namespace WebForm.Controllers
     {
         #region Private Properties
         private CultureInfo _cultureInfo; // Thông tin văn hóa
-        private List<string> _propertiesName; // Danh sách tên cách thuộc tính
         #endregion
 
         #region Public Properties
@@ -30,18 +29,6 @@ namespace WebForm.Controllers
                     _cultureInfo = CultureInfo.GetCultureInfo("vi-VN");
                 }
                 return _cultureInfo;
-            }
-        }
-        public List<string> PropertiesName
-        {
-            get
-            {
-                if (_propertiesName == null)
-                {
-                    var pros = typeof(SachManager.Properties).GetFields();
-                    _propertiesName = pros.Select(p => p.Name).ToList();
-                }
-                return _propertiesName;
             }
         }
         #endregion
@@ -75,11 +62,7 @@ namespace WebForm.Controllers
             }
             ViewBag.cultureInfo = CultureInfo; // Sử dụng cho hiển thị tiền tệ VNĐ
             var model = SachManager.find((int)id);
-            if(model == null)
-            {
-                return new HttpNotFoundResult("Not Found!");
-            }
-            if (model.TrangThai == 0)
+            if(model == null || model.TrangThai == 0)
             {
                 return new HttpNotFoundResult("Not Found!");
             }
@@ -99,11 +82,11 @@ namespace WebForm.Controllers
         {
             var model = new Sach();
             //Combobox nhà xuất bản
-            ViewBag.DMNXB = new SelectList(NhaXuatBanManager.getAll(),
+            ViewBag.DMNXB = new SelectList(NhaXuatBanManager.getAllAlive(),
                 nameof(NhaXuatBanManager.Properties.MaSoNXB),
                 nameof(NhaXuatBanManager.Properties.TenNXB), "");
             //Combobox lĩnh vực
-            ViewBag.DMLinhVuc = new SelectList(LinhVucManager.getAll(),
+            ViewBag.DMLinhVuc = new SelectList(LinhVucManager.getAllALive(),
                 nameof(LinhVucManager.Properties.MaSoLinhVuc),
                 nameof(LinhVucManager.Properties.TenLinhVuc), "");
             return View(model);
@@ -149,11 +132,11 @@ namespace WebForm.Controllers
                 return new HttpNotFoundResult("Not Found!");
             }
             //Combobox Nhà xuất bản
-            ViewBag.DMNXB = new SelectList(NhaXuatBanManager.getAll(),
+            ViewBag.DMNXB = new SelectList(NhaXuatBanManager.getAllAlive(),
                 nameof(NhaXuatBanManager.Properties.MaSoNXB),
                 nameof(NhaXuatBanManager.Properties.TenNXB), "");
             //Combobox lĩnh vực
-            ViewBag.DMLinhVuc = new SelectList(LinhVucManager.getAll(),
+            ViewBag.DMLinhVuc = new SelectList(LinhVucManager.getAllALive(),
                 nameof(LinhVucManager.Properties.MaSoLinhVuc),
                 nameof(LinhVucManager.Properties.TenLinhVuc), "");
             if (model.HinhAnh != null)
@@ -169,13 +152,13 @@ namespace WebForm.Controllers
         {
             try
             {
-                if (file != null)
-                {
-                    model.HinhAnhTypeImage = Image.FromStream(file.InputStream);
-                }
                 // TODO: Add update logic here
                 if (ModelState.IsValid)
                 {
+                    if (file != null)
+                    {
+                        model.HinhAnhTypeImage = Image.FromStream(file.InputStream);
+                    }
                     if (SachManager.edit(model))
                     {
                         return RedirectToAction("Details", new { id = model.MaSoSach });
@@ -196,12 +179,12 @@ namespace WebForm.Controllers
             {
                 return new HttpNotFoundResult("Bad Request!");
             }
-            ViewBag.cultureInfo = CultureInfo; // Sử dụng cho hiển thị tiền tệ VNĐ
             var model = SachManager.find((int)id);
             if (model == null || model.TrangThai == 0)
             {
                 return new HttpNotFoundResult("Not Found!");
             }
+            ViewBag.cultureInfo = CultureInfo; // Sử dụng cho hiển thị tiền tệ VNĐ
             if (model.HinhAnh == null)
             {
                 ViewBag.DefaultImage = "/Resources/DefaultImage.png"; // Load hình ảnh mặc định nếu chưa có hình
@@ -249,7 +232,7 @@ namespace WebForm.Controllers
         public JsonResult GetProperties(string request)
         {
             List<string> results = new List<string>();
-            foreach (string pro in PropertiesName)
+            foreach (string pro in Sach.searchKeys())
             {
                 results.Add(request + pro);
             }

@@ -6,10 +6,10 @@
     @using (Html.BeginCollectionItem("chitiet"))
     {
         <td class="@nameof(Core.DAL.SachManager.Properties.MaSoSach)">
-            @Html.DisplayFor(model => model.MaSoSach)
+            @Html.ActionLink(Model.MaSoSach.ToString(), "Details", "Sach", new { id = Model.MaSoSach }, null)
         </td>
         <td class="@nameof(Core.DAL.SachManager.Properties.TenSach)">
-            @Html.DisplayFor(model => model.Sach.TenSach)
+            @Html.ActionLink(Model.Sach.TenSach, "Details", "Sach", new { id = Model.MaSoSach }, null)
         </td>
         <td class="@nameof(Core.DAL.SachManager.Properties.TenTacGia)">
             @Html.DisplayFor(model => model.Sach.TenTacGia)

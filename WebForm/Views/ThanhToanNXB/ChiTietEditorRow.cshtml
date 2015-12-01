@@ -1,0 +1,35 @@
+﻿@model Core.BIZ.ChiTietHoaDonNXB
+@{
+    Layout = null;
+}
+<tr class="@Model.MaSoSach">
+    @using (Html.BeginCollectionItem("chitiet"))
+    {
+        @Html.HiddenFor(model => model.MaSoHoaDon, new { @class = "form-control", @readonly = "readonly" })
+        <td class="@nameof(Core.DAL.SachManager.Properties.MaSoSach)">
+            @Html.DisplayFor(model => model.MaSoSach)
+            @Html.HiddenFor(model => model.MaSoSach)
+        </td>
+        <td class="@nameof(Core.DAL.SachManager.Properties.TenSach)">
+            @Html.DropDownListFor(model => model.MaSoSach, ViewBag.DMSach as SelectList, new { @class = "form-control masosach"     })
+        </td>
+        <td class="@nameof(Core.DAL.SachManager.Properties.TenTacGia)">
+            @Html.DisplayFor(model => model.Sach.TenTacGia)
+        </td>
+        <td class="@nameof(Core.DAL.HoaDonNXBManager.ChiTiet.Properties.SoLuong)">
+            @*@String.Format("{0:0}", item.SoLuong)*@
+            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control soluong", oldvalue = Model.SoLuong, max = Model.Sach.TongSoLuongNXBNo, type = "number" } })
+        </td>
+        <td class="@nameof(Core.DAL.HoaDonNXBManager.ChiTiet.Properties.DonGia)">
+            @String.Format(ViewBag.cultureInfo, "{0:c}", Model.Sach.GiaNhap)
+            @Html.HiddenFor(model => model.DonGia)
+        </td>
+        <td class="@nameof(Core.DAL.HoaDonNXBManager.ChiTiet.Properties.ThanhTien)">
+            @String.Format(ViewBag.cultureInfo, "{0:c}", Model.ThanhTien)
+            @Html.HiddenFor(model => model.ThanhTien)
+        </td>
+        <td>
+            @Html.ActionLink("Xóa", "DeleteDetailRow", new { masosach = Model.MaSoSach }, new { @class = "xoaChiTiet" })
+        </td>
+    }
+</tr>

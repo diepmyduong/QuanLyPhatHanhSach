@@ -21,6 +21,15 @@ namespace Core.DAL
             public const string CongNo = "Công nợ";
             public const string HoaDon = "Hóa đơn";
             public const string TrangThai = "Trạng thái";
+            public const string TongTienNo = "Tổng tiền nợ";
+            public const string TongTienNoThang = "Tổng tiền nợ tháng";
+            public const string TongTienXuat = "Tổng tiền xuất";
+            public const string TongTienXuatTheoThang = "Tổng tiền xuất theo tháng";
+            public const string TongSoLuongNo = "Tổng số lượng nợ";
+            public const string TongSoLuongNoTheoThang = "Tổng số lượng nợ theo tháng";
+            public const string TongSoLuongXuat = "Tổng số lượng xuất";
+            public const string TongSoLuongXuatTheoThang = "Tổng số lượng xuất theo tháng";
+
         }
 
         public static List<DaiLy> getAll()
@@ -116,6 +125,12 @@ namespace Core.DAL
                         case nameof(Properties.SoTaiKhoan):
                             linqQuery = linqQuery.Where(dl => FilterHelper.compare(dl.SoTaiKhoan, param, method, true));
                             break;
+                        case nameof(Properties.TongTienNo):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienNo, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongTienNoThang):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienNoThang, Decimal.Parse(param), method, false));
+                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -131,6 +146,8 @@ namespace Core.DAL
                     (dl => dl.MaSoDaiLy.Equals(number)
                     || dl.SoDienThoai.Contains(number.ToString())
                     || dl.SoTaiKhoan.Contains(number.ToString())
+                    || dl.TongTienNo.Equals(number)
+                    || dl.TongTienNoThang.Equals(number)
                     );
                     return linqQuery.ToList();
                 }
@@ -204,7 +221,7 @@ namespace Core.DAL
                 return false;
             }
         }
-        public static bool delete(DaiLy daily)
+        public static bool delete(int masodaily)
         {
             try
             {
@@ -212,7 +229,7 @@ namespace Core.DAL
                 {
                     DAILY dl;
                     dl = (from d in db.DAILies
-                          where d.masodaily.Equals(daily.MaSoDaiLy)
+                          where d.masodaily.Equals(masodaily)
                           select d).SingleOrDefault();
                     if (dl == null) return false; //Nếu đại lý không tồn tại
                     db.DAILies.DeleteOnSubmit(dl);

@@ -70,13 +70,13 @@
     @Html.ValidationSummary(true)
     <div class="row ">
         <div class="col-md-10 form-group input-group">
-            <input type="search" name="search" id="input" class="form-control"
-                    value="@{if (ViewBag.SearchKey != null)
+            <input type="search" name="search" id="search" class="form-control" 
+                   value="@{if (ViewBag.SearchKey != null)
                             {
                                 @ViewBag.SearchKey;
                             }
                             }"
-                    required="required" title="">
+                   required="required" title="">
             <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
         </div>
     </div>

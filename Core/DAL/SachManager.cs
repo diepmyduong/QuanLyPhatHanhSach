@@ -40,6 +40,8 @@ namespace Core.DAL
             public const string TongTienXuat = "Tổng tiền xuất";
             public const string TongTienXuatTheoThang = "Tiền xuất";
             public const string TrangThai = "Trạng thái";
+            public const string TongSoLuongNXBNo = "Số lượng Nhà xuất bản nợ";
+            public const string TongSoLuongDaiLyNo = "Số lượng Đại lý nợ";
 
         }
         public static List<Sach> getAll()
@@ -166,6 +168,12 @@ namespace Core.DAL
                             break;
                         case nameof(Properties.GiaNhap):
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.GiaNhap, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.SoLuongNhapTheoThang):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.SoLuongNhapTheoThang, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongTienNhapTheoThang):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienNhapTheoThang, Decimal.Parse(param), method, false));
                             break;
                     }
                 }

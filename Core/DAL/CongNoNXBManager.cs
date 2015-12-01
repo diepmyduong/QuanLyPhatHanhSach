@@ -142,6 +142,12 @@ namespace Core.DAL
                         case nameof(NhaXuatBanManager.Properties.TenNXB):
                             linqQuery = linqQuery.Where(cn => FilterHelper.compare(cn.NXB.TenNXB, param, method, true));
                             break;
+                        case nameof(SachManager.Properties.TenSach):
+                            linqQuery = linqQuery.Where(cn => FilterHelper.compare(cn.Sach.TenSach, param, method, true));
+                            break;
+                        case nameof(SachManager.Properties.TenTacGia):
+                            linqQuery = linqQuery.Where(cn => FilterHelper.compare(cn.Sach.TenTacGia, param, method, true));
+                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -159,15 +165,18 @@ namespace Core.DAL
                     || cn.SoLuong.Equals(number)
                     || cn.DonGia.Equals(number)
                     || cn.ThanhTien.Equals(number)
+                    || cn.Thang.Year.Equals(number)
+                    || cn.Thang.Month.Equals(number)
                     );
                     return linqQuery.ToList();
                 }
                 else
                 {
                     var linqQuery = DMCongNo.Where
-                    (cn => cn.NXB.TenNXB.Contains(request)
-                    || cn.Sach.TenSach.Contains(request)
-                    || cn.Thang.ToString().Contains(request)
+                    (cn => cn.NXB.TenNXB.ToLower().Contains(request)
+                    || cn.Sach.TenSach.ToLower().Contains(request)
+                    || cn.Thang.ToString().ToLower().Contains(request)
+                    || cn.Sach.TenTacGia.ToLower().Contains(request)
                     );
                     return linqQuery.ToList();
                 }

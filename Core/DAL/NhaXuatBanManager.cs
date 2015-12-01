@@ -23,6 +23,12 @@ namespace Core.DAL
             public const string HoaDon = "Hóa đơn";
             public const string TongTienNo = "Tổng tiền nợ";
             public const string TongTienNoThang = "Tổng tiền nợ tháng";
+            public const string TongTienNhap = "Tổng tiền nhập";
+            public const string TongTienNhapTheoThang = "Tổng tiền nhập theo tháng";
+            public const string TongSoLuongNo = "Tổng số lượng nợ";
+            public const string TongSoLuongNoTheoThang = "Tổng số lượng nợ theo tháng";
+            public const string TongSoLuongNhap = "Tổng số lượng nhập";
+            public const string TongSoLuongNhapTheoThang = "Tổng số lượng nhập theo tháng";
             public const string TrangThai = "Trạng thái";
         }
         public static List<NhaXuatBan> getAll()
@@ -120,6 +126,12 @@ namespace Core.DAL
                         case nameof(Properties.SoTaiKhoan):
                             linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.SoTaiKhoan, param, method, true));
                             break;
+                        case nameof(Properties.TongTienNo):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienNo, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongTienNoThang):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienNoThang, Decimal.Parse(param), method, false));
+                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -135,14 +147,16 @@ namespace Core.DAL
                     (nxb => nxb.MaSoNXB.Equals(number)
                     || nxb.SoDienThoai.Contains(number.ToString())
                     || nxb.SoTaiKhoan.Contains(number.ToString())
+                    || nxb.TongTienNo.Equals(number)
+                    || nxb.TongTienNoThang.Equals(number)
                     );
                     return linqQuery.ToList();
                 }
                 else
                 {
                     var linqQuery = DMNXB.Where
-                    (nxb => nxb.TenNXB.Contains(request)
-                    || nxb.DiaChi.Contains(request)
+                    (nxb => nxb.TenNXB.ToLower().Contains(request)
+                    || nxb.DiaChi.ToLower().Contains(request)
                     );
                     return linqQuery.ToList();
                 }

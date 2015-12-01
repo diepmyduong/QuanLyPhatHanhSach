@@ -95,7 +95,7 @@ namespace Core.BIZ
             try
             {
                 var chitiet = (ChiTietPhieuXuat)obj;
-                return this.MaSoSach.Equals(chitiet.MaSoSach) && this.MaSoPhieuXuat.Equals(chitiet.MaSoPhieuXuat);
+                return this.MaSoSach.Equals(chitiet.MaSoSach);
             }
             catch (Exception ex)
             {

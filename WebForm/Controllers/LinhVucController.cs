@@ -13,22 +13,9 @@ namespace WebForm.Controllers
     {
 
         #region Private Properties
-        private List<string> _propertiesName; // Danh sách tên cách thuộc tính
         #endregion
 
         #region Public Properties
-        public List<string> PropertiesName
-        {
-            get
-            {
-                if (_propertiesName == null)
-                {
-                    var pros = typeof(LinhVucManager.Properties).GetFields();
-                    _propertiesName = pros.Select(p => p.Name).ToList();
-                }
-                return _propertiesName;
-            }
-        }
         #endregion
 
         #region Actions
@@ -43,7 +30,7 @@ namespace WebForm.Controllers
             }
             else
             {
-                DMLinhVuc = LinhVucManager.getAll();
+                DMLinhVuc = LinhVucManager.getAllALive();
             }
             var models = DMLinhVuc.ToPagedList(page, pageSize);
             return View(models);
@@ -157,11 +144,16 @@ namespace WebForm.Controllers
                 {
                     return new HttpNotFoundResult("Bad Request");
                 }
-                if (LinhVucManager.delete((int)id))
+                var model = LinhVucManager.find((int)id);
+                if (model == null)
+                {
+                    return new HttpNotFoundResult("Not Found!");
+                }
+                if (model.delete())
                 {
                     return RedirectToAction("Index");
                 }
-                return View();
+                return View(model);
             }
             catch
             {
@@ -175,7 +167,7 @@ namespace WebForm.Controllers
         public JsonResult GetProperties(string request)
         {
             List<string> results = new List<string>();
-            foreach (string pro in PropertiesName)
+            foreach (string pro in LinhVuc.searchKeys())
             {
                 results.Add(request + pro);
             }

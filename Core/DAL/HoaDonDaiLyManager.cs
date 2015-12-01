@@ -39,7 +39,7 @@ namespace Core.DAL
                 var linqQuery = from hd in db.HOADONDAILies
                                 join dl in db.DAILies
                                 on hd.masodaily equals dl.masodaily
-                                where hd.masodaily.Equals(masohoadon)
+                                where hd.masohoadon.Equals(masohoadon)
                                 select new HoaDonDaiLy(hd, dl);
                 return linqQuery.SingleOrDefault();
             }
@@ -129,7 +129,10 @@ namespace Core.DAL
                             linqQuery = linqQuery.Where(s => FilterHelper.compareDate(s.NgayLap, year, month, day, method));
                             break;
                         case nameof(Properties.TongTien):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, param, method, false));
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TrangThai):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TrangThai == 1 ? "Đã duyệt" : "Chưa duyệt", param, method, true));
                             break;
                     }
                 }
@@ -146,6 +149,9 @@ namespace Core.DAL
                     (s => s.MaSoHoaDon.Equals(number)
                     || s.MaSoDaiLy.Equals(number)
                     || s.TongTien.Equals(number)
+                    || s.NgayLap.Year.Equals(number)
+                    || s.NgayLap.Month.Equals(number)
+                    || s.NgayLap.Day.Equals(number)
                     );
                     return linqQuery.ToList();
                 }
@@ -154,6 +160,7 @@ namespace Core.DAL
                     var linqQuery = DMHoaDon.Where
                     (s => s.NgayLap.ToString().ToLower().Contains(request)
                     || s.DaiLy.TenDaiLy.ToLower().Contains(request)
+                    || (s.TrangThai == 1 ? "đã duyệt" : "chưa duyệt").Contains(request)
                     );
                     return linqQuery.ToList();
                 }
@@ -180,11 +187,12 @@ namespace Core.DAL
                     hd.trangthai = hoadon.TrangThai;
                     hd.tongtien = hoadon.ChiTiet.Sum(ct => ct.SoLuong * ct.DonGia); // tính tổng tiền các chi tiết
                     db.CHITIETHOADONDAILies.DeleteAllOnSubmit(hd.CHITIETHOADONDAILies);
+                    db.SubmitChanges();
                     foreach (ChiTietHoaDonDaiLy ct in hoadon.ChiTiet)
                     {
                         ChiTiet.add(ct, hoadon.MaSoHoaDon);
                     }
-                    db.SubmitChanges();
+                    
                     return true;
                 }
             }
@@ -333,7 +341,7 @@ namespace Core.DAL
                             masosach = chitiet.MaSoSach,
                             soluong = chitiet.SoLuong,
                             dongia = chitiet.DonGia,
-                            trangthai = chitiet.TrangThai
+                            trangthai = chitiet.TrangThai == null ? 0 : 1
                         };
                         db.CHITIETHOADONDAILies.InsertOnSubmit(ct);
                         db.SubmitChanges();

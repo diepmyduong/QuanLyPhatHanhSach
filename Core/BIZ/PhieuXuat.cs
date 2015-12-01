@@ -30,6 +30,7 @@ namespace Core.BIZ
         #region Private Properties
         private DaiLy _daily;
         private List<ChiTietPhieuXuat> _chitiet;
+        private static List<string> _searchKeys;
         #endregion
 
         #region Public Properties
@@ -109,6 +110,83 @@ namespace Core.BIZ
             }
             _chitiet.Add(chitiet);
             return true;
+        }
+        public static List<string> searchKeys()
+        {
+            if (_searchKeys == null)
+            {
+                _searchKeys = new List<string>();
+                _searchKeys.Add(nameof(PhieuXuatManager.Properties.MaSoPhieuXuat));
+                _searchKeys.Add(nameof(PhieuXuatManager.Properties.NguoiNhan));
+                _searchKeys.Add(nameof(PhieuXuatManager.Properties.NgayLap));
+                _searchKeys.Add(nameof(PhieuXuatManager.Properties.TongTien));
+                _searchKeys.Add(nameof(PhieuXuatManager.Properties.TrangThai));
+                _searchKeys.Add(nameof(DaiLyManager.Properties.TenDaiLy));
+            }
+            return _searchKeys;
+        }
+        public bool deleteDetail(int masosach)
+        {
+            foreach (ChiTietPhieuXuat ct in _chitiet)
+            {
+                if (ct.MaSoSach.Equals(masosach))
+                {
+                    _chitiet.Remove(ct);
+                    return true;
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// Duyệt phiếu nhập
+        /// </summary>
+        /// <returns></returns>
+        public bool accept()
+        {
+            //Kiểm tra số lượng có thể duyệt không
+            foreach (ChiTietPhieuXuat ct in this.ChiTiet)
+            {
+                if(ct.Sach.Soluong < ct.SoLuong)
+                {
+                    return false;
+                }
+            }
+                //Duyệt từng chi tiết
+            foreach (ChiTietPhieuXuat ct in this.ChiTiet)
+            {
+                //Cập nhật thông tin sách
+                ct.Sach.Soluong -= ct.SoLuong;
+                if (!SachManager.edit(ct.Sach)) return false;
+                //Ghi thẻ kho
+                var tk = new TheKho
+                {
+                    MaSoSach = ct.MaSoSach,
+                    SoLuong = ct.Sach.Soluong,
+                    NgayGhi = DateTime.Now
+                };
+                if (TheKhoManager.add(tk) == 0) return false;
+                //Cập nhật công nợ
+                var congno = new CongNoDaiLy
+                {
+                    MaSoDaiLy = this.MaSoDaiLy,
+                    MaSoSach = ct.MaSoSach,
+                    SoLuong = ct.SoLuong,
+                    DonGia = ct.DonGia,
+                    Thang = DateTime.Now
+                };
+                if (CongNoDaiLyManager.add(congno) == 0) return false;
+                ct.TrangThai = 1;
+            }
+            //Thay đổi trang thái phiếu nhập
+            this.TrangThai = 1;
+            if (PhieuXuatManager.edit(this))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
 

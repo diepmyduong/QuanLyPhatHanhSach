@@ -15,9 +15,9 @@
                     $.ajax({
                         url: this.href,
                         cache: false,
-                        success: function(html) { $(".table>tbody").append(html); }
+                        success: function (html) { $(".table>tbody").append(html); location.reload(); }
                     });
-                    location.reload();
+                    
                     return false;
                     
                 });
@@ -26,9 +26,9 @@
                     $.ajax({
                         url: this.href,
                         cache: false,
-                        success: function (html) { }
+                        success: function (html) { location.reload(); }
                     });
-                    location.reload();
+                    
                     return false;
                     
                 });
@@ -47,9 +47,9 @@
                             $.ajax({
                                 url: '@Url.Action("ChangeDetailRow", "PhieuNhap")?masosach=' + preMaso + '&masosach_new='+masosach,
                                 cache: false,
-                                success: function (html) { }
+                                success: function (html) { location.reload(); }
                             });
-                            location.reload();
+                            
                         }
                     });
                 });
@@ -70,9 +70,9 @@
                         $.ajax({
                             url: '@Url.Action("ChangeDetailRow", "PhieuNhap")?masosach=' + preMaso + '&soluong='+soluong,
                             cache: false,
-                            success: function (html) { }
+                            success: function (html) { location.reload(); }
                         });
-                        location.reload();
+                        
                     }
                 });
             </script>
