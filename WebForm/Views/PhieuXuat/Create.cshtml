@@ -86,86 +86,104 @@
     }
 
 }
-
-<h2>@ViewBag.Title</h2>
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <p>@Html.ActionLink("Trở lại danh sách", "All")</p>
+      </div>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        @*<h4>PhieuNhap</h4>*@
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Daily, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
-                @Html.DropDownListFor(model => model.MaSoDaiLy,ViewBag.DMDaiLy as SelectList,new { @class = "form-control"})
-                @Html.ValidationMessageFor(model => model.MaSoDaiLy, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.NgayLap, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.NgayLap, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Thông tin phiếu xuất</h3>
+              </div>
+              <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Daily, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-2">
+                            @Html.DropDownListFor(model => model.MaSoDaiLy,ViewBag.DMDaiLy as SelectList,new { @class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.MaSoDaiLy, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.NgayLap, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.NgayLap, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NguoiNhan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.NguoiNhan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NguoiNhan, "", new { @class = "text-danger" })
-            </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NguoiNhan, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.NguoiNhan, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NguoiNhan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+              </div>
         </div>
-        <hr />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Core.DAL.PhieuXuatManager.Chitiet.Properties.MaSoSach
-                    </th>
-                    <th>
-                        @Core.DAL.PhieuXuatManager.Chitiet.Properties.Sach
-                    </th>
-                    <th>
-                        @Core.DAL.SachManager.Properties.TenTacGia
-                    </th>
-                    <th>
-                        @Core.DAL.PhieuXuatManager.Chitiet.Properties.SoLuong
-                    </th>
-                    <th>
-                        @Core.DAL.PhieuXuatManager.Chitiet.Properties.DonGia
-                    </th>
-                    <th>
-                        @Core.DAL.PhieuXuatManager.Chitiet.Properties.ThanhTien
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.ChiTiet)
-                {
-                    Html.RenderPartial("ChiTietEditorRow", item);
-                }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>Tổng tiền</th>
-                    <th>
-                        @String.Format(ViewBag.cultureInfo, "{0:c}", Model.ChiTiet.Sum(ct => ct.ThanhTien))
-                    </th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
-        @Html.ActionLink("Thêm chi tiết", "BlankEditorRow", null,new { id = "themChiTiet"})
-        <hr />
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lưu" class="btn btn-default" />
-            </div>
+        <div class="panel panel-primary">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Chi tiết</h3>
+              </div>
+              <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Core.DAL.PhieuXuatManager.Chitiet.Properties.MaSoSach
+                                </th>
+                                <th>
+                                    @Core.DAL.PhieuXuatManager.Chitiet.Properties.Sach
+                                </th>
+                                <th>
+                                    @Core.DAL.SachManager.Properties.TenTacGia
+                                </th>
+                                <th>
+                                    @Core.DAL.PhieuXuatManager.Chitiet.Properties.SoLuong
+                                </th>
+                                <th>
+                                    @Core.DAL.PhieuXuatManager.Chitiet.Properties.DonGia
+                                </th>
+                                <th>
+                                    @Core.DAL.PhieuXuatManager.Chitiet.Properties.ThanhTien
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ChiTiet)
+                            {
+                                Html.RenderPartial("ChiTietEditorRow", item);
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Tổng tiền</th>
+                                <th>
+                                    @String.Format(ViewBag.cultureInfo, "{0:c}", Model.ChiTiet.Sum(ct => ct.ThanhTien))
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    @Html.ActionLink("Thêm chi tiết", "BlankEditorRow", null,new { id = "themChiTiet"})
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="submit" value="Lưu" class="btn btn-default" />
+                        </div>
+                    </div>
+              </div>
         </div>
+        
     </div>
 }

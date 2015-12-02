@@ -49,6 +49,7 @@ namespace WebForm.Controllers
                 DMPhieu = PhieuNhapManager.getAll();
             }
             ViewBag.tongTien = DMPhieu.Sum(ph => ph.TongTien);
+            //ViewBag.tongSoLuong = DMPhieu.Sum(ph => ph.ChiTiet.Sum(ct => ct.SoLuong));
             var models = DMPhieu.ToPagedList(page, pageSize);
             return View(models);
         }

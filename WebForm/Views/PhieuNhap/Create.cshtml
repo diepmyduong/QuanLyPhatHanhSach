@@ -80,121 +80,149 @@
     }
 
 }
-
-<h2>@ViewBag.Title</h2>
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+                
+                @if(ViewBag.currentNXB != null){
+                    <p>
+                        @Html.ActionLink("Trở lại danh sách", "All") |
+                        @Html.ActionLink("Chọn lại nhà xuất bản", "Create")
+                    </p>
+                }else{
+                    <p>@Html.ActionLink("Trở lại danh sách", "All")</p>
+                }
+      </div>
+</div>
     @if(ViewBag.currentNXB == null)
     {
-        <hr />
-        using (Html.BeginForm("Create", "PhieuNhap", FormMethod.Get))
-        {
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="row">
-                    <div class="form-group">
-                        @Html.Label("masonxb", "Chọn Nhà Xuất Bản", new { @class = "control-label col-md-2" })
-                        <div class="col-md-2">
-                            @Html.DropDownList("masonxb",ViewBag.DMNXB as SelectList,new { @class = "form-control"})
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Chọn Nhà xuất bản</h3>
+              </div>
+              <div class="panel-body">
+                    @using (Html.BeginForm("Create", "PhieuNhap", FormMethod.Get))
+                    {
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.Label("masonxb", "Chọn Nhà Xuất Bản", new { @class = "control-label col-md-2" })
+                                    <div class="col-md-2">
+                                        @Html.DropDownList("masonxb",ViewBag.DMNXB as SelectList,new { @class = "form-control"})
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="submit" class="btn btn-primary">Chọn</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4 col-md-offset-2">
+                                        @Html.ActionLink("Thêm Nhà Xuất Bản", "Create", "NhaXuatBan", null, null)
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary">Chọn</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-4 col-md-offset-2">
-                            @Html.ActionLink("Thêm Nhà Xuất Bản", "Create", "NhaXuatBan", null, null)
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    }
-    else
-    {
+                    }
+              </div>
+        </div>
+    }else{
         using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            @Html.ActionLink("Chọn lại nhà xuất bản", "Create");
             <div class="form-horizontal">
-                @*<h4>PhieuNhap</h4>*@
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.NXB.TenNXB, new { @class = "form-control", @readonly = "readonly" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NXB, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-2">
-                        @Html.EditorFor(model => model.NXB.TenNXB, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.MaSoNXB, "", new { @class = "text-danger" })
-                    </div>
-                    @Html.LabelFor(model => model.NgayLap, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-2">
-                        @Html.EditorFor(model => model.NgayLap, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                <div class="panel panel-info">
+                      <div class="panel-heading">
+                            <h3 class="panel-title">Thông tin phiếu nhập</h3>
+                      </div>
+                      <div class="panel-body">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.NXB.TenNXB, new { @class = "form-control", @readonly = "readonly" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NXB, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.NXB.TenNXB, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.MaSoNXB, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.LabelFor(model => model.NgayLap, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.NgayLap, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NguoiGiao, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.NguoiGiao, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.NguoiGiao, "", new { @class = "text-danger" })
-                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NguoiGiao, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-6">
+                                    @Html.EditorFor(model => model.NguoiGiao, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.NguoiGiao, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2 col-md-offset-2">
+                                    @Html.ActionLink("Thêm Sách","Create","Sach",null,null)
+                                </div>
+                            </div>
+                      </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-2 col-md-offset-2">
-                        @Html.ActionLink("Thêm Sách","Create","Sach",null,null)
-                    </div>
-                </div>
-                <hr />
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.MaSoSach
-                            </th>
-                            <th>
-                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.Sach
-                            </th>
-                            <th>
-                                @Core.DAL.SachManager.Properties.TenTacGia
-                            </th>
-                            <th>
-                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong
-                            </th>
-                            <th>
-                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia
-                            </th>
-                            <th>
-                                @Core.DAL.PhieuNhapManager.ChiTiet.Properties.ThanhTien
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.ChiTiet)
-                        {
-                            Html.RenderPartial("ChiTietEditorRow", item);
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>Tổng tiền</th>
-                            <th>
-                                @String.Format(ViewBag.cultureInfo, "{0:c}", Model.ChiTiet.Sum(ct => ct.ThanhTien))
-                            </th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
-                @Html.ActionLink("Thêm chi tiết", "BlankEditorRow", new { masonxb = Model.MaSoNXB },new { id = "themChiTiet"})
-                <hr />
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Lưu" class="btn btn-default" />
-                    </div>
+                <div class="panel panel-primary">
+                      <div class="panel-heading">
+                            <h3 class="panel-title">Chi tiết phiếu nhập</h3>
+                      </div>
+                      <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.MaSoSach
+                                        </th>
+                                        <th>
+                                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.Sach
+                                        </th>
+                                        <th>
+                                            @Core.DAL.SachManager.Properties.TenTacGia
+                                        </th>
+                                        <th>
+                                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong
+                                        </th>
+                                        <th>
+                                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia
+                                        </th>
+                                        <th>
+                                            @Core.DAL.PhieuNhapManager.ChiTiet.Properties.ThanhTien
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ChiTiet)
+                                    {
+                                        Html.RenderPartial("ChiTietEditorRow", item);
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Tổng tiền</th>
+                                        <th>
+                                            @String.Format(ViewBag.cultureInfo, "{0:c}", Model.ChiTiet.Sum(ct => ct.ThanhTien))
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            @Html.ActionLink("Thêm chi tiết", "BlankEditorRow", new { masonxb = Model.MaSoNXB },new { id = "themChiTiet"})
+                            <hr />
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input type="submit" value="Lưu" class="btn btn-default" />
+                                </div>
+                            </div>
+                      </div>
                 </div>
             </div>
         }

@@ -4,33 +4,39 @@
     ViewBag.Title = "Chi tiết";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <div>
+                <h4>Lĩnh vực</h4>
+                <p>
+                    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoLinhVuc }) |
+                    @Html.ActionLink("Trở lại danh sách", "Index")
+                </p>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaSoLinhVuc)
+                    </dt>
 
-<h2>@ViewBag.Title</h2>
+                    <dd>
+                        @Html.DisplayFor(model => model.MaSoLinhVuc)
+                    </dd>
 
-<div>
-    <h4>Lĩnh vực</h4>
-    <p>
-        @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoLinhVuc }) |
-        @Html.ActionLink("Trở lại danh sách", "Index")
-    </p>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MaSoLinhVuc)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenLinhVuc)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MaSoLinhVuc)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.TenLinhVuc)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TenLinhVuc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenLinhVuc)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+      </div>
 </div>
+
+
 

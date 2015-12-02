@@ -57,64 +57,70 @@
         </script>
     }
 }
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <p>
+                @Html.ActionLink("Thêm Lĩnh vực", "Create")
+            </p>
+            <hr />
+            @using (Html.BeginForm("Index", "LinhVuc", FormMethod.Get, new { @class = "form" }))
+            {
+                @Html.ValidationSummary(true)
+                <div class="row ">
+                    <div class="col-md-10 form-group input-group">
+                        <input type="search" name="search" id="search" class="form-control"
+                               value="@{if (ViewBag.SearchKey != null)
+                                        {
+                                            @ViewBag.SearchKey;
+                                        }
+                                        }"
+                               required="required" title="">
+                        <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+                    </div>
+                </div>
+            }
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.Raw(Core.DAL.LinhVucManager.Properties.MaSoLinhVuc)
+                    </th>
+                    <th>
+                        @Html.Raw(Core.DAL.LinhVucManager.Properties.TenLinhVuc)
+                    </th>
+                    <th></th>
+                </tr>
 
-<h2>@ViewBag.Title</h2>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaSoLinhVuc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenLinhVuc)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaSoLinhVuc }) |
+                        @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSoLinhVuc }) |
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaSoLinhVuc })
+                    </td>
+                </tr>
+            }
 
-<p>
-    @Html.ActionLink("Thêm Lĩnh vực", "Create")
-</p>
-<hr />
-@using (Html.BeginForm("Index", "LinhVuc", FormMethod.Get, new { @class = "form" }))
-{
-    @Html.ValidationSummary(true)
-    <div class="row ">
-        <div class="col-md-10 form-group input-group">
-            <input type="search" name="search" id="search" class="form-control"
-                   value="@{if (ViewBag.SearchKey != null)
-                            {
-                                @ViewBag.SearchKey;
-                            }
-                            }"
-                   required="required" title="">
-            <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
-        </div>
-    </div>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.Raw(Core.DAL.LinhVucManager.Properties.MaSoLinhVuc)
-        </th>
-        <th>
-            @Html.Raw(Core.DAL.LinhVucManager.Properties.TenLinhVuc)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaSoLinhVuc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenLinhVuc)
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id = item.MaSoLinhVuc }) |
-            @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSoLinhVuc }) |
-            @Html.ActionLink("Xóa", "Delete", new { id = item.MaSoLinhVuc })
-        </td>
-    </tr>
-}
-
-</table>
-<div class="row">
-    <div class="col-md-4 col-md-offset-5">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize, search = ViewBag.searchKey }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
-    </div>
+            </table>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-5">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize, search = ViewBag.searchKey }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-5">
+                    Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Contents.
+                </div>
+            </div>
+      </div>
 </div>
-<div class="row">
-    <div class="col-md-4 col-md-offset-5">
-        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Contents.
-    </div>
-</div>
+
+

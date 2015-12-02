@@ -8,12 +8,12 @@
 
 body {
     margin-top: 100px;
-    background-color: #fff;
+    background-color: #eee;
 }
 
 @media(min-width:768px) {
     body {
-        margin-top: 50px;
+        margin-top: 10px;
     }
 }
 
@@ -25,7 +25,7 @@ body {
 #page-wrapper {
     width: 100%;
     padding: 0;
-    background-color: #fff;
+    background-color: #eee;
 }
 
 .huge {
@@ -246,4 +246,11 @@ ul.alert-dropdown {
 
 .panel-yellow > a:hover {
     color: #df8a13;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }

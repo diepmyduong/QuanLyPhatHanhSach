@@ -191,16 +191,16 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#thanh-toan"><i class="fa fa-fw fa-shopping-cart"></i> Thanh toán <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="thanh-toan" class="collapse">
                             <li>
-                                <a href="#">Thanh toán với Đại lý</a>
+                                @Html.ActionLink("Thanh toán với Đại lý", "ThanhToan", "ThanhToanDaiLy", null, null)
                             </li>
                             <li>
-                                <a href="#">Theo dõi nợ Đại lý</a>
+                                @Html.ActionLink("Theo dõi nợ Đại lý", "TheoDoi", "CongNoDaiLy", null, null)
                             </li>
                             <li>
-                                <a href="#">Thanh toán với NXB</a>
+                                @Html.ActionLink("Thanh toán với NXB", "ThanhToan", "ThanhToanNXB", null, null)
                             </li>
                             <li>
-                                <a href="#">Theo dõi nợ NXB</a>
+                                @Html.ActionLink("Theo dõi nợ NXB", "TheoDoi", "CongNoNXB", null, null)
                             </li>
                         </ul>
                     </li>

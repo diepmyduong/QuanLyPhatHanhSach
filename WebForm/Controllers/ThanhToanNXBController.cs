@@ -49,6 +49,7 @@ namespace WebForm.Controllers
                 DMHoaDon = HoaDonNXBManager.getAll();
             }
             ViewBag.tongTien = DMHoaDon.Sum(hd => hd.TongTien);
+            //ViewBag.tongSoLuong = DMHoaDon.Sum(hd => hd.ChiTiet.Sum(ct => ct.SoLuong));
             var models = DMHoaDon.ToPagedList(page, pageSize);
             return View(models);
         }

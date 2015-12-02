@@ -68,169 +68,197 @@
         </script>
     }
 }
-
-<h2>@ViewBag.Title</h2>
-<hr />
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <p>
+                @Html.ActionLink("Thanh toán", "ThanhToan","ThanhToanNXB",null,null)
+            </p>
+      </div>
+</div>
 <div class="row">
     <div class="col-md-4">
-        <form action="TheoDoi" method="GET" class="form-horizontal" role="form">
-            <div class="form-group">
-                <label for="startDate" class="col-sm-6 control-label">Xem từ tháng :</label>
-                <div class="col-sm-6">
-                    @if (ViewBag.startDate != null)
-                    {
-                        var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.startDate);
-                        <input type="month" name="startDate" id="startDate" class="form-control" value="@month" required="required" title="">
-                    }
-                    else
-                    {
-                        <input type="month" name="startDate" id="startDate" class="form-control" value="" required="required" title="">
-                    }
-                    
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="endDate" class="col-sm-6 control-label">Đến tháng :</label>
-                <div class="col-sm-6">
-                    @if (ViewBag.endDate != null)
-                    {
-                        var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.endDate);
-                        <input type="month" name="endDate" id="endDate" class="form-control" value="@month" required="required" title="">
-                    }
-                    else
-                    {
-                        <input type="month" name="endDate" id="endDate" class="form-control" value="" required="required" title="">
-                    }
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Thời gian theo dõi</h3>
+              </div>
+              <div class="panel-body">
+                    <form action="TheoDoi" method="GET" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="startDate" class="col-sm-5 control-label">Xem từ tháng :</label>
+                        <div class="col-sm-6">
+                            @if (ViewBag.startDate != null)
+                            {
+                                var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.startDate);
+                                <input type="month" name="startDate" id="startDate" class="form-control" value="@month" required="required" title="">
+                            }
+                            else
+                            {
+                                <input type="month" name="startDate" id="startDate" class="form-control" value="" required="required" title="">
+                            }
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate" class="col-sm-5 control-label">Đến tháng :</label>
+                        <div class="col-sm-6">
+                            @if (ViewBag.endDate != null)
+                            {
+                                var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.endDate);
+                                <input type="month" name="endDate" id="endDate" class="form-control" value="@month" required="required" title="">
+                            }
+                            else
+                            {
+                                <input type="month" name="endDate" id="endDate" class="form-control" value="" required="required" title="">
+                            }
 
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-6 col-sm-offset-6">
-                    <button type="submit" class="btn btn-primary">Xem</button>
-                </div>
-            </div>
-        </form>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-5">
+                            <button type="submit" class="btn btn-primary">Xem</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+        </div>
+        
     </div>
     @if (ViewBag.startDate != null){
-    <div class="col-md-6 col-md-offset-1">
-        <div class="form-horizontal">
-            <div class="form-group">
-                <h3 class=" col-sm-6 text-right">Tiền sách :</h3>
-                <h3 class=" col-sm-6"><strong>@String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTienNhap)</strong></h3>
-            </div>
-            <div class="form-group">
-                <h3 class="text-success col-sm-6 text-right">Đã chi :</h3>
-                <h3 class="text-success col-sm-6"><strong>@String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTienNhap - ViewBag.tongTienNo)</strong></h3>
-            </div>
-            <div class="form-group">
-                <h3 class="text-danger col-sm-6 text-right">Còn nợ :</h3>
-                <h3 class="text-danger col-sm-6"><strong>@String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTienNo)</strong></h3>\
-            </div>
+    <div class="col-md-8">
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Thống kê</h3>
+              </div>
+              <div class="panel-body">
+                    <div class="row">
+                        <h3 class=" col-sm-4 text-right">Tiền sách :</h3>
+                        <h3 class=" col-sm-6"><strong>@String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTienNhap)</strong></h3>
+                    </div>
+                    <div class="row">
+                        <h3 class="text-success col-sm-4 text-right">Đã chi :</h3>
+                        <h3 class="text-success col-sm-6"><strong>@String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTienNhap - ViewBag.tongTienNo)</strong></h3>
+                    </div>
+                    <div class="row">
+                        <h3 class="text-danger col-sm-4 text-right">Còn nợ :</h3>
+                        <h3 class="text-danger col-sm-6"><strong>@String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTienNo)</strong></h3>
+                    </div>
+              </div>
         </div>
     </div>
     }
 </div>
-
-<hr />
 @if (ViewBag.startDate != null)
 {
-    using (Html.BeginForm("TheoDoi", "CongNoNXB", FormMethod.Get, new { @class = "form" }))
-    {
-        @Html.ValidationSummary(true)
-        <div class="row ">
-            <div class="col-md-10 form-group input-group">
-                @if (ViewBag.startDate != null)
+<div class="panel panel-primary">
+      <div class="panel-heading">
+            <h3 class="panel-title">Danh sách công nợ</h3>
+      </div>
+      <div class="panel-body">
+            
+                @using (Html.BeginForm("TheoDoi", "CongNoNXB", FormMethod.Get, new { @class = "form" }))
                 {
-                    var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.startDate);
-                    <input type="hidden" name="startDate" id="startDate" class="form-control" value="@month" required="required" title="">
-                }
-                @if (ViewBag.endDate != null)
-                {
-                    var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.endDate);
-                    <input type="hidden" name="endDate" id="endDate" class="form-control" value="@month" required="required" title="">
-                }
-                <input type="search" name="search" id="search" class="form-control" 
-                       value="@{if (ViewBag.SearchKey != null)
-                                {
-                                    @ViewBag.SearchKey;
-                                }
-                                }"
-                       required="required" title="">
+                    @Html.ValidationSummary(true)
+                    <div class="row ">
+                        <div class="col-md-10 form-group input-group">
+                            @if (ViewBag.startDate != null)
+                            {
+                                var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.startDate);
+                                <input type="hidden" name="startDate" id="startDate" class="form-control" value="@month" required="required" title="">
+                            }
+                            @if (ViewBag.endDate != null)
+                            {
+                                var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.endDate);
+                                <input type="hidden" name="endDate" id="endDate" class="form-control" value="@month" required="required" title="">
+                            }
+                            <input type="search" name="search" id="search" class="form-control" 
+                                   value="@{if (ViewBag.SearchKey != null)
+                                            {
+                                                @ViewBag.SearchKey;
+                                            }
+                                            }"
+                                   required="required" title="">
 
-                <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+                            <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+                        </div>
+                    </div>
+                }
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Core.DAL.NhaXuatBanManager.Properties.MaSoNXB
+                        </th>
+                        <th>
+                            @Core.DAL.NhaXuatBanManager.Properties.TenNXB
+                        </th>
+                        <th>
+                            @Core.DAL.NhaXuatBanManager.Properties.DiaChi
+                        </th>
+                        <th>
+                            @Core.DAL.NhaXuatBanManager.Properties.SoDienThoai
+                        </th>
+                        <th>
+                            @Core.DAL.NhaXuatBanManager.Properties.TongTienNo
+                        </th>
+                        <th>
+                            @Core.DAL.NhaXuatBanManager.Properties.TongTienNoThang
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaSoNXB)
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.TenNXB,"Details","NhaXuatBan",new { id = item.MaSoNXB},null)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DiaChi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SoDienThoai)
+                            </td>
+                            <td>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", item.TongTienNo)
+                            </td>
+                            <td>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", item.TongTienNoThang)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Sửa", "Edit", "Sach", new { id = item.MaSoSach }, null) |*@
+                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSoNXB })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-5">
+                        @Html.PagedListPager(Model,
+                                page => Url.Action("TheoDoi",
+                                    new {
+                                        page,
+                                        pageSize = Model.PageSize,
+                                        search = ViewBag.searchKey,
+                                        startDate = ViewBag.startDate,
+                                        endDate = ViewBag.endDate
+                                    }),
+                                PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-5">
+                        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Contents.
+                    </div>
+                </div>
+           
+                  </div>
             </div>
-        </div>
-    }
-    <table class="table">
-        <tr>
-            <th>
-                @Core.DAL.NhaXuatBanManager.Properties.MaSoNXB
-            </th>
-            <th>
-                @Core.DAL.NhaXuatBanManager.Properties.TenNXB
-            </th>
-            <th>
-                @Core.DAL.NhaXuatBanManager.Properties.DiaChi
-            </th>
-            <th>
-                @Core.DAL.NhaXuatBanManager.Properties.SoDienThoai
-            </th>
-            <th>
-                @Core.DAL.NhaXuatBanManager.Properties.TongTienNo
-            </th>
-            <th>
-                @Core.DAL.NhaXuatBanManager.Properties.TongTienNoThang
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaSoNXB)
-                </td>
-                <td>
-                    @Html.ActionLink(item.TenNXB,"Details","NhaXuatBan",new { id = item.MaSoNXB},null)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiaChi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SoDienThoai)
-                </td>
-                <td>
-                    @String.Format(ViewBag.cultureInfo, "{0:c}", item.TongTienNo)
-                </td>
-                <td>
-                    @String.Format(ViewBag.cultureInfo, "{0:c}", item.TongTienNoThang)
-                </td>
-                <td>
-                    @*@Html.ActionLink("Sửa", "Edit", "Sach", new { id = item.MaSoSach }, null) |*@
-                    @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSoNXB })
-                </td>
-            </tr>
-        }
-
-    </table>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-5">
-            @Html.PagedListPager(Model,
-                    page => Url.Action("TheoDoi",
-                        new {
-                            page,
-                            pageSize = Model.PageSize,
-                            search = ViewBag.searchKey,
-                            startDate = ViewBag.startDate,
-                            endDate = ViewBag.endDate
-                        }),
-                    PagedListRenderOptions.OnlyShowFivePagesAtATime)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-5">
-            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Contents.
-        </div>
-    </div>
 }
+
 
