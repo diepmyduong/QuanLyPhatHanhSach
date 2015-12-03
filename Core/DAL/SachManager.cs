@@ -40,8 +40,18 @@ namespace Core.DAL
             public const string TongTienXuat = "Tổng tiền xuất";
             public const string TongTienXuatTheoThang = "Tiền xuất";
             public const string TrangThai = "Trạng thái";
+            public const string TongSoLuongBan = "Số lượng bán";
+            public const string TongSoLuongBanTheoThang = "Số lượng bán theo tháng";
+            public const string TongTienBan = "Tổng tiền bán";
+            public const string TongTienBanTheoThang = "Tiền bán theo tháng";
             public const string TongSoLuongNXBNo = "Số lượng Nhà xuất bản nợ";
             public const string TongSoLuongDaiLyNo = "Số lượng Đại lý nợ";
+            public const string TongTienNXBNo = "Tổng tiền Nhà xuất bản nợ";
+            public const string TongTienDaiLyNo = "Tổng tiền Đại lý nợ";
+            public const string TongSoLuongNXBNoTheoThang = "Số lượng Nhà xuất bản nợ theo tháng";
+            public const string TongSoLuongDaiLyNoTheoThang = "Số lượng Đại lý nợ theo tháng";
+            public const string TongTienNXBNoTheoThang = "Tổng tiền Nhà xuất bản nợ theo tháng";
+            public const string TongTienDaiLyNoTheoTang = "Tổng tiền Đại lý nợ theo tháng";
 
         }
         public static List<Sach> getAll()
@@ -175,6 +185,24 @@ namespace Core.DAL
                         case nameof(Properties.TongTienNhapTheoThang):
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienNhapTheoThang, Decimal.Parse(param), method, false));
                             break;
+                        case nameof(Properties.TongSoLuongBanTheoThang):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongBanTheoThang, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongTienBanTheoThang):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienBanTheoThang, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongSoLuongDaiLyNoTheoThang):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongDaiLyNoTheoThang, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongTienDaiLyNoTheoTang):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienDaiLyNoTheoTang, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongSoLuongNXBNoTheoThang):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongNXBNoTheoThang, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongTienNXBNoTheoThang):
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienNXBNoTheoThang, Decimal.Parse(param), method, false));
+                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -191,6 +219,10 @@ namespace Core.DAL
                     || s.Soluong.Equals(number)
                     || s.GiaNhap.Equals(number)
                     || s.GiaBan.Equals(number)
+                    || s.SoLuongNhapTheoThang.Equals((decimal)number)
+                    || s.TongTienNhapTheoThang.Equals((decimal)number)
+                    || s.TongSoLuongBanTheoThang.Equals((decimal)number)
+                    || s.TongTienBanTheoThang.Equals((decimal)number)
                     );
                     return linqQuery.ToList();
                 }

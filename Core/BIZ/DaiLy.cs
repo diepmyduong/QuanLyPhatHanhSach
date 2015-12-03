@@ -35,7 +35,10 @@ namespace Core.BIZ
         private decimal? _tongSoLuongXuat;
         private decimal? _tongTienXuatTheoThang;
         private decimal? _tongSoLuongXuatTheoThang;
+        private decimal? _tongTienThanhToan;
+        private decimal? _tongTienThanhToanTheoThang;
         private static List<string> _searchKeysTheoDoiNo;
+        private static List<string> _searchKeysDoanhThu;
         #endregion
 
         #region Public Properties
@@ -191,6 +194,26 @@ namespace Core.BIZ
                 return _tongSoLuongXuatTheoThang;
             }
         }
+        [DisplayName(DaiLyManager.Properties.TongTienThanhToan)]
+        public decimal? TongTienThanhToan
+        {
+            get
+            {
+                if (_tongTienThanhToan == null)
+                {
+                    _tongTienThanhToan = HoaDon.Sum(hd => hd.TongTien);
+                }
+                return _tongTienThanhToan;
+            }
+        }
+        [DisplayName(DaiLyManager.Properties.TongTienThanhToanTheoThang)]
+        public decimal? TongTienThanhToanTheoThang
+        {
+            get
+            {
+                return _tongTienThanhToanTheoThang;
+            }
+        }
         #endregion
 
         #region Services
@@ -226,6 +249,18 @@ namespace Core.BIZ
             }
             return _searchKeysTheoDoiNo;
         }
+        public static List<string> searchKeysDoanhThu()
+        {
+            if (_searchKeysDoanhThu == null)
+            {
+                _searchKeysDoanhThu = new List<string>();
+                _searchKeysDoanhThu.Add(nameof(DaiLyManager.Properties.MaSoDaiLy));
+                _searchKeysDoanhThu.Add(nameof(DaiLyManager.Properties.TenDaiLy));
+                _searchKeysDoanhThu.Add(nameof(DaiLyManager.Properties.TongTienThanhToan));
+                _searchKeysDoanhThu.Add(nameof(DaiLyManager.Properties.TongTienThanhToanTheoThang));
+            }
+            return _searchKeysDoanhThu;
+        }
         public List<Sach> getSachNo()
         {
             return CongNo
@@ -257,6 +292,12 @@ namespace Core.BIZ
                                     .Sum(ph => ph.ChiTiet.Sum(ct => ct.SoLuong));
             return _tongSoLuongXuatTheoThang;
         }
+        public decimal? tinhTongTienThanhToanTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            _tongTienThanhToanTheoThang = getHoaDonTheoThang(startMonth, startYear, endMonth, endYear)
+                                    .Sum(hd => hd.TongTien);
+            return _tongTienThanhToanTheoThang;
+        }
         public List<CongNoDaiLy> congNoTheoThang(int startMonth, int startYear, int endMonth, int endYear)
         {
             DateTime startDate = new DateTime(startYear, startMonth, 1);
@@ -272,6 +313,15 @@ namespace Core.BIZ
             DateTime endDate = new DateTime(endYear, endMonth, 1);
             endDate = endDate.AddMonths(1).AddDays(-1);
             return this.PhieuXuat.Where(p =>
+                        p.NgayLap >= startDate
+                        && p.NgayLap <= endDate).ToList();
+        }
+        public List<HoaDonDaiLy> getHoaDonTheoThang(int startMonth, int startYear, int endMonth, int endYear)
+        {
+            DateTime startDate = new DateTime(startYear, startMonth, 1);
+            DateTime endDate = new DateTime(endYear, endMonth, 1);
+            endDate = endDate.AddMonths(1).AddDays(-1);
+            return this.HoaDon.Where(p =>
                         p.NgayLap >= startDate
                         && p.NgayLap <= endDate).ToList();
         }

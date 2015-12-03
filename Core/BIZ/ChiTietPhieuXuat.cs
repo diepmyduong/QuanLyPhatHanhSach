@@ -14,6 +14,7 @@ namespace Core.BIZ
         public ChiTietPhieuXuat() { }
         public ChiTietPhieuXuat(CHITIETPHIEUXUAT chitiet)
         {
+            MaSoPhieuXuat = chitiet.masophieuxuat;
             MaSoSach = chitiet.masosach;
             SoLuong = chitiet.soluong;
             DonGia = chitiet.dongia;

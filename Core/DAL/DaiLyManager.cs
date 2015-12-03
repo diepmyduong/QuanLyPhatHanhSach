@@ -29,6 +29,8 @@ namespace Core.DAL
             public const string TongSoLuongNoTheoThang = "Tổng số lượng nợ theo tháng";
             public const string TongSoLuongXuat = "Tổng số lượng xuất";
             public const string TongSoLuongXuatTheoThang = "Tổng số lượng xuất theo tháng";
+            public const string TongTienThanhToan = "Tổng tiền thu";
+            public const string TongTienThanhToanTheoThang = "tiền thu theo tháng";
 
         }
 
@@ -131,6 +133,12 @@ namespace Core.DAL
                         case nameof(Properties.TongTienNoThang):
                             linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienNoThang, Decimal.Parse(param), method, false));
                             break;
+                        case nameof(Properties.TongTienThanhToan):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienThanhToan, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongTienThanhToanTheoThang):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienThanhToanTheoThang, Decimal.Parse(param), method, false));
+                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -146,16 +154,18 @@ namespace Core.DAL
                     (dl => dl.MaSoDaiLy.Equals(number)
                     || dl.SoDienThoai.Contains(number.ToString())
                     || dl.SoTaiKhoan.Contains(number.ToString())
-                    || dl.TongTienNo.Equals(number)
-                    || dl.TongTienNoThang.Equals(number)
+                    || dl.TongTienNo.Equals((decimal)number)
+                    || dl.TongTienNoThang.Equals((decimal)number)
+                    || dl.TongTienThanhToanTheoThang.Equals((decimal)number)
+                    || dl.TongTienThanhToan.Equals((decimal)number)
                     );
                     return linqQuery.ToList();
                 }
                 else
                 {
                     var linqQuery = DMDaiLy.Where
-                    (dl => dl.TenDaiLy.Contains(request)
-                    || dl.DiaChi.Contains(request)
+                    (dl => dl.TenDaiLy.ToLower().Contains(request)
+                    || dl.DiaChi.ToLower().Contains(request)
                     );
                     return linqQuery.ToList();
                 }

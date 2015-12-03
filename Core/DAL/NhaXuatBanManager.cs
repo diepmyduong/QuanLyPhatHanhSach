@@ -29,6 +29,8 @@ namespace Core.DAL
             public const string TongSoLuongNoTheoThang = "Tổng số lượng nợ theo tháng";
             public const string TongSoLuongNhap = "Tổng số lượng nhập";
             public const string TongSoLuongNhapTheoThang = "Tổng số lượng nhập theo tháng";
+            public const string TongTienThanhToan = "Tổng tiền chi";
+            public const string TongTienThanhToanTheoThang = "tiền chi theo tháng";
             public const string TrangThai = "Trạng thái";
         }
         public static List<NhaXuatBan> getAll()
@@ -132,6 +134,12 @@ namespace Core.DAL
                         case nameof(Properties.TongTienNoThang):
                             linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienNoThang, Decimal.Parse(param), method, false));
                             break;
+                        case nameof(Properties.TongTienThanhToan):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienThanhToan, Decimal.Parse(param), method, false));
+                            break;
+                        case nameof(Properties.TongTienThanhToanTheoThang):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienThanhToanTheoThang, Decimal.Parse(param), method, false));
+                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -147,8 +155,10 @@ namespace Core.DAL
                     (nxb => nxb.MaSoNXB.Equals(number)
                     || nxb.SoDienThoai.Contains(number.ToString())
                     || nxb.SoTaiKhoan.Contains(number.ToString())
-                    || nxb.TongTienNo.Equals(number)
-                    || nxb.TongTienNoThang.Equals(number)
+                    || nxb.TongTienNo.Equals((decimal)number)
+                    || nxb.TongTienNoThang.Equals((decimal)number)
+                    || nxb.TongTienThanhToan.Equals((decimal)number)
+                    || nxb.TongTienThanhToanTheoThang.Equals((decimal)number)
                     );
                     return linqQuery.ToList();
                 }

@@ -344,6 +344,12 @@
     <Content Include="Views\CongNoNXB\Details.cshtml" />
     <Content Include="Views\CongNoDaiLy\Details.cshtml" />
     <Content Include="Views\CongNoDaiLy\TheoDoi.cshtml" />
+    <Content Include="Views\ThongKe\LoXuat.cshtml" />
+    <Content Include="Views\ThongKe\LoXuatDetails.cshtml" />
+    <Content Include="Views\ThongKe\DoanhThu.cshtml" />
+    <Content Include="Views\ThongKe\SachBan.cshtml" />
+    <Content Include="Views\ThongKe\CongNoNXB.cshtml" />
+    <Content Include="Views\ThongKe\CongNoDaiLy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

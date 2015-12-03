@@ -212,16 +212,16 @@
                                 @Html.DisplayFor(modelItem => item.MaSoSach)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.TenSach)
+                                @Html.ActionLink( item.TenSach,"Details","Sach",new { id = item.MaSoSach},null)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.TenTacGia)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.LinhVucSach.TenLinhVuc)
+                                @Html.ActionLink(item.LinhVucSach.TenLinhVuc,"Details","LinhVuc",new { id = item.MaSoLinhVuc},null)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.NXB.TenNXB)
+                                @Html.ActionLink(item.NXB.TenNXB,"Details","NhaXuatBan",new { id = item.MaSoNXB},null)
                             </td>
                             <td>
                                 @String.Format("{0:0}", item.SoLuongNhapTheoThang)
