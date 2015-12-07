@@ -20,6 +20,7 @@ namespace Core.BIZ
             SoDienThoai = nxb.sodienthoai;
             SoTaiKhoan = nxb.sotaikhoan;
             TrangThai = nxb.trangthai;
+            NganHang = nxb.nganhang;
         }
 
         #region Private Properties
@@ -60,6 +61,8 @@ namespace Core.BIZ
         public string SoTaiKhoan { get; set; }
         [DisplayName(NhaXuatBanManager.Properties.TrangThai)]
         public int? TrangThai { get; set; }
+        [DisplayName(NhaXuatBanManager.Properties.NganHang)]
+        public string NganHang { get; set; }
         //Sách của NXB
         [DisplayName(NhaXuatBanManager.Properties.Sach)]
         public List<Sach> Sach

@@ -111,6 +111,26 @@ namespace Core.BIZ
             _chitiet.Add(chitiet);
             return true;
         }
+        public bool addDetail(Sach sach, decimal soluong)
+        {
+            var chitiet = new ChiTietPhieuXuat
+            {
+                MaSoSach = sach.MaSoSach,
+                Sach = sach,
+                SoLuong = soluong,
+                DonGia = sach.GiaBan
+            };
+            foreach(var ct in ChiTiet)
+            {
+                if (ct.Equals(chitiet))
+                {
+                    ct.SoLuong += chitiet.SoLuong;
+                    return true;
+                }
+            }
+            ChiTiet.Add(chitiet);
+            return true;
+        }
         public static List<string> searchKeys()
         {
             if (_searchKeys == null)

@@ -65,16 +65,19 @@
     <Compile Include="BIZ\CongNoDaiLy.cs" />
     <Compile Include="BIZ\CongNoNXB.cs" />
     <Compile Include="BIZ\DaiLy.cs" />
+    <Compile Include="BIZ\DataDisplayHelper.cs" />
     <Compile Include="BIZ\FilterHelper.cs" />
     <Compile Include="BIZ\HoaDonDaiLy.cs" />
     <Compile Include="BIZ\HoaDonNXB.cs" />
     <Compile Include="BIZ\ImagesHelper.cs" />
+    <Compile Include="BIZ\NguoiDung.cs" />
     <Compile Include="BIZ\NhaXuatBan.cs" />
     <Compile Include="BIZ\PhieuNhap.cs" />
     <Compile Include="BIZ\PhieuXuat.cs" />
     <Compile Include="BIZ\Sach.cs" />
     <Compile Include="BIZ\LinhVuc.cs" />
     <Compile Include="BIZ\TheKho.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DAL\CongNoDaiLyManager.cs" />
     <Compile Include="DAL\CongNoNXBManager.cs" />
     <Compile Include="DAL\DaiLyManager.cs" />
@@ -86,6 +89,7 @@
     <Compile Include="DAL\HoaDonDaiLyManager.cs" />
     <Compile Include="DAL\HoaDonNXBManager.cs" />
     <Compile Include="DAL\LinhVucManager.cs" />
+    <Compile Include="DAL\NguoiDungManager.cs" />
     <Compile Include="DAL\NhaXuatBanManager.cs" />
     <Compile Include="DAL\PhieuNhapManager.cs" />
     <Compile Include="DAL\PhieuXuatManager.cs" />

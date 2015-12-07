@@ -17,6 +17,9 @@ namespace Core.DAL
             public const string DiaChi = "Địa chỉ";
             public const string SoDienThoai = "Số điện thoại";
             public const string SoTaiKhoan = "Số tài khoản";
+            public const string NganHang = "Ngân hàng";
+            public const string MaSoNguoiDung = "Mã số người dùng";
+            public const string NguoiDung = "Tên người dùng";
             public const string PhieuXuat = "Phiếu Xuất";
             public const string CongNo = "Công nợ";
             public const string HoaDon = "Hóa đơn";
@@ -87,6 +90,9 @@ namespace Core.DAL
                                  )).Where(d => d.TrangThai.Equals(
                                         Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
                                         : d.TrangThai
+                                 )).Where(d => d.NganHang.Equals(
+                                        Params.TryGetValue(Properties.NganHang, out value) ? value as string
+                                        : d.NganHang
                                  ));
                 return linqQuery.ToList();
             }
@@ -139,6 +145,9 @@ namespace Core.DAL
                         case nameof(Properties.TongTienThanhToanTheoThang):
                             linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienThanhToanTheoThang, Decimal.Parse(param), method, false));
                             break;
+                        case nameof(Properties.NganHang):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.NganHang, param, method, true));
+                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -166,6 +175,7 @@ namespace Core.DAL
                     var linqQuery = DMDaiLy.Where
                     (dl => dl.TenDaiLy.ToLower().Contains(request)
                     || dl.DiaChi.ToLower().Contains(request)
+                    || dl.NganHang.ToLower().Contains(request)
                     );
                     return linqQuery.ToList();
                 }
@@ -192,7 +202,9 @@ namespace Core.DAL
                         ten = daily.TenDaiLy,
                         diachi = daily.DiaChi,
                         sodienthoai = daily.SoDienThoai,
-                        sotaikhoan = daily.SoTaiKhoan
+                        sotaikhoan = daily.SoTaiKhoan,
+                        nganhang = daily.NganHang,
+                        masonguoidung = daily.MaSoNguoiDung
                     };
                     db.DAILies.InsertOnSubmit(dl);
                     db.SubmitChanges();
@@ -222,6 +234,7 @@ namespace Core.DAL
                     dl.sodienthoai = daily.SoDienThoai;
                     dl.sotaikhoan = daily.SoTaiKhoan;
                     dl.trangthai = daily.TrangThai;
+                    dl.nganhang = daily.NganHang;
                     db.SubmitChanges();
                     return true;
                 }

@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebForm.Models;
+using Core.BIZ;
+using Core.DAL;
+using System.Collections.Generic;
 
 namespace WebForm.Controllers
 {
@@ -66,29 +69,34 @@ namespace WebForm.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(FormCollection collection)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var username = collection[Core.Constants.ID_USERNAME].ToString();
+            var password = collection[Core.Constants.ID_PASSWORD].ToString();
+            var isRemember = collection[Core.Constants.ID_REMEBER_LOGIN];
+            var nd = new NguoiDung();
+            nd.TenNguoiDung = username;
+            nd.MatKhau = password;
+            var result = nd.login();
+            List<string> errors = new List<string>();
             switch (result)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                case NguoiDung.LoginStatus.Success:
+                    Session.Add(Core.Constants.SESSION_USERNAME, NguoiDungManager.findByName(username));
+                    return RedirectToAction("Index", "Home", null);
+                    break;
+                case NguoiDung.LoginStatus.Error:
+                    errors.Add("Đặng nhập không thành công!");
+                    break;
+                case NguoiDung.LoginStatus.WrongPass:
+                    errors.Add("Mật khẩu không đúng");
+                    break;
+                case NguoiDung.LoginStatus.NotExisted:
+                    errors.Add("Người dùng không tồn tại");
+                    break;
             }
+            ViewBag.Errors = errors;
+            return View();
         }
 
         //

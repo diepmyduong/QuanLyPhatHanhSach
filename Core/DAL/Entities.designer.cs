@@ -63,6 +63,9 @@ namespace Core.DAL
     partial void InsertLINHVUC(LINHVUC instance);
     partial void UpdateLINHVUC(LINHVUC instance);
     partial void DeleteLINHVUC(LINHVUC instance);
+    partial void InsertNGUOIDUNG(NGUOIDUNG instance);
+    partial void UpdateNGUOIDUNG(NGUOIDUNG instance);
+    partial void DeleteNGUOIDUNG(NGUOIDUNG instance);
     partial void InsertNXB(NXB instance);
     partial void UpdateNXB(NXB instance);
     partial void DeleteNXB(NXB instance);
@@ -192,6 +195,14 @@ namespace Core.DAL
 			get
 			{
 				return this.GetTable<LINHVUC>();
+			}
+		}
+		
+		public System.Data.Linq.Table<NGUOIDUNG> NGUOIDUNGs
+		{
+			get
+			{
+				return this.GetTable<NGUOIDUNG>();
 			}
 		}
 		
@@ -1837,6 +1848,10 @@ namespace Core.DAL
 		
 		private System.Nullable<int> _trangthai;
 		
+		private int _masonguoidung;
+		
+		private string _nganhang;
+		
 		private EntitySet<CONGNODAILY> _CONGNODAILies;
 		
 		private EntitySet<HOADONDAILY> _HOADONDAILies;
@@ -1859,6 +1874,10 @@ namespace Core.DAL
     partial void OnsotaikhoanChanged();
     partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
+    partial void OnmasonguoidungChanging(int value);
+    partial void OnmasonguoidungChanged();
+    partial void OnnganhangChanging(string value);
+    partial void OnnganhangChanged();
     #endregion
 		
 		public DAILY()
@@ -1985,6 +2004,46 @@ namespace Core.DAL
 					this._trangthai = value;
 					this.SendPropertyChanged("trangthai");
 					this.OntrangthaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masonguoidung", DbType="Int NOT NULL")]
+		public int masonguoidung
+		{
+			get
+			{
+				return this._masonguoidung;
+			}
+			set
+			{
+				if ((this._masonguoidung != value))
+				{
+					this.OnmasonguoidungChanging(value);
+					this.SendPropertyChanging();
+					this._masonguoidung = value;
+					this.SendPropertyChanged("masonguoidung");
+					this.OnmasonguoidungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nganhang", DbType="NVarChar(50)")]
+		public string nganhang
+		{
+			get
+			{
+				return this._nganhang;
+			}
+			set
+			{
+				if ((this._nganhang != value))
+				{
+					this.OnnganhangChanging(value);
+					this.SendPropertyChanging();
+					this._nganhang = value;
+					this.SendPropertyChanged("nganhang");
+					this.OnnganhangChanged();
 				}
 			}
 		}
@@ -2677,6 +2736,212 @@ namespace Core.DAL
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NGUOIDUNG")]
+	public partial class NGUOIDUNG : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _masonguoidung;
+		
+		private string _tennguoidung;
+		
+		private string _matkhau;
+		
+		private string _tendaydu;
+		
+		private string _email;
+		
+		private string _phanquyen;
+		
+		private int _trangthai;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnmasonguoidungChanging(int value);
+    partial void OnmasonguoidungChanged();
+    partial void OntennguoidungChanging(string value);
+    partial void OntennguoidungChanged();
+    partial void OnmatkhauChanging(string value);
+    partial void OnmatkhauChanged();
+    partial void OntendayduChanging(string value);
+    partial void OntendayduChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void OnphanquyenChanging(string value);
+    partial void OnphanquyenChanged();
+    partial void OntrangthaiChanging(int value);
+    partial void OntrangthaiChanged();
+    #endregion
+		
+		public NGUOIDUNG()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_masonguoidung", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int masonguoidung
+		{
+			get
+			{
+				return this._masonguoidung;
+			}
+			set
+			{
+				if ((this._masonguoidung != value))
+				{
+					this.OnmasonguoidungChanging(value);
+					this.SendPropertyChanging();
+					this._masonguoidung = value;
+					this.SendPropertyChanged("masonguoidung");
+					this.OnmasonguoidungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tennguoidung", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string tennguoidung
+		{
+			get
+			{
+				return this._tennguoidung;
+			}
+			set
+			{
+				if ((this._tennguoidung != value))
+				{
+					this.OntennguoidungChanging(value);
+					this.SendPropertyChanging();
+					this._tennguoidung = value;
+					this.SendPropertyChanged("tennguoidung");
+					this.OntennguoidungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_matkhau", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string matkhau
+		{
+			get
+			{
+				return this._matkhau;
+			}
+			set
+			{
+				if ((this._matkhau != value))
+				{
+					this.OnmatkhauChanging(value);
+					this.SendPropertyChanging();
+					this._matkhau = value;
+					this.SendPropertyChanged("matkhau");
+					this.OnmatkhauChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tendaydu", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string tendaydu
+		{
+			get
+			{
+				return this._tendaydu;
+			}
+			set
+			{
+				if ((this._tendaydu != value))
+				{
+					this.OntendayduChanging(value);
+					this.SendPropertyChanging();
+					this._tendaydu = value;
+					this.SendPropertyChanged("tendaydu");
+					this.OntendayduChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this.OnemailChanging(value);
+					this.SendPropertyChanging();
+					this._email = value;
+					this.SendPropertyChanged("email");
+					this.OnemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phanquyen", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string phanquyen
+		{
+			get
+			{
+				return this._phanquyen;
+			}
+			set
+			{
+				if ((this._phanquyen != value))
+				{
+					this.OnphanquyenChanging(value);
+					this.SendPropertyChanging();
+					this._phanquyen = value;
+					this.SendPropertyChanged("phanquyen");
+					this.OnphanquyenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trangthai", DbType="Int NOT NULL")]
+		public int trangthai
+		{
+			get
+			{
+				return this._trangthai;
+			}
+			set
+			{
+				if ((this._trangthai != value))
+				{
+					this.OntrangthaiChanging(value);
+					this.SendPropertyChanging();
+					this._trangthai = value;
+					this.SendPropertyChanged("trangthai");
+					this.OntrangthaiChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NXB")]
 	public partial class NXB : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2694,6 +2959,8 @@ namespace Core.DAL
 		private string _sotaikhoan;
 		
 		private System.Nullable<int> _trangthai;
+		
+		private string _nganhang;
 		
 		private EntitySet<CONGNONXB> _CONGNONXBs;
 		
@@ -2719,6 +2986,8 @@ namespace Core.DAL
     partial void OnsotaikhoanChanged();
     partial void OntrangthaiChanging(System.Nullable<int> value);
     partial void OntrangthaiChanged();
+    partial void OnnganhangChanging(string value);
+    partial void OnnganhangChanged();
     #endregion
 		
 		public NXB()
@@ -2846,6 +3115,26 @@ namespace Core.DAL
 					this._trangthai = value;
 					this.SendPropertyChanged("trangthai");
 					this.OntrangthaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nganhang", DbType="NVarChar(50)")]
+		public string nganhang
+		{
+			get
+			{
+				return this._nganhang;
+			}
+			set
+			{
+				if ((this._nganhang != value))
+				{
+					this.OnnganhangChanging(value);
+					this.SendPropertyChanging();
+					this._nganhang = value;
+					this.SendPropertyChanged("nganhang");
+					this.OnnganhangChanged();
 				}
 			}
 		}

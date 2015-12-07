@@ -17,6 +17,7 @@ namespace Core.DAL
             public const string DiaChi = "Địa chỉ";
             public const string SoDienThoai = "Số điện thoại";
             public const string SoTaiKhoan = "Số tài khoản";
+            public const string NganHang = "Ngân hàng";
             public const string Sach = "Sách";
             public const string PhieuNhap = "Phiếu nhập";
             public const string CongNo = "Công nợ";
@@ -88,6 +89,9 @@ namespace Core.DAL
                                  .Where(nxb => nxb.TrangThai.Equals(
                                         Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
                                         : nxb.TrangThai
+                                 )).Where(nxb => nxb.NganHang.Equals(
+                                        Params.TryGetValue(Properties.NganHang, out value) ? value as string
+                                        : nxb.NganHang
                                  ));
                 return linqQuery.ToList();
             }
@@ -140,6 +144,9 @@ namespace Core.DAL
                         case nameof(Properties.TongTienThanhToanTheoThang):
                             linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienThanhToanTheoThang, Decimal.Parse(param), method, false));
                             break;
+                        case nameof(Properties.NganHang):
+                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.NganHang, param, method, true));
+                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -167,6 +174,7 @@ namespace Core.DAL
                     var linqQuery = DMNXB.Where
                     (nxb => nxb.TenNXB.ToLower().Contains(request)
                     || nxb.DiaChi.ToLower().Contains(request)
+                    || nxb.NganHang.ToLower().Contains(request)
                     );
                     return linqQuery.ToList();
                 }
@@ -188,7 +196,8 @@ namespace Core.DAL
                         ten = nhaxuatban.TenNXB,
                         diachi = nhaxuatban.DiaChi,
                         sodienthoai = nhaxuatban.SoDienThoai,
-                        sotaikhoan = nhaxuatban.SoTaiKhoan
+                        sotaikhoan = nhaxuatban.SoTaiKhoan,
+                        nganhang = nhaxuatban.NganHang
                     };
                     db.NXBs.InsertOnSubmit(nxb);
                     db.SubmitChanges();
@@ -216,6 +225,7 @@ namespace Core.DAL
                     nxb.sodienthoai = nhaxuatban.SoDienThoai;
                     nxb.sotaikhoan = nhaxuatban.SoTaiKhoan;
                     nxb.trangthai = nhaxuatban.TrangThai;
+                    nxb.nganhang = nhaxuatban.NganHang;
                     db.SubmitChanges();
                     return true;
                 }

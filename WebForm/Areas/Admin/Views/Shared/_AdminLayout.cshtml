@@ -1,0 +1,259 @@
+﻿@{
+    var currentCotroller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    var currentAction = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Admin layout</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/sb-admin.css")
+    @Styles.Render("~/Content/font-awesome/css/font-awesome.min.css")
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
+
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Quản lý phát hành Sách</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-footer">
+                            <a href="#">Read All New Messages</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse ">
+                <ul class="nav navbar-nav side-nav scrollbar-style scrollbar">
+                    <li class="@if(currentCotroller == "Sach" || currentCotroller == "PhieuNhap" ) { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#sach"><i class="fa fa-fw fa-book"></i> Sách <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="sach" class="collapse">
+                            <li>
+                                @Html.ActionLink("Xem danh mục sách", "Index", "Sach", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thêm Sách", "Create", "Sach", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Tạo phiếu nhập", "Create", "PhieuNhap", null, null)
+                            </li>
+                            <li>
+                                <a href="#">Tạo phiếu xuất</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="@if(currentCotroller == "LinhVuc") { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#linh-vuc"><i class="fa fa-fw fa-database"></i> Lĩnh vực <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="linh-vuc" class="collapse">
+                            <li>
+                                @Html.ActionLink("Xem danh mục lĩnh vực", "Index", "LinhVuc", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thêm lĩnh vực", "Create", "LinhVuc", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="@if(currentCotroller == "NhaXuatBan" ) { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#nha-xuat-ban"><i class="fa fa-fw fa-share-alt"></i> Nhà Xuất Bản <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="nha-xuat-ban" class="collapse">
+                            <li>
+                                @Html.ActionLink("Xem danh mục NXB", "Index", "NhaXuatBan", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thêm Nhà Xuất Bản", "Create", "NhaXuatBan", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dai-ly"><i class="fa fa-fw fa-group"></i> Đại lý <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="dai-ly" class="collapse">
+                            <li>
+                                @Html.ActionLink("Xem danh mục Đại lý", "Index", "DaiLy", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thêm đại lý", "Create", "DaiLy", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#thanh-toan"><i class="fa fa-fw fa-shopping-cart"></i> Thanh toán <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="thanh-toan" class="collapse">
+                            <li>
+                                @Html.ActionLink("Thanh toán với Đại lý", "ThanhToan", "ThanhToanDaiLy", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Theo dõi nợ Đại lý", "TheoDoi", "CongNoDaiLy", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thanh toán với NXB", "ThanhToan", "ThanhToanNXB", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Theo dõi nợ NXB", "TheoDoi", "CongNoNXB", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="@if(currentCotroller == "ThongKe" ) { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#thong-ke"><i class="fa fa-fw fa-filter"></i> Thống kê <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="thong-ke" class="collapse">
+                            <li>
+                                @Html.ActionLink("Tồn kho", "TonKho", "ThongKe", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Lô nhập", "LoNhap", "ThongKe", null, null)
+                            </li>
+                            <li>
+                                <a href="#">Doanh thu</a>
+                            </li>
+                            <li>
+                                <a href="#">Sách bán</a>
+                            </li>
+                            <li>
+                                <a href="#">Công nợ</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                </footer>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @if (IsSectionDefined("AddToFooter"))
+    {
+        @RenderSection("AddToFooter", required: false)
+    }
+</body>
+</html>

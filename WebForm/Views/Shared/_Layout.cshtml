@@ -1,44 +1,249 @@
-﻿<!DOCTYPE html>
+﻿@using Core.BIZ;
+@{ 
+    List<LinhVuc> Catalory = new List<LinhVuc>();
+    if (ViewBag.Catalory != null)
+    {
+        Catalory = ViewBag.Catalory as List<LinhVuc>;
+    }
+}
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    <!-- Bootstrap core CSS -->
+    @* @Styles.Render("~/Content/Mimity/assets/bootstrap/css/bootstrap.min.css") *@
+    <!-- <link href="assets/bootstrap/css/bootstrap-rtl.min.css" rel="stylesheet"> -->
+    @Styles.Render("~/Content/Mimity/assets/css/jquery.bxslider.css")
+        
+    <!-- Custom styles for this template -->
+    @Styles.Render("~/Content/Mimity/assets/css/custom.css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <header>
+        <div class="container margin-top-20 margin-bottom-10">
+            <div class="row">
+                <!-- Logo -->
+                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+                    <div class="header-logotype">
+                        <a href="@Url.Action("Index","Home", null) ">
+                            <img src="~/Images/logo.png"  width="200"/>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- search box -->
+                <div class="col-md-3">
+                    <form action="">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <!-- Cart -->
+                <div class="cart">
+                    @Html.Partial("~/Views/Order/Cart.cshtml")
+                </div>
+               
+                @if (ViewBag.currentUser != null)
+                                                {
+                                                    var currentUser = (NguoiDung)ViewBag.currentUser;
+                    <div class="col-md-3">
+                        <div class="btn-group btn-group-cart">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="pull-right">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <span class="pull-right btn-cart-text">
+                                    Xin chào @currentUser.TenDayDu !
+                                </span>
+                                <span class="glyphicon glyphicon-triangle-bottom pull-left"></span>
+                            </button>
+
+                            <ul class="dropdown-menu" role="menu" style="z-index : 2000">
+                                <li>
+                                    <a href="#">
+                                        <p><strong>Thông tin cá nhân</strong></p>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <p><strong>Đăng xuất</strong></p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!-- btn-group Cart Box -->
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-3">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary">Đặng nhập</button>
+                            <button type="button" class="btn btn-default">Đăng ký</button>
+                        </div>
+                        <!-- Login / Logout Element -->
+                        <!-- Login / Logout Element -->
+                    </div>
+                }
+
+            </div> <!-- Row -->
+        </div> <!-- container -->
+    </header>
+    <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Text Logo on Mobile -->
+            <a href="#" class="navbar-brand visible-xs">
+                FAHASA
+            </a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse navbar-ex1-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>
+                        <a href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Sách
+                            <span class="caret"></span>
+                        </a>
+
+                        @{
+                            var count = 0;
+                                        int col = Catalory.Count / 4;
+                            if (Catalory.Count % 4 != 0)
+                            {
+                                col++;
+                            }
+                            <div class="dropdown-menu catelogy" style="width: @(col*150)px">
+                                @for (int i = 0; i < col; i++)
+                                {
+                                    <div class="list-group panel panel-cat"  style="width:@(100/col)%; float:left">
+                                        @for (int j = 0; j < 4; j++)
+                                        {
+                                            @Html.ActionLink(Catalory[count].TenLinhVuc, "List", "Catalogy", new { id = Catalory[count].MaSoLinhVuc }, new { @class = "list-group-item" })
+                                            count++;
+                                            if (count == Catalory.Count)
+                                            {
+                                                break;
+                                            }
+                                        }
+
+</div>
+                                    @*<ul style="width:@(100/col)%; float:left">
+                                        @for (int j = 0; j < 4; j++)
+                                        {
+                                            <li>
+                                                @Html.ActionLink(Catalory[count].TenLinhVuc, "List", "Catalogy", new { id = Catalory[count].MaSoLinhVuc }, null)
+                                            </li>
+                                            count++;
+                                            if (count == Catalory.Count)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    </ul>*@
+                                    }
+</div>
+                            }
+                                
+                    </li>
+                    <li>
+                        @Html.ActionLink("Giỏ hàng","ShoppingCart","Order",null,null)
+                    </li>
+                    <li>
+                        <a href="checkout.html">Đơn hàng</a>
+                    </li>
+                    <li>
+                        <a href="checkout.html">Giới thiệu</a>
+                    </li>
+                   
+                    <li>
+                        <a href="admin/index.html">Liên hệ</a>
+                    </li>
+                    
                 </ul>
-                @Html.Partial("_LoginPartial")
+            </div>
+            
+        </div> <!-- container -->
+    </nav> <!-- End Navigation -->
+    <div class="container main-container">
+        
+        <!-- Body -->
+        @RenderBody()
+        <!-- End Body -->
+    </div> <!-- Container -->
+    <footer class="fix-bottom">
+        <div class="container margin-bottom-10">
+            <div class="col-md-4">
+                <div class="column">
+                    <h4>
+                        Liên hệ
+                    </h4>
+                    <div class="col-md-12">
+                        <ul>
+                            <li><a href="#">Tên công ty</a></li>
+                            <li><a href="#">Địa chỉ</a></li>
+                            <li><a href="#">Số điện thoại</a></li>
+                            <li><a href="#">Email</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
+        <div class="navbar-inverse text-center copyright">
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
+        </div>
+    </footer>
+    
     @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/Content/Mimity/assets/js/jquery-1.11.2.min.js")"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
+    
+    <script src="@Url.Content("~/Content/Mimity/assets/js/jquery.bxslider.min.js")"></script>
+    <script src="@Url.Content("~/Content/Mimity/assets/js/mimity.js")"></script>
+    @if (IsSectionDefined("AddToFooter"))
+    {
+        @RenderSection("AddToFooter", required: false)
+    }
+    <script>
+        $(function () {
+            $(".add-cart").click(function(event) {
+                /* Act on the event */
+                $.ajax({
+                        url: this.href,
+                        cache: false,
+                        success: function (html) {
+                            $(".cart").html(html);
+                            alert("đã thêm vào giỏ hàng ");
+                        }
+                    });
+                    
+                    return false;
+            });
+          });
+    </script>
 </body>
 </html>

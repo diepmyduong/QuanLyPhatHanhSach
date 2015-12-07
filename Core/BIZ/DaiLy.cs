@@ -19,10 +19,13 @@ namespace Core.BIZ
             SoDienThoai = daily.sodienthoai;
             SoTaiKhoan = daily.sotaikhoan;
             TrangThai = daily.trangthai;
+            MaSoNguoiDung = daily.masonguoidung;
+            NganHang = daily.nganhang;
         }
 
 
         #region Private Properties
+        private NguoiDung _nguoidung;
         private List<PhieuXuat> _phieuxuat;
         private List<CongNoDaiLy> _congno;
         private List<HoaDonDaiLy> _hoadon;
@@ -54,7 +57,25 @@ namespace Core.BIZ
         public string SoTaiKhoan { get; set; }
         [DisplayName(DaiLyManager.Properties.TrangThai)]
         public int? TrangThai { get; set; }
-
+        [DisplayName(DaiLyManager.Properties.NganHang)]
+        public string NganHang { get; set; }
+        [DisplayName(DaiLyManager.Properties.MaSoNguoiDung)]
+        public int MaSoNguoiDung { get; set; }
+        [DisplayName(DaiLyManager.Properties.NguoiDung)]
+        public NguoiDung NguoiDung {
+            get
+            {
+                if(_nguoidung == null)
+                {
+                    _nguoidung = NguoiDungManager.find(MaSoNguoiDung);
+                }
+                return _nguoidung;
+            }
+            set
+            {
+                _nguoidung = value;
+            }
+        }
         //Phiếu xuất của Đại lý
 
         [DisplayName(DaiLyManager.Properties.PhieuXuat)]
