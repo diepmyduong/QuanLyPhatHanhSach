@@ -2,8 +2,9 @@
 
 @{
     ViewBag.Title = "Chi tiết";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -13,7 +14,8 @@
                 <h4>Lĩnh vực</h4>
                 <p>
                     @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoLinhVuc }) |
-                    @Html.ActionLink("Trở lại danh sách", "Index")
+                    @Html.ActionLink("Xem danh mục sách", "Index","Sach",new { search = Model.TenLinhVuc },null) |
+                    @Html.ActionLink("Xem danh mục lịnh vực", "Index")
                 </p>
                 <hr />
                 <dl class="dl-horizontal">

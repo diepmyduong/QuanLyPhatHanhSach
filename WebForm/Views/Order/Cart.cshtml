@@ -2,9 +2,9 @@
 @{
     Layout = null;
     List<ChiTietPhieuXuat> ShoppingCarts = new List<ChiTietPhieuXuat>();
-    if (Session[Core.Constants.SESSION_SHOPPING_CART] != null)
+    if (Session[Core.Constants.SESSION.SHOPPING_CART] != null)
     {
-        ShoppingCarts = Session[Core.Constants.SESSION_SHOPPING_CART] as List<ChiTietPhieuXuat>;
+        ShoppingCarts = Session[Core.Constants.SESSION.SHOPPING_CART] as List<ChiTietPhieuXuat>;
     }
 }
 @using Core.BIZ

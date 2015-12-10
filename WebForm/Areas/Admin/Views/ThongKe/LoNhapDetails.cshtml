@@ -4,9 +4,10 @@
 
 @{
     ViewBag.Title = "Xem Chi tiết";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     var currentSach = ((Core.BIZ.Sach)ViewBag.currentSach);
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>

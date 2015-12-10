@@ -25,6 +25,7 @@ namespace Core.DAL
             public const string GiaNhap = "Giá Nhập";
             public const string GiaBan = "Giá Bán";
             public const string HinhAnh = "Hình Ảnh";
+            public const string MoTa = "Mô tả";
             public const string CongNoDaiLy = "Công Nợ Đại Lý";
             public const string CongNoNXB = "Công Nợ NXB";
             public const string HoaDonDaiLy = "Hóa Đơn Đại lý";
@@ -259,6 +260,7 @@ namespace Core.DAL
                 s.giaban = sach.GiaBan;
                 s.gianhap = sach.GiaNhap;
                 s.hinhanh = sach.HinhAnh;
+                s.mota = sach.MoTa;
                 s.trangthai = sach.TrangThai;
                 db.SubmitChanges();
                 return true;
@@ -279,6 +281,7 @@ namespace Core.DAL
                     s.giaban = sach.GiaBan;
                     s.gianhap = sach.GiaNhap;
                     s.hinhanh = sach.HinhAnh;
+                    s.mota = sach.MoTa;
                     db.SACHes.InsertOnSubmit(s);
                     db.SubmitChanges();
                     return s.masosach;

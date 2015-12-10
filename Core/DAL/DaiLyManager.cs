@@ -90,9 +90,9 @@ namespace Core.DAL
                                  )).Where(d => d.TrangThai.Equals(
                                         Params.TryGetValue(Properties.TrangThai, out value) ? value as int?
                                         : d.TrangThai
-                                 )).Where(d => d.NganHang.Equals(
-                                        Params.TryGetValue(Properties.NganHang, out value) ? value as string
-                                        : d.NganHang
+                                 )).Where(d => d.MaSoNguoiDung.Equals(
+                                        Params.TryGetValue(Properties.MaSoNguoiDung, out value) ? value as int?
+                                        : d.MaSoNguoiDung
                                  ));
                 return linqQuery.ToList();
             }

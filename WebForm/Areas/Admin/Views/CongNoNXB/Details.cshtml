@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Xem Chi tiết";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     var currentNXB = ((Core.BIZ.NhaXuatBan)ViewBag.currentNXB);
     @section AddToHead{
         <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
@@ -58,6 +58,7 @@
         </script>
     }
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-default">

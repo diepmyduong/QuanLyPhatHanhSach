@@ -1,40 +1,122 @@
-﻿@model WebForm.Models.RegisterViewModel
+﻿@model Core.BIZ.NguoiDung
 @{
     ViewBag.Title = "Register";
-}
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
+        <script>
+            $(function () {
+                var _txtUsername = $('#@Core.Constants.ID.USERNAME');
+                var _txtPassword = $('#@Core.Constants.ID.PASSWORD');
+                var patt = /[*~!./;;,\\\[\]{}<>]/; //ký tự đặc biệt
 
-<h2>@ViewBag.Title.</h2>
+                $('#loginForm').submit(function (event) {
+                    var username = _txtUsername.val();
+                    var password = _txtPassword.val();
+                    if (username == null || username == "") {
+                        alert("Chưa điền tên đăng nhập");
+                        return event.preventDefault();
+                    }
+                    if (password == null || password == "") {
+                        alert("Chưa điền mật khẩu");
+                        return event.preventDefault();
+                    }
+                    if (patt.test(username) || patt.test(password)) {
+                        alert("Không được phép nhập ký tự đặc biệt");
+                        return event.preventDefault();
+                    }
+                });
+                $('.main-container').removeClass('main-container')
+            });
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
+        </script>
+    }
 }
+    
+    <div class="col-lg-8 col-md-8 col-sm-8 ">
+        <div class="white-container">
+            @Html.Partial("~/Views/Shared/Alert.cshtml")
+            <span class="title">Đặng ký</span>
+            <p>Lorem ipsum Ex aliqua tempor nisi laboris dolor id laborum irure minim tempor in sit dolore amet sit esse nostrud tempor nulla consequat aute in nostrud laboris sint ullamco amet nisi pariatur officia nulla pariatur in id et labore dolore ad sit.</p>
+            
+            <!-- Form Register -->
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post,new { id = "signUpForm" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.PhanQuyen, new { @class = "form-control", @readonly = "readonly" })
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label for="password">Họ và tên (*)</label>
+                    @Html.EditorFor(model => model.TenDayDu ,new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.TenDayDu, "", new { @class = "text-danger" })
+                    <br clear="all">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label for="password">Email</label>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", type = "email", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    <br clear="all">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label for="password">Tên đăng nhập (*)</label>
+                    @Html.EditorFor(model => model.TenNguoiDung, new { htmlAttributes = new { @class = "form-control", required = "required" , pattern = ".{0}|.{6,12}" } })
+                    @Html.ValidationMessageFor(model => model.TenNguoiDung, "", new { @class = "text-danger" })
+                    <br clear="all">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label for="password">Mật khẩu (*)</label>
+                    @Html.PasswordFor(model => model.MatKhau, new { @class = "form-control", required = "required", pattern = ".{0}|.{6,12}" })
+                    @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger"})
+                    <br clear="all">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label for="@Core.Constants.ID.CONFIRM_PASSWORD">Nhập lại mật khẩu (*)</label>
+                    <input type="password" class="form-control" id="@Core.Constants.ID.CONFIRM_PASSWORD" name="@Core.Constants.ID.CONFIRM_PASSWORD" required pattern=".{0}|.{6,12}"><br clear="all">
+                </div>
+                <div class="clearfix"></div>
+                @* <div class="checkbox">
+                <label>
+                    <input type="checkbox"> I agree with <a href="#">Terms and Conditions.</a>
+                </label>
+            </div> *@
+                <button class="btn btn-danger" type="submit">Đăng ký</button>
+            }
+            <!-- End Form Register -->
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4">
+
+        <!-- Login Form -->
+        <div class="white-container">
+            <span class="title">Nếu đã có tài khoản ?</span>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form", id = "loginForm", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <div class="input-group login-input">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" name="@Core.Constants.ID.USERNAME" id="@Core.Constants.ID.USERNAME" class="form-control" placeholder="Tên đăng nhập">
+                    </div>
+                    <br>
+                    <div class="input-group login-input">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input name="@Core.Constants.ID.PASSWORD" id="@Core.Constants.ID.PASSWORD" type="password" class="form-control" placeholder="Mật khẩu" pattern=".{0}|.{6,12}">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="@Core.Constants.ID.REMEBER_LOGIN" name="@Core.Constants.ID.REMEBER_LOGIN"> Lưu đăng nhập lần sau
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-long-arrow-right"></i> Đăng nhập</button>
+                    @* <button type="button" class="btn btn-xs btn-primary btn-login-social"><i class="fa fa-facebook"></i></button>
+                    <button type="button" class="btn btn-xs btn-info btn-login-social"><i class="fa fa-twitter"></i></button>
+                    <button type="button" class="btn btn-xs btn-danger btn-login-social"><i class="fa fa-google-plus"></i></button> *@
+                </div>
+            }
+        </div>
+        <!-- End Login Form -->
+
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

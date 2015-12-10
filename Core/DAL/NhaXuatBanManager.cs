@@ -144,9 +144,6 @@ namespace Core.DAL
                         case nameof(Properties.TongTienThanhToanTheoThang):
                             linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.TongTienThanhToanTheoThang, Decimal.Parse(param), method, false));
                             break;
-                        case nameof(Properties.NganHang):
-                            linqQuery = linqQuery.Where(nxb => FilterHelper.compare(nxb.NganHang, param, method, true));
-                            break;
                     }
                 }
                 return linqQuery.ToList();
@@ -174,7 +171,6 @@ namespace Core.DAL
                     var linqQuery = DMNXB.Where
                     (nxb => nxb.TenNXB.ToLower().Contains(request)
                     || nxb.DiaChi.ToLower().Contains(request)
-                    || nxb.NganHang.ToLower().Contains(request)
                     );
                     return linqQuery.ToList();
                 }

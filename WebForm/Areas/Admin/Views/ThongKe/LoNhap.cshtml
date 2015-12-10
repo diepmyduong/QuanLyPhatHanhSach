@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Lô nhập";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     int? startMonth = null, startYear = null, endMonth = null, endYear = null;
     if (ViewBag.startDate != null)
     {
@@ -68,6 +68,7 @@
         </script>
     }
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>

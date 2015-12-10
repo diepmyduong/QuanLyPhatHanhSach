@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+@if (ViewBag.Errors != null)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewBag.Errors as List<string>)
+        {
+            <p><strong>Lỗi : </strong>@error</p>
+        }
+    </div>
+}
+@if (ViewBag.Success != null)
+{
+    <div class="alert alert-success">
+        @foreach (var success in ViewBag.Success as List<string>)
+        {
+            <p><strong>Thông báo : </strong>@success</p>
+        }
+    </div>
+}

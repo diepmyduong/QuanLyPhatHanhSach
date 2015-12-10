@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "Cập nhật phiếu";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     if (Model != null)
     {
         @section AddToFooter{
@@ -80,6 +80,7 @@
     }
 
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>

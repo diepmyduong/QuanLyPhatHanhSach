@@ -23,13 +23,18 @@ namespace Core.DAL
             public const string DaiLy = "Đại Lý";
         }
 
+        public static partial class Roles
+        {
+            public const string daily = "Đại lý";
+            public const string admin = "Admin";
+        }
+
         public static List<NguoiDung> getAll()
         {
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from nd in db.NGUOIDUNGs
-                                join dl in db.DAILies on nd.masonguoidung equals dl.masonguoidung
-                                select new NguoiDung(nd,dl);
+                                select new NguoiDung(nd);
                 return linqQuery.ToList();
             }
         }
@@ -38,9 +43,8 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from nd in db.NGUOIDUNGs
-                                join dl in db.DAILies on nd.masonguoidung equals dl.masonguoidung
-                                where nd.trangthai == 1
-                                select new NguoiDung(nd, dl);
+                                where nd.trangthai != 0
+                                select new NguoiDung(nd);
                 return linqQuery.ToList();
             }
         }
@@ -49,9 +53,8 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from nd in db.NGUOIDUNGs
-                                join dl in db.DAILies on nd.masonguoidung equals dl.masonguoidung
                                 where nd.masonguoidung == masonguoidung
-                                select new NguoiDung(nd, dl);
+                                select new NguoiDung(nd);
                 return linqQuery.SingleOrDefault();
             }
         }
@@ -97,9 +100,8 @@ namespace Core.DAL
             using (EntitiesDataContext db = new EntitiesDataContext())
             {
                 var linqQuery = from nd in db.NGUOIDUNGs
-                                join dl in db.DAILies on nd.masonguoidung equals dl.masonguoidung
                                 where nd.tennguoidung == username
-                                select new NguoiDung(nd, dl);
+                                select new NguoiDung(nd);
                 return linqQuery.SingleOrDefault();
             }
         }
@@ -137,7 +139,7 @@ namespace Core.DAL
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TenDayDu, param, method, true));
                             break;
                         case nameof(Properties.PhanQuyen):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.PhanQuyen, Int32.Parse(param), method, false));
+                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.isAdmin() ? "Admin" : "Đại lý", param, method, true));
                             break;
                         case nameof(Properties.TrangThai):
                             linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TrangThai, Int32.Parse(param), method, false));
@@ -164,6 +166,7 @@ namespace Core.DAL
                     (s => s.TenNguoiDung.ToLower().Contains(request)
                     || s.TenDayDu.ToLower().Contains(request)
                     || s.Email.ToLower().Contains(request)
+                    || (s.isAdmin() ? "Admin" : "Đại lý").ToLower().Contains(request)
                     );
                     return linqQuery.ToList();
                 }

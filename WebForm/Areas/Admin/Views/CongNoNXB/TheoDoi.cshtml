@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Theo dõi nợ Nhà xuất bản";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     int? startMonth = null, startYear = null, endMonth = null, endYear = null;
     if (ViewBag.startDate != null)
     {
@@ -68,6 +68,7 @@
         </script>
     }
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -87,8 +88,8 @@
               <div class="panel-body">
                     <form action="TheoDoi" method="GET" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label for="startDate" class="col-sm-5 control-label">Xem từ tháng :</label>
-                        <div class="col-sm-6">
+                        <label for="startDate" class="col-sm-4 control-label">Xem từ tháng :</label>
+                        <div class="col-sm-8">
                             @if (ViewBag.startDate != null)
                             {
                                 var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.startDate);
@@ -102,8 +103,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="endDate" class="col-sm-5 control-label">Đến tháng :</label>
-                        <div class="col-sm-6">
+                        <label for="endDate" class="col-sm-4 control-label">Đến tháng :</label>
+                        <div class="col-sm-8">
                             @if (ViewBag.endDate != null)
                             {
                                 var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.endDate);
@@ -117,7 +118,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-5">
+                        <div class="col-sm-6 col-sm-offset-4">
                             <button type="submit" class="btn btn-primary">Xem</button>
                         </div>
                     </div>

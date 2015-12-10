@@ -10,7 +10,7 @@ using PagedList;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class ThanhToanNXBController : Controller
+    public class ThanhToanNXBController : BaseController
     {
 
         #region Private Properties
@@ -51,6 +51,7 @@ namespace WebForm.Areas.Admin.Controllers
             ViewBag.tongTien = DMHoaDon.Sum(hd => hd.TongTien);
             //ViewBag.tongSoLuong = DMHoaDon.Sum(hd => hd.ChiTiet.Sum(ct => ct.SoLuong));
             var models = DMHoaDon.ToPagedList(page, pageSize);
+            setAlertMessage();
             return View(models);
         }
 
@@ -59,13 +60,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("All");
             }
             var model = HoaDonNXBManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("All");
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -77,7 +81,8 @@ namespace WebForm.Areas.Admin.Controllers
                 var nxb = NhaXuatBanManager.find((int)masonxb);
                 if (nxb == null || nxb.TrangThai == 0)
                 {
-                    return new HttpNotFoundResult("Bad Request!");
+                    putErrorMessage("Không tìm thấy nhà xuất bản");
+                    return RedirectToAction("ThanhToan");
                 }
                 ViewBag.cultureInfo = CultureInfo;
                 ViewBag.currentNXB = nxb;
@@ -91,6 +96,7 @@ namespace WebForm.Areas.Admin.Controllers
                 _hoadon.MaSoNXB = nxb.MaSoNXB;
                 _hoadon.NXB = nxb;
                 _hoadon.NgayLap = DateTime.Now;
+                setAlertMessage();
                 return View(_hoadon);
             }
             else
@@ -100,6 +106,7 @@ namespace WebForm.Areas.Admin.Controllers
                                         nameof(NhaXuatBanManager.Properties.MaSoNXB),
                                         nameof(NhaXuatBanManager.Properties.TenNXB), "");
                 _hoadon = new HoaDonNXB();
+                setAlertMessage();
                 return View();
             }
         }
@@ -117,20 +124,32 @@ namespace WebForm.Areas.Admin.Controllers
                     if (result != 0)
                     {
                         _hoadon = null;
+                        putSuccessMessage("Thêm hóa đơn thành công");
                         return RedirectToAction("Details", new { id = result });
                     }
+                    else
+                    {
+                        putErrorMessage("Thánh toán không thành công");
+                        return RedirectToAction("ThanhToan", new { masonxb = _hoadon.MaSoNXB });
+                    }
                 }
-                ViewBag.cultureInfo = CultureInfo;
-                ViewBag.currentNXB = _hoadon.NXB;
-                ViewBag.DMSach = new SelectList(_hoadon.NXB.Sach.Where(s => s.CongNoNXB.Count > 0).ToList(),
-                                        nameof(SachManager.Properties.MaSoSach),
-                                        nameof(SachManager.Properties.TenSach), "");
-                _hoadon.NgayLap = DateTime.Now;
-                return View(_hoadon);
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                    return RedirectToAction("ThanhToan", new { masonxb = _hoadon.MaSoNXB });
+                }
+                //ViewBag.cultureInfo = CultureInfo;
+                //ViewBag.currentNXB = _hoadon.NXB;
+                //ViewBag.DMSach = new SelectList(_hoadon.NXB.Sach.Where(s => s.CongNoNXB.Count > 0).ToList(),
+                //                        nameof(SachManager.Properties.MaSoSach),
+                //                        nameof(SachManager.Properties.TenSach), "");
+                //_hoadon.NgayLap = DateTime.Now;
+                //return View(_hoadon);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("ThanhToan", new { masonxb = _hoadon.MaSoNXB });
             }
         }
 
@@ -139,7 +158,8 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("All");
             }
             if (_currentHoaDon == null || _currentHoaDon != id)
             {
@@ -147,12 +167,14 @@ namespace WebForm.Areas.Admin.Controllers
                 _hoadon = HoaDonNXBManager.find((int)id);
                 if (_hoadon == null)
                 {
-                    return new HttpNotFoundResult("Not Found!");
+                    putErrorMessage("Không tìm thấy");
+                    return RedirectToAction("All");
                 }
                 if (_hoadon.TrangThai == 1)
                 {
                     //Nếu đã duyệt thì không cho sửa, chuyển sang trang chi tiết
                     _currentHoaDon = null;
+                    putErrorMessage("Hóa đơn đã duyệt");
                     return RedirectToAction("Details", new { id = id });
                 }
             }
@@ -161,6 +183,7 @@ namespace WebForm.Areas.Admin.Controllers
             ViewBag.DMSach = new SelectList(_hoadon.NXB.Sach.Where(s => s.CongNoNXB.Count > 0).ToList(),
                                         nameof(SachManager.Properties.MaSoSach),
                                         nameof(SachManager.Properties.TenSach), "");
+            setAlertMessage();
             return View(_hoadon);
         }
 
@@ -175,20 +198,32 @@ namespace WebForm.Areas.Admin.Controllers
                     if (HoaDonNXBManager.edit(model))
                     {
                         _currentHoaDon = null;
+                        putSuccessMessage("Cập nhật thành công");
                         return RedirectToAction("Details", new { id = model.MaSoHoaDon });
                     }
+                    else
+                    {
+                        putErrorMessage("Cập nhật thất bại");
+                    }
                 }
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                    
+                }
+                return RedirectToAction("Edit", new { id = model.MaSoHoaDon });
                 // TODO: Add update logic here
-                _hoadon = model;
-                ViewBag.currentNXB = _hoadon.NXB;
-                ViewBag.DMSach = new SelectList(_hoadon.NXB.Sach.Where(s => s.CongNoNXB.Count > 0).ToList(),
-                                        nameof(SachManager.Properties.MaSoSach),
-                                        nameof(SachManager.Properties.TenSach), "");
-                return View(_hoadon);
+                //_hoadon = model;
+                //ViewBag.currentNXB = _hoadon.NXB;
+                //ViewBag.DMSach = new SelectList(_hoadon.NXB.Sach.Where(s => s.CongNoNXB.Count > 0).ToList(),
+                //                        nameof(SachManager.Properties.MaSoSach),
+                //                        nameof(SachManager.Properties.TenSach), "");
+                //return View(_hoadon);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Edit", new { id = model.MaSoHoaDon });
             }
         }
 
@@ -197,17 +232,21 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("All");
             }
             var model = HoaDonNXBManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("All");
             }
             if (model.TrangThai == 1)
             {
+                putErrorMessage("Hóa đơn đã duyệt");
                 return RedirectToAction("Details", new { id = model.MaSoHoaDon });
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -219,14 +258,20 @@ namespace WebForm.Areas.Admin.Controllers
             {
                 if (HoaDonNXBManager.delete((int)id))
                 {
+                    putSuccessMessage("Đã xóa");
+                    _currentHoaDon = null;
                     return RedirectToAction("All");
                 }
-                _currentHoaDon = null;
-                return View(id);
+                else
+                {
+                    putErrorMessage("Xóa không thành công");
+                    return RedirectToAction("Delete", new { id });
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View(id);
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Delete", new { id });
             }
         }
 
@@ -236,22 +281,31 @@ namespace WebForm.Areas.Admin.Controllers
 
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("All");
             }
             var model = HoaDonNXBManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("All");
             }
             if (model.TrangThai == 1)
             {
+                putErrorMessage("Phiếu đã duyệt");
                 return RedirectToAction("Details", new { id = id });
             }
             if (model.accept())
             {
+                putSuccessMessage("Duyệt thành công");
                 return RedirectToAction("Details", new { id = id });
             }
-            return View();
+            else
+            {
+                putErrorMessage("Duyệt không thành công");
+                return RedirectToAction("Edit", new { id });
+            }
+            
         }
         #endregion
 

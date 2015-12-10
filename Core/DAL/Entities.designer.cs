@@ -3788,6 +3788,8 @@ namespace Core.DAL
 		
 		private System.Data.Linq.Binary _hinhanh;
 		
+		private string _mota;
+		
 		private EntitySet<CHITIETHOADONDAILY> _CHITIETHOADONDAILies;
 		
 		private EntitySet<THEKHO> _THEKHOs;
@@ -3830,6 +3832,8 @@ namespace Core.DAL
     partial void OntrangthaiChanged();
     partial void OnhinhanhChanging(System.Data.Linq.Binary value);
     partial void OnhinhanhChanged();
+    partial void OnmotaChanging(string value);
+    partial void OnmotaChanged();
     #endregion
 		
 		public SACH()
@@ -4050,6 +4054,26 @@ namespace Core.DAL
 					this._hinhanh = value;
 					this.SendPropertyChanged("hinhanh");
 					this.OnhinhanhChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_mota", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string mota
+		{
+			get
+			{
+				return this._mota;
+			}
+			set
+			{
+				if ((this._mota != value))
+				{
+					this.OnmotaChanging(value);
+					this.SendPropertyChanging();
+					this._mota = value;
+					this.SendPropertyChanged("mota");
+					this.OnmotaChanged();
 				}
 			}
 		}

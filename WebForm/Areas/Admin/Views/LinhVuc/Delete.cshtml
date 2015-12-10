@@ -2,8 +2,9 @@
 
 @{
     ViewBag.Title = "Xóa lĩnh vực";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -16,7 +17,7 @@
 
                 <div class="form-actions no-color">
                     <input type="submit" value="Xóa" class="btn btn-default" /> |
-                    @Html.ActionLink("Trở lại danh sách", "Index")
+                    @Html.ActionLink("Xem danh mục lịnh vực", "Index")
                 </div>
             }
             <div>

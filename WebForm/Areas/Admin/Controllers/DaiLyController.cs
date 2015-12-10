@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class DaiLyController : Controller
+    public class DaiLyController : BaseController
     {
         #region Private Properties
         private CultureInfo _cultureInfo; // Thông tin văn hóa
@@ -45,6 +45,7 @@ namespace WebForm.Areas.Admin.Controllers
                 DMDaiLy = DaiLyManager.getAllAlive();
             }
             var models = DMDaiLy.ToPagedList(page, pageSize);
+            setAlertMessage();
             return View(models);
         }
 
@@ -53,13 +54,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = DaiLyManager.find((int)id);
             if (model == null || model.TrangThai == 0)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy đại lý");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -67,6 +71,7 @@ namespace WebForm.Areas.Admin.Controllers
         public ActionResult Create()
         {
             var model = new DaiLy();
+            setAlertMessage();
             return View(model);
         }
 
@@ -82,14 +87,24 @@ namespace WebForm.Areas.Admin.Controllers
                     var result = DaiLyManager.add(model);
                     if (result != 0)
                     {
+                        putSuccessMessage("Thâm thành công");
                         return RedirectToAction("Details", new { id = result });
                     }
+                    else
+                    {
+                        putErrorMessage("Thêm thất bại");
+                    }
+                }
+                else
+                {
+                    putModelStateFailErrors(ModelState);
                 }
                 return View(model);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Create");
             }
         }
 
@@ -98,13 +113,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = DaiLyManager.find((int)id);
             if (model == null || model.TrangThai == 0)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy đại lý");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -119,14 +137,24 @@ namespace WebForm.Areas.Admin.Controllers
                 {
                     if (DaiLyManager.edit(model))
                     {
+                        putSuccessMessage("Cập nhật thành công");
                         return RedirectToAction("Details", new { id = model.MaSoDaiLy });
                     }
+                    else
+                    {
+                        putErrorMessage("Cập nhật thất bại");
+                    }
+                }
+                else
+                {
+                    putModelStateFailErrors(ModelState);
                 }
                 return View(model);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Edit", new { id = model.MaSoDaiLy });
             }
         }
 
@@ -135,13 +163,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = DaiLyManager.find((int)id);
             if (model == null || model.TrangThai == 0)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy đại lý");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
 
         }
@@ -154,23 +185,31 @@ namespace WebForm.Areas.Admin.Controllers
             {
                 if (id == null)
                 {
-                    return new HttpNotFoundResult("Bad Request!");
+                    putErrorMessage("Đường dẫn không chính xác");
+                    return RedirectToAction("Index");
                 }
                 var model = DaiLyManager.find((int)id);
                 if (model == null || model.TrangThai == 0)
                 {
-                    return new HttpNotFoundResult("Not Found!");
+                    putErrorMessage("Không tìm thấy đại lý");
+                    return RedirectToAction("Index");
                 }
                 // TODO: Add delete logic here
                 if (model.delete())
                 {
+                    putSuccessMessage("Đã xóa");
                     return RedirectToAction("Index");
                 }
-                return View(model);
+                else
+                {
+                    putErrorMessage("Xóa thất bại");
+                    return RedirectToAction("Delete", new { id });
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Delete", new { id });
             }
         }
         #endregion

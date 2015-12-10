@@ -2,8 +2,9 @@
 
 @{
     ViewBag.Title = "Xóa sách";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -16,8 +17,8 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-actions no-color">
-                        <input type="submit" value="Delete" class="btn btn-default" /> |
-                        @Html.ActionLink("Back to List", "Index")
+                        <input type="submit" value="Xóa" class="btn btn-default" /> |
+                        @Html.ActionLink("Xem danh mục sách", "Index")
                     </div>
                 }
                 <hr />
@@ -100,6 +101,13 @@
 
                             <dd>
                                 @String.Format(ViewBag.cultureInfo, "{0:c}", Model.GiaBan)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MoTa)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MoTa)
                             </dd>
                         </dl>
                     </div>

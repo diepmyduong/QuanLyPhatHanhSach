@@ -137,7 +137,8 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse ">
                 <ul class="nav navbar-nav side-nav scrollbar-style scrollbar">
-                    <li class="@if(currentCotroller == "Sach" || currentCotroller == "PhieuNhap" ) { @Html.Raw("active")}">
+                    <li class="@if (currentCotroller == "Sach"
+                                || currentCotroller == "LinhVuc") { @Html.Raw("active")}">
                         <a href="javascript:;" data-toggle="collapse" data-target="#sach"><i class="fa fa-fw fa-book"></i> Sách <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="sach" class="collapse">
                             <li>
@@ -147,36 +148,37 @@
                                 @Html.ActionLink("Thêm Sách", "Create", "Sach", null, null)
                             </li>
                             <li>
-                                @Html.ActionLink("Tạo phiếu nhập", "Create", "PhieuNhap", null, null)
-                            </li>
-                            <li>
-                                <a href="#">Tạo phiếu xuất</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="@if(currentCotroller == "LinhVuc") { @Html.Raw("active")}">
-                        <a href="javascript:;" data-toggle="collapse" data-target="#linh-vuc"><i class="fa fa-fw fa-database"></i> Lĩnh vực <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="linh-vuc" class="collapse">
-                            <li>
                                 @Html.ActionLink("Xem danh mục lĩnh vực", "Index", "LinhVuc", null, null)
                             </li>
-                            <li>
-                                @Html.ActionLink("Thêm lĩnh vực", "Create", "LinhVuc", null, null)
-                            </li>
                         </ul>
                     </li>
-                    <li class="@if(currentCotroller == "NhaXuatBan" ) { @Html.Raw("active")}">
-                        <a href="javascript:;" data-toggle="collapse" data-target="#nha-xuat-ban"><i class="fa fa-fw fa-share-alt"></i> Nhà Xuất Bản <i class="fa fa-fw fa-caret-down"></i></a>
+                    <li class="@if (currentCotroller == "NhaXuatBan"
+                                || (currentCotroller == "CongNoNXB" && currentAction == "TheoDoi")
+                                || (currentCotroller == "ThanhToanNXB" && currentAction == "ThanhToan")
+                                || (currentCotroller == "All" && currentAction == "PhieuNhap")) { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#nha-xuat-ban"><i class="fa fa-fw fa-group"></i> Nhà xuất bản <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="nha-xuat-ban" class="collapse">
                             <li>
                                 @Html.ActionLink("Xem danh mục NXB", "Index", "NhaXuatBan", null, null)
                             </li>
                             <li>
-                                @Html.ActionLink("Thêm Nhà Xuất Bản", "Create", "NhaXuatBan", null, null)
+                                @Html.ActionLink("Thêm Nhà xuất bản", "Create", "NhaXuatBan", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Theo dõi nợ", "TheoDoi", "CongNoNXB", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanNXB", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Theo dõi phiếu nhập", "All", "PhieuNhap", null, null)
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="@if(currentCotroller == "DaiLy"
+                                || (currentCotroller == "CongNoDaiLy" && currentAction == "TheoDoi")
+                                || (currentCotroller == "ThanhToanDaiLy" && currentAction == "ThanhToan")
+                                || (currentCotroller == "All" && currentAction == "PhieuXuat")) { @Html.Raw("active")}">
                         <a href="javascript:;" data-toggle="collapse" data-target="#dai-ly"><i class="fa fa-fw fa-group"></i> Đại lý <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="dai-ly" class="collapse">
                             <li>
@@ -185,22 +187,14 @@
                             <li>
                                 @Html.ActionLink("Thêm đại lý", "Create", "DaiLy", null, null)
                             </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#thanh-toan"><i class="fa fa-fw fa-shopping-cart"></i> Thanh toán <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="thanh-toan" class="collapse">
                             <li>
-                                @Html.ActionLink("Thanh toán với Đại lý", "ThanhToan", "ThanhToanDaiLy", null, null)
+                                @Html.ActionLink("Theo dõi nợ", "TheoDoi", "CongNoDaiLy", null, null)
                             </li>
                             <li>
-                                @Html.ActionLink("Theo dõi nợ Đại lý", "TheoDoi", "CongNoDaiLy", null, null)
+                                @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanDaiLy", null, null)
                             </li>
                             <li>
-                                @Html.ActionLink("Thanh toán với NXB", "ThanhToan", "ThanhToanNXB", null, null)
-                            </li>
-                            <li>
-                                @Html.ActionLink("Theo dõi nợ NXB", "TheoDoi", "CongNoNXB", null, null)
+                                @Html.ActionLink("Theo dõi phiếu xuất", "All", "PhieuXuat", null, null)
                             </li>
                         </ul>
                     </li>
@@ -214,13 +208,13 @@
                                 @Html.ActionLink("Lô nhập", "LoNhap", "ThongKe", null, null)
                             </li>
                             <li>
-                                <a href="#">Doanh thu</a>
+                                @Html.ActionLink("Doanh Thu", "DoanhThu", "ThongKe", null, null)
                             </li>
                             <li>
-                                <a href="#">Sách bán</a>
+                                @Html.ActionLink("Sách bán", "SachBan", "ThongKe", null, null)
                             </li>
                             <li>
-                                <a href="#">Công nợ</a>
+                                @Html.ActionLink("Công nợ", "CongNo", "ThongKe", null, null)
                             </li>
                         </ul>
                     </li>

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Thêm Sách";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     @section AddToHead{
         <link href="@Url.Content("~/Content/fileinput.min.css")" rel="stylesheet" type="text/css" />
     }
@@ -30,6 +30,7 @@
         </script>
     }
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -42,7 +43,7 @@
                 <div class="form-horizontal">
                     @* <h4>Sach</h4> *@
                     <div>
-                        @Html.ActionLink("Trở lại danh sách", "Index")
+                        @Html.ActionLink("Xem danh mục sách", "Index")
                     </div>
                     <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -114,6 +115,13 @@
                                     <div class="col-md-4">
                                         @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 

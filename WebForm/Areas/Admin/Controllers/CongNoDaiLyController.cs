@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class CongNoDaiLyController : Controller
+    public class CongNoDaiLyController : BaseController
     {
         #region Private Properties
         private CultureInfo _cultureInfo;
@@ -69,8 +69,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.tongSoLuongNo = DMDaiLy.Sum(nxb => nxb.TongSoLuongNoTheoThang);
                 ViewBag.tongTienNo = DMDaiLy.Sum(s => s.TongTienNoThang);
                 var models = DMDaiLy.ToPagedList(page, pageSize);
+                setAlertMessage();
                 return View(models);
             }
+            setAlertMessage();
             return View();
         }
 
@@ -78,13 +80,15 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if(id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("TheoDoi");
             }
             ViewBag.cultureInfo = CultureInfo;
             var dl = DaiLyManager.find((int)id);
-            if(dl == null || dl.TrangThai == 0)
+            if(dl == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy đại lý");
+                return RedirectToAction("TheoDoi");
             }
             ViewBag.currentDaiLy = dl;
             var DMCongNo = dl.CongNo;
@@ -96,6 +100,7 @@ namespace WebForm.Areas.Admin.Controllers
             ViewBag.tongSoLuongNo = DMCongNo.Sum(cn => cn.SoLuong);
             ViewBag.tongTienNo = DMCongNo.Sum(cn => cn.ThanhTien);
             var models = DMCongNo.ToPagedList(page, pageSize);
+            setAlertMessage();
             return View(models);
         }
         #endregion

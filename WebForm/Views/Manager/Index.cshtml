@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUser = new NguoiDung();
+    if(ViewBag.currentUser != null)
+    {
+        currentUser = ViewBag.currentUser as NguoiDung;
+    }
+
+}
+@using Core.BIZ
+@model Core.BIZ.NguoiDung
+<div class="row" style="min-height:500px">
+
+    <div class="clearfix visible-sm"></div>
+    <div class="col-lg-3 col-md-3 col-sm-12">
+
+        <!-- Categories & Archives -->
+        <div class="col-lg-12 col-md-12 col-sm-6">
+            <div class="no-padding">
+                <span class="title">Tủy chỉnh cá nhân</span>
+            </div>
+            <div id="main_menu">
+                <div class="list-group panel panel-cat">
+                        @Html.ActionLink("Thông tin tài khoản", "Index", "Manager", null , new { @class = "list-group-item" })
+                        @Html.ActionLink("Thông tin đại lý", "Agency", "Manager", null, new { @class = "list-group-item" })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-6">
+            <div class="no-padding">
+                <span class="title">Thông tin đơn hàng</span>
+            </div>
+            <div id="main_menu">
+                <div class="list-group panel panel-cat">
+                    @Html.ActionLink("Danh sách đơn đặt", "Order", "Manager", null, new { @class = "list-group-item" })
+                    @Html.ActionLink("Lịch sử thanh toán", "PayHistory", "Manager", null, new { @class = "list-group-item" })
+                </div>
+            </div>
+        </div>
+
+        <!-- End Categories & Archives -->
+
+    </div>
+    <!-- Blog Detail -->
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        @Html.Partial("~/Views/Shared/Alert.cshtml")
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">Thông tin Tài khoản</span>
+        </div>
+        <div class="col-lg-12 col-sm-12 hero-feature blog-detail">
+            @using (Html.BeginForm("UpdateUser", "Manager", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.PhanQuyen, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.MatKhau, new { @class = "form-control", @readonly = "readonly" })
+                <div class="table-responsive">
+                    <table class="table table-bordered tbl-checkout">
+                        <tbody>
+                            <tr>
+                                <td>@Core.DAL.NguoiDungManager.Properties.TenNguoiDung</td>
+                                <td>
+                                    @Html.EditorFor(model => model.TenNguoiDung, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                </td>
+                                <td>@Core.DAL.NguoiDungManager.Properties.Email</td>
+                                <td>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", type = "email" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@Core.DAL.NguoiDungManager.Properties.TenDayDu</td>
+                                <td colspan="3">
+                                    @Html.EditorFor(model => model.TenDayDu, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-default" type="submit">Cập nhật</button>
+                </div>
+            }
+            
+        </div>
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">Thay đổi mật khẩu</span>
+        </div>
+        <div class="col-lg-12 col-sm-12 hero-feature blog-detail">
+            @using (Html.BeginForm("ChangePassword", "Manager", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.PhanQuyen, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.TenNguoiDung, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.TenDayDu, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.Email, new { @class = "form-control", @readonly = "readonly" })
+                <div class="table-responsive">
+                    <table class="table table-bordered tbl-checkout">
+                        <tbody>
+                            <tr>
+                                <td>Mật khẩu củ</td>
+                                <td>
+                                    <input type="password" class="form-control" id="@Core.Constants.ID.OLD_PASSWORD" name="@Core.Constants.ID.OLD_PASSWORD" required pattern=".{0}|.{6,12}" ><br clear="all">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mật khẩu mới</td>
+                                <td>
+                                    <input type="password" class="form-control" id="@Core.Constants.ID.NEW_PASSWORD" name="@Core.Constants.ID.NEW_PASSWORD" required pattern=".{0}|.{6,12}"><br clear="all">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nhập lại mật khẩu</td>
+                                <td>
+                                    <input type="password" class="form-control" id="@Core.Constants.ID.CONFIRM_PASSWORD" name="@Core.Constants.ID.CONFIRM_PASSWORD" required pattern=".{0}|.{6,12}"><br clear="all">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-default" type="submit">Cập nhật</button>
+                </div>
+            }
+            
+        </div>
+
+    </div>
+    <!-- End Blog Detail -->
+</div>
+

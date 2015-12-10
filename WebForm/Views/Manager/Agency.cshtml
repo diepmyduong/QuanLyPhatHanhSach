@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUser = new NguoiDung();
+    if(ViewBag.currentUser != null)
+    {
+        currentUser = ViewBag.currentUser as NguoiDung;
+    }
+
+}
+@using Core.BIZ
+@model Core.BIZ.DaiLy
+<div class="row" style="min-height:500px">
+
+    <div class="clearfix visible-sm"></div>
+    <div class="col-lg-3 col-md-3 col-sm-12">
+
+        <!-- Categories & Archives -->
+        <div class="col-lg-12 col-md-12 col-sm-6">
+            <div class="no-padding">
+                <span class="title">Tủy chỉnh cá nhân</span>
+            </div>
+            <div id="main_menu">
+                <div class="list-group panel panel-cat">
+                        @Html.ActionLink("Thông tin tài khoản", "Index", "Manager", null , new { @class = "list-group-item" })
+                        @Html.ActionLink("Thông tin đại lý", "Agency", "Manager", null, new { @class = "list-group-item" })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-6">
+            <div class="no-padding">
+                <span class="title">Thông tin đơn hàng</span>
+            </div>
+            <div id="main_menu">
+                <div class="list-group panel panel-cat">
+                    @Html.ActionLink("Danh sách đơn đặt", "Order", "Manager", null, new { @class = "list-group-item" })
+                    @Html.ActionLink("Lịch sử thanh toán", "PayHistory", "Manager", null, new { @class = "list-group-item" })
+                </div>
+            </div>
+        </div>
+
+        <!-- End Categories & Archives -->
+
+    </div>
+    <!-- Blog Detail -->
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        @Html.Partial("~/Views/Shared/Alert.cshtml")
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">Thông tin Đại lý</span>
+        </div>
+        <div class="col-lg-12 col-sm-12 hero-feature blog-detail">
+            @using (Html.BeginForm("UpdateAgency", "Manager", FormMethod.Post))
+            {
+                if (Model != null)
+                {
+                    @Html.HiddenFor(model => model.MaSoDaiLy, new { @class = "form-control", @readonly = "readonly" })
+                }
+                <div class="table-responsive">
+                    <table class="table table-bordered tbl-checkout">
+                        <tbody>
+                            <tr>
+                                <td>@Core.DAL.DaiLyManager.Properties.TenDaiLy</td>
+                                <td>
+                                    @Html.EditorFor(model => model.TenDaiLy, new { htmlAttributes = new { @class = "form-control"} })
+                                </td>
+                                <td>@Core.DAL.DaiLyManager.Properties.SoDienThoai</td>
+                                <td>
+                                    @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@Core.DAL.DaiLyManager.Properties.DiaChi</td>
+                                <td colspan="3">
+                                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@Core.DAL.DaiLyManager.Properties.SoTaiKhoan</td>
+                                <td>
+                                    @Html.EditorFor(model => model.SoTaiKhoan, new { htmlAttributes = new { @class = "form-control", pattern = "{0,10}" } })
+                                </td>
+                                <td>@Core.DAL.DaiLyManager.Properties.NganHang</td>
+                                <td>
+                                    @Html.EditorFor(model => model.NganHang, new { htmlAttributes = new { @class = "form-control"} })
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-default" type="submit">Cập nhật</button>
+                </div>
+            }
+            
+        </div>
+
+    </div>
+    <!-- End Blog Detail -->
+</div>
+

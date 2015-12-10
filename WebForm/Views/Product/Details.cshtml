@@ -14,6 +14,18 @@
                 min: 0,
                 max: @Model.Soluong
             });
+            $("#add-cart").click(function(event){
+                var soluong = parseInt($("input[name='soluong']").val());
+
+                $.ajax({
+                    url: "@Url.Action("AddToCart","Order")?id=@Model.MaSoSach&&quantity=" + soluong,
+                    cache: false,
+                success: function (html) {
+                    $(".cart").html(html);
+                    alert("đã thêm vào giỏ hàng ");
+                }
+            });
+            });
         </script>
     }
 }
@@ -183,8 +195,12 @@
                                     <input id="soluong" type="text" value="" name="soluong">
                                    
                                 </div>
-                                <button class="btn btn-default pull-left">Thêm giỏ hàng</button>
-                                <button class="btn btn-primary pull-left">Mua tiếp</button>
+                                <a href="#" class="btn btn-default pull-left" id="add-cart">
+                                    Thêm giỏ hàng
+                                </a>
+                                <a href="@Url.Action("Index","Home")" class="btn btn-primary pull-left">
+                                    Mua tiếp
+                                </a>
                             </div>
                             <div class="clearfix"></div>
 

@@ -6,8 +6,8 @@
         <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
         <script>
             $(function() {
-                var _txtUsername = $('#@Core.Constants.ID_USERNAME');
-                var _txtPassword = $('#@Core.Constants.ID_PASSWORD');
+                var _txtUsername = $('#@Core.Constants.ID.USERNAME');
+                var _txtPassword = $('#@Core.Constants.ID.PASSWORD');
                 var patt = /[*~!./;;,\\\[\]{}<>]/; //ký tự đặc biệt
 
                 $('#loginForm').submit(function(event) {
@@ -26,6 +26,8 @@
                         return event.preventDefault();
                     }
                 });
+
+                $('.main-container').removeClass('main-container')
             });
 
         </script>
@@ -64,16 +66,16 @@
                             <div class="form-group">
                                 <div class="input-group login-input">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input type="text" name="@Core.Constants.ID_USERNAME" id="@Core.Constants.ID_USERNAME" class="form-control" placeholder="Tên đăng nhập">
+                                    <input type="text" name="@Core.Constants.ID.USERNAME" id="@Core.Constants.ID.USERNAME" class="form-control" placeholder="Tên đăng nhập">
                                 </div>
                                 <br>
                                 <div class="input-group login-input">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input name="@Core.Constants.ID_PASSWORD" id="@Core.Constants.ID_PASSWORD" type="password" class="form-control" placeholder="Mật khẩu">
+                                    <input name="@Core.Constants.ID.PASSWORD" id="@Core.Constants.ID.PASSWORD" type="password" class="form-control" placeholder="Mật khẩu" pattern=".{0}|.{6,12}">
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="@Core.Constants.ID_REMEBER_LOGIN" name="@Core.Constants.ID_REMEBER_LOGIN"> Lưu đăng nhập lần sau
+                                        <input type="checkbox" id="@Core.Constants.ID.REMEBER_LOGIN" name="@Core.Constants.ID.REMEBER_LOGIN"> Lưu đăng nhập lần sau
                                     </label>
                                 </div>
                                 <button type="submit" id="login" class="btn btn-sm btn-primary pull-left">Đăng nhập</button>

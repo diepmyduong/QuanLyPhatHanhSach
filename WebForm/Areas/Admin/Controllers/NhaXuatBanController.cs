@@ -9,7 +9,7 @@ using PagedList;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class NhaXuatBanController : Controller
+    public class NhaXuatBanController : BaseController
     {
         #region Private Properties
         #endregion
@@ -32,6 +32,7 @@ namespace WebForm.Areas.Admin.Controllers
                 DMNXB = NhaXuatBanManager.getAllAlive();
             }
             var models = DMNXB.ToPagedList(page, pageSize);
+            setAlertMessage();
             return View(models);
         }
 
@@ -40,13 +41,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = NhaXuatBanManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -54,6 +58,7 @@ namespace WebForm.Areas.Admin.Controllers
         public ActionResult Create()
         {
             var model = new NhaXuatBan();
+            setAlertMessage();
             return View(model);
         }
 
@@ -69,14 +74,25 @@ namespace WebForm.Areas.Admin.Controllers
                     var result = NhaXuatBanManager.add(model);
                     if (result != 0)
                     {
+                        putSuccessMessage("Thêm thành công");
                         return RedirectToAction("Details", new { id = result });
                     }
+                    else
+                    {
+                        putErrorMessage("Thêm không thành công");
+                    }
                 }
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                }
+                setAlertMessage();
                 return View(model);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Create");
             }
         }
 
@@ -85,13 +101,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = NhaXuatBanManager.find((int)id);
-            if (model == null)
+            if (model == null || model.TrangThai == 0)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -105,14 +124,24 @@ namespace WebForm.Areas.Admin.Controllers
                 {
                     if (NhaXuatBanManager.edit(model))
                     {
+                        putSuccessMessage("Cập nhật thành công");
                         return RedirectToAction("Details", new { id = model.MaSoNXB });
                     }
+                    else
+                    {
+                        putErrorMessage("Cập nhật không thành công");
+                    }
                 }
-                return View(model);
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                }
+                return RedirectToAction("Edit", new { id = model.MaSoNXB });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Edit", new { id = model.MaSoNXB });
             }
         }
 
@@ -121,41 +150,46 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = NhaXuatBanManager.find((int)id);
-            if (model == null)
+            if (model == null || model.TrangThai == 0)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
         }
 
         // POST: NhaXuatBan/Delete/5
         [HttpPost]
-        public ActionResult Delete(int? id, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-                if (id == null)
-                {
-                    return new HttpNotFoundResult("Bad Request");
-                }
                 var model = NhaXuatBanManager.find((int)id);
                 if (model == null)
                 {
-                    return new HttpNotFoundResult("Not Found!");
+                    putErrorMessage("Không tìm thấy");
+                    return RedirectToAction("Index");
                 }
                 if (model.delete())
                 {
+                    putSuccessMessage("Xóa thành công");
                     return RedirectToAction("Index");
                 }
-                return View(model);
+                else
+                {
+                    putErrorMessage("Xóa không thành công");
+                }
+                return RedirectToAction("Delete",new { id });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Delete", new { id });
             }
         }
         #endregion

@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Tồn kho";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     @section AddToHead{
         <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
     }
@@ -57,6 +57,7 @@
         </script>
     }
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>

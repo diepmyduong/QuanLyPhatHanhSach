@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class CongNoNXBController : Controller
+    public class CongNoNXBController : BaseController
     {
         #region Private Properties
         private CultureInfo _cultureInfo;
@@ -69,8 +69,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.tongSoLuongNo = DMNXB.Sum(nxb => nxb.TongSoLuongNoTheoThang);
                 ViewBag.tongTienNo = DMNXB.Sum(s => s.TongTienNoThang);
                 var models = DMNXB.ToPagedList(page, pageSize);
+                setAlertMessage();
                 return View(models);
             }
+            setAlertMessage();
             return View();
         }
 
@@ -78,13 +80,15 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if(id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("TheoDoi");
             }
             ViewBag.cultureInfo = CultureInfo;
             var nxb = NhaXuatBanManager.find((int)id);
-            if(nxb == null || nxb.TrangThai == 0)
+            if(nxb == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy Nhà xuất bản");
+                return RedirectToAction("TheoDoi");
             }
             ViewBag.currentNXB = nxb;
             var DMCongNo = nxb.CongNo;
@@ -96,6 +100,7 @@ namespace WebForm.Areas.Admin.Controllers
             ViewBag.tongSoLuongNo = DMCongNo.Sum(cn => cn.SoLuong);
             ViewBag.tongTienNo = DMCongNo.Sum(cn => cn.ThanhTien);
             var models = DMCongNo.ToPagedList(page, pageSize);
+            setAlertMessage();
             return View(models);
         }
         #endregion

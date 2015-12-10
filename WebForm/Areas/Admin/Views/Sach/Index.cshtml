@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "Danh Mục Sách";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     @section AddToHead{
         <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
     }
@@ -60,7 +60,7 @@
 @using PagedList;
 @using PagedList.Mvc;
 @model PagedList.IPagedList<Core.BIZ.Sach>
-
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h2 class="panel-title">@ViewBag.Title</h2>

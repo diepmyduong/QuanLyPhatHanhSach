@@ -10,7 +10,8 @@
         <script>
             $("input.soluong").TouchSpin({
                 initval: 1,
-                min: 0
+                min: 0,
+                max: 9999
             });
             $('.soluong').focus(function(event) {
                     $(this).attr('oldvalue', $(this).val());
@@ -73,12 +74,11 @@
 
     <!-- Cart -->
     <div class="col-lg-9 col-md-9 col-sm-12">
+        @Html.Partial("~/Views/Shared/Alert.cshtml")
         <div class="col-lg-12 col-sm-12">
             <span class="title">Giỏ hàng</span>
         </div>
         <div class="col-lg-12 col-sm-12 hero-feature">
-            @using (Html.BeginForm("Order","Order",FormMethod.Post))
-            {
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -145,9 +145,10 @@
                     <a href="@Url.Action("Index","Home")" class=" btn btn-primary">
                         <i class="glyphicon glyphicon-circle-arrow-left"></i> Tiếp tục mua sách
                     </a>
-                    <button type="submit" class="btn btn-primary">Đặt sách <i class="glyphicon glyphicon-circle-arrow-right"></i></button>
+                    <a href="@Url.Action("CheckOut","Order")" class=" btn btn-primary">
+                        Đặt sách <i class="glyphicon glyphicon-circle-arrow-right"></i>
+                    </a>
                 </div>
-            }
             
 
         </div>

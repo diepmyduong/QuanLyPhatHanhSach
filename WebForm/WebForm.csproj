@@ -187,6 +187,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CongNoDaiLyController.cs" />
     <Compile Include="Areas\Admin\Controllers\CongNoNXBController.cs" />
     <Compile Include="Areas\Admin\Controllers\DaiLyController.cs" />
@@ -200,13 +201,13 @@
     <Compile Include="Areas\Admin\Controllers\ThanhToanNXBController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongKeController.cs" />
     <Compile Include="Controllers\CatalogyController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Models\PhanQuyenProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -430,6 +431,12 @@
     <Content Include="Areas\Admin\Views\ThongKe\SachBan.cshtml" />
     <Content Include="Areas\Admin\Views\ThongKe\TonKho.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Alert.cshtml" />
+    <Content Include="Areas\Admin\Views\NguoiDung\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NguoiDung\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NguoiDung\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NguoiDung\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NguoiDung\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -451,7 +458,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -469,12 +478,6 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
@@ -486,11 +489,14 @@
     <Content Include="Views\Order\Cart.cshtml" />
     <Content Include="Views\Order\ShoppingCart.cshtml" />
     <Content Include="Views\Order\CheckOut.cshtml" />
+    <Content Include="Views\Shared\Alert.cshtml" />
+    <Content Include="Views\Manager\Index.cshtml" />
+    <Content Include="Views\Manager\Agency.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\NguoiDung\" />
     <Folder Include="Fakes\" />
     <Folder Include="Images\" />
     <Folder Include="Views\Base\" />

@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class ThongKeController : Controller
+    public class ThongKeController : BaseController
     {
         #region Private Properties
         private CultureInfo _cultureInfo;
@@ -56,8 +56,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.currentDate = date;
                 
                 var models = DMTheKho.ToPagedList(page, pageSize);
+                setAlertMessage();
                 return View(models);
             }
+            setAlertMessage();
             return View();
         }
 
@@ -87,8 +89,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.tongSoLuongNhap = DMSach.Sum(s => s.SoLuongNhapTheoThang);
                 ViewBag.tongTienNhap = DMSach.Sum(s => s.TongTienNhapTheoThang);
                 var models = DMSach.ToPagedList(page, pageSize);
+                setAlertMessage();
                 return View(models);
             }
+            setAlertMessage();
             return View();
         }
 
@@ -102,8 +106,17 @@ namespace WebForm.Areas.Admin.Controllers
                 {
                     ViewBag.currentSach = sach;
                     var models = sach.PhieuNhap.ToPagedList(page, pageSize);
+                    setAlertMessage();
                     return View(models);
                 }
+                else
+                {
+                    putErrorMessage("Không tìm thấy");
+                }
+            }
+            else
+            {
+                putErrorMessage("Đường dẫn không đúng");
             }
             return RedirectToAction("LoNhap");
         }
@@ -134,8 +147,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.tongSoLuongXuat = DMSach.Sum(s => s.SoLuongXuatTheoThang);
                 ViewBag.tongTienXuat = DMSach.Sum(s => s.TongTienXuatTheoThang);
                 var models = DMSach.ToPagedList(page, pageSize);
+                setAlertMessage();
                 return View(models);
             }
+            setAlertMessage();
             return View();
         }
 
@@ -149,8 +164,17 @@ namespace WebForm.Areas.Admin.Controllers
                 {
                     ViewBag.currentSach = sach;
                     var models = sach.PhieuXuat.ToPagedList(page, pageSize);
+                    setAlertMessage();
                     return View(models);
                 }
+                else
+                {
+                    putErrorMessage("Không tìm thấy");
+                }
+            }
+            else
+            {
+                putErrorMessage("Đường dẫn không đúng");
             }
             return RedirectToAction("LoNhap");
         }
@@ -199,8 +223,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.tongCongNXBTheoThang = DMNXB.Sum(nxb => nxb.TongTienThanhToanTheoThang);
                 ViewBag.DaiLymodels = DMDaily.ToPagedList(dlpage, dlpageSize);
                 ViewBag.NXBmodels = DMNXB.ToPagedList(nxbpage, nxbpageSize);
+                setAlertMessage();
                 return View();
             }
+            setAlertMessage();
             return View();
         }
         public ActionResult SachBan(DateTime? startDate, DateTime? endDate, int page = 1, int pageSize = 10, string search = null)
@@ -231,8 +257,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.tongCongSoLuong = DMSach.Sum(s => s.TongSoLuongBanTheoThang);
                 ViewBag.tongCongTien = DMSach.Sum(s => s.TongTienBanTheoThang);
                 var models = DMSach.ToPagedList(page, pageSize);
+                setAlertMessage();
                 return View(models);
             }
+            setAlertMessage();
             return View();
         }
         public ActionResult CongNoNXB(DateTime? startDate, DateTime? endDate, int page = 1, int pageSize = 10, string search = null)
@@ -263,8 +291,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.tongCongSoLuong = DMSach.Sum(s => s.TongSoLuongNXBNoTheoThang);
                 ViewBag.tongCongTien = DMSach.Sum(s => s.TongTienNXBNoTheoThang);
                 var models = DMSach.ToPagedList(page, pageSize);
+                setAlertMessage();
                 return View(models);
             }
+            setAlertMessage();
             return View();
         }
         public ActionResult CongNoDaiLy(DateTime? startDate, DateTime? endDate, int page = 1, int pageSize = 10, string search = null)
@@ -295,8 +325,10 @@ namespace WebForm.Areas.Admin.Controllers
                 ViewBag.tongCongSoLuong = DMSach.Sum(s => s.TongSoLuongDaiLyNoTheoThang);
                 ViewBag.tongCongTien = DMSach.Sum(s => s.TongTienDaiLyNoTheoTang);
                 var models = DMSach.ToPagedList(page, pageSize);
+                setAlertMessage();
                 return View(models);
             }
+            setAlertMessage();
             return View();
         }
         #endregion

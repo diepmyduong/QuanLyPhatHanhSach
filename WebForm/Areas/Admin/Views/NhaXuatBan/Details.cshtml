@@ -2,8 +2,9 @@
 
 @{
     ViewBag.Title = "Xem Chi tiết";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -13,7 +14,9 @@
             <h4>Nhà xuất bản</h4>
             <p>
                 @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoNXB }) |
-                @Html.ActionLink("Trở lại danh sách", "Index")
+                @Html.ActionLink("Xem danh mục sách", "Index", "Sach", new { search = Model.TenNXB },null) |
+                @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanNXB", new { masonxb = Model.MaSoNXB }, null) |
+                @Html.ActionLink("Xem danh sách Nhà xuất bản", "Index")
             </p>
             <hr />
             <dl class="dl-horizontal">

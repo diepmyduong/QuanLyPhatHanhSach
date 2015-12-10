@@ -11,7 +11,9 @@ namespace Core.BIZ
 {
     public class NguoiDung
     {
-        public NguoiDung() { }
+        public NguoiDung() {
+            PhanQuyen = nameof(NguoiDungManager.Roles.daily);
+        }
         public NguoiDung(NGUOIDUNG nd)
             :this()
         {
@@ -32,6 +34,7 @@ namespace Core.BIZ
 
         #region Private Properties
         private DaiLy _daily;
+        private static List<string> _searchKeys;
         #endregion
 
         #region Public Properties
@@ -71,7 +74,10 @@ namespace Core.BIZ
                     var param = new Dictionary<string, dynamic>();
                     param.Add(DaiLyManager.Properties.MaSoNguoiDung, this.MaSoNguoiDung);
                     _daily = DaiLyManager.findBy(param).SingleOrDefault();
-                    MaSoDaiLy = _daily.MaSoDaiLy;
+                    if(_daily != null)
+                    {
+                        MaSoDaiLy = _daily.MaSoDaiLy;
+                    }
                 }
                 if(_daily == null)
                 {
@@ -89,13 +95,9 @@ namespace Core.BIZ
         #region Services
         /// <summary>
         /// đăng nhập người dùng
-        /// Trả về 0 nếu xảy ra lỗi
-        /// Trả về 1 nếu người dùng tồn tại
-        /// Trả về 2 nếu đăng nhập thành cong
-        /// Trả về 3 nếu sai mật khẩu
         /// </summary>
         /// <returns></returns>
-        public int login()
+        public LoginStatus login()
         {
             try
             {
@@ -131,6 +133,102 @@ namespace Core.BIZ
         {
             PhanQuyen = String.Join(",", roles);
         } 
+
+
+
+        public SignUpStatus signUp()
+        {
+            try
+            {
+                var param = new Dictionary<string, dynamic>();
+                param.Add(NguoiDungManager.Properties.TenNguoiDung, this.TenNguoiDung);
+                var nguoidung = NguoiDungManager.findBy(param).SingleOrDefault();
+                if (nguoidung != null)
+                {
+                    return SignUpStatus.UserIStExisted; //Người dùng tồn tại
+                }
+                //Kiểm tra Email
+                param = new Dictionary<string, dynamic>();
+                param.Add(NguoiDungManager.Properties.Email, this.Email);
+                nguoidung = NguoiDungManager.findBy(param).SingleOrDefault();
+                if (nguoidung != null)
+                {
+                    return SignUpStatus.EmailIsExisted; //Email tồn tại
+                }
+                this.TrangThai = 1;
+                var result = NguoiDungManager.add(this);
+                if(result == 0)
+                {
+                    return SignUpStatus.Error;
+                }
+                else
+                {
+                    this.MaSoNguoiDung = result;
+                    return SignUpStatus.Success;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return SignUpStatus.Error; //Không thể đăng nhập
+            }
+        }
+        public UpdateStatus update()
+        {
+            try
+            {
+                //Kiểm tra Email
+                var param = new Dictionary<string, dynamic>();
+                param.Add(NguoiDungManager.Properties.Email, this.Email);
+                var nguoidung = NguoiDungManager.findBy(param).SingleOrDefault();
+                if (nguoidung != null && !nguoidung.MaSoNguoiDung.Equals(MaSoNguoiDung))
+                {
+                    return UpdateStatus.EmailIsExisted; //Email tồn tại
+                }
+                if (NguoiDungManager.edit(this))
+                {
+                    return UpdateStatus.Success;
+                }
+                else
+                {
+                    return UpdateStatus.Error;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return UpdateStatus.Error; //Không thể đăng nhập
+            }
+        }
+        public bool isAdmin()
+        {
+            if(PhanQuyen!= null)
+            {
+                return PhanQuyen.Contains("admin");
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+        public bool delete()
+        {
+            this.TrangThai = 0;
+            return NguoiDungManager.edit(this);
+        }
+        public static List<string> searchKeys()
+        {
+            if (_searchKeys == null)
+            {
+                _searchKeys = new List<string>();
+                _searchKeys.Add(nameof(NguoiDungManager.Properties.TenNguoiDung));
+                _searchKeys.Add(nameof(NguoiDungManager.Properties.TenDayDu));
+                _searchKeys.Add(nameof(NguoiDungManager.Properties.Email));
+                _searchKeys.Add(nameof(NguoiDungManager.Properties.PhanQuyen));
+            }
+            return _searchKeys;
+        }
         #endregion
 
         #region Override Methods
@@ -141,12 +239,26 @@ namespace Core.BIZ
         #endregion
 
         #region Static Value
-        public static class LoginStatus
+        public enum LoginStatus
         {
-            public const int NotExisted = 1;
-            public const int Success = 2;
-            public const int WrongPass = 3;
-            public const int Error = 0;
+            Success,
+            NotExisted,
+            WrongPass,
+            Error
+        };
+        public enum SignUpStatus
+        {
+            Success,
+            UserIStExisted,
+            EmailIsExisted,
+            Error
+        };
+
+        public enum UpdateStatus
+        {
+            Success,
+            Error,
+            EmailIsExisted
         }
         #endregion
     }

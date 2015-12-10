@@ -10,7 +10,7 @@ using PagedList;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class PhieuNhapController : Controller
+    public class PhieuNhapController : BaseController
     {
 
         #region Private Properties
@@ -51,6 +51,7 @@ namespace WebForm.Areas.Admin.Controllers
             ViewBag.tongTien = DMPhieu.Sum(ph => ph.TongTien);
             //ViewBag.tongSoLuong = DMPhieu.Sum(ph => ph.ChiTiet.Sum(ct => ct.SoLuong));
             var models = DMPhieu.ToPagedList(page, pageSize);
+            setAlertMessage();
             return View(models);
         }
 
@@ -59,13 +60,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dãn không chính xác");
+                return RedirectToAction("All");
             }
             var model = PhieuNhapManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("All");
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -77,7 +81,8 @@ namespace WebForm.Areas.Admin.Controllers
                 var nxb = NhaXuatBanManager.find((int)masonxb);
                 if (nxb == null || nxb.TrangThai == 0)
                 {
-                    return new HttpNotFoundResult("Bad Request!");
+                    putErrorMessage("Không tìm thấy Nhà xuát bản");
+                    return RedirectToAction("Create");
                 }
                 ViewBag.cultureInfo = CultureInfo;
                 ViewBag.currentNXB = nxb;
@@ -91,6 +96,7 @@ namespace WebForm.Areas.Admin.Controllers
                 _phieu.MaSoNXB = nxb.MaSoNXB;
                 _phieu.NXB = nxb;
                 _phieu.NgayLap = DateTime.Now;
+                setAlertMessage();
                 return View(_phieu);
             }
             else
@@ -99,6 +105,7 @@ namespace WebForm.Areas.Admin.Controllers
                                         nameof(NhaXuatBanManager.Properties.MaSoNXB),
                                         nameof(NhaXuatBanManager.Properties.TenNXB), "");
                 _phieu = new PhieuNhap();
+                setAlertMessage();
                 return View();
             }
         }
@@ -116,20 +123,32 @@ namespace WebForm.Areas.Admin.Controllers
                     if (result != 0)
                     {
                         _phieu = null;
+                        putSuccessMessage("Thêm thành công");
                         return RedirectToAction("Details", new { id = result });
                     }
+                    else
+                    {
+                        putErrorMessage("Thêm không thành công");
+                    }
                 }
-                ViewBag.cultureInfo = CultureInfo;
-                ViewBag.currentNXB = _phieu.NXB;
-                ViewBag.DMSach = new SelectList(_phieu.NXB.Sach,
-                                        nameof(SachManager.Properties.MaSoSach),
-                                        nameof(SachManager.Properties.TenSach), "");
-                _phieu.NgayLap = DateTime.Now;
-                return View(_phieu);
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                }
+                return RedirectToAction("Create", new { masonxb = _phieu.MaSoNXB });
+                //ViewBag.cultureInfo = CultureInfo;
+                //ViewBag.currentNXB = _phieu.NXB;
+                //ViewBag.DMSach = new SelectList(_phieu.NXB.Sach,
+                //                        nameof(SachManager.Properties.MaSoSach),
+                //                        nameof(SachManager.Properties.TenSach), "");
+                //_phieu.NgayLap = DateTime.Now;
+                //setAlertMessage();
+                //return View(_phieu);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Create", new { masonxb = _phieu.MaSoNXB });
             }
         }
 
@@ -138,7 +157,8 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("All");
             }
             if (_currentPhieu == null || _currentPhieu != id)
             {
@@ -146,12 +166,13 @@ namespace WebForm.Areas.Admin.Controllers
                 _phieu = PhieuNhapManager.find((int)id);
                 if (_phieu == null)
                 {
-                    return new HttpNotFoundResult("Not Found!");
+                    putErrorMessage("Không tìm thấy");
+                    return RedirectToAction("All");
                 }
                 if (_phieu.TrangThai == 1)
                 {
                     //Nếu đã duyệt thì không cho sửa, chuyển sang trang chi tiết
-                    _currentPhieu = null;
+                    putErrorMessage("Phiếu đã duyệt");
                     return RedirectToAction("Details", new { id = id });
                 }
             }
@@ -160,6 +181,7 @@ namespace WebForm.Areas.Admin.Controllers
             ViewBag.DMSach = new SelectList(_phieu.NXB.Sach,
                                     nameof(SachManager.Properties.MaSoSach),
                                     nameof(SachManager.Properties.TenSach), "");
+            setAlertMessage();
             return View(_phieu);
         }
 
@@ -174,20 +196,31 @@ namespace WebForm.Areas.Admin.Controllers
                     if (PhieuNhapManager.edit(model))
                     {
                         _currentPhieu = null;
+                        putSuccessMessage("Cập nhật thành công");
                         return RedirectToAction("Details", new { id = model.MaSoPhieuNhap });
                     }
+                    else
+                    {
+                        putErrorMessage("Cập nhật thất bại");
+                    }
                 }
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                }
+                return RedirectToAction("Edit", new { id = model.MaSoNXB });
                 // TODO: Add update logic here
-                _phieu = model;
-                ViewBag.currentNXB = _phieu.NXB;
-                ViewBag.DMSach = new SelectList(_phieu.NXB.Sach,
-                                        nameof(SachManager.Properties.MaSoSach),
-                                        nameof(SachManager.Properties.TenSach), "");
-                return View(_phieu);
+                //_phieu = model;
+                //ViewBag.currentNXB = _phieu.NXB;
+                //ViewBag.DMSach = new SelectList(_phieu.NXB.Sach,
+                //                        nameof(SachManager.Properties.MaSoSach),
+                //                        nameof(SachManager.Properties.TenSach), "");
+                //return View(_phieu);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Edit", new { id = model.MaSoNXB });
             }
         }
 
@@ -196,35 +229,45 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("All");
             }
             var model = PhieuNhapManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("All");
             }
             if (model.TrangThai == 1)
             {
+                putErrorMessage("Phiếu đã duyệt");
                 return RedirectToAction("Details", new { id = model.MaSoPhieuNhap });
             }
+            setAlertMessage();
             return View(model);
         }
 
         // POST: PhieuNhap/Delete/5
         [HttpPost]
-        public ActionResult Delete(int? id, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
                 if (PhieuNhapManager.delete((int)id))
                 {
+                    putSuccessMessage("Xóa thành công");
                     return RedirectToAction("All");
                 }
-                return View(id);
+                else
+                {
+                    putErrorMessage("Xóa thất bại");
+                }
+                return RedirectToAction("Delete", new { id });
             }
-            catch
+            catch(Exception ex)
             {
-                return View(id);
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Delete", new { id });
             }
         }
 
@@ -234,22 +277,30 @@ namespace WebForm.Areas.Admin.Controllers
 
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("All");
             }
             var model = PhieuNhapManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("All");
             }
             if (model.TrangThai == 1)
             {
+                putErrorMessage("Phiếu đã duyệt");
                 return RedirectToAction("Details", new { id = id });
             }
             if (model.accept())
             {
+                putSuccessMessage("Duyệt thành công");
                 return RedirectToAction("Details", new { id = id });
             }
-            return View();
+            else
+            {
+                putErrorMessage("Duyệt thất bại");
+                return RedirectToAction("Delete", new { id });
+            }
         }
         #endregion
 

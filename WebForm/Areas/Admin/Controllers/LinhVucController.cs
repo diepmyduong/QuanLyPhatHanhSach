@@ -9,7 +9,7 @@ using PagedList;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class LinhVucController : Controller
+    public class LinhVucController : BaseController
     {
 
         #region Private Properties
@@ -33,6 +33,7 @@ namespace WebForm.Areas.Admin.Controllers
                 DMLinhVuc = LinhVucManager.getAllALive();
             }
             var models = DMLinhVuc.ToPagedList(page, pageSize);
+            setAlertMessage();
             return View(models);
         }
 
@@ -41,13 +42,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = LinhVucManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -55,6 +59,7 @@ namespace WebForm.Areas.Admin.Controllers
         public ActionResult Create()
         {
             var model = new LinhVuc();
+            setAlertMessage();
             return View(model);
         }
 
@@ -70,14 +75,25 @@ namespace WebForm.Areas.Admin.Controllers
                     var result = LinhVucManager.add(model);
                     if (result != 0)
                     {
+                        putSuccessMessage("Thêm thành công");
                         RedirectToAction("Details", new { id = result });
                     }
+                    else
+                    {
+                        putErrorMessage("Thêm thất bại");
+                    }
                 }
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                }
+                setAlertMessage();
                 return View(model);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Create");
             }
         }
 
@@ -86,13 +102,16 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpNotFoundResult("Bad Request");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = LinhVucManager.find((int)id);
             if (model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -107,14 +126,24 @@ namespace WebForm.Areas.Admin.Controllers
                 {
                     if (LinhVucManager.edit(model))
                     {
+                        putSuccessMessage("Cập nhật thành công");
                         return RedirectToAction("Details", new { id = model.MaSoLinhVuc });
                     }
+                    else
+                    {
+                        putErrorMessage("Cập nhật thất bại");
+                    }
                 }
-                return View(model);
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                }
+                return RedirectToAction("Edit", new { id = model.MaSoLinhVuc });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Edit", new { id = model.MaSoLinhVuc });
             }
         }
 
@@ -123,41 +152,46 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if(id == null)
             {
-                return new HttpNotFoundResult("Bad Request");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = LinhVucManager.find((int)id);
             if(model == null)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
+            setAlertMessage();
             return View(model);
         }
 
         // POST: LinhVuc/Delete/5
         [HttpPost]
-        public ActionResult Delete(int? id, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-                if (id == null)
-                {
-                    return new HttpNotFoundResult("Bad Request");
-                }
                 var model = LinhVucManager.find((int)id);
                 if (model == null)
                 {
-                    return new HttpNotFoundResult("Not Found!");
+                    putErrorMessage("Không tìm thấy");
+                    return RedirectToAction("Index");
                 }
                 if (model.delete())
                 {
+                    putSuccessMessage("Xóa thành công");
                     return RedirectToAction("Index");
                 }
-                return View(model);
+                else
+                {
+                    putErrorMessage("Xóa không thành công");
+                }
+                return RedirectToAction("Delete",new { id });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Delete", new { id });
             }
         }
         #endregion

@@ -30,6 +30,7 @@ namespace Core.BIZ
             GiaBan = sach.giaban;
             HinhAnh = sach.hinhanh;
             TrangThai = sach.trangthai;
+            MoTa = sach.mota;
         }
         public Sach(SACH sach,NXB nxb)
             : this(sach)
@@ -143,6 +144,8 @@ namespace Core.BIZ
         public decimal GiaBan { get; set; }
         [DisplayName(SachManager.Properties.HinhAnh)]
         public Binary HinhAnh { get; set; }
+        [DisplayName(SachManager.Properties.MoTa)]
+        public string MoTa { get; set; }
         [DisplayName(SachManager.Properties.CongNoDaiLy)]
         public List<CongNoDaiLy> CongNoDaiLy
         {
@@ -480,6 +483,7 @@ namespace Core.BIZ
                 return _tongTienDaiLyNoTheoThang;
             }
         }
+
 
         #endregion
 

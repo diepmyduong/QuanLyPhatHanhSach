@@ -332,3 +332,7 @@ footer .copyright {padding: 10px; color: #ccc;}
 .catelogy>.list-group>.list-group-item{
   background: #555;
 }
+.white-container{
+  background: #fff;
+  padding: 16px;
+}

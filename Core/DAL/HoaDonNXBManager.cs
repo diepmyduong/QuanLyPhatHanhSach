@@ -274,9 +274,9 @@ namespace Core.DAL
                 using (EntitiesDataContext db = new EntitiesDataContext())
                 {
                     var linqQuery = from ct in db.CHITIETHOADONNXBs
-                                    join s in db.SACHes
-                                    on ct.masosach equals s.masosach
-                                    select new ChiTietHoaDonNXB(ct, s);
+                                    //join s in db.SACHes
+                                    //on ct.masosach equals s.masosach
+                                    select new ChiTietHoaDonNXB(ct);
                     return linqQuery.ToList();
                 }
             }

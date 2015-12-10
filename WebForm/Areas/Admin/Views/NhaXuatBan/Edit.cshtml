@@ -2,8 +2,9 @@
 
 @{
     ViewBag.Title = "Cập nhật";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -16,7 +17,7 @@
                 <div class="form-horizontal">
                     <h4>Nhà Xuất Bản</h4>
                     <div>
-                        @Html.ActionLink("Trở lại danh sách", "Index")
+                        @Html.ActionLink("Xem danh sách Nhà xuất bản", "Index")
                     </div>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -57,6 +58,13 @@
                         <div class="col-md-4">
                             @Html.EditorFor(model => model.SoTaiKhoan, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.SoTaiKhoan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NganHang, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.NganHang, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NganHang, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

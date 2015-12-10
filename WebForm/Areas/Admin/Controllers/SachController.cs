@@ -13,7 +13,7 @@ using System.Data.Linq;
 
 namespace WebForm.Areas.Admin.Controllers
 {
-    public class SachController : Controller
+    public class SachController : BaseController
     {
         #region Private Properties
         private CultureInfo _cultureInfo; // Thông tin văn hóa
@@ -38,18 +38,25 @@ namespace WebForm.Areas.Admin.Controllers
         public ActionResult Index(int page = 1, int pageSize = 10, string search = null)
         {
             List<Sach> DMSach = null;
-            ViewBag.cultureInfo = CultureInfo;
-            if (!String.IsNullOrEmpty(search))
+            if (Session[Core.Constants.TEMPDATA.BOOKS] == null)
             {
-                DMSach = SachManager.filter(search);
-                ViewBag.SearchKey = search;
+                DMSach = SachManager.getAllAlive();
+                Session[Core.Constants.TEMPDATA.BOOKS] = DMSach;
             }
             else
             {
-                DMSach = SachManager.getAllAlive();
+                DMSach = Session[Core.Constants.TEMPDATA.BOOKS] as List<Sach>;
+            }
+            
+            ViewBag.cultureInfo = CultureInfo;
+            if (!String.IsNullOrEmpty(search))
+            {
+                DMSach = SachManager.filter(search, DMSach);
+                ViewBag.SearchKey = search;
             }
 
             var models = DMSach.ToPagedList(page, pageSize);
+            setAlertMessage();
             return View(models);
         }
 
@@ -58,13 +65,15 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if(id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             ViewBag.cultureInfo = CultureInfo; // Sử dụng cho hiển thị tiền tệ VNĐ
             var model = SachManager.find((int)id);
             if(model == null || model.TrangThai == 0)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
             if (model.HinhAnh == null)
             {
@@ -74,6 +83,7 @@ namespace WebForm.Areas.Admin.Controllers
             {
                 ViewBag.imgSrc = ImagesHelper.ImageToDataBase64String(model.HinhAnhTypeImage);
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -89,6 +99,7 @@ namespace WebForm.Areas.Admin.Controllers
             ViewBag.DMLinhVuc = new SelectList(LinhVucManager.getAllALive(),
                 nameof(LinhVucManager.Properties.MaSoLinhVuc),
                 nameof(LinhVucManager.Properties.TenLinhVuc), "");
+            setAlertMessage();
             return View(model);
         }
 
@@ -108,14 +119,24 @@ namespace WebForm.Areas.Admin.Controllers
                     var result = SachManager.add(model);
                     if (result != 0)
                     {
+                        putErrorMessage("Thêm thành công");
                         return RedirectToAction("Details", new { id = result });
                     }
+                    else
+                    {
+                        putErrorMessage("Thêm không thành công");
+                    }
                 }
-                return View();
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                }
+                return RedirectToAction("Create");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Create");
             }
         }
 
@@ -124,12 +145,14 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if(id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = SachManager.find((int)id);
             if (model == null || model.TrangThai == 0)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
             //Combobox Nhà xuất bản
             ViewBag.DMNXB = new SelectList(NhaXuatBanManager.getAllAlive(),
@@ -143,6 +166,7 @@ namespace WebForm.Areas.Admin.Controllers
             {
                 ViewBag.imgSrc = ImagesHelper.ImageToDataBase64String(model.HinhAnhTypeImage);
             }
+            setAlertMessage();
             return View(model);
         }
 
@@ -161,14 +185,20 @@ namespace WebForm.Areas.Admin.Controllers
                     }
                     if (SachManager.edit(model))
                     {
+                        putSuccessMessage("Cập nhật thành công");
                         return RedirectToAction("Details", new { id = model.MaSoSach });
                     }
                 }
-                return RedirectToAction("Index");
+                else
+                {
+                    putModelStateFailErrors(ModelState);
+                }
+                return RedirectToAction("Edit",new { id = model.MaSoSach });
             }
-            catch
+            catch(Exception ex)
             {
-                return RedirectToAction("Index");
+                putErrorMessage(ex.Message);
+                return RedirectToAction("Edit", new { id = model.MaSoSach });
             }
         }
 
@@ -177,12 +207,14 @@ namespace WebForm.Areas.Admin.Controllers
         {
             if(id == null)
             {
-                return new HttpNotFoundResult("Bad Request!");
+                putErrorMessage("Đường dẫn không chính xác");
+                return RedirectToAction("Index");
             }
             var model = SachManager.find((int)id);
             if (model == null || model.TrangThai == 0)
             {
-                return new HttpNotFoundResult("Not Found!");
+                putErrorMessage("Không tìm thấy");
+                return RedirectToAction("Index");
             }
             ViewBag.cultureInfo = CultureInfo; // Sử dụng cho hiển thị tiền tệ VNĐ
             if (model.HinhAnh == null)
@@ -193,36 +225,37 @@ namespace WebForm.Areas.Admin.Controllers
             {
                 ViewBag.imgSrc = ImagesHelper.ImageToDataBase64String(model.HinhAnhTypeImage);
             }
+            setAlertMessage();
             return View(model);
         }
 
         // POST: Sach/Delete/5
         [HttpPost]
-        public ActionResult Delete(int? id, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                if(id == null)
-                {
-                    return new HttpNotFoundResult("Bad Request");
-                }
                 var model = SachManager.find((int)id);
                 if(model == null || model.TrangThai == 0)
                 {
-                    return new HttpNotFoundResult("Not Found!");
+                    putErrorMessage("Không tìm thấy");
+                    return RedirectToAction("Index");
                 }
                 // TODO: Add delete logic here
                 if (model.delete())
                 {
+                    putSuccessMessage("Xóa thành công");
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View(id);
+                    putErrorMessage("Xóa không thành công");
+                    return RedirectToAction("Delete", new { id });
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                putErrorMessage(ex.Message);
                 return View(id);
             }
         }

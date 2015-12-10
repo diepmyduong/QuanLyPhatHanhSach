@@ -2,9 +2,10 @@
 @model Core.BIZ.Sach
 @{
     ViewBag.Title = "Xem Chi Tiết";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
    
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -13,9 +14,10 @@
             <div>
                 <h4>Sách</h4>
                 <p>
-                    @Html.ActionLink("Trở lại danh sách", "Index") |
+                    @Html.ActionLink("Xem danh mục sách", "Index") |
                     @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoSach }) |
-                    @Html.ActionLink("Xem lô nhập", "LoNhapDetails","ThongKe",new {id = Model.MaSoSach},null)
+                    @Html.ActionLink("Xem lô nhập", "LoNhapDetails","ThongKe",new {id = Model.MaSoSach},null) | 
+                    @Html.ActionLink("Xem lô xuất", "LoXuatDetails", "ThongKe", new { id = Model.MaSoSach }, null)
                 </p>
                 <hr />
                 <div class="row">
@@ -99,7 +101,13 @@
                             <dd>
                                 @String.Format(ViewBag.cultureInfo, "{0:c}", Model.GiaBan)
                             </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MoTa)
+                            </dt>
 
+                            <dd>
+                                @Html.DisplayFor(model => model.MoTa)
+                            </dd>
                         </dl>
                         
                     </div>

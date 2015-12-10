@@ -2,8 +2,9 @@
 
 @{
     ViewBag.Title = "Cập nhật";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -16,7 +17,7 @@
                 <div class="form-horizontal">
                     <h4>Lĩnh vực</h4>
                     <div>
-                        @Html.ActionLink("Trở lại danh sách", "Index")
+                        @Html.ActionLink("Xem danh mục lịnh vực", "Index")
                     </div>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

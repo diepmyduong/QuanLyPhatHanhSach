@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "Cập nhật phiếu";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     if (Model != null)
     {
         @section AddToFooter{
@@ -89,6 +89,7 @@
     }
 
 }
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
 <div class="panel panel-default">
       <div class="panel-heading">
             <h3 class="panel-title">@ViewBag.Title</h3>
@@ -104,7 +105,7 @@
         @*<h4>PhieuNhap</h4>*@
         <div class="panel panel-info">
               <div class="panel-heading">
-                    <h3 class="panel-title">Panel title</h3>
+                    <h3 class="panel-title">Thông tin phiếu xuất</h3>
               </div>
               <div class="panel-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -121,7 +122,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Daily, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-2">
-                            @Html.DropDownListFor(model => model.MaSoDaiLy, (SelectList)ViewBag.DMDaiLy, new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.MaSoDaiLy, (SelectList)ViewBag.DMDaiLy, new { @class = "form-control", @readonly = "readonly" ,  })
                             @Html.ValidationMessageFor(model => model.MaSoDaiLy, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.NgayLap, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -134,7 +135,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.NguoiNhan, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-6">
-                            @Html.EditorFor(model => model.NguoiNhan, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.NguoiNhan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.NguoiNhan, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -142,7 +143,7 @@
         </div>
         <div class="panel panel-primary">
               <div class="panel-heading">
-                    <h3 class="panel-title">Panel title</h3>
+                    <h3 class="panel-title">Chi tiết</h3>
               </div>
               <div class="panel-body">
                     <table class="table">
@@ -172,7 +173,7 @@
                         <tbody>
                             @foreach (var item in Model.ChiTiet)
                             {
-                                Html.RenderPartial("ChiTietEditorRow", item);
+                                Html.RenderPartial("ChiTietRow", item);
                             }
                         </tbody>
                         <tfoot>
