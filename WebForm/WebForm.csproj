@@ -450,6 +450,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Catalogy\List.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -464,8 +465,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -493,6 +492,12 @@
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Manager\Agency.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Manager\Order.cshtml" />
+    <Content Include="Views\Manager\OrderDetail.cshtml" />
+    <Content Include="Views\Manager\PayHistory.cshtml" />
+    <Content Include="Views\Manager\BillDetail.cshtml" />
+    <Content Include="Views\Shared\PageSizeOptions.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

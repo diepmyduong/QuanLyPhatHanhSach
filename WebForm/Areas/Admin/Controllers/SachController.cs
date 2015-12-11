@@ -119,7 +119,7 @@ namespace WebForm.Areas.Admin.Controllers
                     var result = SachManager.add(model);
                     if (result != 0)
                     {
-                        putErrorMessage("Thêm thành công");
+                        putSuccessMessage("Thêm thành công");
                         return RedirectToAction("Details", new { id = result });
                     }
                     else

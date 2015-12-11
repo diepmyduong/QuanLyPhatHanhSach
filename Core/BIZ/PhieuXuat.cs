@@ -161,22 +161,28 @@ namespace Core.BIZ
         /// Duyệt phiếu nhập
         /// </summary>
         /// <returns></returns>
-        public bool accept()
+        public AcceptStatus accept()
         {
+            if(Daily.TongTienNo > 10000000)
+            {
+                return AcceptStatus.Limited;
+            }
             //Kiểm tra số lượng có thể duyệt không
             foreach (ChiTietPhieuXuat ct in this.ChiTiet)
             {
                 if(ct.Sach.Soluong < ct.SoLuong)
                 {
-                    return false;
+                    return AcceptStatus.ProductNotEnought;
                 }
             }
+            
                 //Duyệt từng chi tiết
             foreach (ChiTietPhieuXuat ct in this.ChiTiet)
             {
                 //Cập nhật thông tin sách
                 ct.Sach.Soluong -= ct.SoLuong;
-                if (!SachManager.edit(ct.Sach)) return false;
+                if (!SachManager.edit(ct.Sach)) return AcceptStatus.UpdateProductFail;
+                
                 //Ghi thẻ kho
                 var tk = new TheKho
                 {
@@ -184,7 +190,7 @@ namespace Core.BIZ
                     SoLuong = ct.Sach.Soluong,
                     NgayGhi = DateTime.Now
                 };
-                if (TheKhoManager.add(tk) == 0) return false;
+                if (TheKhoManager.add(tk) == 0) return AcceptStatus.UpdateStoreFail;
                 //Cập nhật công nợ
                 var congno = new CongNoDaiLy
                 {
@@ -194,19 +200,30 @@ namespace Core.BIZ
                     DonGia = ct.DonGia,
                     Thang = DateTime.Now
                 };
-                if (CongNoDaiLyManager.add(congno) == 0) return false;
+                if (CongNoDaiLyManager.add(congno) == 0) return AcceptStatus.UpdateLiabilitiesFail;
                 ct.TrangThai = 1;
             }
             //Thay đổi trang thái phiếu nhập
             this.TrangThai = 1;
             if (PhieuXuatManager.edit(this))
             {
-                return true;
+                return AcceptStatus.Success;
             }
             else
             {
-                return false;
+                return AcceptStatus.Error;
             }
+        }
+
+        public enum AcceptStatus
+        {
+            Success,
+            ProductNotEnought,
+            UpdateProductFail,
+            UpdateStoreFail,
+            UpdateLiabilitiesFail,
+            Error,
+            Limited
         }
         #endregion
 
@@ -214,6 +231,14 @@ namespace Core.BIZ
         public override string ToString()
         {
             return this.NgayLap.ToString();
+        }
+        public override bool Equals(object obj)
+        {
+            return MaSoPhieuXuat.Equals(((PhieuXuat)obj).MaSoPhieuXuat);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
         #endregion
 

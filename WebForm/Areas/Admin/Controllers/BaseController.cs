@@ -37,6 +37,10 @@ namespace WebForm.Areas.Admin.Controllers
                     nameof(HoaDonDaiLyManager.Properties.NgayLap),
                     String.Format("{0:yyyy/MM}",DateTime.Now));
                 ViewBag.ThanhToanTrongThang = HoaDonDaiLyManager.filter(request).Count;
+                if(Session[Core.Constants.SESSION.PAGE_SIZE] != null)
+                {
+                    ViewBag.PageSize = Session[Core.Constants.SESSION.PAGE_SIZE];
+                }
             }
 
             
@@ -93,5 +97,6 @@ namespace WebForm.Areas.Admin.Controllers
             }
             TempData[Core.Constants.TEMPDATA.ERRORS] = errors;
         }
+
     }
 }

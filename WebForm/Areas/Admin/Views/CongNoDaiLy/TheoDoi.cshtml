@@ -80,7 +80,7 @@
       </div>
 </div>
 <div class="row row-eq-height">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="panel panel-info">
                           <div class="panel-heading">
                                 <h3 class="panel-title">Thời gian theo dõi</h3>
@@ -88,8 +88,8 @@
                           <div class="panel-body">
                                 <form action="TheoDoi" method="GET" class="form-horizontal" role="form">
                                 <div class="form-group">
-                                    <label for="startDate" class="col-sm-5 control-label">Xem từ tháng :</label>
-                                    <div class="col-sm-6">
+                                    <label for="startDate" class="col-sm-4 control-label">Xem từ tháng :</label>
+                                    <div class="col-sm-8">
                                         @if (ViewBag.startDate != null)
                                         {
                                             var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.startDate);
@@ -103,8 +103,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="endDate" class="col-sm-5 control-label">Đến tháng :</label>
-                                    <div class="col-sm-6">
+                                    <label for="endDate" class="col-sm-4 control-label">Đến tháng :</label>
+                                    <div class="col-sm-8">
                                         @if (ViewBag.endDate != null)
                                         {
                                             var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.endDate);
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-6 col-sm-offset-5">
+                                    <div class="col-sm-6 col-sm-offset-4">
                                         <button type="submit" class="btn btn-primary">Xem</button>
                                     </div>
                                 </div>
@@ -184,6 +184,9 @@
                                    required="required" title="">
 
                             <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+                        </div>
+                        <div class="col-md-2">
+                            @Html.Partial("~/Views/Shared/PageSizeOptions.cshtml", new ViewDataDictionary { { "PageSize", Model.PageSize }, { "TotalItemCount", Model.TotalItemCount } })
                         </div>
                     </div>
                 }
@@ -255,7 +258,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-md-offset-5">
-                        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Contents.
+                        Đang xem từ @Model.FirstItemOnPage đến @Model.LastItemOnPage trong số @Model.TotalItemCount nội dung.
                     </div>
                 </div>
             

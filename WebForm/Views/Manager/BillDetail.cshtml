@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUser = new NguoiDung();
+    if (ViewBag.currentUser != null)
+    {
+        currentUser = ViewBag.currentUser as NguoiDung;
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/bootstrap-touchspin/jquery.confirm.min.js")"></script>
+        <script>
+            $(".delete-order").confirm({
+                text: "Bạn có chắc là muốn hủy đơn này?",
+                title: "Hủy đơn",
+                confirmButton: "Hủy đơn",
+                cancelButton: "Thoát",
+                post: true,
+                confirmButtonClass: "btn-danger",
+                cancelButtonClass: "btn-default",
+                dialogClass: "modal-dialog modal-sm" // Bootstrap classes for large modal
+            });
+        </script>
+    }
+
+}
+@using Core.BIZ
+@model Core.BIZ.HoaDonDaiLy
+<div class="row" style="min-height:500px">
+    <div class="clearfix visible-sm"></div>
+    <div class="col-lg-3 col-md-3 col-sm-12">
+
+        <!-- Categories & Archives -->
+        <div class="col-lg-12 col-md-12 col-sm-6">
+            <div class="no-padding">
+                <span class="title">Tủy chỉnh cá nhân</span>
+            </div>
+            <div id="main_menu">
+                <div class="list-group panel panel-cat">
+                        @Html.ActionLink("Thông tin tài khoản", "Index", "Manager", null , new { @class = "list-group-item" })
+                        @Html.ActionLink("Thông tin đại lý", "Agency", "Manager", null, new { @class = "list-group-item" })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-6">
+            <div class="no-padding">
+                <span class="title">Thông tin đơn hàng</span>
+            </div>
+            <div id="main_menu">
+                <div class="list-group panel panel-cat">
+                    @Html.ActionLink("Danh sách đơn đặt", "Order", "Manager", null, new { @class = "list-group-item" })
+                    @Html.ActionLink("Lịch sử thanh toán", "PayHistory", "Manager", null, new { @class = "list-group-item" })
+                </div>
+            </div>
+        </div>
+
+        <!-- End Categories & Archives -->
+
+    </div>
+    <!-- Blog Detail -->
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        @Html.Partial("~/Views/Shared/Alert.cshtml")
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">Chi tiết hóa đơn</span>
+        </div>
+        <div class="col-lg-12 col-sm-12 hero-feature blog-detail">
+            <div class="table-responsive">
+                <table class="table table-bordered tbl-checkout">
+                    <tbody>
+                        <tr>
+                            <td>@Core.DAL.HoaDonDaiLyManager.Properties.MaSoHoaDon</td>
+                            <td>
+                                @Model.MaSoHoaDon
+                            </td>
+                            <td>@Core.DAL.HoaDonDaiLyManager.Properties.NgayLap</td>
+                            <td>
+                                @String.Format("{0:dd/MM/yyyy}",Model.NgayLap)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">@Core.DAL.HoaDonDaiLyManager.Properties.TrangThai</td>
+                            <td colspan="3">
+                                @if (Model.TrangThai == 0)
+                                {
+                                    <strong class="text-danger">Chưa duyệt</strong>
+                                }
+                                else
+                                {
+                                    <strong class="text-success">Đã duyệt</strong>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-bordered tbl-cart">
+                            <thead>
+                                <tr>
+                                    <td>@Core.DAL.SachManager.Properties.TenSach</td>
+                                    <td>@Core.DAL.SachManager.Properties.TenTacGia</td>
+                                    <td>@Core.DAL.SachManager.Properties.NXB</td>
+                                    <td>@Core.DAL.HoaDonDaiLyManager.ChiTiet.Properties.SoLuong</td>
+                                    <td>@Core.DAL.HoaDonDaiLyManager.ChiTiet.Properties.DonGia</td>
+                                    <td>@Core.DAL.HoaDonDaiLyManager.ChiTiet.Properties.ThanhTien </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ChiTiet)
+                                {
+                                    <tr>
+                                        <td>@item.Sach.TenSach</td>
+                                        <td>@item.Sach.TenTacGia</td>
+                                        <td>@item.Sach.NXB.TenNXB</td>
+                                        <td>@DataDisplayHelper.displayNumber(item.SoLuong)</td>
+                                        <td>@DataDisplayHelper.displayMoney(item.DonGia)</td>
+                                        <td>@DataDisplayHelper.displayMoney(item.ThanhTien)</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="5" align="right">Tổng tièn</td>
+                                    <td class="total" colspan="2"><b>@DataDisplayHelper.displayMoney(Model.ChiTiet.Sum(ct => ct.ThanhTien))</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="@Url.Action("PayHistory")" class="btn btn-default">Quay lại danh sách</a>
+                    @if (Model.TrangThai == 0)
+                    {
+                        <a href="@Url.Action("DeleteBill",new {id = Model.MaSoHoaDon})" class="btn btn-danger delete-order">Hủy đơn</a>
+                    }
+                </div>
+            </div>
+
+    </div>
+    <!-- End Blog Detail -->
+</div>
+

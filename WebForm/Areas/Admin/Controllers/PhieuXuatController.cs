@@ -270,8 +270,6 @@ namespace WebForm.Areas.Admin.Controllers
         //Duyệt phiếu
         public ActionResult Accept(int? id)
         {
-
-            var errors = new List<string>();
             if (id == null)
             {
                 putErrorMessage("Đường dẫn không chính xác");
@@ -288,15 +286,21 @@ namespace WebForm.Areas.Admin.Controllers
                 putErrorMessage("Phiếu đã duyệt");
                 return RedirectToAction("Details", new { id = id });
             }
-            if (model.accept())
+            var result = model.accept();
+            switch (result)
             {
-                putSuccessMessage("Đã duyệt thành công");
-                return RedirectToAction("Details", new { id = id });
-            }
-            else
-            {
-                putErrorMessage("Sách tồn không đủ để duyệt! Phiếu xuất yêu cầu được hủy!");
-                return RedirectToAction("Edit", new { id, errors });
+                case PhieuXuat.AcceptStatus.Success:
+                    putSuccessMessage("Đã duyệt thành công");
+                    return RedirectToAction("Details", new { id = id });
+                case PhieuXuat.AcceptStatus.Error:
+                    putErrorMessage("Sách tồn không đủ để duyệt! Phiếu xuất yêu cầu được hủy!");
+                    return RedirectToAction("Edit", new { id });
+                case PhieuXuat.AcceptStatus.Limited:
+                    putErrorMessage("Tiền nợ đã vượt quá mức cho phép, vui lòng thanh toán trước khi đặt tiếp");
+                    return RedirectToAction("Edit", new { id });
+                default:
+                    putErrorMessage("Duyệt không thành công");
+                    return RedirectToAction("Edit", new { id });
             }
         }
         #endregion

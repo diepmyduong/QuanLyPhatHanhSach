@@ -78,98 +78,107 @@ namespace Core.DAL
         }
         public static List<PhieuNhap> filter(string request, List<PhieuNhap> DMPhieuNhap)
         {
-
-            if (Regex.IsMatch(request, @"[{=<>!}]"))
+            try
             {
-                var linqQuery = from s in DMPhieuNhap
-                                select s;
-
-                MatchCollection args = Regex.Matches(request, @"({).*?(})");
-                foreach (var arg in args)
+                if (Regex.IsMatch(request, @"[{=<>!}]"))
                 {
-                    MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
-                    string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
-                    string param = "";
-                    int? year = null, month = null, day = null;
-                    for (int i = 1; i < Params.Count; i++)
+                    var linqQuery = from s in DMPhieuNhap
+                                    select s;
+
+                    MatchCollection args = Regex.Matches(request, @"({).*?(})");
+                    foreach (var arg in args)
                     {
-                        param += " " + Params[i];
-                        if(i == 1)
+                        MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
+                        string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
+                        string param = "";
+                        int? year = null, month = null, day = null;
+                        for (int i = 1; i < Params.Count; i++)
                         {
-                            int number;
-                            if (Int32.TryParse(Params[i].ToString(), out number))
+                            param += " " + Params[i];
+                            if (i == 1)
                             {
-                                year = number;
+                                int number;
+                                if (Int32.TryParse(Params[i].ToString(), out number))
+                                {
+                                    year = number;
+                                }
+                            }
+                            if (i == 2)
+                            {
+                                int number;
+                                if (Int32.TryParse(Params[i].ToString(), out number))
+                                {
+                                    month = number;
+                                }
+                            }
+                            if (i == 3)
+                            {
+                                int number;
+                                if (Int32.TryParse(Params[i].ToString(), out number))
+                                {
+                                    day = number;
+                                }
                             }
                         }
-                        if (i == 2)
+                        param = param.Trim();
+                        switch (Params[0].ToString())
                         {
-                            int number;
-                            if (Int32.TryParse(Params[i].ToString(), out number))
-                            {
-                                month = number;
-                            }
-                        }
-                        if (i == 3)
-                        {
-                            int number;
-                            if (Int32.TryParse(Params[i].ToString(), out number))
-                            {
-                                day = number;
-                            }
+                            case nameof(Properties.MaSoPhieuNhap):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoPhieuNhap, Int32.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.MaSoNXB):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoNXB, Int32.Parse(param), method, false));
+                                break;
+                            case nameof(NhaXuatBanManager.Properties.TenNXB):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NXB.TenNXB, param, method, true));
+                                break;
+                            case nameof(Properties.NguoiGiao):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NguoiGiao, param, method, true));
+                                break;
+                            case nameof(Properties.NgayLap):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compareDate(s.NgayLap, year, month, day, method));
+                                break;
+                            case nameof(Properties.TongTien):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TrangThai):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TrangThai == 1 ? "Đã duyệt" : "Chưa duyệt", param, method, true));
+                                break;
                         }
                     }
-                    param = param.Trim();
-                    switch (Params[0].ToString())
-                    {
-                        case nameof(Properties.MaSoPhieuNhap):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoPhieuNhap, Int32.Parse(param), method, false));
-                            break;
-                        case nameof(NhaXuatBanManager.Properties.TenNXB):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NXB.TenNXB, param, method, true));
-                            break;
-                        case nameof(Properties.NguoiGiao):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NguoiGiao, param, method, true));
-                            break;
-                        case nameof(Properties.NgayLap):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compareDate(s.NgayLap,year,month,day,method));
-                            break;
-                        case nameof(Properties.TongTien):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTien, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TrangThai):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TrangThai == 1?"Đã duyệt":"Chưa duyệt", param, method, true));
-                            break;
-                    }
-                }
-                return linqQuery.ToList();
-            }
-            else
-            {
-                int number;
-                bool isNumber = Int32.TryParse(request, out number);
-                request = request.ToLower();
-                if (isNumber)
-                {
-                    var linqQuery = DMPhieuNhap.Where
-                    (s => s.MaSoPhieuNhap.Equals(number)
-                    || s.TongTien.Equals(number)
-                    || s.NgayLap.Year.Equals(number)
-                    || s.NgayLap.Month.Equals(number)
-                    || s.NgayLap.Day.Equals(number)
-                    );
                     return linqQuery.ToList();
                 }
                 else
                 {
-                    var linqQuery = DMPhieuNhap.Where
-                    (s => s.NgayLap.ToString().ToLower().Contains(request)
-                    || s.NXB.TenNXB.ToLower().Contains(request)
-                    || s.NguoiGiao.ToLower().Contains(request)
-                    || (s.TrangThai == 1?"đã duyệt":"chưa duyệt").Contains(request)
-                    );
-                    return linqQuery.ToList();
+                    int number;
+                    bool isNumber = Int32.TryParse(request, out number);
+                    request = request.ToLower();
+                    if (isNumber)
+                    {
+                        var linqQuery = DMPhieuNhap.Where
+                        (s => s.MaSoPhieuNhap.Equals(number)
+                        || s.TongTien.Equals(number)
+                        || s.NgayLap.Year.Equals(number)
+                        || s.NgayLap.Month.Equals(number)
+                        || s.NgayLap.Day.Equals(number)
+                        );
+                        return linqQuery.ToList();
+                    }
+                    else
+                    {
+                        var linqQuery = DMPhieuNhap.Where
+                        (s => s.NgayLap.ToString().ToLower().Contains(request)
+                        || s.NXB.TenNXB.ToLower().Contains(request)
+                        || s.NguoiGiao.ToLower().Contains(request)
+                        || (s.TrangThai == 1 ? "đã duyệt" : "chưa duyệt").Contains(request)
+                        );
+                        return linqQuery.ToList();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
 

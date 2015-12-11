@@ -138,105 +138,118 @@ namespace Core.DAL
         public static List<Sach> filter(string request, List<Sach> DMSach)
         {
 
-            if (Regex.IsMatch(request, @"[{=<>!}]"))
+            try
             {
-                var linqQuery = from s in DMSach
-                                select s;
+                if (Regex.IsMatch(request, @"[{=<>!}]"))
+                {
+                    var linqQuery = from s in DMSach
+                                    select s;
 
-                MatchCollection args = Regex.Matches(request, @"({).*?(})");
-                foreach (var arg in args)
-                {
-                    MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
-                    string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
-                    string param = "";
-                    for (int i = 1; i < Params.Count; i++)
+                    MatchCollection args = Regex.Matches(request, @"({).*?(})");
+                    foreach (var arg in args)
                     {
-                        param += " " + Params[i];
+                        MatchCollection Params = Regex.Matches(arg.ToString(), @"\w+");
+                        string method = Regex.Match(arg.ToString(), @"[=<>!]+").ToString();
+                        string param = "";
+                        for (int i = 1; i < Params.Count; i++)
+                        {
+                            param += " " + Params[i];
+                        }
+                        param = param.Trim();
+                        switch (Params[0].ToString())
+                        {
+                            case nameof(Properties.MaSoSach):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoSach, Int32.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.MaSoLinhVuc):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoLinhVuc, Int32.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.MaSoNXB):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoNXB, Int32.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TenSach):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TenSach, param, method, true));
+                                break;
+                            case nameof(Properties.TenTacGia):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TenTacGia, param, method, true));
+                                break;
+                            case nameof(Properties.NXB):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NXB.TenNXB, param, method, true));
+                                break;
+                            case nameof(Properties.LinhVucSach):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.LinhVucSach.TenLinhVuc, param, method, true));
+                                break;
+                            case nameof(Properties.Soluong):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.Soluong, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.GiaBan):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.GiaBan, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.GiaNhap):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.GiaNhap, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.SoLuongNhapTheoThang):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.SoLuongNhapTheoThang, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TongTienNhapTheoThang):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienNhapTheoThang, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TongSoLuongBanTheoThang):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongBanTheoThang, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TongTienBanTheoThang):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienBanTheoThang, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TongSoLuongDaiLyNoTheoThang):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongDaiLyNoTheoThang, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TongTienDaiLyNoTheoTang):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienDaiLyNoTheoTang, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TongSoLuongNXBNoTheoThang):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongNXBNoTheoThang, Decimal.Parse(param), method, false));
+                                break;
+                            case nameof(Properties.TongTienNXBNoTheoThang):
+                                linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienNXBNoTheoThang, Decimal.Parse(param), method, false));
+                                break;
+                        }
                     }
-                    param = param.Trim();
-                    switch (Params[0].ToString())
-                    {
-                        case nameof(Properties.MaSoSach):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.MaSoSach, Int32.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TenSach):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TenSach, param, method, true));
-                            break;
-                        case nameof(Properties.TenTacGia):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TenTacGia, param, method, true));
-                            break;
-                        case nameof(Properties.NXB):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.NXB.TenNXB, param, method, true));
-                            break;
-                        case nameof(Properties.LinhVucSach):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.LinhVucSach.TenLinhVuc, param, method, true));
-                            break;
-                        case nameof(Properties.Soluong):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.Soluong, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.GiaBan):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.GiaBan, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.GiaNhap):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.GiaNhap, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.SoLuongNhapTheoThang):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.SoLuongNhapTheoThang, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TongTienNhapTheoThang):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienNhapTheoThang, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TongSoLuongBanTheoThang):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongBanTheoThang, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TongTienBanTheoThang):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienBanTheoThang, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TongSoLuongDaiLyNoTheoThang):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongDaiLyNoTheoThang, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TongTienDaiLyNoTheoTang):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienDaiLyNoTheoTang, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TongSoLuongNXBNoTheoThang):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongSoLuongNXBNoTheoThang, Decimal.Parse(param), method, false));
-                            break;
-                        case nameof(Properties.TongTienNXBNoTheoThang):
-                            linqQuery = linqQuery.Where(s => FilterHelper.compare(s.TongTienNXBNoTheoThang, Decimal.Parse(param), method, false));
-                            break;
-                    }
-                }
-                return linqQuery.ToList();
-            }
-            else
-            {
-                int number;
-                bool isNumber = Int32.TryParse(request, out number);
-                request = request.ToLower();
-                if (isNumber)
-                {
-                    var linqQuery = DMSach.Where
-                    (s => s.MaSoSach.Equals(number)
-                    || s.Soluong.Equals(number)
-                    || s.GiaNhap.Equals(number)
-                    || s.GiaBan.Equals(number)
-                    || s.SoLuongNhapTheoThang.Equals((decimal)number)
-                    || s.TongTienNhapTheoThang.Equals((decimal)number)
-                    || s.TongSoLuongBanTheoThang.Equals((decimal)number)
-                    || s.TongTienBanTheoThang.Equals((decimal)number)
-                    );
                     return linqQuery.ToList();
                 }
                 else
                 {
-                    var linqQuery = DMSach.Where
-                    (s => s.TenSach.ToLower().Contains(request)
-                    || s.LinhVucSach.TenLinhVuc.ToLower().Contains(request)
-                    || s.TenTacGia.ToLower().Contains(request)
-                    || s.NXB.TenNXB.ToLower().Contains(request)
-                    );
-                    return linqQuery.ToList();
+                    int number;
+                    bool isNumber = Int32.TryParse(request, out number);
+                    request = request.ToLower();
+                    if (isNumber)
+                    {
+                        var linqQuery = DMSach.Where
+                        (s => s.MaSoSach.Equals(number)
+                        || s.Soluong.Equals(number)
+                        || s.GiaNhap.Equals(number)
+                        || s.GiaBan.Equals(number)
+                        || s.SoLuongNhapTheoThang.Equals((decimal)number)
+                        || s.TongTienNhapTheoThang.Equals((decimal)number)
+                        || s.TongSoLuongBanTheoThang.Equals((decimal)number)
+                        || s.TongTienBanTheoThang.Equals((decimal)number)
+                        );
+                        return linqQuery.ToList();
+                    }
+                    else
+                    {
+                        var linqQuery = DMSach.Where
+                        (s => s.TenSach.ToLower().Contains(request)
+                        || s.LinhVucSach.TenLinhVuc.ToLower().Contains(request)
+                        || s.TenTacGia.ToLower().Contains(request)
+                        || s.NXB.TenNXB.ToLower().Contains(request)
+                        );
+                        return linqQuery.ToList();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
         public static List<Sach> filter(string request)

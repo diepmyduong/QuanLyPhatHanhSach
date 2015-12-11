@@ -79,6 +79,11 @@
                                         <p><strong>Thông tin cá nhân</strong></p>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="@Url.Action("Order","Manager",null)">
+                                        <p><strong>Đơn hàng</strong></p>
+                                    </a>
+                                </li>
                                 @if (currentUser.isAdmin())
                                 {
                                     <li>
@@ -181,14 +186,11 @@
                         @Html.ActionLink("Giỏ hàng","ShoppingCart","Order",null,null)
                     </li>
                     <li>
-                        <a href="checkout.html">Đơn hàng</a>
-                    </li>
-                    <li>
-                        <a href="checkout.html">Giới thiệu</a>
+                         @Html.ActionLink("Giới thiệu","About")
                     </li>
                    
                     <li>
-                        <a href="admin/index.html">Liên hệ</a>
+                        @Html.ActionLink("Liên hệ","Contact")
                     </li>
                     
                 </ul>
@@ -204,17 +206,61 @@
     </div> <!-- Container -->
     <footer class="fix-bottom">
         <div class="container margin-bottom-10">
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="column">
+                    <h4>
+                        Dịch vụ
+                    </h4>
+                    <div class="col-md-12">
+                        <ul>
+                            <li><a href="#">Điều khoản sử dụng</a></li>
+                            <li><a href="#">Chính sách bảo mật</a></li>
+                            <li><a href="#">Giới thiệu Fahasa</a></li>
+                            <li><a href="#">Hệ thống trung tâm - nhà sách</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="column">
+                    <h4>
+                        Hỗ trợ
+                    </h4>
+                    <div class="col-md-12">
+                        <ul>
+                            <li><a href="#">Hỏi - đáp thường gặp</a></li>
+                            <li><a href="#">Hướng dẫn đặt hàng</a></li>
+                            <li><a href="#">Phương thức vận chuyển</a></li>
+                            <li><a href="#">Phương thức thanh toán</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="column">
+                    <h4>
+                        Tài khoản của tôi
+                    </h4>
+                    <div class="col-md-12">
+                        <ul>
+                            <li><a href="@Url.Action("Register","Account")">Đăng nhập/Tạo mới tài khoản</a></li>
+                            <li><a href="@Url.Action("Agency","Manager")">Thay đổi địa chỉ khách hàng</a></li>
+                            <li><a href="@Url.Action("Index","Manager")">Chi tiết tài khoản</a></li>
+                            <li><a href="@Url.Action("Order","Manager")">Lịch sử mua sách</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="column">
                     <h4>
                         Liên hệ
                     </h4>
                     <div class="col-md-12">
                         <ul>
-                            <li><a href="#">Tên công ty</a></li>
-                            <li><a href="#">Địa chỉ</a></li>
-                            <li><a href="#">Số điện thoại</a></li>
-                            <li><a href="#">Email</a></li>
+                            <li><a href="#">Địa chỉ : 60 - 62 Lê Lợi, Quận 1, TP. Hồ Chí Minh, Việt Nam</a></li>
+                            <li><a href="#">Email : info@fahasa.com</a></li>
+                            <li><a href="#">Điện thoại : 1900636467, (08) 38388832</a></li>
                         </ul>
                     </div>
                 </div>

@@ -11,48 +11,46 @@
         <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
         <script>
             $(function() {
-            var availableTags = []
-            function getAutoCompleteSource(request) {
-                $.getJSON('@Url.Action("GetProperties")',{ request : request}, function (data) {
-                    availableTags = data;
-                });
-            }
-            function split( val ) {
-              return val.split( /{\s*/ );
-            }
-            function extractLast( term ) {
-              return split( term ).pop();
-            }
+                var availableTags = []
+                function getAutoCompleteSource(request) {
+                    $.getJSON('@Url.Action("GetProperties")',{ request : request}, function (data) {
+                        availableTags = data;
+                    });
+                }
+                function split( val ) {
+                  return val.split( /{\s*/ );
+                }
+                function extractLast( term ) {
+                  return split( term ).pop();
+                }
             
-            $( "#search" )
-              // don't navigate away from the field on tab when selecting an item
-              .bind( "keydown", function( event ) {
-                if ( event.keyCode === $.ui.keyCode.TAB &&
-                    $( this ).autocomplete( "instance" ).menu.active ) {
-                  event.preventDefault();
-                }
-                if (event.shiftKey && event.keyCode == 219) {
-                    getAutoCompleteSource($(this).val()+"{");
-                }
-              })
-              .autocomplete({
-                minLength: 0,
-                source: function( request, response ) {
-                    // delegate back to autocomplete, but extract the last term
-                  response( $.ui.autocomplete.filter(
-                    availableTags, extractLast( request.term ) ) );
-                  console.log($.ui.autocomplete.filter(
-                    availableTags, extractLast( request.term ) ));
-                },
-                focus: function() {
-                  // prevent value inserted on focus
-                  return true;
-                },
-                select: function( event, ui ) {
-                  return false;
-                }
-              });
-          });
+                $( "#search" ).bind( "keydown", function( event ) {
+                    if ( event.keyCode === $.ui.keyCode.TAB &&
+                        $( this ).autocomplete( "instance" ).menu.active ) {
+                      event.preventDefault();
+                    }
+                    if (event.shiftKey && event.keyCode == 219) {
+                        getAutoCompleteSource($(this).val()+"{");
+                    }
+                })
+                .autocomplete({
+                    minLength: 0,
+                    source: function( request, response ) {
+                        // delegate back to autocomplete, but extract the last term
+                      response( $.ui.autocomplete.filter(
+                        availableTags, extractLast( request.term ) ) );
+                      console.log($.ui.autocomplete.filter(
+                        availableTags, extractLast( request.term ) ));
+                    },focus: function() {
+                      // prevent value inserted on focus
+                      return true;
+                    },select: function( event, ui ) {
+                      return false;
+                    }
+                });
+                
+            });
+            
         </script>
     }
 }
@@ -77,12 +75,15 @@
                     <div class="col-md-10 form-group input-group">
                         <input type="search" name="search" id="search" class="form-control" 
                                value="@{if (ViewBag.SearchKey != null)
-                                        {
+                                   {
                                             @ViewBag.SearchKey;
-                                        }
+                                   }
                                         }"
                                required="required" title="">
                         <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+                    </div>
+                    <div class="col-md-2">
+                        @Html.Partial("~/Views/Shared/PageSizeOptions.cshtml", new ViewDataDictionary { { "PageSize", Model.PageSize }, { "TotalItemCount", Model.TotalItemCount } })
                     </div>
                 </div>
             }
@@ -157,7 +158,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-md-offset-5">
-                            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Contents.
+                            Đang xem từ @Model.FirstItemOnPage đến @Model.LastItemOnPage trong số @Model.TotalItemCount nội dung.
                     </div>
                 </div>
       </div>

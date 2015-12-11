@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Core.BIZ;
 using Core.DAL;
+using PagedList;
 
 namespace WebForm.Controllers
 {
@@ -40,6 +41,209 @@ namespace WebForm.Controllers
                 return RedirectToAction("Index", "Home", null);
             }
         }
+
+        public ActionResult Order(int page = 1, int pageSize = 9, string search = null)
+        {
+            if (isUserSessionExisted())
+            {
+                var user = Session[Core.Constants.SESSION.USERNAME] as NguoiDung;
+                if(user.DaiLy == null)
+                {
+                    putErrorMessage("Chưa đăng ký thông tin đại lý");
+                    return RedirectToAction("Agency");
+                }
+                var model = user.DaiLy.getAllPhieuXuat().ToPagedList(page, pageSize);
+                setAlertMessage();
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", null);
+            }
+        }
+
+        public ActionResult OrderDetail(int? id)
+        {
+            if (id == null)
+            {
+                putErrorMessage("Đường dẫn không đúng");
+                return RedirectToAction("Order");
+            }
+            if (isUserSessionExisted())
+            {
+                var user = Session[Core.Constants.SESSION.USERNAME] as NguoiDung;
+                if (user.DaiLy == null)
+                {
+                    putErrorMessage("Chưa đăng ký thông tin đại lý");
+                    return RedirectToAction("Agency");
+                }
+                var model = PhieuXuatManager.find((int)id);
+                if (model == null)
+                {
+                    putErrorMessage("Không tìm thấy đơn");
+                    return RedirectToAction("Order");
+                }
+                if (user.DaiLy.getAllPhieuXuat().Contains(model))
+                {
+                    setAlertMessage();
+                    return View(model);
+                }
+                else
+                {
+                    putErrorMessage("Không tìm thấy đơn");
+                    return RedirectToAction("Order");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", null);
+            }
+            
+        }
+
+        public ActionResult PayHistory(int page = 1, int pageSize = 9, string search = null)
+        {
+            if (isUserSessionExisted())
+            {
+                var user = Session[Core.Constants.SESSION.USERNAME] as NguoiDung;
+                if (user.DaiLy == null)
+                {
+                    putErrorMessage("Chưa đăng ký thông tin đại lý");
+                    return RedirectToAction("Agency");
+                }
+                var model = user.DaiLy.getAllHoaDon().ToPagedList(page, pageSize);
+                setAlertMessage();
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", null);
+            }
+        }
+
+        public ActionResult BillDetail(int? id)
+        {
+            if (id == null)
+            {
+                putErrorMessage("Đường dẫn không đúng");
+                return RedirectToAction("PayHistory");
+            }
+            if (isUserSessionExisted())
+            {
+                var user = Session[Core.Constants.SESSION.USERNAME] as NguoiDung;
+                if (user.DaiLy == null)
+                {
+                    putErrorMessage("Chưa đăng ký thông tin đại lý");
+                    return RedirectToAction("Agency");
+                }
+                var model = HoaDonDaiLyManager.find((int)id);
+                if (model == null)
+                {
+                    putErrorMessage("Không tìm thấy đơn");
+                    return RedirectToAction("PayHistory");
+                }
+                if (user.DaiLy.getAllHoaDon().Contains(model))
+                {
+                    setAlertMessage();
+                    return View(model);
+                }
+                else
+                {
+                    putErrorMessage("Không tìm thấy đơn");
+                    return RedirectToAction("PayHistory");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", null);
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult DeleteOrder(int id)
+        {
+            if (isUserSessionExisted())
+            {
+                var user = Session[Core.Constants.SESSION.USERNAME] as NguoiDung;
+                if (user.DaiLy == null)
+                {
+                    putErrorMessage("Chưa đăng ký thông tin đại lý");
+                    return RedirectToAction("Agency");
+                }
+                var model = PhieuXuatManager.find(id);
+                if (model == null)
+                {
+                    putErrorMessage("Không tìm thấy đơn");
+                    return RedirectToAction("Order");
+                }
+                if (user.DaiLy.getAllPhieuXuat().Contains(model))
+                {
+                    if (PhieuXuatManager.delete((int)id))
+                    {
+                        putSuccessMessage("Xóa thành công");
+                        return RedirectToAction("Order");
+                    }
+                    else
+                    {
+                        putErrorMessage("Xóa không thành công");
+                        return RedirectToAction("Order");
+                    }
+                }
+                else
+                {
+                    putErrorMessage("Không tìm thấy đơn");
+                    return RedirectToAction("Order");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", null);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteBill(int id)
+        {
+            if (isUserSessionExisted())
+            {
+                var user = Session[Core.Constants.SESSION.USERNAME] as NguoiDung;
+                if (user.DaiLy == null)
+                {
+                    putErrorMessage("Chưa đăng ký thông tin đại lý");
+                    return RedirectToAction("Agency");
+                }
+                var model = HoaDonDaiLyManager.find(id);
+                if (model == null)
+                {
+                    putErrorMessage("Không tìm thấy đơn");
+                    return RedirectToAction("PayHistory");
+                }
+                if (user.DaiLy.getAllHoaDon().Contains(model))
+                {
+                    if (HoaDonDaiLyManager.delete((int)id))
+                    {
+                        putSuccessMessage("Xóa thành công");
+                        return RedirectToAction("PayHistory");
+                    }
+                    else
+                    {
+                        putErrorMessage("Xóa không thành công");
+                        return RedirectToAction("PayHistory");
+                    }
+                }
+                else
+                {
+                    putErrorMessage("Không tìm thấy đơn");
+                    return RedirectToAction("PayHistory");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", null);
+            }
+        }
+
         [HttpPost]
         public ActionResult UpdateUser(NguoiDung model, FormCollection collection)
         {

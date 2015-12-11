@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUser = new NguoiDung();
+    if (ViewBag.currentUser != null)
+    {
+        currentUser = ViewBag.currentUser as NguoiDung;
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/bootstrap-touchspin/jquery.confirm.min.js")"></script>
+        <script>
+            $(".delete-order").confirm({
+                text: "Bạn có chắc là muốn hủy đơn này?",
+                title: "Hủy đơn",
+                confirmButton: "Hủy đơn",
+                cancelButton: "Thoát",
+                post: true,
+                confirmButtonClass: "btn-danger",
+                cancelButtonClass: "btn-default",
+                dialogClass: "modal-dialog modal-sm" // Bootstrap classes for large modal
+            });
+        </script>
+    }
+
+}
+@using Core.BIZ
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Core.BIZ.PhieuXuat>
+<div class="row" style="min-height:500px">
+
+    <div class="clearfix visible-sm"></div>
+    <div class="col-lg-3 col-md-3 col-sm-12">
+
+        <!-- Categories & Archives -->
+        <div class="col-lg-12 col-md-12 col-sm-6">
+            <div class="no-padding">
+                <span class="title">Tủy chỉnh cá nhân</span>
+            </div>
+            <div id="main_menu">
+                <div class="list-group panel panel-cat">
+                        @Html.ActionLink("Thông tin tài khoản", "Index", "Manager", null , new { @class = "list-group-item" })
+                        @Html.ActionLink("Thông tin đại lý", "Agency", "Manager", null, new { @class = "list-group-item" })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-6">
+            <div class="no-padding">
+                <span class="title">Thông tin đơn hàng</span>
+            </div>
+            <div id="main_menu">
+                <div class="list-group panel panel-cat">
+                    @Html.ActionLink("Danh sách đơn đặt", "Order", "Manager", null, new { @class = "list-group-item" })
+                    @Html.ActionLink("Lịch sử thanh toán", "PayHistory", "Manager", null, new { @class = "list-group-item" })
+                </div>
+            </div>
+        </div>
+
+        <!-- End Categories & Archives -->
+
+    </div>
+    <!-- Blog Detail -->
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        @Html.Partial("~/Views/Shared/Alert.cshtml")
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">Thông tin Đợn đặt</span>
+        </div>
+        <div class="col-lg-12 col-sm-12 hero-feature blog-detail">
+                <div class="table-responsive">
+                    <table class="table table-bordered tbl-cart">
+                        <thead>
+                            <tr>
+                                <td>Mã số đơn</td>
+                                <td>@Core.DAL.PhieuXuatManager.Properties.NgayLap</td>
+                                <td>@Core.DAL.PhieuXuatManager.Chitiet.Properties.TrangThai</td>
+                                <td>@Core.DAL.PhieuXuatManager.Properties.TongTien</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.MaSoPhieuXuat</td>
+                                    <td>
+                                        @if (item.TrangThai == 0)
+                                        {
+                                            <strong class="text-danger">Chưa duyệt</strong>
+                                        }
+                                        else
+                                        {
+                                            <strong class="text-success">Đã duyệt</strong>
+                                        }
+                                    </td>
+                                    <td>@String.Format("{0:dd/MM/yyyy}",item.NgayLap)</td>
+                                    <td>@DataDisplayHelper.displayMoney(item.TongTien)</td>
+                                    <td class="text-center">
+                                        @Html.ActionLink("Chi tiết","OrderDetail", new { id = item.MaSoPhieuXuat})
+                                        @if (item.TrangThai == 0)
+                                        {
+                                            @Html.Raw(" | ")
+                                            @Html.ActionLink("Xóa", "DeleteOrder", new { id = item.MaSoPhieuXuat },new { @class= "delete-order"})
+                                       }
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="3" align="right">Tổng tièn</td>
+                                <td class="total" colspan="2"><b>@DataDisplayHelper.displayMoney(Model.Sum(p => p.TongTien))</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        <div class="col-md-12 pull-left">
+            <div class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Order", new { page, pageSize = Model.PageSize, search = ViewBag.searchKey }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            </div>
+
+        </div>
+
+    </div>
+    <!-- End Blog Detail -->
+</div>
+

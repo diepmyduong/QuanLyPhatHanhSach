@@ -250,7 +250,16 @@
                                 @Html.ActionLink("Sách bán", "SachBan", "ThongKe", null, null)
                             </li>
                             <li>
-                                @Html.ActionLink("Công nợ", "CongNo", "ThongKe", null, null)
+                                <a href="javascript:;" data-toggle="collapse" data-target="#cong-no">Công nợ <i class="fa fa-fw fa-caret-down"></i></a>
+                                <ul id="cong-no" class="collapse">
+                                    <li>
+                                        @Html.ActionLink("Đại lý", "CongNoDaiLy", "ThongKe", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Nhà xuất bản", "CongNoNXB", "ThongKe", null, null)
+                                    </li>
+                                </ul>
+                               
                             </li>
                         </ul>
                     </li>
@@ -286,5 +295,26 @@
     {
         @RenderSection("AddToFooter", required: false)
     }
+    <script>
+        $(function () {
+            $("#inputPageSize").change(function (event) {
+
+                var newPageSize = $("#inputPageSize").val();
+                var url = '@Url.Action(currentAction, currentCotroller, null)?pageSize=' + newPageSize;
+                location.search
+                .substr(1)
+                    .split("&")
+                    .forEach(function (item) {
+                        tmp = item.split("=");
+                        if (tmp[0] !== "pageSize") {
+                            url += '&'+tmp[0]+"=" +decodeURIComponent(tmp[1]);
+                        }
+                    });
+                window.location.href = url;
+
+            });
+        });
+
+    </script>
 </body>
 </html>

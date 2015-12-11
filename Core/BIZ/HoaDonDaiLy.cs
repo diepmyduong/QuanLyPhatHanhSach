@@ -186,6 +186,14 @@ namespace Core.BIZ
         {
             return this.NgayLap.ToString();
         }
+        public override bool Equals(object obj)
+        {
+            return MaSoHoaDon.Equals(((HoaDonDaiLy)obj).MaSoHoaDon);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         #endregion
     }
 }

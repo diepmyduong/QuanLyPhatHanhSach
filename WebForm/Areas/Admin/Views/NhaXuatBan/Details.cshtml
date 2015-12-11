@@ -14,9 +14,29 @@
             <h4>Nhà xuất bản</h4>
             <p>
                 @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoNXB }) |
-                @Html.ActionLink("Xem danh mục sách", "Index", "Sach", new { search = Model.TenNXB },null) |
+                @Html.ActionLink("Xem danh mục sách", "Index", "Sach", new
+                                                   {
+                                                       search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.SachManager.Properties.MaSoNXB),
+                                                    Model.MaSoNXB)
+                                                   }, null) |
                 @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanNXB", new { masonxb = Model.MaSoNXB }, null) |
-                @Html.ActionLink("Xem danh sách Nhà xuất bản", "Index")
+                @Html.ActionLink("Theo dõi phiếu nhập", "All", "PhieuNhap", new
+                                                   {
+                                                       search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.PhieuNhapManager.Properties.MaSoNXB),
+                                                    Model.MaSoNXB)
+                                                     }, null) |
+                @Html.ActionLink("Lịch sử thanh toán", "All", "ThanhToanNXB", new
+                                                   {
+                                                       search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.HoaDonNXBManager.Properties.MaSoNXB),
+                                                    Model.MaSoNXB)
+                                                   }, null) |
+                @Html.ActionLink("Theo dõi công nợ", "Details", "CongNoNXB", new
+                                                   {
+                                                       id = Model.MaSoNXB
+                                                   }, null)
             </p>
             <hr />
             <dl class="dl-horizontal">

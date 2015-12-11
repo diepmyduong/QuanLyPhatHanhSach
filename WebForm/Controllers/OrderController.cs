@@ -106,6 +106,12 @@ namespace WebForm.Controllers
             currentPhieu = null;
             if (isUserSessionExisted())
             {
+                var user = Session[Core.Constants.SESSION.USERNAME] as NguoiDung;
+                if(user.DaiLy == null)
+                {
+                    putErrorMessage("Chưa đăng ký thông tin đại lý");
+                    return RedirectToAction("Agency", "Manager",null);
+                }
                 var model = currentPhieu;
                 if (TempData[Core.Constants.TEMPDATA.ERRORS] != null)
                 {

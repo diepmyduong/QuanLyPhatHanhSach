@@ -14,7 +14,24 @@
                 <h4>Đại lý</h4>
                 <p>
                     @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoDaiLy }) |
-                    @Html.ActionLink("Trở lại danh sách", "Index")
+                    @Html.ActionLink("Xem danh sách đại lý", "Index") | 
+                    @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanDaiLy", new { masodaily = Model.MaSoDaiLy }, null) |
+                    @Html.ActionLink("Theo dõi phiếu xuất", "All","PhieuXuat", new
+                                {
+                                    search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.PhieuXuatManager.Properties.MaSoDaiLy),
+                                                    Model.MaSoDaiLy)
+                                },null) | 
+                    @Html.ActionLink("Lịch sử thanh toán", "All","ThanhToanDaiLy", new
+                                {
+                                    search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.HoaDonDaiLyManager.Properties.MaSoDaiLy),
+                                                    Model.MaSoDaiLy)
+                                },null) | 
+                    @Html.ActionLink("Theo dõi công nợ", "Details", "CongNoDaiLy", new
+                                                   {
+                                                       id = Model.MaSoDaiLy
+                                                   }, null)
                 </p>
                 <hr />
                 <dl class="dl-horizontal">
@@ -70,8 +87,7 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.NguoiDung.TenNguoiDung)
-                    </dd>
+                        @Html.ActionLink(Model.NguoiDung.TenNguoiDung,"Details","NguoiDung",new {id = Model.MaSoNguoiDung},null)
 
                     <dt>
                         @Html.DisplayNameFor(model => model.NguoiDung.Email) :

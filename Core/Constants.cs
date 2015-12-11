@@ -24,6 +24,7 @@ namespace Core
             public const string USERNAME = "sessionUsername";
             public const string SHOPPING_CART = "sessionShoppingCart";
             public const string BOOKS = "sessionDataBooks";
+            public const string PAGE_SIZE = "sessionPageSize";
         }
         public class TEMPDATA
         {

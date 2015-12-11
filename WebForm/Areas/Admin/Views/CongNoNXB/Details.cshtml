@@ -116,6 +116,9 @@
                                required="required" title="">
                         <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
                     </div>
+                    <div class="col-md-2">
+                        @Html.Partial("~/Views/Shared/PageSizeOptions.cshtml", new ViewDataDictionary { { "PageSize", Model.PageSize }, { "TotalItemCount", Model.TotalItemCount } })
+                    </div>
                 </div>
             }
             <table class="table">
@@ -207,7 +210,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 col-md-offset-5">
-                    Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Contents.
+                    Đang xem từ @Model.FirstItemOnPage đến @Model.LastItemOnPage trong số @Model.TotalItemCount nội dung.
                 </div>
             </div>
       </div>

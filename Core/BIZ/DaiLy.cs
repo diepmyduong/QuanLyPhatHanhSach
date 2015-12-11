@@ -86,7 +86,7 @@ namespace Core.BIZ
                 if (_phieuxuat == null)
                 {
                     var param = new Dictionary<string, dynamic>();
-                    param.Add(PhieuXuatManager.Properties.DaiLy, this.MaSoDaiLy);
+                    param.Add(PhieuXuatManager.Properties.MaSoDaiLy, this.MaSoDaiLy);
                     param.Add(PhieuXuatManager.Properties.TrangThai, 1);
                     _phieuxuat = PhieuXuatManager.findBy(param);
                 }
@@ -345,6 +345,19 @@ namespace Core.BIZ
             return this.HoaDon.Where(p =>
                         p.NgayLap >= startDate
                         && p.NgayLap <= endDate).ToList();
+        }
+
+        public List<PhieuXuat> getAllPhieuXuat()
+        {
+            var param = new Dictionary<string, dynamic>();
+            param.Add(PhieuXuatManager.Properties.MaSoDaiLy, this.MaSoDaiLy);
+            return PhieuXuatManager.findBy(param);
+        }
+        public List<HoaDonDaiLy> getAllHoaDon()
+        {
+            var param = new Dictionary<string, dynamic>();
+            param.Add(HoaDonDaiLyManager.Properties.MaSoDaiLy, this.MaSoDaiLy);
+            return HoaDonDaiLyManager.findBy(param);
         }
         #endregion
 
