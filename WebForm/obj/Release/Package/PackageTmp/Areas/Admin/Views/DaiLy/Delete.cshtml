@@ -1,0 +1,72 @@
+﻿@model Core.BIZ.DaiLy
+
+@{
+    ViewBag.Title = "Xóa Đại lý";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <h3>Bạn có chắc muốn xóa Đại lý này?</h3>
+            @using (Html.BeginForm()) {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Xóa" class="btn btn-default" /> |
+                        @Html.ActionLink("Trở lại danh sách", "Index")
+                    </div>
+                }
+            <hr />
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaSoDaiLy) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaSoDaiLy)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenDaiLy) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TenDaiLy)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DiaChi) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DiaChi)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SoDienThoai) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SoDienThoai)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SoTaiKhoan) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SoTaiKhoan)
+                    </dd>
+
+                </dl>
+
+                
+            </div>
+
+                  </div>
+            </div>
+

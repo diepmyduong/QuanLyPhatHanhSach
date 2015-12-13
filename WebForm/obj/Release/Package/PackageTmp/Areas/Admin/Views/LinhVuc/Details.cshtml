@@ -1,0 +1,49 @@
+﻿@model Core.BIZ.LinhVuc
+
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <div>
+                <h4>Lĩnh vực</h4>
+                <p>
+                    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoLinhVuc }) |
+                    @Html.ActionLink("Xem danh mục sách", "Index","Sach",new
+                                       {
+                                           search = String.Format("{{ {0} = {1} }}",
+                                            nameof(Core.DAL.SachManager.Properties.MaSoLinhVuc),
+                                            Model.MaSoLinhVuc)
+                                       }, null) |
+                    @Html.ActionLink("Xem danh mục lĩnh vực", "Index")
+                </p>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaSoLinhVuc)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaSoLinhVuc)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenLinhVuc)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TenLinhVuc)
+                    </dd>
+
+                </dl>
+            </div>
+      </div>
+</div>
+
+
+

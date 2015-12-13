@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @section AddToHead{
+        <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/bootstrap-touchspin/jquery.bootstrap-touchspin.css")" rel="stylesheet" type="text/css" />
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/bootstrap-touchspin/jquery.bootstrap-touchspin.js")"></script>
+        <script>
+            $('.xoaChiTiet').click(function() {
+                    $(this).parents("tr:first").remove();
+                    $.ajax({
+                        url: this.href,
+                        cache: false,
+                        success: function (html) { location.reload(); }
+                    });
+
+                    return false;
+
+                });
+        </script>
+    }
+}
+@model Core.BIZ.PhieuXuat
+@using Core.BIZ
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-12">
+
+        <!-- Best product -->
+        @Html.Partial("~/Views/Shared/BestSell.cshtml")
+        <!-- End Best product -->
+
+    </div>
+
+    <div class="clearfix visible-sm"></div>
+
+    <!-- Cart -->
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        @Html.Partial("~/Views/Shared/Alert.cshtml")
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">Thông tin đơn hàng</span>
+        </div>
+        <div class="col-lg-12 col-sm-12 hero-feature">
+            @using (Html.BeginForm("CheckOut", "Order", FormMethod.Post, null))
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered tbl-checkout">
+                        <tbody>
+                            <tr>
+                                <td>@Core.DAL.DaiLyManager.Properties.TenDaiLy</td>
+                                <td>
+                                    @Html.EditorFor(model => model.Daily.TenDaiLy, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+                                </td>
+                                <td>@Core.DAL.DaiLyManager.Properties.MaSoDaiLy</td>
+                                <td>
+                                    @Html.EditorFor(model => model.MaSoDaiLy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@Core.DAL.NguoiDungManager.Properties.Email</td>
+                                <td>
+                                        @Html.EditorFor(model => model.Daily.NguoiDung.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" , type="email" } })
+                                </td>
+                                <td>@Core.DAL.DaiLyManager.Properties.SoDienThoai</td>
+                                <td>
+                                    @Html.EditorFor(model => model.Daily.SoDienThoai, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"} })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ</td>
+                                <td colspan="3">
+                                    @Html.TextAreaFor(model => model.Daily.DiaChi,new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered tbl-cart">
+                        <thead>
+                            <tr>
+                                <td>@Core.DAL.SachManager.Properties.TenSach</td>
+                                <td>@Core.DAL.SachManager.Properties.TenTacGia</td>
+                                <td>@Core.DAL.SachManager.Properties.NXB</td>
+                                <td>@Core.DAL.PhieuXuatManager.Chitiet.Properties.SoLuong</td>
+                                <td>@Core.DAL.PhieuXuatManager.Chitiet.Properties.DonGia</td>
+                                <td>@Core.DAL.PhieuXuatManager.Chitiet.Properties.ThanhTien </td>
+                                <td>Xóa</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ChiTiet)
+                            {
+                                <tr>
+                                    <td>@item.Sach.TenSach</td>
+                                    <td>@item.Sach.TenTacGia</td>
+                                    <td>@item.Sach.NXB.TenNXB</td>
+                                    <td>@DataDisplayHelper.displayNumber(item.SoLuong)</td>
+                                    <td>@DataDisplayHelper.displayMoney(item.DonGia)</td>
+                                    <td>@DataDisplayHelper.displayMoney(item.ThanhTien)</td>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("DeleteDetailRow","Order",new { masosach = item.MaSoSach })" class="xoaChiTiet" rel="2">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="5" align="right">Tổng tièn</td>
+                                <td class="total" colspan="2"><b>@DataDisplayHelper.displayMoney(Model.ChiTiet.Sum(ct => ct.ThanhTien))</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="btn-group btns-cart">
+                    <button type="submit" class="btn btn-primary">Gửi Đơn</button>
+                </div>
+            }
+            
+
+        </div>
+    </div>
+    <!-- End Cart -->
+
+
+</div>

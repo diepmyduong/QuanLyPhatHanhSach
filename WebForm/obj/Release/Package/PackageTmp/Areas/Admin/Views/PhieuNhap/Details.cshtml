@@ -1,0 +1,124 @@
+﻿@model Core.BIZ.PhieuNhap
+
+@{
+    ViewBag.Title = "Xem Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <h4>Phiếu nhập</h4>
+            <p>
+                @if (Model.TrangThai == 0)
+                {
+                    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoPhieuNhap })
+                    @Html.Raw(" | ")
+                                                                                      
+                }
+                
+                @Html.ActionLink("Trở lại danh sách", "All")
+            </p>
+      </div>
+</div>
+<div class="panel panel-info">
+      <div class="panel-heading">
+            <h3 class="panel-title">Thông tin phiếu nhập</h3>
+      </div>
+      <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MaSoPhieuNhap)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MaSoPhieuNhap)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NXB)
+                        </dt>
+
+                        <dd>
+                            @Html.ActionLink(Model.NXB.TenNXB,"Details","NhaXuatBan",new { id = Model.MaSoNXB},null)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NgayLap)
+                        </dt>
+
+                        <dd>
+                            @String.Format("{0:dd/MM/yyyy}", Model.NgayLap)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NguoiGiao)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.NguoiGiao)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TrangThai)
+                        </dt>
+
+                        <dd>
+                            @if (Model.TrangThai == 0)
+                            {
+                                <strong class="text-danger">Chưa duyệt</strong>
+                            }
+                            else
+                            {
+                                <strong class="text-success">Đã duyệt</strong>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-8 text-center">
+                    <h2 class="text-danger">@Core.DAL.PhieuNhapManager.Properties.TongTien</h2>
+                    <h2 class="text-danger">
+                        @String.Format(ViewBag.cultureInfo, "{0:c}", Model.TongTien)
+                    </h2>
+                </div>
+            </div>
+      </div>
+</div>
+<div class="panel panel-primary">
+      <div class="panel-heading">
+            <h3 class="panel-title">Chi tiết</h3>
+      </div>
+      <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.ChiTiet.Properties.MaSoSach
+                    </th>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.ChiTiet.Properties.Sach
+                    </th>
+                    <th>
+                        @Core.DAL.SachManager.Properties.TenTacGia
+                    </th>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong
+                    </th>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia
+                    </th>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.ChiTiet.Properties.ThanhTien
+                    </th>
+                </tr>
+                @foreach (var item in Model.ChiTiet)
+                {
+                    Html.RenderPartial("ChiTietRow", item);
+                }
+            </table>
+      </div>
+</div>
+

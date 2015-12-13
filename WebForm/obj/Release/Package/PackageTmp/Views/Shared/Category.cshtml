@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = null;
+    List<LinhVuc> Catalory = new List<LinhVuc>();
+    if (ViewBag.Catalory != null)
+    {
+        Catalory = ViewBag.Catalory as List<LinhVuc>;
+    }
+}
+@using Core.BIZ
+
+<div class="col-lg-12 col-md-12 col-sm-6">
+    <div class="no-padding">
+        <span class="title">Sách</span>
+    </div>
+    <div id="main_menu">
+        <div class="list-group panel panel-cat">
+            @foreach (var item in Catalory.Take(5))
+            {
+                @Html.ActionLink(item.TenLinhVuc, "List", "Catalogy", new { id = item.MaSoLinhVuc }, new { @class = "list-group-item" })
+            }
+        </div>
+    </div>
+</div>
+

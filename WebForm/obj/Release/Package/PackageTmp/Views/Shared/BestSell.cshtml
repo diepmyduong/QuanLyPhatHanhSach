@@ -1,0 +1,85 @@
+﻿
+@{
+    Layout = null;
+    List<Sach> hightRateProducts = new List<Sach>();
+    if (ViewBag.hightRateProducts != null)
+    {
+        hightRateProducts = (List<Sach>)ViewBag.hightRateProducts;
+    }
+}
+@using Core.BIZ
+<div class="col-lg-12 col-md-12 col-sm-6">
+    <div class="no-padding">
+        <span class="title">
+            Sách quan tâm nhất
+        </span>
+    </div>
+    <div class="hero-feature">
+        <div class="thumbnail text-center">
+            <a href="@Url.Action("Details","Product",new { id = hightRateProducts[0].MaSoSach }) ">
+                @if (hightRateProducts[0].HinhAnh == null)
+                {
+                    <img src="http://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/k/h/khu-vuon-bi-mat_1.jpg" width="215" height="210">
+                }
+                else
+                {
+                    <img src="@ImagesHelper.ImageToDataBase64String(hightRateProducts[0].HinhAnhTypeImage)" width="215" height="210">
+                }
+            </a>
+            <div class="caption prod-caption">
+                <h4>
+                    <a href="@Url.Action("Details","Product",new { id = hightRateProducts[0].MaSoSach }) ">
+                        @hightRateProducts[0].TenSach
+                    </a>
+                </h4>
+                <p>
+                    @hightRateProducts[0].MoTa
+                </p>
+                <div class="btn-group btn-group-justified">
+                    <a href="@Url.Action("Details","Product",new { id = hightRateProducts[0].MaSoSach }) " class="btn btn-default">@DataDisplayHelper.displayMoney(hightRateProducts[0].GiaBan)</a>
+                    <a href="@Url.Action("AddToCart","Order",new { id = hightRateProducts[0].MaSoSach })" class="btn btn-primary  add-cart">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        Mua
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Best product - Hidden in Small screen -->
+
+    <div class="hero-feature hidden-sm">
+        <div class="thumbnail text-center">
+            <a href="@Url.Action("Details","Product",new { id = hightRateProducts[1].MaSoSach }) ">
+                @if (hightRateProducts[1].HinhAnh == null)
+                {
+                    <img src="http://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/k/h/khu-vuon-bi-mat_1.jpg" width="215" height="210">
+                }
+                else
+                {
+                    <img src="@ImagesHelper.ImageToDataBase64String(hightRateProducts[1].HinhAnhTypeImage)" width="215" height="210">
+                }
+            </a>
+            <div class="caption prod-caption">
+                <h4>
+                    <a href="@Url.Action("Details","Product",new { id = hightRateProducts[1].MaSoSach }) ">
+                        @hightRateProducts[1].TenSach
+                    </a>
+                </h4>
+                <p>
+                    @hightRateProducts[1].MoTa
+                </p>
+                <div class="btn-group btn-group-justified">
+                    <a href="@Url.Action("Details","Product",new { id = hightRateProducts[1].MaSoSach }) " class="btn btn-default">@DataDisplayHelper.displayMoney(hightRateProducts[1].GiaBan)</a>
+                    <a href="@Url.Action("AddToCart","Order",new { id = hightRateProducts[1].MaSoSach })" class="btn btn-primary add-cart">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        Mua
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Best product - Hidden in Small screen -->
+
+</div>
+

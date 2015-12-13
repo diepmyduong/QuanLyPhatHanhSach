@@ -1,0 +1,81 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Core.BIZ.ChiTietPhieuNhap>
+
+@{
+    ViewBag.Title = "Xem Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var currentSach = ((Core.BIZ.Sach)ViewBag.currentSach);
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <h3>Lô nhập của sách @Html.ActionLink(currentSach.TenSach, "Details","Sach",new { id = currentSach.MaSoSach },null)</h3>
+            <h4>Tác giả : @currentSach.TenTacGia</h4>
+            <p>
+                @Html.ActionLink("Trở lại danh sách","LoNhap")
+            </p>
+      </div>
+</div>
+<div class="panel panel-primary">
+      <div class="panel-heading">
+            <h3 class="panel-title">Chi tiết</h3>
+      </div>
+      <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.ChiTiet.Properties.MaSoPhieuNhap
+                    </th>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.Properties.NguoiGiao
+                    </th>
+                    <th>
+                       @Core.DAL.PhieuNhapManager.ChiTiet.Properties.SoLuong
+                    </th>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.ChiTiet.Properties.DonGia 
+                    </th>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.ChiTiet.Properties.ThanhTien
+                    </th>
+                    <th>
+                        @Core.DAL.PhieuNhapManager.Properties.NgayLap
+                    </th>
+                    <th></th>
+                </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaSoPhieuNhap)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhieuNhap.NguoiGiao)
+                    </td>
+                    <td>
+                        @String.Format("{0:0}", item.SoLuong)
+                    </td>
+                    <td>
+                        @String.Format(ViewBag.cultureInfo,"{0:c}",item.DonGia)
+                    </td>
+                    <td>
+                        @String.Format(ViewBag.cultureInfo,"{0:c}",item.ThanhTien)
+                    </td>
+                    <td>
+                        @String.Format("{0:dd/MM/yyyy}",item.PhieuNhap.NgayLap)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Chi tiết", "Details", "PhieuNhap", new { id = item.MaSoPhieuNhap }, null)
+                    </td>
+                </tr>
+            }
+
+            </table>
+      </div>
+</div>
+<hr />
+

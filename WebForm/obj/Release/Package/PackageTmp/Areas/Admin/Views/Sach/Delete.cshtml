@@ -1,0 +1,121 @@
+﻿@model Core.BIZ.Sach
+
+@{
+    ViewBag.Title = "Xóa sách";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <h3>Bạn có chắc là sẽ xóa sách @Model.TenSach?</h3>
+            <div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Xóa" class="btn btn-default" /> |
+                        @Html.ActionLink("Xem danh mục sách", "Index")
+                    </div>
+                }
+                <hr />
+                <div class="row">
+                    <div class="col-md-4">
+                        @if (ViewBag.DefaultImage == null)
+                        {
+                            <a href="#" class="thumbnail">
+                                <img src="@ViewBag.imgSrc" alt="">
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="thumbnail">
+                                <img src="@ViewBag.DefaultImage" alt="">
+                            </a>
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MaSoSach)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MaSoSach)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TenSach)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.TenSach)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.LinhVucSach)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.LinhVucSach.TenLinhVuc)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TenTacGia)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.TenTacGia)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.NXB)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.NXB.TenNXB)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Soluong)
+                            </dt>
+
+                            <dd>
+                                @String.Format("{0:0}", Model.Soluong)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GiaNhap)
+                            </dt>
+
+                            <dd>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", Model.GiaNhap)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GiaBan)
+                            </dt>
+
+                            <dd>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", Model.GiaBan)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MoTa)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MoTa)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+                
+            </div>
+      </div>
+</div>
+
+

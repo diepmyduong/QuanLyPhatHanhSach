@@ -1,0 +1,95 @@
+﻿@model Core.BIZ.NhaXuatBan
+
+@{
+    ViewBag.Title = "Xem Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <div>
+            <h4>Nhà xuất bản</h4>
+            <p>
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoNXB }) |
+                @Html.ActionLink("Xem danh mục sách", "Index", "Sach", new
+                                                   {
+                                                       search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.SachManager.Properties.MaSoNXB),
+                                                    Model.MaSoNXB)
+                                                   }, null) |
+                @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanNXB", new { masonxb = Model.MaSoNXB }, null) |
+                @Html.ActionLink("Theo dõi phiếu nhập", "All", "PhieuNhap", new
+                                                   {
+                                                       search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.PhieuNhapManager.Properties.MaSoNXB),
+                                                    Model.MaSoNXB)
+                                                     }, null) |
+                @Html.ActionLink("Lịch sử thanh toán", "All", "ThanhToanNXB", new
+                                                   {
+                                                       search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.HoaDonNXBManager.Properties.MaSoNXB),
+                                                    Model.MaSoNXB)
+                                                   }, null) |
+                @Html.ActionLink("Theo dõi công nợ", "Details", "CongNoNXB", new
+                                                   {
+                                                       id = Model.MaSoNXB
+                                                   }, null)
+            </p>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.MaSoNXB) :
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MaSoNXB)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TenNXB) :
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenNXB)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DiaChi) :
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DiaChi)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SoDienThoai) :
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SoDienThoai)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SoTaiKhoan) :
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SoTaiKhoan)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.NganHang) :
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NganHang)
+                </dd>
+            </dl>
+        </div>
+      </div>
+</div>
+
+
+

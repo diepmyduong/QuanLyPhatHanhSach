@@ -1,0 +1,364 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @section AddToHead{
+        <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/bootstrap-touchspin/jquery.bootstrap-touchspin.css")" rel="stylesheet" type="text/css" />
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/bootstrap-touchspin/jquery.bootstrap-touchspin.js")"></script>
+        <script>
+            $("input[name='soluong']").TouchSpin({
+                initval: 1,
+                min: 0,
+                max: @Model.Soluong
+            });
+            $("#add-cart").click(function(event){
+                var soluong = parseInt($("input[name='soluong']").val());
+
+                $.ajax({
+                    url: "@Url.Action("AddToCart","Order")?id=@Model.MaSoSach&&quantity=" + soluong,
+                    cache: false,
+                success: function (html) {
+                    $(".cart").html(html);
+                    alert("đã thêm vào giỏ hàng ");
+                }
+            });
+            });
+        </script>
+    }
+}
+@using Core.BIZ;
+@model Core.BIZ.Sach
+
+<div class="row">
+    <!-- Sidebar -->
+    <div class="col-lg-3 col-md-3 col-sm-12">
+        <!-- Best product -->
+        @Html.Partial("~/Views/Shared/BestSell.cshtml")
+        <!-- End Best product -->
+
+    </div>
+    <div class="clearfix visible-sm"></div>
+    <!-- End Sidebar -->
+    <!--Product Detail-->
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">
+                @Model.TenSach
+            </span>
+        </div>
+
+        <!--ِDetail-->
+        <div class="col-lg-12 col-sm-12 hero-feature">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <!--Main Image-->
+                    <div class="product-main-image-container">
+                        <img src="assets/images/loader.gif" class="product-loader" style="display: none;">
+                        <span class="thumbnail product-main-image" style="position: relative; overflow: hidden;">
+                            @if (Model.HinhAnh == null)
+                            {
+                                <img src="http://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/k/h/khu-vuon-bi-mat_1.jpg">
+                            }
+                            else
+                            {
+                                <img src="@ImagesHelper.ImageToDataBase64String(Model.HinhAnhTypeImage)">
+                            }
+                        </span>
+                    </div>
+                    <!--End Main Image-->
+                    <!-- Thumbnail Image -->
+                    @*<div class="col-xs-3 product-thumb-image">
+                        <a href="media/product/details/detail1.jpg" class="thumbnail">
+                            <img src="media/product/details/detail1.jpg" style="min-height: 84px;">
+                        </a>
+                    </div>
+                    <!--2-->
+                    <div class="col-xs-3 product-thumb-image">
+                        <a href="media/product/details/detail2.jpg" class="thumbnail">
+                            <img src="media/product/details/detail2.jpg" style="min-height: 84px;">
+                        </a>
+                    </div>
+                    <!--3-->
+                    <div class="col-xs-3 product-thumb-image">
+                        <a href="media/product/details/detail3.jpg" class="thumbnail">
+                            <img src="media/product/details/detail3.jpg" style="min-height: 84px;">
+                        </a>
+                    </div>
+                    <!--4-->
+                    <div class="col-xs-3 product-thumb-image">
+                        <a href="media/product/details/product-2.jpg" class="thumbnail">
+                            <img src="media/product/details/product-2.jpg" style="min-height: 84px;">
+                        </a>
+                    </div>*@
+                    <!-- End Thumbnail Image -->
+                </div>
+                <div class="visible-xs">
+                    <div class="clearfix"></div>
+                </div>
+
+                <!--Prodoct sell controlls-->
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="well product-short-detail">
+                        <div class="row">
+                            <div class="the-list">
+
+                                <div class="col-xs-12 text-center title">
+                                    @DataDisplayHelper.displayMoney(Model.GiaBan)
+                                </div>
+
+                            </div>
+                            <div class="the-list">
+                                <div class="col-xs-4">
+                                    Còn lại 
+                                </div>
+                                <div class="col-xs-8">
+                                    @DataDisplayHelper.displayNumber(Model.Soluong) cuốn
+                                </div>
+                            </div>
+                            <div class="the-list">
+                                <div class="col-xs-4">
+                                    Tác giả
+                                </div>
+                                <div class="col-xs-8">
+                                    @Model.TenTacGia
+                                </div>
+                            </div>
+                            <div class="the-list">
+                                <div class="col-xs-4">
+                                    Nhà xuất bản
+                                </div>
+                                <div class="col-xs-8">
+                                    @Model.NXB.TenNXB
+                                </div>
+                            </div>
+                            <div class="the-list">
+                                <div class="col-xs-4">
+                                    Lĩnh vực
+                                </div>
+                                <div class="col-xs-8">
+                                    @Model.LinhVucSach.TenLinhVuc
+                                </div>
+                            </div>
+                            @*<div class="the-list">
+                                <div class="col-xs-4">
+                                    جعبه انتخاب
+                                </div>
+                                <div class="col-xs-8">
+                                    <select class="form-control">
+                                        <option value="red">انتخاب کنید</option>
+                                        <option value="red">انتخاب اول</option>
+                                        <option value="red">انتخاب دوم</option>
+                                        <option value="red">انتخاب سوم</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="the-list">
+                                <div class="col-xs-4">
+                                    چک باکس
+                                </div>
+                                <div class="col-xs-8">
+                                    <label>
+                                        <input type="checkbox" value="check"> انتخاب اول
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" value="check"> انتخاب دوم
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" value="check" checked> انتخاب سوم
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" value="check"> انتخاب چهارم
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="the-list">
+                                <div class="col-xs-4">
+                                    دکمه رادیویی
+                                </div>
+                                <div class="col-xs-8">
+                                    <label>
+                                        <input type="radio" value="radio" name="radio"> رادیویی 1
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="radio" name="radio"> رادیویی 2
+                                    </label>
+                                </div>
+                            </div>*@
+                            <div class="clearfix"></div>
+                            <hr />
+                            <div class="col-xs-12 input-qty-detail">
+                                <div class="input-group bootstrap-touchspin pull-left">
+                                    <input id="soluong" type="text" value="" name="soluong">
+                                   
+                                </div>
+                                <a href="#" class="btn btn-default pull-left" id="add-cart">
+                                    Thêm giỏ hàng
+                                </a>
+                                <a href="@Url.Action("Index","Home")" class="btn btn-primary pull-left">
+                                    Mua tiếp
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+
+
+                        </div> <!-- /row -->
+                    </div>
+                </div>
+                <!--End Prodoct sell controlls-->
+                <div class="clearfix"></div>
+                <br clear="all">
+                <div class="col-xs-12 product-detail-tab">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active" style="padding-right: 2px;"><a href="#desc" data-toggle="tab">Mô tả</a></li>
+                        <li><a href="#comment" data-toggle="tab">Bình luận</a></li>
+                        @* <li><a href="#review" data-toggle="tab">Đánh giá</a></li> *@
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="desc">
+                            <div class="well">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero in sapiente sit facere error aut, dolor tempore placeat laudantium numquam!
+                                </p>
+                            </div>
+                        </div>
+                        @* <div class="tab-pane" id="review">
+                            <div class="well">
+                                <div class="media">
+                                    <a class="pull-right" href="#">
+                                        <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+">
+                                        <div class="product-rating">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                        </div>
+                                    </a>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>سهیل ساقیان</strong></h5>
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-right" href="#">
+                                        <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+">
+                                        <div class="product-rating">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                        </div>
+                                    </a>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>سهیل ساقیان</strong></h5>
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <h4>ارسال دیدگاه مشتریان</h4>
+                                <p></p>
+                                <form role="form">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="نام و نام خانوادگی">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option>1 ستاره</option>
+                                            <option>2 ستاره</option>
+                                            <option>3 ستاره</option>
+                                            <option>4 ستاره</option>
+                                            <option>5 ستاره</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="5" placeholder="دیدگاه خود را تایپ نمایید"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">ثبت دیدگاه</button>
+                                </form>
+                            </div>
+                        </div> *@
+                        <div class="tab-pane" id="comment">
+                            <div class="well">
+                                <div class="media">
+                                    <a class="pull-right" href="#">
+                                        <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+">
+                                        <div class="product-rating">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                        </div>
+                                    </a>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>Tên người dùng</strong></h5>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit voluptatibus dicta doloremque repellat voluptatem eum sit assumenda in optio voluptates quo ratione officia amet, tempore voluptas similique sapiente minus accusantium fugit vel quam ullam laboriosam dolores! Officia pariatur voluptate alias, ipsam iste, cupiditate voluptatibus! Dolor asperiores accusamus enim. Harum, blanditiis.
+
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <a class="pull-right" href="#">
+                                        <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+">
+                                        <div class="product-rating">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                        </div>
+                                    </a>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>Tên người dùng</strong></h5>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui esse aliquid soluta saepe quis. Eaque ipsa placeat at facilis, iure consequatur minus aut temporibus, atque nobis, deleniti optio id libero?
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <h4>Bình luận của bạn</h4>
+                                <p></p>
+                                <form role="form">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Tên">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option>1 Sao</option>
+                                            <option>2 Sao</option>
+                                            <option>3 Sao</option>
+                                            <option>4 Sao</option>
+                                            <option>5 Sao</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="5" placeholder="Nội dung bình luận"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Gửi</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- col-xs-12 product-detail-tab -->
+
+
+            </div>
+        </div>
+        <!--End Detail-->
+    </div>
+    <!--End Product Detail-->
+
+</div>
+

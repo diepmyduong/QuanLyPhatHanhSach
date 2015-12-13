@@ -1,0 +1,105 @@
+﻿@model Core.BIZ.DaiLy
+
+@{
+    ViewBag.Title = "Xem Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <div>
+                <h4>Đại lý</h4>
+                <p>
+                    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoDaiLy }) |
+                    @Html.ActionLink("Xem danh sách đại lý", "Index") | 
+                    @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanDaiLy", new { masodaily = Model.MaSoDaiLy }, null) |
+                    @Html.ActionLink("Theo dõi phiếu xuất", "All","PhieuXuat", new
+                                {
+                                    search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.PhieuXuatManager.Properties.MaSoDaiLy),
+                                                    Model.MaSoDaiLy)
+                                },null) | 
+                    @Html.ActionLink("Lịch sử thanh toán", "All","ThanhToanDaiLy", new
+                                {
+                                    search = String.Format("{{ {0} = {1} }}",
+                                                    nameof(Core.DAL.HoaDonDaiLyManager.Properties.MaSoDaiLy),
+                                                    Model.MaSoDaiLy)
+                                },null) | 
+                    @Html.ActionLink("Theo dõi công nợ", "Details", "CongNoDaiLy", new
+                                                   {
+                                                       id = Model.MaSoDaiLy
+                                                   }, null)
+                </p>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaSoDaiLy)  :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaSoDaiLy)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenDaiLy) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TenDaiLy)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DiaChi) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DiaChi)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SoDienThoai) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SoDienThoai)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SoTaiKhoan) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SoTaiKhoan)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NganHang) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NganHang)
+                    </dd>
+
+                    <dt>
+                        Người dùng :
+                    </dt>
+
+                    <dd>
+                        @Html.ActionLink(Model.NguoiDung.TenNguoiDung,"Details","NguoiDung",new {id = Model.MaSoNguoiDung},null)
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NguoiDung.Email) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NguoiDung.Email)
+                    </dd>
+
+                </dl>
+            </div>
+
+      </div>
+</div>
+

@@ -1,0 +1,176 @@
+﻿@using System.Data.Linq
+@model Core.BIZ.Sach
+
+@{
+    ViewBag.Title = "Cập nhật";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    @section AddToHead{
+        <link href="@Url.Content("~/Content/FileInput/css/fileinput.min.css")" rel="stylesheet" type="text/css" />
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/FileInput/js/fileinput.min.js")"></script>
+        <script>
+            $("#hinh-anh").fileinput({
+                @*uploadUrl: "@Url.Action("Edit",new { Model })",// you must set a valid URL here else you will get an error*@
+                allowedFileExtensions : ['jpg', 'png','jpeg'],
+                overwriteInitial: false,
+                maxFileSize: 1000,
+                maxFilesNum: 1,
+                //allowedFileTypes: ['image', 'video', 'flash'],
+                slugCallback: function(filename) {
+                    return filename.replace('(', '_').replace(']', '_');
+                },
+                showCaption: true,
+                showPreview: true,
+                showRemove: true,
+                showUpload: false,
+                browseLabel: 'Tải ảnh &hellip;',
+                removeLabel: 'Xóa',
+                uploadLabel: 'Upload',
+                initialPreview: [ 
+                    "@if(ViewBag.imgSrc != null){<img src='@ViewBag.imgSrc' class='file-preview-image' alt='' title=''>}"
+                ],
+                msgSelected : 'Đã có {n} hình'
+            });
+        </script>
+    }
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            @using (Html.BeginForm("Edit","Sach",FormMethod.Post,new { @class = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                
+                <div class="form-horizontal">
+                    <h4>Sách</h4>
+                    <div>
+                        @Html.ActionLink("Xem danh mục sách", "Index")
+                    </div>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+
+                            <div class="col-md-4">
+                                
+
+                                 <div class="row form-group">
+                                    <div class="col-md-12">
+                                        @if (ViewBag.imgSrc != null)
+                                        {
+                                            <input id="hinh-anh" name="file" class="file" type="file" data-max-file-count="1" value="@ViewBag.imgSrc">
+                                        }
+                                        else
+                                        {
+                                            <input id="hinh-anh" name="file" class="file" type="file" data-max-file-count="1" >
+                                        }
+
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MaSoSach, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.MaSoSach, new { htmlAttributes = new { @class = "form-control" , @readonly= "readonly"} })
+                                        @Html.ValidationMessageFor(model => model.MaSoSach, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TenSach, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.TenSach, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.TenSach, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LinhVucSach, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(model => model.MaSoLinhVuc,ViewBag.DMLinhVuc as SelectList,new { @class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.MaSoLinhVuc, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.ActionLink("Thêm lĩnh vực", "Create", "LinhVuc",null,null)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TenTacGia, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.TenTacGia, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.TenTacGia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.NXB, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.HiddenFor(model => model.MaSoNXB)
+                                        @Html.DropDownListFor(model => model.MaSoNXB, ViewBag.DMNXB as SelectList, new { @class = "form-control" , disabled = "disabled"})
+                                        @Html.ValidationMessageFor(model => model.MaSoNXB, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.ActionLink("Thêm Nhà Xuất Bản", "Create", "NhaXuatBan", null, null)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Soluong, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.Soluong, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.Soluong, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.GiaNhap, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.GiaNhap, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.GiaNhap, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.GiaBan, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.TextAreaFor(model => model.MoTa, 10, 30, new { @class = "form-control"  })
+                                        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.HiddenFor(model => model.HinhAnh)
+                                </div>
+
+                                
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Cập nhật" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            }
+      </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

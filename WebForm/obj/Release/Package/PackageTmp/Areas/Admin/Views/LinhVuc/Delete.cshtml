@@ -1,0 +1,47 @@
+﻿@model Core.BIZ.LinhVuc
+
+@{
+    ViewBag.Title = "Xóa lĩnh vực";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <h3>Bạn có chắc là muốn xóa lĩnh vực này?</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-default" /> |
+                    @Html.ActionLink("Xem danh mục lịnh vực", "Index")
+                </div>
+            }
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaSoLinhVuc)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaSoLinhVuc)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenLinhVuc)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TenLinhVuc)
+                    </dd>
+
+                </dl>
+            </div>
+      </div>
+</div>
+
+

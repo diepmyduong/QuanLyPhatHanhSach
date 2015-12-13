@@ -1,0 +1,218 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Core.BIZ.CongNoNXB>
+
+@{
+    ViewBag.Title = "Xem Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var currentNXB = ((Core.BIZ.NhaXuatBan)ViewBag.currentNXB);
+    @section AddToHead{
+        <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
+        <script>
+            $(function() {
+            var availableTags = []
+            function getAutoCompleteSource(request) {
+                $.getJSON('@Url.Action("GetPropertiesChiTietNo")',{ request : request}, function (data) {
+                    availableTags = data;
+                });
+            }
+            function split( val ) {
+              return val.split( /{\s*/ );
+            }
+            function extractLast( term ) {
+              return split( term ).pop();
+            }
+
+            $( "#search" )
+              // don't navigate away from the field on tab when selecting an item
+              .bind( "keydown", function( event ) {
+                if ( event.keyCode === $.ui.keyCode.TAB &&
+                    $( this ).autocomplete( "instance" ).menu.active ) {
+                  event.preventDefault();
+                }
+                if (event.shiftKey && event.keyCode == 219) {
+                    getAutoCompleteSource($(this).val()+"{");
+                }
+              })
+              .autocomplete({
+                minLength: 0,
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                  response( $.ui.autocomplete.filter(
+                    availableTags, extractLast( request.term ) ) );
+                  console.log($.ui.autocomplete.filter(
+                    availableTags, extractLast( request.term ) ));
+                },
+                focus: function() {
+                  // prevent value inserted on focus
+                  return true;
+                },
+                select: function( event, ui ) {
+                  return false;
+                }
+              });
+          });
+        </script>
+    }
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                    <h3 class="panel-title">@ViewBag.Title</h3>
+              </div>
+              <div class="panel-body">
+                    <h3>Công nợ của Nhà xuất bản @Html.ActionLink(currentNXB.TenNXB, "Details", "NhaXuatBan", new { id = currentNXB.MaSoNXB }, null)</h3>
+                    <h4>Mã số : @currentNXB.MaSoNXB</h4>
+                    <p>
+                        @Html.ActionLink("Trở lại danh sách", null, null, null, new { href = Request.UrlReferrer }) |
+                        @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanNXB", new { masonxb = currentNXB.MaSoNXB }, new { @class = "btn btn-success" })
+                    </p>
+              </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Công nợ hiện tại</h3>
+              </div>
+              <div class="panel-body">
+                    <div class="row">
+                            <div class="row">
+                                <h4 class=" col-sm-4 text-right">Tổng tiền nợ :</h4>
+                                <h4 class=" col-sm-8"><strong>@String.Format(ViewBag.cultureInfo, "{0:c}", currentNXB.TongTienNo)</strong></h4>
+                            </div>
+                            <div class="row">
+                                <h4 class=" col-sm-4 text-right">Tổng số lượng nợ :</h4>
+                                <h4 class=" col-sm-8"><strong>@currentNXB.TongSoLuongNo</strong></h4>
+                            </div>
+                    </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-primary">
+      <div class="panel-heading">
+            <h3 class="panel-title">Danh sách</h3>
+      </div>
+      <div class="panel-body">
+            @using (Html.BeginForm("Details", "CongNoNXB", FormMethod.Get, new { @class = "form" }))
+            {
+                @Html.ValidationSummary(true)
+                <div class="row ">
+                    <div class="col-md-10 form-group input-group">
+                        <input type="search" name="search" id="search" class="form-control"
+                               value="@{if (ViewBag.SearchKey != null)
+                                        {
+                                            @ViewBag.SearchKey;
+                                        }
+                                        }"
+                               required="required" title="">
+                        <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+                    </div>
+                    <div class="col-md-2">
+                        @Html.Partial("~/Views/Shared/PageSizeOptions.cshtml", new ViewDataDictionary { { "PageSize", Model.PageSize }, { "TotalItemCount", Model.TotalItemCount } })
+                    </div>
+                </div>
+            }
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Core.DAL.CongNoNXBManager.Properties.MaSoSach
+                        </th>
+                        <th>
+                            @Core.DAL.CongNoNXBManager.Properties.Sach
+                        </th>
+                        <th>
+                            @Core.DAL.SachManager.Properties.TenTacGia
+                        </th>
+                        <th>
+                            @Core.DAL.CongNoNXBManager.Properties.SoLuong
+                        </th>
+                        <th>
+                            @Core.DAL.CongNoNXBManager.Properties.DonGia
+                        </th>
+                        <th>
+                            @Core.DAL.CongNoNXBManager.Properties.ThanhTien
+                        </th>
+                        <th>
+                            @Core.DAL.CongNoNXBManager.Properties.Thang
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaSoSach)
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.Sach.TenSach, "Details", "Sach", new { id = item.MaSoSach }, null)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sach.TenTacGia)
+                            </td>
+                            <td>
+                                @String.Format("{0:0}", item.SoLuong)
+                            </td>
+                            <td>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", item.DonGia)
+                            </td>
+                            <td>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", item.ThanhTien)
+                            </td>
+                            <td>
+                                @String.Format("{0:dd/MM/yyyy}", item.Thang)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Chi tiết", "Details", "PhieuNhap", new { id = item.MaSoPhieuNhap }, null)*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="alert-info">
+                    <tr>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                            Tổng số lượng
+                        </th>
+                        <th>
+                            @ViewBag.tongSoLuongNo
+                        </th>
+                        <th>
+                            Tổng tiền
+                        </th>
+                        <th>
+                            @String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTienNo)
+                        </th>
+                        <th>
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-5">
+                    @Html.PagedListPager(Model, page => Url.Action("All", new { page, pageSize = Model.PageSize, search = ViewBag.searchKey }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-5">
+                    Đang xem từ @Model.FirstItemOnPage đến @Model.LastItemOnPage trong số @Model.TotalItemCount nội dung.
+                </div>
+            </div>
+      </div>
+</div>
+

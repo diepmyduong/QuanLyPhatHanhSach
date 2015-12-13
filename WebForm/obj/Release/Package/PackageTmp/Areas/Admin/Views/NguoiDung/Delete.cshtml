@@ -1,0 +1,70 @@
+﻿@model Core.BIZ.NguoiDung
+
+@{
+    ViewBag.Title = "Xóa Người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <h3>Bạn có chắc muốn xóa Người dùng này?</h3>
+            @using (Html.BeginForm()) {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Xóa" class="btn btn-default" /> |
+                        @Html.ActionLink("Xem danh sách người dùng", "Index")
+                    </div>
+                }
+            <hr />
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaSoNguoiDung) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaSoNguoiDung)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenDayDu) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TenDayDu)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    @if (Model.DaiLy != null)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MaSoDaiLy) :
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MaSoDaiLy)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DaiLy.TenDaiLy) :
+                        </dt>
+
+                        <dd>
+                            @Html.ActionLink(Model.DaiLy.TenDaiLy,"Details","DaiLy",new { id = Model.MaSoDaiLy},null)
+                        </dd>
+                    }
+                </dl>
+            </div>
+
+                  </div>
+            </div>
+

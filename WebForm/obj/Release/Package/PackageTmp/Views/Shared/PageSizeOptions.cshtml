@@ -1,0 +1,29 @@
+﻿@{ 
+    int pageSize = (int)ViewData["PageSize"];
+    int totalItemCount = (int)ViewData["TotalItemCount"];
+}
+<select name="pageSize" id="inputPageSize" class="form-control" required="required">
+    @{
+        List<int> pageSizeList = new List<int> { 5, 10, 30, 50 };
+        foreach (int size in pageSizeList)
+        {
+            if (pageSize == size)
+            {
+                <option value="@size" selected> Hiển thị @size</option>
+            }
+            else
+            {
+                <option value="@size"> Hiển thị @size</option>
+            }
+        }
+        if (pageSize == totalItemCount)
+        {
+            <option value="@totalItemCount" selected> Hiển thị tất cả</option>
+        }
+        else
+        {
+            <option value="@totalItemCount"> Hiển thị tất cả</option>
+        }
+    }
+</select>
+

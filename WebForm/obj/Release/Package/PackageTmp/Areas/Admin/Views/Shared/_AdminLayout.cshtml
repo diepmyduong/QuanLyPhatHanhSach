@@ -1,0 +1,320 @@
+﻿@{
+    var currentCotroller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    var currentAction = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+    var currentUser = new NguoiDung();
+    var hoaDonChuaDuyet = 0;
+    var phieuXuatChuaDuyet = 0;
+    var thahToanTrongThang = 0;
+    if (ViewBag.currentUser != null)
+    {
+        currentUser = ViewBag.currentUser as NguoiDung;
+    }
+    if (ViewBag.HoaDonChuaDuyet != null)
+    {
+        hoaDonChuaDuyet = (int)ViewBag.HoaDonChuaDuyet;
+    }
+    if (ViewBag.PhieuXuatChuaDuyet != null)
+    {
+        phieuXuatChuaDuyet = (int)ViewBag.PhieuXuatChuaDuyet;
+    }
+    if (ViewBag.ThanhToanTrongThang != null)
+    {
+        thahToanTrongThang = (int)ViewBag.ThanhToanTrongThang;
+    }
+    if(currentCotroller != "Sach" && currentAction != "Index")
+    {
+        Session[Core.Constants.TEMPDATA.BOOKS] = null;
+    }
+
+}
+@using Core.BIZ
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Admin</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/sb-admin.css")
+    @Styles.Render("~/Content/font-awesome/css/font-awesome.min.css")
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
+
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Home", new { area = "" })">FAHASA</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                @*<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>@currentUser.TenDayDu</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-footer">
+                            <a href="#">Read All New Messages</a>
+                        </li>
+                    </ul>
+                </li>*@
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown" style="min-width:250px">
+                        <li>
+                            <a href="@Url.Action("All","ThanhToanDaiLy",new
+                                {
+                                    search = String.Format("{{ {0} = chưa duyệt }}", nameof(Core.DAL.HoaDonDaiLyManager.Properties.TrangThai))
+                                })">
+                                    Hóa đơn chưa duyệt <span class="label label-default">@hoaDonChuaDuyet</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("All","PhieuXuat",new
+                                {
+                                    search = String.Format("{{ {0} = chưa duyệt }}", nameof(Core.DAL.PhieuXuatManager.Properties.TrangThai))
+                                })">
+                                Phiếu xuất chưa duyệt <span class="label label-primary">@phieuXuatChuaDuyet</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("All","ThanhToanDaiLy",new
+                                {
+                                    search = String.Format("{{ {0} = đã duyệt }} {{ {1} = {2} }}",
+                                                    nameof(Core.DAL.HoaDonDaiLyManager.Properties.TrangThai),
+                                                    nameof(Core.DAL.HoaDonDaiLyManager.Properties.NgayLap),
+                                                    String.Format("{0:yyyy/MM}",DateTime.Now))
+                                })">
+                                Mới thanh toán <span class="label label-success">@thahToanTrongThang</span>
+                            </a>
+                        </li>
+                        @*<li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>*@
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @currentUser.TenDayDu <b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="min-width: 200px">
+                        <li>
+                            <a href="@Url.Action("Index","Manager",new { area = "" })"><i class="fa fa-fw fa-user"></i> Thông tin cá nhân</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@Url.Action("Logout","Account",new { area = "" }) "><i class="fa fa-fw fa-power-off"></i> Đăng xuất</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse ">
+                <ul class="nav navbar-nav side-nav scrollbar-style scrollbar">
+                    <li class="@if (currentCotroller == "Sach"
+                                || currentCotroller == "LinhVuc") { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#sach"><i class="fa fa-fw fa-book"></i> Sách <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="sach" class="collapse">
+                            <li>
+                                @Html.ActionLink("Xem danh mục sách", "Index", "Sach", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thêm Sách", "Create", "Sach", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Xem danh mục lĩnh vực", "Index", "LinhVuc", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="@if (currentCotroller == "NhaXuatBan"
+                                || (currentCotroller == "CongNoNXB" && currentAction == "TheoDoi")
+                                || (currentCotroller == "ThanhToanNXB" && currentAction == "ThanhToan")
+                                || (currentCotroller == "All" && currentAction == "PhieuNhap")) { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#nha-xuat-ban"><i class="fa fa-fw fa-group"></i> Nhà xuất bản <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="nha-xuat-ban" class="collapse">
+                            <li>
+                                @Html.ActionLink("Xem danh mục NXB", "Index", "NhaXuatBan", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thêm Nhà xuất bản", "Create", "NhaXuatBan", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Theo dõi nợ", "TheoDoi", "CongNoNXB", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanNXB", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Theo dõi phiếu nhập", "All", "PhieuNhap", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="@if(currentCotroller == "DaiLy" 
+                                || (currentCotroller == "CongNoDaiLy" && currentAction == "TheoDoi")
+                                || (currentCotroller == "ThanhToanDaiLy" && currentAction == "ThanhToan")
+                                || (currentCotroller == "All" && currentAction == "PhieuXuat")) { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dai-ly"><i class="fa fa-fw fa-group"></i> Đại lý <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="dai-ly" class="collapse">
+                            <li>
+                                @Html.ActionLink("Xem danh mục Đại lý", "Index", "DaiLy", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thêm đại lý", "Create", "DaiLy", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Theo dõi nợ", "TheoDoi", "CongNoDaiLy", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thanh toán", "ThanhToan", "ThanhToanDaiLy", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Theo dõi phiếu xuất", "All", "PhieuXuat", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="@if(currentCotroller == "NguoiDung") { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#nguoi-dung"><i class="fa fa-fw fa-group"></i> Người dùng <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="nguoi-dung" class="collapse">
+                            <li>
+                                @Html.ActionLink("Xem danh mục Người dùng", "Index", "NguoiDung", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Thêm người dùng", "Create", "NguoiDung", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="@if(currentCotroller == "ThongKe" ) { @Html.Raw("active")}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#thong-ke"><i class="fa fa-fw fa-filter"></i> Thống kê <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="thong-ke" class="collapse">
+                            <li>
+                                @Html.ActionLink("Tồn kho", "TonKho", "ThongKe", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Doanh Thu", "DoanhThu", "ThongKe", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Sách bán", "SachBan", "ThongKe", null, null)
+                            </li>
+                            <li>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#cong-no">Công nợ <i class="fa fa-fw fa-caret-down"></i></a>
+                                <ul id="cong-no" class="collapse">
+                                    <li>
+                                        @Html.ActionLink("Đại lý", "CongNoDaiLy", "ThongKe", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Nhà xuất bản", "CongNoNXB", "ThongKe", null, null)
+                                    </li>
+                                </ul>
+                               
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+                
+                @RenderBody()
+                
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                </footer>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @if (IsSectionDefined("AddToFooter"))
+    {
+        @RenderSection("AddToFooter", required: false)
+    }
+    <script>
+        $(function () {
+            $("#inputPageSize").change(function (event) {
+
+                var newPageSize = $("#inputPageSize").val();
+                var url = '@Url.Action(currentAction, currentCotroller, null)?pageSize=' + newPageSize;
+                location.search
+                .substr(1)
+                    .split("&")
+                    .forEach(function (item) {
+                        tmp = item.split("=");
+                        if (tmp[0] !== "pageSize") {
+                            url += '&'+tmp[0]+"=" +decodeURIComponent(tmp[1]);
+                        }
+                    });
+                window.location.href = url;
+
+            });
+        });
+
+    </script>
+</body>
+</html>

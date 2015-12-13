@@ -1,0 +1,293 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Core.BIZ.Sach>
+
+@{
+    ViewBag.Title = "Sách bán";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int? startMonth = null, startYear = null, endMonth = null, endYear = null;
+    if (ViewBag.startDate != null)
+    {
+        startMonth = ((DateTime)ViewBag.startDate).Month;
+        startYear = ((DateTime)ViewBag.startDate).Year;
+    }
+    if (ViewBag.endDate != null)
+    {
+        endMonth = ((DateTime)ViewBag.endDate).Month;
+        endYear = ((DateTime)ViewBag.endDate).Year;
+    }
+    @section AddToHead{
+        <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
+        <script>
+            $(function() {
+            var availableTags = []
+            function getAutoCompleteSource(request) {
+                $.getJSON('@Url.Action("GetPropertiesSachBan")',{ request : request}, function (data) {
+                    availableTags = data;
+                });
+            }
+            function split( val ) {
+              return val.split( /{\s*/ );
+            }
+            function extractLast( term ) {
+              return split( term ).pop();
+            }
+            
+            $( "#search" )
+              // don't navigate away from the field on tab when selecting an item
+              .bind( "keydown", function( event ) {
+                if ( event.keyCode === $.ui.keyCode.TAB &&
+                    $( this ).autocomplete( "instance" ).menu.active ) {
+                  event.preventDefault();
+                }
+                if (event.shiftKey && event.keyCode == 219) {
+                    getAutoCompleteSource($(this).val()+"{");
+                }
+              })
+              .autocomplete({
+                minLength: 0,
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                  response( $.ui.autocomplete.filter(
+                    availableTags, extractLast( request.term ) ) );
+                  console.log($.ui.autocomplete.filter(
+                    availableTags, extractLast( request.term ) ));
+                },
+                focus: function() {
+                  // prevent value inserted on focus
+                  return true;
+                },
+                select: function( event, ui ) {
+                  return false;
+                }
+              });
+          });
+        </script>
+    }
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            @Html.ActionLink("Thanh toán với Nhà xuất bản", "ThanhToan","ThanhToanNXB",null,null)
+      </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Thời gian theo dõi</h3>
+              </div>
+              <div class="panel-body">
+                    <form action="SachBan" method="GET" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="startDate" class="col-sm-5 control-label">Xem từ tháng :</label>
+                            <div class="col-sm-7">
+                                @if (ViewBag.startDate != null)
+                                {
+                                    var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.startDate);
+                                    <input type="month" name="startDate" id="startDate" class="form-control" value="@month" required="required" title="">
+                                }
+                                else
+                                {
+                                    <input type="month" name="startDate" id="startDate" class="form-control" value="" required="required" title="">
+                                }
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate" class="col-sm-5 control-label">Đến tháng :</label>
+                            <div class="col-sm-7">
+                                @if (ViewBag.endDate != null)
+                                {
+                                    var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.endDate);
+                                    <input type="month" name="endDate" id="endDate" class="form-control" value="@month" required="required" title="">
+                                }
+                                else
+                                {
+                                    <input type="month" name="endDate" id="endDate" class="form-control" value="" required="required" title="">
+                                }
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-sm-offset-5">
+                                <button type="submit" class="btn btn-primary">Xem</button>
+                            </div>
+                        </div>
+                    </form>
+              </div>
+        </div>
+        
+    </div>
+    @if (ViewBag.startDate != null){
+    <div class="col-md-8">
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Thống kê</h3>
+              </div>
+              <div class="panel-body">
+                    <div class="row">
+                        <h3 class="text-danger col-sm-6 text-right">Sách bán được :</h3>
+                        <h3 class="text-danger col-sm-6"><strong>@ViewBag.tongSoLuongBan</strong></h3>
+                    </div>
+                    <div class="row">
+                        <h3 class="text-danger col-sm-6 text-right">Tổng tiền :</h3>
+                        <h3 class="text-danger col-sm-6"><strong>@String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongTienBan)</strong></h3>\
+                    </div>
+              </div>
+        </div> 
+    </div>
+    }
+</div>
+@if (ViewBag.startDate != null)
+{
+    <div class="panel panel-primary">
+          <div class="panel-heading">
+                <h3 class="panel-title">Danh mục sách bán được</h3>
+          </div>
+          <div class="panel-body">
+                @using (Html.BeginForm("SachBan", "ThongKe", FormMethod.Get, new { @class = "form" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="row ">
+                        <div class="col-md-10 form-group input-group">
+                            @if (ViewBag.startDate != null)
+                            {
+                                var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.startDate);
+                                <input type="hidden" name="startDate" id="startDate" class="form-control" value="@month" required="required" title="">
+                            }
+                            @if (ViewBag.endDate != null)
+                            {
+                                var month = String.Format("{0:yyyy-MM}", (DateTime)ViewBag.endDate);
+                                <input type="hidden" name="endDate" id="endDate" class="form-control" value="@month" required="required" title="">
+                            }
+                            <input type="search" name="search" id="search" class="form-control" 
+                                   value="@{if (ViewBag.SearchKey != null)
+                                            {
+                                                @ViewBag.SearchKey;
+                                            }
+                                            }"
+                                   required="required" title="">
+
+                            <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+                        </div>
+                        <div class="col-md-2">
+                        @Html.Partial("~/Views/Shared/PageSizeOptions.cshtml", new ViewDataDictionary { { "PageSize", Model.PageSize }, { "TotalItemCount", Model.TotalItemCount } })
+                    </div>
+                    </div>
+                }
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Core.DAL.SachManager.Properties.MaSoSach
+                            </th>
+                            <th>
+                                @Core.DAL.SachManager.Properties.TenSach
+                            </th>
+                            <th>
+                                @Core.DAL.SachManager.Properties.TenTacGia
+                            </th>
+                            <th>
+                                @Core.DAL.SachManager.Properties.LinhVucSach
+                            </th>
+                            <th>
+                                @Core.DAL.SachManager.Properties.NXB
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Tiền bán
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaSoSach)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(item.TenSach, "Details", "Sach", new { id = item.MaSoSach }, null)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenTacGia)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(item.LinhVucSach.TenLinhVuc, "Details", "LinhVuc", new { id = item.MaSoLinhVuc }, null)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(item.NXB.TenNXB, "Details", "NhaXuatBan", new { id = item.MaSoNXB }, null)
+                                </td>
+                                <td>
+                                    @String.Format("{0:0}", item.TongSoLuongBanTheoThang)
+                                </td>
+                                <td>
+                                    @String.Format(ViewBag.cultureInfo, "{0:c}", item.TongTienBanTheoThang)
+                                </td>
+                                <td>
+                                    @*@Html.ActionLink("Sửa", "Edit", "Sach", new { id = item.MaSoSach }, null) |*@
+                                    @*@Html.ActionLink("Chi tiết", "LoNhapDetails", new { id = item.MaSoSach })*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot class="alert-info">
+                        <tr>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                                Tổng cộng
+                            </th>
+                            <th>
+                                @ViewBag.tongCongSoLuong
+                            </th>
+                            <th>
+                                @String.Format(ViewBag.cultureInfo, "{0:c}", ViewBag.tongCongTien)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    
+
+                </table>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-5">
+                        @Html.PagedListPager(Model,
+                                page => Url.Action("SachBan",
+                                    new {
+                                        page,
+                                        pageSize = Model.PageSize,
+                                        search = ViewBag.searchKey,
+                                        startDate = ViewBag.startDate,
+                                        endDate = ViewBag.endDate
+                                    }),
+                                PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-5">
+                        Đang xem từ @Model.FirstItemOnPage đến @Model.LastItemOnPage trong số @Model.TotalItemCount nội dung.
+                    </div>
+                </div>
+          </div>
+    </div>
+    
+}
+

@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+    List<ChiTietPhieuXuat> ShoppingCarts = new List<ChiTietPhieuXuat>();
+    if (Session[Core.Constants.SESSION.SHOPPING_CART] != null)
+    {
+        ShoppingCarts = Session[Core.Constants.SESSION.SHOPPING_CART] as List<ChiTietPhieuXuat>;
+    }
+}
+@using Core.BIZ
+
+<div class="col-md-3">
+    <div class="btn-group btn-group-cart">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="pull-right">
+                <i class="glyphicon glyphicon-shopping-cart"></i>
+            </span>
+            <span class="pull-right btn-cart-text">
+                Giỏ hàng: @ShoppingCarts.Sum(ct=> ct.SoLuong) sách
+            </span>
+            <span class="glyphicon glyphicon-triangle-bottom pull-left"></span>
+        </button>
+
+        <ul class="dropdown-menu cart-content" role="menu" style="z-index : 2000">
+            @if (ShoppingCarts.Count > 0)
+            {
+                foreach (var item in ShoppingCarts)
+                {
+                    <li>
+                        <a href="@Url.Action("Details","Product",new { id = item.MaSoSach })">
+                            <p><strong>@Html.DisplayFor(model => item.Sach.TenSach)</strong></p>
+                            <span>x @DataDisplayHelper.displayNumber(item.SoLuong) | @DataDisplayHelper.displayMoney(item.DonGia)</span>
+                        </a>
+                    </li>
+                                }
+
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="#">
+                                            <p><strong>Không có sách trong giỏ hàng</strong></p>
+                                        </a>
+                                    </li>
+                                }
+            <li class="divider"></li>
+            <li>
+                <a href="@Url.Action("ShoppingCart","Order",null)">
+                    Total: @DataDisplayHelper.displayMoney(ShoppingCarts.Sum(ct => ct.ThanhTien))
+                </a>
+            </li>
+        </ul>
+    </div><!-- btn-group Cart Box -->
+</div>
+

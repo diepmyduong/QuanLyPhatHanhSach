@@ -1,0 +1,103 @@
+﻿@using WebForm.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Đăng nhập";
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
+        <script>
+            $(function() {
+                var _txtUsername = $('#@Core.Constants.ID.USERNAME');
+                var _txtPassword = $('#@Core.Constants.ID.PASSWORD');
+                var patt = /[*~!./;;,\\\[\]{}<>]/; //ký tự đặc biệt
+
+                $('#loginForm').submit(function(event) {
+                    var username = _txtUsername.val();
+                    var password = _txtPassword.val();
+                    if(username == null || username == ""){
+                        alert("Chưa điền tên đăng nhập");
+                        return event.preventDefault();
+                    }
+                    if (password == null || password == "") {
+                        alert("Chưa điền mật khẩu");
+                        return event.preventDefault();
+                    }
+                    if(patt.test(username) || patt.test(password)){
+                        alert("Không được phép nhập ký tự đặc biệt");
+                        return event.preventDefault();
+                    }
+                });
+
+                $('.main-container').removeClass('main-container')
+            });
+
+        </script>
+    }
+}
+<div class="container" style="min-height:500px">
+    @if (ViewBag.Errors != null)
+    {
+        <div class="row">
+            <div class="container">
+                <div class="panel panel-danger">
+                      <div class="panel-heading">
+                            <h3 class="panel-title">Thông báo</h3>
+                      </div>
+                      <div class="panel-body">
+                            @foreach(string error in ViewBag.Errors)
+                            {
+                                <p class="text-danger">Lỗi : @error</p>
+                            }
+                      </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="row">
+    <!-- Login main -->
+        <div class="col-md-offset-4">
+            
+            <div class="center-block login-form">
+                <div class="panel panel-default">
+                    <div class="panel-heading">@ViewBag.Title</div>
+                    <div class="panel-body">
+                        @using(Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form", id = "loginForm", role = "form" })){ 
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <div class="input-group login-input">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input type="text" name="@Core.Constants.ID.USERNAME" id="@Core.Constants.ID.USERNAME" class="form-control" placeholder="Tên đăng nhập">
+                                </div>
+                                <br>
+                                <div class="input-group login-input">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input name="@Core.Constants.ID.PASSWORD" id="@Core.Constants.ID.PASSWORD" type="password" class="form-control" placeholder="Mật khẩu" pattern=".{0}|.{6,12}">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="@Core.Constants.ID.REMEBER_LOGIN" name="@Core.Constants.ID.REMEBER_LOGIN"> Lưu đăng nhập lần sau
+                                    </label>
+                                </div>
+                                <button type="submit" id="login" class="btn btn-sm btn-primary pull-left">Đăng nhập</button>
+                                <br />
+                                <hr>
+                                <a href="@Url.Action("Register")" class="btn btn-success btn-sm pull-left">Dặng ký</a>
+                                <a href="#" class="btn btn-warning btn-sm">Quên mật khẩu</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- End Login page -->
+
+    
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

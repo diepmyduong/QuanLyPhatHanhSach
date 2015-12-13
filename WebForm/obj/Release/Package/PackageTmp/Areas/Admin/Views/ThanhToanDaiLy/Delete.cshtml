@@ -1,0 +1,114 @@
+﻿@model Core.BIZ.HoaDonDaiLy
+
+@{
+    ViewBag.Title = "Xóa hóa đơn";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <h3>Bạn có chắc là muốn xóa Hóa đơn này?</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-default" /> |
+                    @Html.ActionLink("Trở lại danh sách", "All")
+                </div>
+            }
+      </div>
+</div>
+<div class="panel panel-info">
+      <div class="panel-heading">
+            <h3 class="panel-title">Thông tin hóa đơn</h3>
+      </div>
+      <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MaSoHoaDon)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MaSoHoaDon)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DaiLy)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DaiLy.TenDaiLy)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NgayLap)
+                        </dt>
+
+                        <dd>
+                            @String.Format("{0:dd/MM/yyyy}", Model.NgayLap)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TrangThai)
+                        </dt>
+
+                        <dd>
+                            @if (Model.TrangThai == 0)
+                            {
+                                <strong class="text-danger">Chưa duyệt</strong>
+                            }
+                            else
+                            {
+                                <strong class="text-success">Đã duyệt</strong>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-8 text-center">
+                    <h2 class="text-danger">@Core.DAL.HoaDonDaiLyManager.Properties.TongTien</h2>
+                    <h2 class="text-danger">
+                        @String.Format(ViewBag.cultureInfo, "{0:c}", Model.TongTien)
+                    </h2>
+                </div>
+            </div>
+      </div>
+</div>
+<div class="panel panel-primary">
+      <div class="panel-heading">
+            <h3 class="panel-title">Chi tiết</h3>
+      </div>
+      <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Core.DAL.HoaDonDaiLyManager.ChiTiet.Properties.MaSoSach
+                    </th>
+                    <th>
+                        @Core.DAL.HoaDonDaiLyManager.ChiTiet.Properties.Sach
+                    </th>
+                    <th>
+                        @Core.DAL.SachManager.Properties.TenTacGia
+                    </th>
+                    <th>
+                        @Core.DAL.HoaDonDaiLyManager.ChiTiet.Properties.SoLuong
+                    </th>
+                    <th>
+                        @Core.DAL.HoaDonDaiLyManager.ChiTiet.Properties.DonGia
+                    </th>
+                    <th>
+                        @Core.DAL.HoaDonDaiLyManager.ChiTiet.Properties.ThanhTien
+                    </th>
+                </tr>
+                @foreach (var item in Model.ChiTiet)
+                {
+                    Html.RenderPartial("ChiTietRow", item);
+                }
+            </table>
+      </div>
+</div>

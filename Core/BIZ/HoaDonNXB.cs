@@ -164,6 +164,7 @@ namespace Core.BIZ
                         if (!CongNoNXBManager.edit(ct.Sach.CongNoNXB[index]))
                             return false;
                     }
+                    index++;
                 }
                 ct.TrangThai = 1;
             }

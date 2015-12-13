@@ -1,0 +1,117 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @section AddToHead{
+        <link href="@Url.Content("~/Content/JQueryUI/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/bootstrap-touchspin/jquery.bootstrap-touchspin.css")" rel="stylesheet" type="text/css" />
+    }
+    @section AddToFooter{
+        <script src="@Url.Content("~/Content/bootstrap-touchspin/jquery.bootstrap-touchspin.js")"></script>
+        <script>
+            $("input.soluong").TouchSpin({
+                initval: 1,
+                min: 0,
+                max: 9999
+            });
+            $('.soluong').focus(function(event) {
+                    $(this).attr('oldvalue', $(this).val());
+                });
+                $('.soluong').change(function (event) {
+                    var chiTietRow = $(this).parents("tr:first")
+                    var preMaso = chiTietRow.attr('class');
+                    var oldvalue = $(this).attr('oldvalue');
+                    var soluong = $(this).val();
+                    var max  = $(this).attr('max');
+                    if(!$.isNumeric(soluong)){
+                        alert('Chỉ được phép nhập số');
+                        $(this).val(oldvalue);
+                    }else if(soluong == "0"){
+                        chiTietRow.find('.xoaChiTiet').click();
+                    } else {
+                        if(parseInt(soluong) > parseInt(max)){
+                            alert('Vượt quá số lượng hiện có của sách ! Số lượng còn tồn là '+max);
+                            $(this).val(max);
+                            if(max == "0"){
+                                chiTietRow.find('.xoaChiTiet').click();
+                            }
+                            soluong = max;
+                        }
+                        $.ajax({
+                            url: '@Url.Action("ChangeDetailRow", "Order")?masosach=' + preMaso + '&soluong='+soluong,
+                            cache: false,
+                            success: function (html) { location.reload(); }
+                        });
+                        
+                    }
+                });
+            $('.xoaChiTiet').click(function() {
+                    $(this).parents("tr:first").remove();
+                    $.ajax({
+                        url: this.href,
+                        cache: false,
+                        success: function (html) { location.reload(); }
+                    });
+                    
+                    return false;
+                    
+                });
+        </script>
+    }
+}
+@model Core.BIZ.PhieuXuat
+@using Core.BIZ
+
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-12">
+        <!-- Best Seller -->
+        @Html.Partial("~/Views/Shared/BestSell.cshtml")
+        <!-- End Best Seller -->
+
+    </div>
+
+    <div class="clearfix visible-sm"></div>
+
+    <!-- Cart -->
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        @Html.Partial("~/Views/Shared/Alert.cshtml")
+        <div class="col-lg-12 col-sm-12">
+            <span class="title">Liên hệ chúng tôi</span>
+        </div>
+        <div class="col-lg-12 col-sm-12 hero-feature">
+            <table class="table table-bordered tbl-checkout">
+                <tbody>
+                    <tr>
+                        <td>Họ và tên</td>
+                        <td>
+                            <input type="text" name="" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>
+                            <input type="text" name="" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Điện thoại</td>
+                        <td>
+                            <input type="text" name="" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nội dung</td>
+                        <td colspan="3">
+                            <textarea name="" class="form-control" rows="5"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn-group btns-cart">
+                <button type="button" class="btn btn-primary">Gửi</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Cart -->
+
+
+</div>

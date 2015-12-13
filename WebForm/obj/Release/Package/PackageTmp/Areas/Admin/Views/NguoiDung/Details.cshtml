@@ -1,0 +1,81 @@
+﻿@model Core.BIZ.NguoiDung
+
+@{
+    ViewBag.Title = "Xem Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/Alert.cshtml")
+<div class="panel panel-default">
+      <div class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+      </div>
+      <div class="panel-body">
+            <div>
+                <h4>Người dùng</h4>
+                <p>
+                    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSoNguoiDung }) |
+                    @Html.ActionLink("Xem danh sách người dùng", "Index")
+                </p>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaSoNguoiDung) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaSoNguoiDung)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenDayDu) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TenDayDu)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email) :
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PhanQuyen) :
+                    </dt>
+
+                    <dd>
+                        @if (Model.isAdmin())
+                        {
+                            @Core.DAL.NguoiDungManager.Roles.admin
+                        }
+                        else
+                        {
+                            @Core.DAL.NguoiDungManager.Roles.daily
+                        }
+
+                    </dd>
+                    @if (Model.DaiLy != null)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MaSoDaiLy) :
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MaSoDaiLy)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DaiLy.TenDaiLy) :
+                        </dt>
+
+                        <dd>
+                            @Html.ActionLink(Model.DaiLy.TenDaiLy, "Details", "DaiLy", new { id = Model.MaSoDaiLy }, null)
+                        </dd>
+                    }
+                </dl>
+            </div>
+
+      </div>
+</div>
+

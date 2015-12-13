@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+@using Core.BIZ;
+@model Core.BIZ.Sach
+
+
+<div class="col-lg-4 col-sm-4 text-center product">
+
+    <div class="thumbnail">
+        <a href="@Url.Action("Details","Product",new { id = Model.MaSoSach })">
+            @if (Model.HinhAnh == null)
+            {
+                <img src="http://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/k/h/khu-vuon-bi-mat_1.jpg" width="240" height="210">
+            }
+            else
+            {
+                <img src="@ImagesHelper.ImageToDataBase64String(Model.HinhAnhTypeImage)" width="240" height="210">
+            }
+        </a>
+        <div class="caption prod-caption">
+            <h4>
+                <a href="@Url.Action("Details","Product",new { id = Model.MaSoSach })">
+                    @Model.TenSach
+                </a>
+            </h4>
+            <p>
+                @Model.MoTa
+            </p>
+            <div class="btn-group btn-group-justified">
+                <a href="@Url.Action("Details","Product",new { id = Model.MaSoSach })" class="btn btn-default">@DataDisplayHelper.displayMoney(Model.GiaBan)</a>
+                <a href="@Url.Action("AddToCart","Order",new { id = Model.MaSoSach })" class="btn btn-primary  add-cart">
+                    <span class="glyphicon glyphicon-shopping-cart "></span>
+                    Mua
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
