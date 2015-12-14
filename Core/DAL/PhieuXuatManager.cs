@@ -75,6 +75,18 @@ namespace Core.DAL
                 return linqQuery.ToList();
             }
         }
+        public static List<PhieuXuat> getUnaproved()
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from phieu in db.PHIEUXUATs
+                                join daily in db.DAILies
+                                on phieu.masodaily equals daily.masodaily
+                                where phieu.trangthai == 0
+                                select new PhieuXuat(phieu, daily);
+                return linqQuery.ToList();
+            }
+        }
 
         public static List<PhieuXuat> filter(string request, List<PhieuXuat> DMPhieuXuat)
         {

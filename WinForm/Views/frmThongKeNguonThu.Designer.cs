@@ -37,13 +37,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lbTongTienThu = new System.Windows.Forms.Label();
             this.txbLoc = new System.Windows.Forms.TextBox();
-            this.btLoc = new System.Windows.Forms.Button();
             this.gdvHoaDon = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
             this.cmbStartYear = new System.Windows.Forms.ComboBox();
             this.cmbStartMonth = new System.Windows.Forms.ComboBox();
-            this.btnChiTiet = new System.Windows.Forms.Button();
+            this.btLoc = new System.Windows.Forms.Button();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvHoaDon)).BeginInit();
@@ -81,7 +80,6 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbStartYear, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmbStartMonth, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.btLoc, 4, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btnChiTiet, 5, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -178,18 +176,6 @@
             this.txbLoc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbLoc_KeyDown);
             this.txbLoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbLoc_KeyPress);
             // 
-            // btLoc
-            // 
-            this.btLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btLoc.Location = new System.Drawing.Point(535, 123);
-            this.btLoc.Name = "btLoc";
-            this.btLoc.Size = new System.Drawing.Size(108, 23);
-            this.btLoc.TabIndex = 17;
-            this.btLoc.Text = "Lọc";
-            this.btLoc.UseVisualStyleBackColor = true;
-            this.btLoc.UseWaitCursor = true;
-            this.btLoc.Click += new System.EventHandler(this.btLoc_Click);
-            // 
             // gdvHoaDon
             // 
             this.gdvHoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -241,16 +227,17 @@
             this.cmbStartMonth.TabIndex = 10;
             this.cmbStartMonth.SelectedIndexChanged += new System.EventHandler(this.cmbStartMonth_SelectedIndexChanged);
             // 
-            // btnChiTiet
+            // btLoc
             // 
-            this.btnChiTiet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChiTiet.Location = new System.Drawing.Point(649, 123);
-            this.btnChiTiet.Name = "btnChiTiet";
-            this.btnChiTiet.Size = new System.Drawing.Size(112, 23);
-            this.btnChiTiet.TabIndex = 20;
-            this.btnChiTiet.Text = "Xem chi tiết";
-            this.btnChiTiet.UseVisualStyleBackColor = true;
-            this.btnChiTiet.Click += new System.EventHandler(this.btnChiTiet_Click);
+            this.btLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btLoc.Location = new System.Drawing.Point(535, 123);
+            this.btLoc.Name = "btLoc";
+            this.btLoc.Size = new System.Drawing.Size(108, 23);
+            this.btLoc.TabIndex = 17;
+            this.btLoc.Text = "Lọc";
+            this.btLoc.UseVisualStyleBackColor = true;
+            this.btLoc.UseWaitCursor = true;
+            this.btLoc.Click += new System.EventHandler(this.btLoc_Click);
             // 
             // frmThongKeNguonThu
             // 
@@ -289,6 +276,5 @@
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.ComboBox cmbStartYear;
         private System.Windows.Forms.ComboBox cmbStartMonth;
-        private System.Windows.Forms.Button btnChiTiet;
     }
 }

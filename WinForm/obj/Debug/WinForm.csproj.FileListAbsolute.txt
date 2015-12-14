@@ -35,3 +35,202 @@ C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonThu.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeSachBan.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietLoNhap.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe.config
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.exe
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.pdb
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.pdb
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.dll
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.pdb
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Properties.Resources.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoDaiLy.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoNXB.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonDaiLy.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonNXB.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietLoNhap.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoDaiLy.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoNXB.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucDaiLy.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucNXB.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucSach.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuNhap.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuXuat.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmMain.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanDaiLy.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemDaiLy.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemLinhVuc.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemNXB.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemSach.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanNXB.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeCongNo.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeDoanhThu.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoNhap.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoXuat.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonChi.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonThu.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeSachBan.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeTonKho.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.FrmDanhMucPhieuNhap.resources
+C:\Users\huy\Desktop\D4\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.FrmDanhMucPhieuXuat.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe.config
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.exe
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.pdb
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Properties.Resources.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoDaiLy.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoNXB.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonDaiLy.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonNXB.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietLoNhap.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoDaiLy.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoNXB.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucDaiLy.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucNXB.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.FrmDanhMucPhieuNhap.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.FrmDanhMucPhieuXuat.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucSach.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuNhap.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuXuat.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmMain.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanDaiLy.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemDaiLy.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemLinhVuc.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemNXB.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemSach.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanNXB.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeCongNo.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeDoanhThu.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoNhap.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoXuat.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonChi.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonThu.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeSachBan.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeTonKho.resources
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.pdb
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.dll
+C:\Users\huy\Desktop\D4 - Copy\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.pdb
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe.config
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.exe
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.pdb
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Properties.Resources.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoDaiLy.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoNXB.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonDaiLy.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonNXB.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietLoNhap.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoDaiLy.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoNXB.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucDaiLy.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucNXB.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucSach.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuNhap.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuXuat.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmMain.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanDaiLy.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemDaiLy.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemLinhVuc.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemNXB.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemSach.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanNXB.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeCongNo.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeDoanhThu.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoNhap.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoXuat.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonChi.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonThu.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeSachBan.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeTonKho.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.pdb
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.dll
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.pdb
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.FrmDanhMucPhieuNhap.resources
+C:\Users\huy\Desktop\DoAn\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.FrmDanhMucPhieuXuat.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe.config
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.exe
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.pdb
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Properties.Resources.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoDaiLy.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoNXB.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonDaiLy.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonNXB.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietLoNhap.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoDaiLy.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoNXB.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucDaiLy.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucNXB.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.FrmDanhMucPhieuNhap.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.FrmDanhMucPhieuXuat.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucSach.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuNhap.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuXuat.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmMain.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanDaiLy.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemDaiLy.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemLinhVuc.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemNXB.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemSach.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanNXB.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeCongNo.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeDoanhThu.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoNhap.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoXuat.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonChi.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonThu.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeSachBan.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeTonKho.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.pdb
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.dll
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.pdb
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucHoaDonNXB.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucHoaDonDaiLy.resources
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\bin\Debug\itextsharp.dll
+C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\WinForm\bin\Debug\itextsharp.xml
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe.config
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.exe
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.pdb
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Properties.Resources.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoDaiLy.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietCongNoNXB.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonDaiLy.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietHoaDonNXB.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmChiTietLoNhap.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoDaiLy.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmCongNoNXB.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucDaiLy.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucNXB.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmDanhMucSach.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuNhap.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmLapPhieuXuat.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmMain.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanDaiLy.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemDaiLy.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemLinhVuc.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemNXB.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThemSach.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThanhToanNXB.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeCongNo.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeDoanhThu.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoNhap.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeLoXuat.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonChi.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeNguonThu.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeSachBan.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.Views.frmThongKeTonKho.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.exe
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\bin\Debug\WinForm.pdb
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.dll
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\WinForm\bin\Debug\Core.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\bin\Debug\itextsharp.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\WinForm\bin\Debug\itextsharp.xml

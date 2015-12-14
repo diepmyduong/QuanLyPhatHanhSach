@@ -40,15 +40,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lbTongTien = new System.Windows.Forms.Label();
             this.gdvChiTiet = new System.Windows.Forms.DataGridView();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnThoat = new System.Windows.Forms.Button();
-            this.btnLuu = new System.Windows.Forms.Button();
-            this.txbNguoiGiao = new System.Windows.Forms.TextBox();
-            this.MaSoSach = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TenSach = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThanhTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnThoat = new System.Windows.Forms.Button();
+            this.btnLuu = new System.Windows.Forms.Button();
+            this.txbNguoiGiao = new System.Windows.Forms.TextBox();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvChiTiet)).BeginInit();
@@ -154,6 +153,7 @@
             this.cmbNhaXuatBan.Size = new System.Drawing.Size(337, 21);
             this.cmbNhaXuatBan.TabIndex = 5;
             this.cmbNhaXuatBan.SelectedIndexChanged += new System.EventHandler(this.cmbNhaXuatBan_SelectedIndexChanged);
+            this.cmbNhaXuatBan.SelectionChangeCommitted += new System.EventHandler(this.cmbNhaXuatBan_SelectionChangeCommitted);
             // 
             // dtpNgayLap
             // 
@@ -194,7 +194,6 @@
             this.gdvChiTiet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gdvChiTiet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.MaSoSach,
             this.TenSach,
             this.SoLuong,
             this.DonGia,
@@ -206,6 +205,32 @@
             this.gdvChiTiet.Size = new System.Drawing.Size(758, 365);
             this.gdvChiTiet.TabIndex = 10;
             this.gdvChiTiet.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gdvChiTiet_EditingControlShowing);
+            this.gdvChiTiet.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdvChiTiet_RowEnter);
+            // 
+            // TenSach
+            // 
+            this.TenSach.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.TenSach.HeaderText = "Tên Sách";
+            this.TenSach.Name = "TenSach";
+            this.TenSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TenSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // SoLuong
+            // 
+            this.SoLuong.HeaderText = "Số lượng";
+            this.SoLuong.Name = "SoLuong";
+            // 
+            // DonGia
+            // 
+            this.DonGia.HeaderText = "Đơn Giá";
+            this.DonGia.Name = "DonGia";
+            this.DonGia.ReadOnly = true;
+            // 
+            // ThanhTien
+            // 
+            this.ThanhTien.HeaderText = "Thành Tiền";
+            this.ThanhTien.Name = "ThanhTien";
+            this.ThanhTien.ReadOnly = true;
             // 
             // flowLayoutPanel1
             // 
@@ -247,39 +272,6 @@
             this.txbNguoiGiao.Size = new System.Drawing.Size(337, 20);
             this.txbNguoiGiao.TabIndex = 12;
             // 
-            // MaSoSach
-            // 
-            this.MaSoSach.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.MaSoSach.HeaderText = "Mã Số Sách";
-            this.MaSoSach.Name = "MaSoSach";
-            this.MaSoSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.MaSoSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // TenSach
-            // 
-            this.TenSach.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.TenSach.HeaderText = "Tên Sách";
-            this.TenSach.Name = "TenSach";
-            this.TenSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TenSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // SoLuong
-            // 
-            this.SoLuong.HeaderText = "Số lượng";
-            this.SoLuong.Name = "SoLuong";
-            // 
-            // DonGia
-            // 
-            this.DonGia.HeaderText = "Đơn Giá";
-            this.DonGia.Name = "DonGia";
-            this.DonGia.ReadOnly = true;
-            // 
-            // ThanhTien
-            // 
-            this.ThanhTien.HeaderText = "Thành Tiền";
-            this.ThanhTien.Name = "ThanhTien";
-            this.ThanhTien.ReadOnly = true;
-            // 
             // frmLapPhieuNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -318,7 +310,6 @@
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Button btnLuu;
         private System.Windows.Forms.TextBox txbNguoiGiao;
-        private System.Windows.Forms.DataGridViewComboBoxColumn MaSoSach;
         private System.Windows.Forms.DataGridViewComboBoxColumn TenSach;
         private System.Windows.Forms.DataGridViewTextBoxColumn SoLuong;
         private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;

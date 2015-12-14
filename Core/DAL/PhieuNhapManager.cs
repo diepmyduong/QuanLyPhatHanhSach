@@ -35,6 +35,19 @@ namespace Core.DAL
                 return linqQuery.ToList();
             }
         }
+
+        public static List<PhieuNhap> getUnaproved()
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from phieu in db.PHIEUNHAPs
+                                join nxb in db.NXBs
+                                on phieu.masonxb equals nxb.masonxb
+                                where phieu.trangthai == 0
+                                select new PhieuNhap(phieu, nxb);
+                return linqQuery.ToList();
+            }
+        }
         public static PhieuNhap find(int masophieunhap)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())

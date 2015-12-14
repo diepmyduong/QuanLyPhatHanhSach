@@ -6,3 +6,5 @@ C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\obj
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\obj\Debug\Core.pdb
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\obj\Debug\Core.Properties.Resources.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\obj\Debug\Core.csproj.GenerateResource.Cache
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\bin\Debug\itextsharp.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\bin\Debug\itextsharp.xml

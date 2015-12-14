@@ -43,7 +43,6 @@
             this.cmbStartYear = new System.Windows.Forms.ComboBox();
             this.cmbStartMonth = new System.Windows.Forms.ComboBox();
             this.btLoc = new System.Windows.Forms.Button();
-            this.btnChiTiet = new System.Windows.Forms.Button();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvHoaDon)).BeginInit();
@@ -81,7 +80,6 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbStartYear, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmbStartMonth, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.btLoc, 4, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btnChiTiet, 5, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -241,17 +239,6 @@
             this.btLoc.UseWaitCursor = true;
             this.btLoc.Click += new System.EventHandler(this.btLoc_Click);
             // 
-            // btnChiTiet
-            // 
-            this.btnChiTiet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChiTiet.Location = new System.Drawing.Point(649, 123);
-            this.btnChiTiet.Name = "btnChiTiet";
-            this.btnChiTiet.Size = new System.Drawing.Size(112, 23);
-            this.btnChiTiet.TabIndex = 20;
-            this.btnChiTiet.Text = "Xem chi tiết";
-            this.btnChiTiet.UseVisualStyleBackColor = true;
-            this.btnChiTiet.Click += new System.EventHandler(this.btnChiTiet_Click);
-            // 
             // frmThongKeNguonChi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,6 +276,5 @@
         private System.Windows.Forms.ComboBox cmbStartYear;
         private System.Windows.Forms.ComboBox cmbStartMonth;
         private System.Windows.Forms.Button btLoc;
-        private System.Windows.Forms.Button btnChiTiet;
     }
 }

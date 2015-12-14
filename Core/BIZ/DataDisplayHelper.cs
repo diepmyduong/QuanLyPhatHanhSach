@@ -32,5 +32,15 @@ namespace Core.BIZ
         {
             return String.Format("{0:0}", number);
         }
+
+        public static string dislayShortDate(DateTime date)
+        {
+            return String.Format("{0:dd/MM/yyyy}", date);
+        }
+
+        public static string dislayMonth(DateTime date)
+        {
+            return String.Format("{0:MM/yyyy}", date);
+        }
     }
 }

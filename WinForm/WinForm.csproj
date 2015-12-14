@@ -79,6 +79,12 @@
     <Compile Include="Views\frmChiTietLoNhap.Designer.cs">
       <DependentUpon>frmChiTietLoNhap.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmChiTietLoXuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmChiTietLoXuat.Designer.cs">
+      <DependentUpon>frmChiTietLoXuat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmCongNoDaiLy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,11 +103,35 @@
     <Compile Include="Views\frmDanhMucDaiLy.Designer.cs">
       <DependentUpon>frmDanhMucDaiLy.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmDanhMucHoaDonDaiLy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmDanhMucHoaDonDaiLy.Designer.cs">
+      <DependentUpon>frmDanhMucHoaDonDaiLy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmDanhMucHoaDonNXB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmDanhMucHoaDonNXB.Designer.cs">
+      <DependentUpon>frmDanhMucHoaDonNXB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmDanhMucNXB.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmDanhMucNXB.Designer.cs">
       <DependentUpon>frmDanhMucNXB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FrmDanhMucPhieuNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmDanhMucPhieuNhap.Designer.cs">
+      <DependentUpon>FrmDanhMucPhieuNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FrmDanhMucPhieuXuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmDanhMucPhieuXuat.Designer.cs">
+      <DependentUpon>FrmDanhMucPhieuXuat.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmDanhMucSach.cs">
       <SubType>Form</SubType>

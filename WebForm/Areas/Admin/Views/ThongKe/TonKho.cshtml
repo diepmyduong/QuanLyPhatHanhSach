@@ -10,6 +10,7 @@
     }
     @section AddToFooter{
         <script src="@Url.Content("~/Content/JQueryUI/jquery-ui.min.js")"></script>
+        @*<script src="@Url.Content("~/Content/bootstrap-touchspin/bootbox.js")"></script>*@
         <script>
             $(function() {
             var availableTags = []
@@ -53,6 +54,11 @@
                   return false;
                 }
               });
+            
+            $("#print").click(function (event) {
+                $('#myform').submit();
+            });
+
           });
         </script>
     }
@@ -63,10 +69,19 @@
             <h3 class="panel-title">@ViewBag.Title</h3>
       </div>
       <div class="panel-body">
+          @using (Html.BeginForm("TonKho", "Printer",new { date = ViewBag.currentDate }, FormMethod.Post, new { id = "myform" }))
+          {
             <p>
                 @Html.ActionLink("Xem lô nhập","LoNhap") | 
                 @Html.ActionLink("Xem lô xuất","LoXuat")
+                @if (ViewBag.currentDate != null)
+                {
+                    <span> | </span><a href="#" id="print">In báo cáo</a>
+
+                    //Html.ActionLink("In báo cáo", "TonKho", "Printer", new { date = ViewBag.currentDate }, new { id = "print" });
+                }
             </p>
+          }
       </div>
 </div>
 <div class="panel panel-info">

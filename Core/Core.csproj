@@ -45,6 +45,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.8\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -74,6 +78,7 @@
     <Compile Include="BIZ\NhaXuatBan.cs" />
     <Compile Include="BIZ\PhieuNhap.cs" />
     <Compile Include="BIZ\PhieuXuat.cs" />
+    <Compile Include="BIZ\PrintHelper.cs" />
     <Compile Include="BIZ\Sach.cs" />
     <Compile Include="BIZ\LinhVuc.cs" />
     <Compile Include="BIZ\TheKho.cs" />
@@ -136,6 +141,7 @@
       <LastGenOutput>Entities.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

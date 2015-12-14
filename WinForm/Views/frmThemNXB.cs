@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Core.BIZ;
+using Core.DAL;
 
 namespace WinForm.Views
 {
@@ -31,7 +33,24 @@ namespace WinForm.Views
         //Khi Chọn Thêm
         private void btnThem_Click(object sender, EventArgs e)
         {
-            
+            if (!txbTenNXB.Text.Equals("") && !txbDiaChi.Text.Equals("") && !txbSoDienThoai.Text.Equals("") && !txbSoTaiKhoan.Text.Equals(""))
+            {
+                NhaXuatBan nxb = new NhaXuatBan();
+                nxb.TenNXB = txbTenNXB.Text.ToString();
+                nxb.DiaChi = txbDiaChi.Text.ToString();
+                nxb.SoDienThoai = txbSoDienThoai.Text.ToString();
+                nxb.SoTaiKhoan = txbSoTaiKhoan.Text.ToString();
+               
+                    if (NhaXuatBanManager.add(nxb) != 0)
+                        MessageBox.Show("Đã thêm nhà xuất bản thành công");
+                    else
+                        MessageBox.Show("Không thêm được");
+
+
+               
+            }
+            else
+                MessageBox.Show("Bạn cần nhập đầy đủ thuông tin");
         }
         //Khi Hủy Thêm
         private void btnThoat_Click(object sender, EventArgs e)
