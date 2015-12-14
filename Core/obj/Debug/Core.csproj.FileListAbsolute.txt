@@ -6,3 +6,11 @@ C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\obj
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\obj\Debug\Core.pdb
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\obj\Debug\Core.Properties.Resources.resources
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\QuanLyPhatHanhSach\Core\obj\Debug\Core.csproj.GenerateResource.Cache
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\Core\bin\Debug\Core.dll.config
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\Core\bin\Debug\Core.dll
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\Core\bin\Debug\Core.pdb
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\Core\obj\Debug\Core.Properties.Resources.resources
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\Core\obj\Debug\Core.csproj.GenerateResource.Cache
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\Core\obj\Debug\Core.dll
+C:\Users\huy\Desktop\FinalWeb\QuanLyPhatHanhSach\Core\obj\Debug\Core.pdb

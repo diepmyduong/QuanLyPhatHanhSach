@@ -48,7 +48,14 @@ namespace WinForm.Views
         //Khi chọn tải ảnh lên
         private void btnTaiAnh_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog ofile = new OpenFileDialog();
+            ofile.Filter = "jpg files (*.jpg)|*.jpg|All files (*.*)|*.*";
+            if (ofile.ShowDialog() == DialogResult.OK)
+            {
+                picHinhAnh.ImageLocation = ofile.FileName;
+                picHinhAnh.Size = new System.Drawing.Size(250, 200);
+                picHinhAnh.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
         }
         //Khi chọn tạo sách
         private void btnTao_Click(object sender, EventArgs e)
@@ -95,16 +102,24 @@ namespace WinForm.Views
                 GiaBan = Int32.Parse(txbGiaBan.Text),
                 GiaNhap = Int32.Parse(txbGiaNhap.Text),
                 HinhAnhTypeImage = picHinhAnh.Image,
+                
             };
             //Thêm vào database
-            var result = SachManager.add(_sach);
-            if (result != 0)
+            if (_sach.isExisted()==true)
+                MessageBox.Show("Tên sách đã tồn tại");
+            else
             {
-                MessageBox.Show("Tạo mới thành công");
-                reset();
-                return;
+                var result = SachManager.add(_sach);
+                if (result != 0)
+                {
+                    MessageBox.Show("Tạo mới thành công");
+                    reset();
+                    return;
+                }
+                else
+                    MessageBox.Show("Không thêm được sách");
             }
-            MessageBox.Show("Thông tin đã tồn tại");
+
         }
         //Khi chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)

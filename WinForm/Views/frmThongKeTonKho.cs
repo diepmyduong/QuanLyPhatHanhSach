@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.DAL;
 using Core.BIZ;
+using System.IO;
 
 namespace WinForm.Views
 {
@@ -79,5 +80,62 @@ namespace WinForm.Views
         }
         #endregion
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //PdfPTable pdfTable = new PdfPTable(gdvTheKho.ColumnCount);
+            //pdfTable.DefaultCell.Padding = 3;
+            //pdfTable.WidthPercentage = 30;
+            //pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
+            //pdfTable.DefaultCell.BorderWidth = 1;
+            //pdfTable.TotalWidth = 350f;
+            //pdfTable.LockedWidth = true;
+            //float[] widths = new float[] { 50f, 100f, 100f, 100f };
+            //pdfTable.SetWidths(widths);
+
+
+            ////Adding Header row
+            //foreach (DataGridViewColumn column in gdvTheKho.Columns)
+            //{
+            //    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
+            //    cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            //    pdfTable.AddCell(cell);
+            //}
+
+            ////Adding DataRow
+            //foreach (DataGridViewRow row in gdvTheKho.Rows)
+            //{
+            //    foreach (DataGridViewCell cell in row.Cells)
+            //    {
+            //        if (!String.IsNullOrEmpty(Convert.ToString(cell.Value)))
+            //            pdfTable.AddCell(cell.Value.ToString());
+            //    }
+            //}
+
+            ////Exporting to PDF
+            //string folderPath = @"C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\Report\";
+            //if (!Directory.Exists(folderPath))
+            //{
+            //    Directory.CreateDirectory(folderPath);
+            //}
+            //using (FileStream stream = new FileStream(folderPath + "data.pdf", FileMode.Create))
+            //{
+            //    Document pdfDoc = new Document(PageSize.A3,100f,100f,100f,0);
+            //    PdfWriter.GetInstance(pdfDoc, stream);
+            //    pdfDoc.Open();
+            //    var FontColour = new BaseColor(255, 0, 0);
+            //    var redListTextFont = FontFactory.GetFont("Arial", 28, FontColour);
+            //    Paragraph docTitle = new Paragraph("Thong ke ton kho ngay " + dtpNgayGhi.Value.Day + "-" + dtpNgayGhi.Value.Month + "-" + dtpNgayGhi.Value.Year + "\n", redListTextFont);
+            //    Paragraph docTitle1 = new Paragraph("Tong so luong sach  :" + lbTongLuongSach.Text + "\n", redListTextFont);
+            //    docTitle.Alignment = Element.ALIGN_CENTER;
+            //    docTitle1.Alignment = Element.ALIGN_CENTER;
+            //    pdfDoc.Add(docTitle);
+            //    pdfDoc.Add(docTitle1);
+            //    pdfDoc.Add(new Paragraph("\n"));
+            //    pdfDoc.Add(new Paragraph("\n"));
+            //    pdfDoc.Add(pdfTable);
+            //    pdfDoc.Close();
+            //    stream.Close();
+            //}
+        }
     }
 }

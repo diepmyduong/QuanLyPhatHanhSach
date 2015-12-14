@@ -37,6 +37,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lbTongTien = new System.Windows.Forms.Label();
             this.gdvChiTiet = new System.Windows.Forms.DataGridView();
+            this.TenSach = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TongTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
@@ -162,12 +166,48 @@
             // gdvChiTiet
             // 
             this.gdvChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gdvChiTiet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TenSach,
+            this.SoLuong,
+            this.DonGia,
+            this.TongTien});
             this.tableLayoutPanel1.SetColumnSpan(this.gdvChiTiet, 4);
             this.gdvChiTiet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gdvChiTiet.Location = new System.Drawing.Point(3, 123);
             this.gdvChiTiet.Name = "gdvChiTiet";
             this.gdvChiTiet.Size = new System.Drawing.Size(758, 365);
             this.gdvChiTiet.TabIndex = 10;
+            this.gdvChiTiet.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdvChiTiet_CellContentClick);
+            this.gdvChiTiet.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdvChiTiet_CellValueChanged);
+            this.gdvChiTiet.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gdvChiTiet_EditingControlShowing);
+            this.gdvChiTiet.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdvChiTiet_RowEnter);
+            // 
+            // TenSach
+            // 
+            this.TenSach.HeaderText = "Tên Sach";
+            this.TenSach.Name = "TenSach";
+            this.TenSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TenSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TenSach.Width = 210;
+            // 
+            // SoLuong
+            // 
+            this.SoLuong.HeaderText = "Số lượng";
+            this.SoLuong.Name = "SoLuong";
+            this.SoLuong.Width = 160;
+            // 
+            // DonGia
+            // 
+            this.DonGia.HeaderText = "Đơn Giá";
+            this.DonGia.Name = "DonGia";
+            this.DonGia.Width = 160;
+            // 
+            // TongTien
+            // 
+            this.TongTien.HeaderText = "Thành tiền";
+            this.TongTien.Name = "TongTien";
+            this.TongTien.ReadOnly = true;
+            this.TongTien.Width = 190;
             // 
             // flowLayoutPanel1
             // 
@@ -279,7 +319,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lbTongTien;
-        private System.Windows.Forms.DataGridView gdvChiTiet;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Button btnLuu;
@@ -288,5 +327,10 @@
         private System.Windows.Forms.DateTimePicker dtpNgayLap;
         private System.Windows.Forms.Button btnThemDaiLy;
         private System.Windows.Forms.TextBox txbNguoiNhan;
+        private System.Windows.Forms.DataGridView gdvChiTiet;
+        private System.Windows.Forms.DataGridViewComboBoxColumn TenSach;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SoLuong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TongTien;
     }
 }

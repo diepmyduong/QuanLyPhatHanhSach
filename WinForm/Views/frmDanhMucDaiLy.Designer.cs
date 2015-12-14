@@ -34,13 +34,13 @@
             this.txbSoDienThoai = new System.Windows.Forms.TextBox();
             this.btnCapNhat = new System.Windows.Forms.Button();
             this.txbDiaChi = new System.Windows.Forms.TextBox();
-            this.txbTenNXB = new System.Windows.Forms.TextBox();
+            this.txbTenDaiLy = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txbMaSoNXB = new System.Windows.Forms.TextBox();
+            this.txbMaSoDaiLy = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThemDaiLy = new System.Windows.Forms.Button();
             this.btnXemCongNo = new System.Windows.Forms.Button();
@@ -48,6 +48,8 @@
             this.gdvDMDaiLy = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txbNganHang = new System.Windows.Forms.TextBox();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -74,23 +76,26 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.txbSoTaiKhoan, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.txbSoDienThoai, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.btnCapNhat, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.btnCapNhat, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.txbDiaChi, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txbTenNXB, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txbTenDaiLy, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.txbMaSoNXB, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txbMaSoDaiLy, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnXoa, 2, 5);
-            this.tableLayoutPanel1.Controls.Add(this.gdvDMDaiLy, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.btnXoa, 2, 6);
+            this.tableLayoutPanel1.Controls.Add(this.gdvDMDaiLy, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.txbNganHang, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowCount = 9;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -123,7 +128,7 @@
             // btnCapNhat
             // 
             this.btnCapNhat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCapNhat.Location = new System.Drawing.Point(117, 153);
+            this.btnCapNhat.Location = new System.Drawing.Point(117, 183);
             this.btnCapNhat.Name = "btnCapNhat";
             this.btnCapNhat.Size = new System.Drawing.Size(223, 44);
             this.btnCapNhat.TabIndex = 2;
@@ -140,14 +145,14 @@
             this.txbDiaChi.Size = new System.Drawing.Size(452, 20);
             this.txbDiaChi.TabIndex = 7;
             // 
-            // txbTenNXB
+            // txbTenDaiLy
             // 
-            this.txbTenNXB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbTenNXB, 2);
-            this.txbTenNXB.Location = new System.Drawing.Point(117, 35);
-            this.txbTenNXB.Name = "txbTenNXB";
-            this.txbTenNXB.Size = new System.Drawing.Size(452, 20);
-            this.txbTenNXB.TabIndex = 6;
+            this.txbTenDaiLy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbTenDaiLy, 2);
+            this.txbTenDaiLy.Location = new System.Drawing.Point(117, 35);
+            this.txbTenDaiLy.Name = "txbTenDaiLy";
+            this.txbTenDaiLy.Size = new System.Drawing.Size(452, 20);
+            this.txbTenDaiLy.TabIndex = 6;
             // 
             // label1
             // 
@@ -199,15 +204,15 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Số tài khoản :";
             // 
-            // txbMaSoNXB
+            // txbMaSoDaiLy
             // 
-            this.txbMaSoNXB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbMaSoNXB, 2);
-            this.txbMaSoNXB.Enabled = false;
-            this.txbMaSoNXB.Location = new System.Drawing.Point(117, 5);
-            this.txbMaSoNXB.Name = "txbMaSoNXB";
-            this.txbMaSoNXB.Size = new System.Drawing.Size(452, 20);
-            this.txbMaSoNXB.TabIndex = 5;
+            this.txbMaSoDaiLy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbMaSoDaiLy, 2);
+            this.txbMaSoDaiLy.Enabled = false;
+            this.txbMaSoDaiLy.Location = new System.Drawing.Point(117, 5);
+            this.txbMaSoDaiLy.Name = "txbMaSoDaiLy";
+            this.txbMaSoDaiLy.Size = new System.Drawing.Size(452, 20);
+            this.txbMaSoDaiLy.TabIndex = 5;
             // 
             // flowLayoutPanel1
             // 
@@ -217,8 +222,8 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(575, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.tableLayoutPanel1.SetRowSpan(this.flowLayoutPanel1, 6);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(186, 194);
+            this.tableLayoutPanel1.SetRowSpan(this.flowLayoutPanel1, 7);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(186, 224);
             this.flowLayoutPanel1.TabIndex = 10;
             // 
             // btnThemDaiLy
@@ -244,7 +249,7 @@
             // btnXoa
             // 
             this.btnXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnXoa.Location = new System.Drawing.Point(346, 153);
+            this.btnXoa.Location = new System.Drawing.Point(346, 183);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(223, 44);
             this.btnXoa.TabIndex = 11;
@@ -256,13 +261,14 @@
             // 
             this.gdvDMDaiLy.AllowUserToAddRows = false;
             this.gdvDMDaiLy.AllowUserToDeleteRows = false;
+            this.gdvDMDaiLy.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvDMDaiLy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvDMDaiLy, 4);
             this.gdvDMDaiLy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gdvDMDaiLy.Location = new System.Drawing.Point(3, 203);
+            this.gdvDMDaiLy.Location = new System.Drawing.Point(3, 233);
             this.gdvDMDaiLy.Name = "gdvDMDaiLy";
             this.gdvDMDaiLy.ReadOnly = true;
-            this.gdvDMDaiLy.Size = new System.Drawing.Size(758, 285);
+            this.gdvDMDaiLy.Size = new System.Drawing.Size(758, 255);
             this.gdvDMDaiLy.TabIndex = 12;
             this.gdvDMDaiLy.SelectionChanged += new System.EventHandler(this.gdvDMDaiLy_SelectionChanged);
             // 
@@ -287,6 +293,25 @@
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(45, 158);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Ngân hàng :";
+            // 
+            // txbNganHang
+            // 
+            this.txbNganHang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbNganHang, 2);
+            this.txbNganHang.Location = new System.Drawing.Point(117, 155);
+            this.txbNganHang.Name = "txbNganHang";
+            this.txbNganHang.Size = new System.Drawing.Size(452, 20);
+            this.txbNganHang.TabIndex = 9;
             // 
             // frmDanhMucDaiLy
             // 
@@ -317,13 +342,13 @@
         private System.Windows.Forms.TextBox txbSoDienThoai;
         private System.Windows.Forms.Button btnCapNhat;
         private System.Windows.Forms.TextBox txbDiaChi;
-        private System.Windows.Forms.TextBox txbTenNXB;
+        private System.Windows.Forms.TextBox txbTenDaiLy;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txbMaSoNXB;
+        private System.Windows.Forms.TextBox txbMaSoDaiLy;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnThemDaiLy;
         private System.Windows.Forms.Button btnXemCongNo;
@@ -331,5 +356,7 @@
         private System.Windows.Forms.DataGridView gdvDMDaiLy;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txbNganHang;
     }
 }

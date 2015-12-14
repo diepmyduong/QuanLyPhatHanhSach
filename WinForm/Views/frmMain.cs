@@ -72,8 +72,8 @@ namespace WinForm.Views
         //Chọn tạo phiếu xuất
         private void menuItemTaoPhieuXuat_Click(object sender, EventArgs e)
         {
-            frmLapPhieuXuat form = new frmLapPhieuXuat(this);
-            form.ShowDialog(this);
+           // frmLapPhieuXuat form = new frmLapPhieuXuat(this);
+           // form.ShowDialog(this);
         }
         //Chọn Thanh toán với Đại lý
         private void menuItemThanhToanDaiLy_Click(object sender, EventArgs e)
@@ -97,7 +97,7 @@ namespace WinForm.Views
         private void menuItemNoNXB_Click(object sender, EventArgs e)
         {
             frmCongNoNXB form = new frmCongNoNXB(this);
-            form.ShowDialog(this);
+           form.ShowDialog(this);
         }
         //Chọn xem thống kê tồn kho
         private void menuItemTonKho_Click(object sender, EventArgs e)
@@ -181,20 +181,46 @@ namespace WinForm.Views
             s.GiaNhap = Decimal.Parse(txbGiaMua.Text);
             s.HinhAnhTypeImage = picHinhAnh.Image;
             //Cập nhật
-            SachManager.edit(s);
-            //Load lại form
-            reload();
+
+            
+                SachManager.edit(s);
+                //Load lại form
+                MessageBox.Show("Thay đổi thông tin sách thành công");
+                reload();
+            
+           
             
         }
         //Xóa sách đã chọn
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            if(!txbMaSach.Text.Equals(""))
+            {
+                if (SachManager.delete(int.Parse(txbMaSach.Text)))
+                {
+                    MessageBox.Show("Xóa sách thành công");
+                    reload();
+                }
+                else
+                    MessageBox.Show("Không xóa được, vui lòng kiểm tra lại");
+            }
+            else
+            {
+                MessageBox.Show("Nhập vào mã sách cần xóa");
+            }
 
         }
         //Tải ảnh lên
         private void btnTaiAnh_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog ofile = new OpenFileDialog();
+            ofile.Filter = "jpg files (*.jpg)|*.jpg|All files (*.*)|*.*";
+            if (ofile.ShowDialog() == DialogResult.OK)
+            {
+                picHinhAnh.ImageLocation = ofile.FileName;
+                picHinhAnh.Size = new System.Drawing.Size(250, 200);
+                picHinhAnh.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
         }
         //Chọn thêm sách 
         private void btnThemSach_Click(object sender, EventArgs e)
@@ -232,11 +258,11 @@ namespace WinForm.Views
             {
                 txbLoc.Text = txbLoc.Text + "{";
                 string request = txbLoc.Text;
-                var pros = typeof(SachManager.Properties).GetFields();
+                var pros = Sach.searchKeys();
                 AutoCompleteStringCollection source = new AutoCompleteStringCollection();
-                foreach (FieldInfo info in pros)
+                foreach (var info in pros)
                 {
-                    source.Add(request + info.Name);
+                    source.Add(request + info);
                 }
                 txbLoc.AutoCompleteCustomSource = source;
             }
@@ -276,6 +302,7 @@ namespace WinForm.Views
                 txbSoLuong.Text = s.Soluong.ToString();
                 txbGiaBan.Text = s.GiaBan.ToString();
                 txbGiaMua.Text = s.GiaNhap.ToString();
+                rtxbMoTa.Text = s.MoTa.ToString();
                 if(s.HinhAnh != null)
                 {
                     picHinhAnh.Image = s.HinhAnhTypeImage;
@@ -325,13 +352,13 @@ namespace WinForm.Views
         /// </summary>
         public void loadSach()
         {
-            _DMSach = SachManager.getAll();
+            _DMSach = SachManager.getAllAlive();
             gdvDanhMucSach.DataSource = _DMSach;
         }
         private void createGridViewColumns()
         {
             gdvDanhMucSach.AutoGenerateColumns = false; // Bỏ auto generate Columns
-            gdvDanhMucSach.ColumnCount = 8; // Xác định số columns có
+            gdvDanhMucSach.ColumnCount = 9; // Xác định số columns có
             setColumn(gdvDanhMucSach.Columns[0]
                 , nameof(SachManager.Properties.MaSoSach)
                 , SachManager.Properties.MaSoSach);
@@ -356,6 +383,9 @@ namespace WinForm.Views
             setColumn(gdvDanhMucSach.Columns[7]
                 , nameof(SachManager.Properties.GiaNhap)
                 , SachManager.Properties.GiaNhap);
+            setColumn(gdvDanhMucSach.Columns[8]
+               , nameof(SachManager.Properties.MoTa)
+               , SachManager.Properties.MoTa);
 
         }
 
@@ -368,8 +398,40 @@ namespace WinForm.Views
 
 
 
+
         #endregion
 
+        private void xemPhiếuNhậpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmDanhMucPhieuNhap fr = new FrmDanhMucPhieuNhap();
+            fr.ShowDialog();
+        }
 
+        private void gdvDanhMucSach_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void panelContainer_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void cmbLinhVuc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void xemDanhMụcHóaĐơnNXBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDanhMucHoaDonNXB fr = new frmDanhMucHoaDonNXB();
+            fr.Show();
+        }
+
+        private void xemDanhMụcHóaĐơnĐạiLýToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDanhMucHoaDonDaiLy fr = new frmDanhMucHoaDonDaiLy();
+            fr.Show();
+        }
     }
 }

@@ -113,7 +113,7 @@ namespace WinForm.Views
                 gdvChiTiet.DataSource = _nxb.congNoTheoThang(_startMonth, _startYear, _endMonth, _endYear);
                 gdvChiTiet.Columns[nameof(CongNoNXBManager.Properties.MaSoNXB)].Visible = false;
                 gdvChiTiet.Columns[nameof(CongNoNXBManager.Properties.NXB)].Visible = false;
-                _tongTienNoThang = _nxb.tongTienNhapThang(_startMonth, _startYear, _endMonth, _endYear);
+                _tongTienNoThang = _nxb.tongTienNoThang(_startMonth, _startYear, _endMonth, _endYear);
                 _tongTienNhapThang = _nxb.tongTienNhapThang(_startMonth, _startYear, _endMonth, _endYear);
                 lbConNo.Text = String.Format(_cultureInfo, "{0:c}", _tongTienNoThang);
                 lbTienSach.Text = String.Format(_cultureInfo, "{0:c}", _tongTienNhapThang);

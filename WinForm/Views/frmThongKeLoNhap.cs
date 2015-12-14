@@ -38,46 +38,55 @@ namespace WinForm.Views
         {
             _cultureInfo = CultureInfo.GetCultureInfo("vi-VN");
             createGridViewColumns();
+            _startMonth = 1;
+            _startYear = DateTime.Now.Year;
+            _endMonth = 12;
+            _endYear = DateTime.Now.Year;
             //Load combobox tháng và năm
             cmbStartMonth.DataSource = new BindingSource(FilterHelper.Monthes, null);
-            cmbEndMonth.DataSource = new BindingSource(FilterHelper.Monthes, null);
-            cmbStartMonth.DisplayMember = cmbEndMonth.DisplayMember = "Key";
-            cmbStartMonth.ValueMember = cmbEndMonth.ValueMember = "Value";
+            cbEndMonth.DataSource = new BindingSource(FilterHelper.Monthes, null);
+            cmbStartMonth.DisplayMember = "Key";
+            cbEndMonth.DisplayMember = "Key";
+            cmbStartMonth.ValueMember = "Value";
+            cbEndMonth.ValueMember = "Value";
             cmbStartYear.DataSource = new BindingSource(FilterHelper.Years, null);
             cmbEndYear.DataSource = new BindingSource(FilterHelper.Years, null);
-            cmbStartYear.DisplayMember = cmbEndYear.DisplayMember = "Key";
-            cmbStartYear.ValueMember = cmbEndYear.ValueMember = "Value";
+            cmbStartYear.DisplayMember = "Key";
+            cmbEndYear.DisplayMember = "Key";
+            cmbStartYear.ValueMember = "Value";
+            cmbEndYear.ValueMember = "Value";
+
 
             //Set Tháng năm mặc định
+
             cmbStartMonth.SelectedValue = 1;
-            cmbStartYear.SelectedValue = DateTime.Now.Year;
-            cmbEndMonth.SelectedValue = 12;
-            cmbEndYear.SelectedValue = DateTime.Now.Year;
+            cmbStartYear.SelectedValue = _startYear;
+            cbEndMonth.SelectedValue = 12;
+            cmbEndYear.SelectedValue = _endYear;
             loadSach();
         }
 
         private void cmbStartMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
             _startMonth = ((KeyValuePair<string, int>)((ComboBox)sender).SelectedItem).Value;
-            reloadGridView();
+            loadSach();
         }
 
         private void cmbStartYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             _startYear = ((KeyValuePair<string, int>)((ComboBox)sender).SelectedItem).Value;
-            reloadGridView();
+            loadSach();
         }
 
-        private void cmbEndMonth_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbEndMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
             _endMonth = ((KeyValuePair<string, int>)((ComboBox)sender).SelectedItem).Value;
-            reloadGridView();
+            loadSach();
         }
-
         private void cmbEndYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             _endYear = ((KeyValuePair<string, int>)((ComboBox)sender).SelectedItem).Value;
-            reloadGridView();
+            loadSach();
         }
 
         private void btLoc_Click(object sender, EventArgs e)
@@ -101,12 +110,13 @@ namespace WinForm.Views
         }
         private void btnChiTiet_Click(object sender, EventArgs e)
         {
-            frmChiTietLoNhap form = new frmChiTietLoNhap(this, _currentSach);
-            form.ShowDialog(this);
-        }
-        private void gdvLoNhap_DataSourceChanged(object sender, EventArgs e)
-        {
-            reloadGridView();
+            if (_currentSach != null)
+            {
+                frmChiTietLoNhap form = new frmChiTietLoNhap(this, _currentSach);
+                form.ShowDialog(this);
+            }
+            else
+                MessageBox.Show("Chọn sách cần xem");
         }
 
         private void gdvLoNhap_SelectionChanged(object sender, EventArgs e)
@@ -119,7 +129,8 @@ namespace WinForm.Views
         #region Form Services
         public void loadSach()
         {
-            _DMSach = SachManager.getAll();
+            _DMSach = SachManager.getAllAlive()
+                .Where(p => p.tongSoLuongNhapTheoThang(_startMonth, _startYear, _endMonth, _endYear) > 0).ToList() ;
             
             gdvLoNhap.DataSource = _DMSach;
         }
@@ -155,32 +166,33 @@ namespace WinForm.Views
             column.HeaderText = name;
         }
 
-        private void reloadGridView()
-        {
-            if (gdvLoNhap.DataSource!= null && _startYear != 0 && _startYear != 0 && _endMonth != 0 && _endYear != 0)
-            {
-                _tongLuongNhap = 0;
-                foreach (DataGridViewRow row in gdvLoNhap.Rows)
-                {
-                    Sach sach = row.DataBoundItem as Sach;
-                    decimal? soLuongNhap = sach.tongSoLuongNhapTheoThang(_startMonth, _startYear, _endMonth, _endYear);
-                    decimal? tienNhap = sach.tongTienNhapTheoThang(_startMonth, _startYear, _endMonth, _endYear);
-                    gdvLoNhap.Rows[row.Index].Cells[nameof(SachManager.Properties.SoLuongNhapTheoThang)].Value
-                        = soLuongNhap.ToString();
-                    gdvLoNhap.Rows[row.Index].Cells[nameof(SachManager.Properties.TongTienNhapTheoThang)].Value
-                        = tienNhap.ToString();
-                    _tongLuongNhap += soLuongNhap;
-                }
-                lbTongLuongNhap.Text = _tongLuongNhap.ToString();
-            }
+        //private void reloadGridView()
+        //{
+        //    if (gdvLoNhap.DataSource!= null && _startYear != 0 && _startYear != 0 && _endMonth != 0 && _endYear != 0)
+        //    {
+        //        _tongLuongNhap = 0;
+        //        foreach (DataGridViewRow row in gdvLoNhap.Rows)
+        //        {
+        //            Sach sach = row.DataBoundItem as Sach;
+        //            decimal? soLuongNhap = sach.tongSoLuongNhapTheoThang(_startMonth, _startYear, _endMonth, _endYear);
+        //            decimal? tienNhap = sach.tongTienNhapTheoThang(_startMonth, _startYear, _endMonth, _endYear);
+        //            gdvLoNhap.Rows[row.Index].Cells[nameof(SachManager.Properties.SoLuongNhapTheoThang)].Value
+        //                = soLuongNhap.ToString();
+        //            gdvLoNhap.Rows[row.Index].Cells[nameof(SachManager.Properties.TongTienNhapTheoThang)].Value
+        //                = tienNhap.ToString();
+        //            _tongLuongNhap += soLuongNhap;
+        //        }
+        //        lbTongLuongNhap.Text = _tongLuongNhap.ToString();
+        //    }
                 
-        }
+        //}
         private string money(decimal m)
         {
             return String.Format(_cultureInfo, "{0:c}", m);
         }
+
         #endregion
 
-        
+       
     }
 }

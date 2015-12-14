@@ -40,6 +40,7 @@ namespace WinForm.Views
         #region Form Control Listener
         private void frmChiTietLoNhap_Load(object sender, EventArgs e)
         {
+
             _cultureInfo = CultureInfo.GetCultureInfo("vi-VN");
             _cultureInfo = CultureInfo.GetCultureInfo("vi-VN");
             createGridViewColumns();
@@ -58,7 +59,12 @@ namespace WinForm.Views
             cmbStartYear.SelectedValue = DateTime.Now.Year;
             cmbEndMonth.SelectedValue = 12;
             cmbEndYear.SelectedValue = DateTime.Now.Year;
-            loadChiTiet();
+            if (_currentSach != null)
+            {
+                lbMaSach.Text = _currentSach.MaSoSach + "";
+                lbTenSach.Text = _currentSach.TenSach;
+                loadChiTiet();
+            }
 
         }
 
@@ -142,8 +148,11 @@ namespace WinForm.Views
 
         public void loadChiTiet()
         {
-            gdvChiTiet.DataSource = _currentSach.PhieuNhap;
-            reloadGridView();
+            if (_currentSach != null)
+            {
+                gdvChiTiet.DataSource = _currentSach.PhieuNhap;
+                reloadGridView();
+            }
         }
         private void reloadGridView()
         {

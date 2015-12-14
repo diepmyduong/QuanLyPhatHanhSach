@@ -32,10 +32,10 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbEndMonth = new System.Windows.Forms.ComboBox();
-            this.cmbEndYear = new System.Windows.Forms.ComboBox();
-            this.cmbStartYear = new System.Windows.Forms.ComboBox();
             this.cmbStartMonth = new System.Windows.Forms.ComboBox();
+            this.cmbEndMonth = new System.Windows.Forms.ComboBox();
+            this.cmbStartYear = new System.Windows.Forms.ComboBox();
+            this.cmbEndYear = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -131,6 +131,16 @@
             this.label2.TabIndex = 15;
             this.label2.Text = "Đến :";
             // 
+            // cmbStartMonth
+            // 
+            this.cmbStartMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStartMonth.FormattingEnabled = true;
+            this.cmbStartMonth.Location = new System.Drawing.Point(79, 4);
+            this.cmbStartMonth.Name = "cmbStartMonth";
+            this.cmbStartMonth.Size = new System.Drawing.Size(108, 21);
+            this.cmbStartMonth.TabIndex = 16;
+            this.cmbStartMonth.SelectedIndexChanged += new System.EventHandler(this.cmbStartMonth_SelectedIndexChanged);
+            // 
             // cmbEndMonth
             // 
             this.cmbEndMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -140,16 +150,6 @@
             this.cmbEndMonth.Size = new System.Drawing.Size(108, 21);
             this.cmbEndMonth.TabIndex = 18;
             this.cmbEndMonth.SelectedIndexChanged += new System.EventHandler(this.cmbEndMonth_SelectedIndexChanged);
-            // 
-            // cmbEndYear
-            // 
-            this.cmbEndYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbEndYear.FormattingEnabled = true;
-            this.cmbEndYear.Location = new System.Drawing.Point(193, 34);
-            this.cmbEndYear.Name = "cmbEndYear";
-            this.cmbEndYear.Size = new System.Drawing.Size(108, 21);
-            this.cmbEndYear.TabIndex = 19;
-            this.cmbEndYear.SelectedIndexChanged += new System.EventHandler(this.cmbEndYear_SelectedIndexChanged);
             // 
             // cmbStartYear
             // 
@@ -161,15 +161,15 @@
             this.cmbStartYear.TabIndex = 17;
             this.cmbStartYear.SelectedIndexChanged += new System.EventHandler(this.cmbStartYear_SelectedIndexChanged);
             // 
-            // cmbStartMonth
+            // cmbEndYear
             // 
-            this.cmbStartMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStartMonth.FormattingEnabled = true;
-            this.cmbStartMonth.Location = new System.Drawing.Point(79, 4);
-            this.cmbStartMonth.Name = "cmbStartMonth";
-            this.cmbStartMonth.Size = new System.Drawing.Size(108, 21);
-            this.cmbStartMonth.TabIndex = 16;
-            this.cmbStartMonth.SelectedIndexChanged += new System.EventHandler(this.cmbStartMonth_SelectedIndexChanged);
+            this.cmbEndYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbEndYear.FormattingEnabled = true;
+            this.cmbEndYear.Location = new System.Drawing.Point(193, 34);
+            this.cmbEndYear.Name = "cmbEndYear";
+            this.cmbEndYear.Size = new System.Drawing.Size(108, 21);
+            this.cmbEndYear.TabIndex = 19;
+            this.cmbEndYear.SelectedIndexChanged += new System.EventHandler(this.cmbEndYear_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -302,6 +302,7 @@
             this.gdvDaiLy.Name = "gdvDaiLy";
             this.gdvDaiLy.Size = new System.Drawing.Size(374, 365);
             this.gdvDaiLy.TabIndex = 29;
+            this.gdvDaiLy.SelectionChanged += new System.EventHandler(this.gdvDaiLy_SelectionChanged);
             // 
             // gdvNXB
             // 
@@ -312,6 +313,7 @@
             this.gdvNXB.Name = "gdvNXB";
             this.gdvNXB.Size = new System.Drawing.Size(378, 365);
             this.gdvNXB.TabIndex = 30;
+            this.gdvNXB.SelectionChanged += new System.EventHandler(this.gdvNXB_SelectionChanged);
             // 
             // flowLayoutPanel2
             // 

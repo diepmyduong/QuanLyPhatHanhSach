@@ -32,6 +32,19 @@ namespace Core.DAL
                 return linqQuery.ToList();
             }
         }
+        public static List<HoaDonDaiLy> getUnaproved()
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from hd in db.HOADONDAILies
+                                join daily in db.DAILies
+                                on hd.masodaily equals daily.masodaily
+                                where hd.trangthai == 0
+                                select new HoaDonDaiLy(hd, daily);
+                return linqQuery.ToList();
+            }
+        }
+
         public static HoaDonDaiLy find(int masohoadon)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())

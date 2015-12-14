@@ -34,13 +34,59 @@ namespace WinForm.Views
             //Load danh sách NXB
             loadNXB();
             //Load danh sách các sách;
-            loadSach();
-
+            // loadSach();
+            cmbNhaXuatBan.SelectedIndex = -1;
         }
         //Khi Nhấn Lưu lại phiếu nhập
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            decimal tongtien = 0;
+            List<ChiTietPhieuNhap> list = new List<ChiTietPhieuNhap>();
+            if (!txbNguoiGiao.Text.Equals(""))
+            {
+                PhieuNhap pn = new PhieuNhap();
+                pn.MaSoNXB = int.Parse(cmbNhaXuatBan.SelectedValue.ToString());
+                pn.NgayLap = DateTime.Parse(dtpNgayLap.Value.ToString("yyyy-MM-dd"));
+                pn.NguoiGiao = txbNguoiGiao.Text.ToString();
 
+                for (int i = 0; i < gdvChiTiet.RowCount-1; i++)
+                {
+                    if (!String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[0].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[1].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[2].Value)))
+                    {
+                        ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
+                        ctpn.MaSoSach = int.Parse(gdvChiTiet.Rows[i].Cells[0].Value.ToString());
+                        ctpn.SoLuong = int.Parse(gdvChiTiet.Rows[i].Cells[1].Value.ToString());
+                        ctpn.DonGia = int.Parse(gdvChiTiet.Rows[i].Cells[2].Value.ToString());
+                        tongtien = tongtien + ctpn.SoLuong * ctpn.DonGia;
+                        if (pn.ChiTiet.Contains(ctpn))
+                        {
+                            return;
+                        }
+                        pn.addDetail(ctpn);
+                    }
+                    else
+                    {
+                        if (String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[0].Value)) || String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[1].Value)) || String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[2].Value)))
+                        {
+                            MessageBox.Show("Chưa nhập đủ thông tin vào bảng");
+                            return;
+                        }
+                    }
+
+                }
+                pn.TongTien = tongtien;
+                int x = PhieuNhapManager.add(pn);
+                if ( x  != 0)
+                {
+                    MessageBox.Show("đã thêm thành công");
+                    txbMaPhieuNhap.Text = x + "";
+                }
+                else
+                    MessageBox.Show("Không thêm được");
+
+            }
+            else
+                MessageBox.Show("Bạn chưa nhập người giao hàng");
         }
         //Khi chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
@@ -54,7 +100,7 @@ namespace WinForm.Views
         //Khi chọn Nhà Xuất Bản
         private void cmbNhaXuatBan_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+           
         }
         private void gdvChiTiet_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -73,27 +119,92 @@ namespace WinForm.Views
 
         public void loadSach()
         {
+
             _DMSach = SachManager.getAll();
         }
         private void gdvChiTiet_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             var currentRow = (sender as DataGridView).CurrentRow;
-            var cellMaSoSach = (DataGridViewComboBoxCell)currentRow.Cells[nameof(SachManager.Properties.MaSoSach)];
             var cellTenSach = (DataGridViewComboBoxCell)currentRow.Cells[nameof(SachManager.Properties.TenSach)];
-            cellMaSoSach.DataSource = cellTenSach.DataSource = _DMSach;
-            cellMaSoSach.DisplayMember = nameof(SachManager.Properties.MaSoSach);
+            cellTenSach.DataSource = _DMSach;
             cellTenSach.DisplayMember = nameof(SachManager.Properties.TenSach);
-            cellMaSoSach.ValueMember = nameof(SachManager.Properties.MaSoSach);
             cellTenSach.ValueMember = nameof(SachManager.Properties.MaSoSach);
             ComboBox cmbBx = e.Control as ComboBox;
             if (cmbBx != null)
             {
                 e.CellStyle.BackColor = gdvChiTiet.DefaultCellStyle.BackColor;
+               
             }
 
         }
+      
+
+
         #endregion
 
+        #region service
+        //private bool CheckChiTiet()
+        //{
+        //    if (gdvChiTiet.RowCount != 0)
+        //    {
+        //        for (int i = 0; i < gdvChiTiet.RowCount -1; i++)
+        //        {
+        //            for (int j = 0; j < gdvChiTiet.RowCount; j++)
 
+        //        }
+        //    }
+        //}
+        #endregion
+
+        private void gdvChiTiet_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            int dong = e.RowIndex;
+            if (dong != 0)
+            {
+                if (!TenSach.Equals("") && !SoLuong.Equals(""))
+                {
+                    if (!String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[dong - 1].Cells[1].Value)))
+                    {
+                        int x = int.Parse(gdvChiTiet.Rows[dong - 1].Cells[0].Value.ToString());
+                        Sach s = SachManager.find(x);
+                        gdvChiTiet.Rows[dong - 1].Cells[2].Value = s.GiaNhap;
+                        lbTongTien.Text = Tongtien(dong - 1) + "";
+                    }
+                    else
+                        MessageBox.Show("số lượng và đơn giá không được để trống");
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin trên dòng");
+                }
+
+            }
+
+        }
+        private int Tongtien(int rows)
+        {
+            int tongtien = 0;
+            int tongtienrow = 0;
+            for (int row = 0; row <= rows; row++)
+            {
+                int Soluong = int.Parse(gdvChiTiet.Rows[row].Cells[1].Value.ToString());
+                int DonGia = int.Parse(gdvChiTiet.Rows[row].Cells[2].Value.ToString());
+               
+                tongtien = tongtien + Soluong * DonGia;
+                tongtienrow =Soluong * DonGia;
+                gdvChiTiet.Rows[row].Cells[3].Value = tongtienrow;
+            }
+            return tongtien;
+        }
+
+        private void cmbNhaXuatBan_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cmbNhaXuatBan.SelectedIndex != -1)
+            {
+                NhaXuatBan nxb = NhaXuatBanManager.find(int.Parse(cmbNhaXuatBan.SelectedValue.ToString()));
+                _DMSach = nxb.Sach;
+                cmbNhaXuatBan.Enabled = false;
+            }
+        }
     }
 }

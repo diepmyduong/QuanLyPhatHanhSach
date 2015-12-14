@@ -32,7 +32,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbEndMonth = new System.Windows.Forms.ComboBox();
             this.cmbEndYear = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lbTongLuongNhap = new System.Windows.Forms.Label();
@@ -44,6 +43,7 @@
             this.cmbStartMonth = new System.Windows.Forms.ComboBox();
             this.btLoc = new System.Windows.Forms.Button();
             this.btnChiTiet = new System.Windows.Forms.Button();
+            this.cbEndMonth = new System.Windows.Forms.ComboBox();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvLoNhap)).BeginInit();
@@ -71,7 +71,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.cmbEndMonth, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmbEndYear, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbTongLuongNhap, 3, 2);
@@ -82,6 +81,7 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbStartMonth, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.btLoc, 4, 4);
             this.tableLayoutPanel1.Controls.Add(this.btnChiTiet, 5, 4);
+            this.tableLayoutPanel1.Controls.Add(this.cbEndMonth, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -115,16 +115,6 @@
             this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Đến :";
-            // 
-            // cmbEndMonth
-            // 
-            this.cmbEndMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbEndMonth.FormattingEnabled = true;
-            this.cmbEndMonth.Location = new System.Drawing.Point(79, 64);
-            this.cmbEndMonth.Name = "cmbEndMonth";
-            this.cmbEndMonth.Size = new System.Drawing.Size(146, 21);
-            this.cmbEndMonth.TabIndex = 12;
-            this.cmbEndMonth.SelectedIndexChanged += new System.EventHandler(this.cmbEndMonth_SelectedIndexChanged);
             // 
             // cmbEndYear
             // 
@@ -187,7 +177,6 @@
             this.gdvLoNhap.Name = "gdvLoNhap";
             this.gdvLoNhap.Size = new System.Drawing.Size(758, 335);
             this.gdvLoNhap.TabIndex = 18;
-            this.gdvLoNhap.DataSourceChanged += new System.EventHandler(this.gdvLoNhap_DataSourceChanged);
             this.gdvLoNhap.SelectionChanged += new System.EventHandler(this.gdvLoNhap_SelectionChanged);
             // 
             // flowLayoutPanel1
@@ -255,6 +244,15 @@
             this.btnChiTiet.UseWaitCursor = true;
             this.btnChiTiet.Click += new System.EventHandler(this.btnChiTiet_Click);
             // 
+            // cbEndMonth
+            // 
+            this.cbEndMonth.FormattingEnabled = true;
+            this.cbEndMonth.Location = new System.Drawing.Point(79, 63);
+            this.cbEndMonth.Name = "cbEndMonth";
+            this.cbEndMonth.Size = new System.Drawing.Size(146, 21);
+            this.cbEndMonth.TabIndex = 20;
+            this.cbEndMonth.SelectedIndexChanged += new System.EventHandler(this.cbEndMonth_SelectedIndexChanged);
+            // 
             // frmThongKeLoNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,7 +281,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbStartYear;
         private System.Windows.Forms.ComboBox cmbStartMonth;
-        private System.Windows.Forms.ComboBox cmbEndMonth;
         private System.Windows.Forms.ComboBox cmbEndYear;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbTongLuongNhap;
@@ -293,5 +290,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Button btnChiTiet;
+        private System.Windows.Forms.ComboBox cbEndMonth;
     }
 }

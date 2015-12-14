@@ -32,6 +32,7 @@ namespace WinForm.Views
         private void frmDanhMucNXB_Load(object sender, EventArgs e)
         {
             //Load Danh mục NXB
+            createGridViewColumns();
             loadNXB();
             txbLoc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txbLoc.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -40,12 +41,42 @@ namespace WinForm.Views
         //Khi Cập nhật thông tin NXB
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
+            if (!txbMaSoNXB.Text.Equals("") && !txbTenNXB.Text.Equals("") && !txbSoTaiKhoan.Text.Equals("") && !txbSoDienThoai.Text.Equals(""))
+            {
+                _currentNXB.TenNXB = txbTenNXB.Text.ToString();
+                _currentNXB.DiaChi = txbDiaChi.Text.ToString();
+                _currentNXB.SoDienThoai = txbSoDienThoai.Text.ToString();
+                _currentNXB.SoTaiKhoan = txbSoTaiKhoan.Text.ToString();
+               
+                    if (NhaXuatBanManager.edit(_currentNXB))
+                    {
+                        MessageBox.Show("Đã sửa thành công");
+                        loadNXB();
+                    }
+                    else
+                        MessageBox.Show("Không sửa được");
+              
+                    
 
+            }
+            else
+                MessageBox.Show("Bạn phải nhập đủ thông tin nhà xuất bản");
         }
         //Khi CHọn xóa NXB
         private void btnXoa_Click(object sender, EventArgs e)
         {
-
+            if (!txbMaSoNXB.Text.Equals(""))
+            {
+                if (NhaXuatBanManager.delete(int.Parse(txbMaSoNXB.Text.ToString())))
+                {
+                    MessageBox.Show("Đã xóa thành công");
+                    loadNXB();
+                }
+                else
+                    MessageBox.Show("Không xóa được");
+            }
+            else
+                MessageBox.Show("Chưa nhập mã nhà xuất bản cần xóa");
         }
         //Khi chọn Thêm mới 1 NXB
         private void btnThemNXB_Click(object sender, EventArgs e)
@@ -82,11 +113,11 @@ namespace WinForm.Views
             {
                 txbLoc.Text = txbLoc.Text + "{";
                 string request = txbLoc.Text;
-                var pros = typeof(NhaXuatBanManager.Properties).GetFields();
+                var pros = NhaXuatBan.searchKeys();
                 AutoCompleteStringCollection source = new AutoCompleteStringCollection();
-                foreach (FieldInfo info in pros)
+                foreach (var info in pros)
                 {
-                    source.Add(request + info.Name);
+                    source.Add(request + info);
                 }
                 txbLoc.AutoCompleteCustomSource = source;
             }
@@ -115,9 +146,8 @@ namespace WinForm.Views
         /// </summary>
         public void loadNXB()
         {
-            _DMNXB = NhaXuatBanManager.getAll();
+            _DMNXB = NhaXuatBanManager.getAllAlive();
             gdvDMNXB.DataSource = _DMNXB;
-            gdvDMNXB.Columns[nameof(NhaXuatBanManager.Properties.TongTienNo)].Visible = false;
         }
 
         public void selectNXB(NhaXuatBan nxb)
@@ -131,8 +161,40 @@ namespace WinForm.Views
                 txbSoTaiKhoan.Text = nxb.SoTaiKhoan;
             }
         }
+
+        private void createGridViewColumns()
+        {
+            gdvDMNXB.AutoGenerateColumns = false; // Bỏ auto generate Columns
+            gdvDMNXB.ColumnCount = 6; // Xác định số columns có
+            setColumn(gdvDMNXB.Columns[0]
+                , nameof(NhaXuatBanManager.Properties.MaSoNXB)
+                , NhaXuatBanManager.Properties.MaSoNXB);
+            setColumn(gdvDMNXB.Columns[1]
+                , nameof(NhaXuatBanManager.Properties.TenNXB)
+                , NhaXuatBanManager.Properties.TenNXB);
+            setColumn(gdvDMNXB.Columns[2]
+                , nameof(NhaXuatBanManager.Properties.DiaChi)
+                , NhaXuatBanManager.Properties.DiaChi);
+            setColumn(gdvDMNXB.Columns[3]
+                , nameof(NhaXuatBanManager.Properties.SoDienThoai)
+                , NhaXuatBanManager.Properties.SoDienThoai);
+            setColumn(gdvDMNXB.Columns[4]
+                , nameof(NhaXuatBanManager.Properties.SoDienThoai)
+                , NhaXuatBanManager.Properties.SoTaiKhoan);
+            setColumn(gdvDMNXB.Columns[5]
+                , nameof(NhaXuatBanManager.Properties.NganHang)
+                , NhaXuatBanManager.Properties.NganHang);
+
+        }
+
+        private void setColumn(DataGridViewColumn column, string propertyName, string name)
+        {
+            column.Name = propertyName;
+            column.DataPropertyName = propertyName;
+            column.HeaderText = name;
+        }
         #endregion
 
-        
+
     }
 }

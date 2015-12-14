@@ -32,6 +32,18 @@ namespace Core.DAL
                 return linqQuery.ToList();
             }
         }
+        public static List<HoaDonNXB> getUnaproved()
+        {
+            using (EntitiesDataContext db = new EntitiesDataContext())
+            {
+                var linqQuery = from hd in db.HOADONNXBs
+                                join nxb in db.NXBs
+                                on hd.masonxb equals nxb.masonxb
+                                where hd.trangthai == 0
+                                select new HoaDonNXB(hd, nxb);
+                return linqQuery.ToList();
+            }
+        }
         public static HoaDonNXB find(int masohoadon)
         {
             using (EntitiesDataContext db = new EntitiesDataContext())

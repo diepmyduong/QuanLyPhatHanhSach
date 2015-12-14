@@ -31,6 +31,7 @@ namespace WinForm.Views
         //Khi load form
         private void frmThemLinhVuc_Load(object sender, EventArgs e)
         {
+            createGridViewColumns();
             //Load danh mục Lĩnh vực
             loadLinhVuc();
 
@@ -42,20 +43,33 @@ namespace WinForm.Views
             if (!String.IsNullOrEmpty(tensach))
             {
                 LinhVuc lv = new LinhVuc() { TenLinhVuc = tensach };
-                var result = LinhVucManager.add(lv);
-                if (result != 0)
-                {
-                    MessageBox.Show("Đã thêm.");
-                    reload();
-                    return;
-                }
-                MessageBox.Show("Không thêm được");
+               
+                    var result = LinhVucManager.add(lv);
+                    if (result != 0)
+                    {
+                        MessageBox.Show("Đã thêm.");
+                        reload();
+                        return;
+                    }
+                    MessageBox.Show("Không thêm được");
+               
             }
         }
         //Khi chọn xóa 1 lĩnh vực
         private void btnXoa_Click(object sender, EventArgs e)
         {
-
+            if (!txbMaLinhVuc.Text.Equals(""))
+            {
+                if (LinhVucManager.delete(int.Parse(txbMaLinhVuc.Text.ToString())))
+                {
+                    MessageBox.Show("Đã xóa lĩnh vực thành công");
+                    loadLinhVuc();
+                }
+                else
+                    MessageBox.Show("Không xóa được !");
+            }
+            else
+                MessageBox.Show("Chọn lĩnh vực cần xóa");
         }
         //Khi chọn thoát khỏi form
         private void btnThoat_Click(object sender, EventArgs e)
@@ -111,19 +125,42 @@ namespace WinForm.Views
 
         private void selectLinhVuc(LinhVuc lv)
         {
-            txbMaLinhVuc.Text = lv.MaSoLinhVuc.ToString();
-            txbTenLinhVuc.Text = lv.TenLinhVuc;
+            if (lv != null)
+            {
+                txbMaLinhVuc.Text = lv.MaSoLinhVuc.ToString();
+                txbTenLinhVuc.Text = lv.TenLinhVuc;
+            }
         }
 
         private void reload()
         {
-            this.OnLoad(new EventArgs());
+            loadLinhVuc();
         }
 
         private void loadLinhVuc()
         {
-            _DMLinhVuc = LinhVucManager.getAll();
+            _DMLinhVuc = LinhVucManager.getAllALive();
             gdvDMLinhVuc.DataSource = _DMLinhVuc;
+        }
+
+        private void createGridViewColumns()
+        {
+            gdvDMLinhVuc.AutoGenerateColumns = false; // Bỏ auto generate Columns
+            gdvDMLinhVuc.ColumnCount = 2; // Xác định số columns có
+            setColumn(gdvDMLinhVuc.Columns[0]
+                , nameof(LinhVucManager.Properties.MaSoLinhVuc)
+                , LinhVucManager.Properties.MaSoLinhVuc);
+            setColumn(gdvDMLinhVuc.Columns[1]
+                , nameof(LinhVucManager.Properties.TenLinhVuc)
+                , LinhVucManager.Properties.TenLinhVuc);
+
+        }
+
+        private void setColumn(DataGridViewColumn column, string propertyName, string name)
+        {
+            column.Name = propertyName;
+            column.DataPropertyName = propertyName;
+            column.HeaderText = name;
         }
         #endregion
 

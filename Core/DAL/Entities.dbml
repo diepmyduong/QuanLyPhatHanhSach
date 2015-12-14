@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLPHS" Class="EntitiesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=ADMINPC;Initial Catalog=QLPHS;Integrated Security=True" SettingsObjectName="Core.Properties.Settings" SettingsPropertyName="QLPHSConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(local);Initial Catalog=QLPHS;Integrated Security=True" SettingsObjectName="Core.Properties.Settings" SettingsPropertyName="QLPHSConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.CHITIETHOADONDAILY" Member="CHITIETHOADONDAILies">
     <Type Name="CHITIETHOADONDAILY">
       <Column Name="masohoadon" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -9,14 +9,6 @@
       <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="HOADONDAILY_CHITIETHOADONDAILY" Member="HOADONDAILY" ThisKey="masohoadon" OtherKey="masohoadon" Type="HOADONDAILY" IsForeignKey="true" />
       <Association Name="SACH_CHITIETHOADONDAILY" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.THEKHO" Member="THEKHOs">
-    <Type Name="THEKHO">
-      <Column Name="ngayghi" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Association Name="SACH_THEKHO" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CHITIETHOADONNXB" Member="CHITIETHOADONNXBs">
@@ -63,17 +55,6 @@
       <Association Name="SACH_CONGNODAILY" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.CONGNONXB" Member="CONGNONXBs">
-    <Type Name="CONGNONXB">
-      <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="masonxb" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="thang" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="dongia" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Association Name="NXB_CONGNONXB" Member="NXB" ThisKey="masonxb" OtherKey="masonxb" Type="NXB" IsForeignKey="true" />
-      <Association Name="SACH_CONGNONXB" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DAILY" Member="DAILies">
     <Type Name="DAILY">
       <Column Name="masodaily" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -87,6 +68,17 @@
       <Association Name="DAILY_CONGNODAILY" Member="CONGNODAILies" ThisKey="masodaily" OtherKey="masodaily" Type="CONGNODAILY" />
       <Association Name="DAILY_HOADONDAILY" Member="HOADONDAILies" ThisKey="masodaily" OtherKey="masodaily" Type="HOADONDAILY" />
       <Association Name="DAILY_PHIEUXUAT" Member="PHIEUXUATs" ThisKey="masodaily" OtherKey="masodaily" Type="PHIEUXUAT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CONGNONXB" Member="CONGNONXBs">
+    <Type Name="CONGNONXB">
+      <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="masonxb" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="thang" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="dongia" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Association Name="NXB_CONGNONXB" Member="NXB" ThisKey="masonxb" OtherKey="masonxb" Type="NXB" IsForeignKey="true" />
+      <Association Name="SACH_CONGNONXB" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.HOADONDAILY" Member="HOADONDAILies">
@@ -181,16 +173,24 @@
       <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="trangthai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="hinhanh" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="mota" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="mota" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="SACH_CHITIETHOADONDAILY" Member="CHITIETHOADONDAILies" ThisKey="masosach" OtherKey="masosach" Type="CHITIETHOADONDAILY" />
-      <Association Name="SACH_THEKHO" Member="THEKHOs" ThisKey="masosach" OtherKey="masosach" Type="THEKHO" />
       <Association Name="SACH_CHITIETHOADONNXB" Member="CHITIETHOADONNXBs" ThisKey="masosach" OtherKey="masosach" Type="CHITIETHOADONNXB" />
       <Association Name="SACH_CHITIETPHIEUNHAP" Member="CHITIETPHIEUNHAPs" ThisKey="masosach" OtherKey="masosach" Type="CHITIETPHIEUNHAP" />
       <Association Name="SACH_CHITIETPHIEUXUAT" Member="CHITIETPHIEUXUATs" ThisKey="masosach" OtherKey="masosach" Type="CHITIETPHIEUXUAT" />
       <Association Name="SACH_CONGNODAILY" Member="CONGNODAILies" ThisKey="masosach" OtherKey="masosach" Type="CONGNODAILY" />
       <Association Name="SACH_CONGNONXB" Member="CONGNONXBs" ThisKey="masosach" OtherKey="masosach" Type="CONGNONXB" />
+      <Association Name="SACH_THEKHO" Member="THEKHOs" ThisKey="masosach" OtherKey="masosach" Type="THEKHO" />
       <Association Name="LINHVUC_SACH" Member="LINHVUC" ThisKey="masolinhvuc" OtherKey="masolinhvuc" Type="LINHVUC" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="NXB_SACH" Member="NXB" ThisKey="masonxb" OtherKey="masonxb" Type="NXB" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.THEKHO" Member="THEKHOs">
+    <Type Name="THEKHO">
+      <Column Name="ngayghi" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="masosach" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="soluong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Association Name="SACH_THEKHO" Member="SACH" ThisKey="masosach" OtherKey="masosach" Type="SACH" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
