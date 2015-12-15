@@ -75,5 +75,97 @@ namespace WebForm.Areas.Admin.Controllers
 
             return new FileStreamResult(info, "application/pdf");
         }
+
+        [HttpPost]
+        public FileStreamResult LoNhap(DateTime startDate, DateTime endDate)
+        {
+            List<Sach> DMSach = SachManager.getAll()
+                                    .Where(s => s.tongSoLuongNhapTheoThang(
+                                        ((DateTime)startDate).Month,
+                                        ((DateTime)startDate).Year,
+                                        ((DateTime)endDate).Month,
+                                        ((DateTime)endDate).Year) > 0 &&
+                                        s.tongTienNhapTheoThang(
+                                        ((DateTime)startDate).Month,
+                                        ((DateTime)startDate).Year,
+                                        ((DateTime)endDate).Month,
+                                        ((DateTime)endDate).Year) > 0).ToList();
+            var printer = new PrintHelper();
+            printer.FileName = "report.pdf";
+            printer.FolderPath = "D://";
+            printer.Title = "Thống kê lô nhập";
+            var info = new MemoryStream(printer.printLoNhap(DMSach, startDate, endDate));
+
+            return new FileStreamResult(info, "application/pdf");
+        }
+
+        [HttpPost]
+        public FileStreamResult LoXuat(DateTime startDate, DateTime endDate)
+        {
+            List<Sach> DMSach = SachManager.getAll()
+                                    .Where(s => s.tongSoLuongXuatTheoThang(
+                                        ((DateTime)startDate).Month,
+                                        ((DateTime)startDate).Year,
+                                        ((DateTime)endDate).Month,
+                                        ((DateTime)endDate).Year) > 0 &&
+                                        s.tongTienXuatTheoThang(
+                                        ((DateTime)startDate).Month,
+                                        ((DateTime)startDate).Year,
+                                        ((DateTime)endDate).Month,
+                                        ((DateTime)endDate).Year) > 0).ToList();
+            var printer = new PrintHelper();
+            printer.FileName = "report.pdf";
+            printer.FolderPath = "D://";
+            printer.Title = "Thống kê lô xuất";
+            var info = new MemoryStream(printer.printLoXuat(DMSach, startDate, endDate));
+
+            return new FileStreamResult(info, "application/pdf");
+        }
+
+        [HttpPost]
+        public FileStreamResult CongNoNXB(DateTime startDate, DateTime endDate)
+        {
+            List<Sach> DMSach = SachManager.getAll()
+                                    .Where(s => s.tongSoLuongNXBNoTheoThang(
+                                        ((DateTime)startDate).Month,
+                                        ((DateTime)startDate).Year,
+                                        ((DateTime)endDate).Month,
+                                        ((DateTime)endDate).Year) > 0 &&
+                                        s.tongTienNXBNoTheoThang(
+                                        ((DateTime)startDate).Month,
+                                        ((DateTime)startDate).Year,
+                                        ((DateTime)endDate).Month,
+                                        ((DateTime)endDate).Year) > 0).ToList();
+            var printer = new PrintHelper();
+            printer.FileName = "report.pdf";
+            printer.FolderPath = "D://";
+            printer.Title = "Thống kê công nợ với Nhà xuất bản";
+            var info = new MemoryStream(printer.printCongNoNXB(DMSach, startDate, endDate));
+
+            return new FileStreamResult(info, "application/pdf");
+        }
+
+        [HttpPost]
+        public FileStreamResult CongNoDaiLy(DateTime startDate, DateTime endDate)
+        {
+            List<Sach> DMSach = SachManager.getAll()
+                                    .Where(s => s.tongSoLuongDaiLyNoTheoThang(
+                                        ((DateTime)startDate).Month,
+                                        ((DateTime)startDate).Year,
+                                        ((DateTime)endDate).Month,
+                                        ((DateTime)endDate).Year) > 0 &&
+                                        s.tongTienDaiLyNoTheoThang(
+                                        ((DateTime)startDate).Month,
+                                        ((DateTime)startDate).Year,
+                                        ((DateTime)endDate).Month,
+                                        ((DateTime)endDate).Year) > 0).ToList();
+            var printer = new PrintHelper();
+            printer.FileName = "report.pdf";
+            printer.FolderPath = "D://";
+            printer.Title = "Thống kê công nợ với Đại lý";
+            var info = new MemoryStream(printer.printCongNoDaiLy(DMSach, startDate, endDate));
+
+            return new FileStreamResult(info, "application/pdf");
+        }
     }
 }

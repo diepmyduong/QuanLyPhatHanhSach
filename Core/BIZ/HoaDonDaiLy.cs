@@ -165,6 +165,7 @@ namespace Core.BIZ
                         if (!CongNoDaiLyManager.edit(ct.Sach.CongNoDaiLy[index]))
                             return false;
                     }
+                    index++;
                 }
                 ct.TrangThai = 1;
             }

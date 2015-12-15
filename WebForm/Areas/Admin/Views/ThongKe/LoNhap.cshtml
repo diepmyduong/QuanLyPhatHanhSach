@@ -64,6 +64,9 @@
                   return false;
                 }
               });
+            $("#print").click(function (event) {
+                $('#myform').submit();
+            });
           });
         </script>
     }
@@ -74,7 +77,19 @@
             <h3 class="panel-title">@ViewBag.Title</h3>
       </div>
       <div class="panel-body">
-            @Html.ActionLink("Xem tồn kho", "TonKho")
+            @using (Html.BeginForm("LoNhap", "Printer", new { startDate = ViewBag.startDate, endDate = ViewBag.endDate }, FormMethod.Post, new { id = "myform" }))
+            {
+            <p>
+                @Html.ActionLink("Xem tồn kho", "TonKho")
+                @if (ViewBag.startDate != null)
+                {
+                    <span> | </span><a href="#" id="print">In báo cáo</a>
+
+                    //Html.ActionLink("In báo cáo", "TonKho", "Printer", new { date = ViewBag.currentDate }, new { id = "print" });
+                }
+            </p>
+            }
+
       </div>
 </div>
 

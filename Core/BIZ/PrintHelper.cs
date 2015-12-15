@@ -369,6 +369,346 @@ namespace Core.BIZ
             }
         }
 
+        public byte[] printLoNhap(List<Sach> DMSach, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var filePath = Path.Combine(FolderPath, FileName);
+                PdfWriter writer = PdfWriter.GetInstance(_doc, new FileStream(filePath, FileMode.Create));
+                //Create table here for write database data
+
+                var soLuongNhap = (decimal)DMSach.Sum(s => s.SoLuongNhapTheoThang);
+                var tongTienNhap = (decimal)DMSach.Sum(s => s.TongTienNhapTheoThang);
+                var HeaderTable = new PdfPTable(2);
+                HeaderTable.HorizontalAlignment = 0;
+                HeaderTable.SpacingBefore = 20;
+                HeaderTable.SpacingAfter = 10;
+                HeaderTable.SetWidths(new int[] { 2, 6 });
+
+                HeaderTable.AddCell(createNoBorderCell("Ngày in", 2, 1, 1));
+                HeaderTable.AddCell(createNoBorderCell(": " + DataDisplayHelper.dislayShortDate(DateTime.Now), 0, 1, 1));
+
+                //Thông tin thống kê
+                var InfoTable = new PdfPTable(4);
+                InfoTable.HorizontalAlignment = 0;
+                InfoTable.SpacingAfter = 10;
+                InfoTable.DefaultCell.Border = 0;
+                InfoTable.TotalWidth = 15;
+                InfoTable.SetWidths(new int[] { 2, 2, 2, 2 });
+                InfoTable.WidthPercentage = 100;
+                InfoTable.DefaultCell.Border = Rectangle.BOX;
+                InfoTable.AddCell(createHeaderCell("Xem từ tháng", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.dislayMonth(startDate), 1, 1, 1));
+                InfoTable.AddCell(createHeaderCell("Đến tháng", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.dislayMonth(endDate), 1, 1, 1));
+                InfoTable.AddCell(createHeaderCell("Số lượng nhập", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.displayNumber(soLuongNhap), 0, 3, 1));
+                InfoTable.AddCell(createHeaderCell("Tổng tiền", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.displayMoney(tongTienNhap), 0, 3, 1));
+
+                //Thống kê nguồn thu
+                var DetailTable = new PdfPTable(8);
+                DetailTable.HorizontalAlignment = 1;
+                DetailTable.SpacingAfter = 10;
+                DetailTable.WidthPercentage = 100;
+                DetailTable.SetWidths(new int[] { 1, 6, 4, 3, 1, 3, 2, 3 });
+                DetailTable.AddCell(createTableTitleCell("Danh mục sách nhập", 0, 8, 1));
+                DetailTable.AddCell(createNoBorderCell(" ", 1, 8, 1));
+                foreach (var s in DMSach)
+                {
+                    DetailTable.AddCell(createBottomBorderCell(s.MaSoSach.ToString(), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(s.TenSach, 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(" ", 1, 3, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell("Tổng cộng", 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(DataDisplayHelper.displayNumber((decimal)s.SoLuongNhapTheoThang), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(DataDisplayHelper.displayMoney((decimal)s.TongTienNhapTheoThang), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    var PhieuNhap = s.getPhieuNhapTheoThang(startDate.Month, startDate.Year, endDate.Month, endDate.Year);
+                    foreach (var p in PhieuNhap)
+                    {
+                        DetailTable.AddCell(createNoBorderCell(" ", 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell("Phiếu nhập số " + p.MaSoPhieuNhap, 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell("Ngày " + DataDisplayHelper.dislayShortDate(p.PhieuNhap.NgayLap), 1, 2, 1));
+                        DetailTable.AddCell(createNoBorderCell(" ", 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(DataDisplayHelper.displayMoney(p.DonGia), 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(p.SoLuong.ToString(), 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(DataDisplayHelper.displayMoney(p.ThanhTien), 1, 1, 1));
+                    }
+                }
+
+                _doc.Open();
+                _doc.Add(_tilte);
+                _doc.Add(HeaderTable);
+                _doc.Add(InfoTable);
+                _doc.Add(DetailTable);
+                _doc.Close();
+
+                return File.ReadAllBytes(filePath);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                _doc.Close();
+            }
+        }
+
+        public byte[] printLoXuat(List<Sach> DMSach, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var filePath = Path.Combine(FolderPath, FileName);
+                PdfWriter writer = PdfWriter.GetInstance(_doc, new FileStream(filePath, FileMode.Create));
+                //Create table here for write database data
+
+                var soLuongXuat = (decimal)DMSach.Sum(s => s.SoLuongXuatTheoThang);
+                var tongTienXuat = (decimal)DMSach.Sum(s => s.TongTienXuatTheoThang);
+                var HeaderTable = new PdfPTable(2);
+                HeaderTable.HorizontalAlignment = 0;
+                HeaderTable.SpacingBefore = 20;
+                HeaderTable.SpacingAfter = 10;
+                HeaderTable.SetWidths(new int[] { 2, 6 });
+
+                HeaderTable.AddCell(createNoBorderCell("Ngày in", 2, 1, 1));
+                HeaderTable.AddCell(createNoBorderCell(": " + DataDisplayHelper.dislayShortDate(DateTime.Now), 0, 1, 1));
+
+                //Thông tin thống kê
+                var InfoTable = new PdfPTable(4);
+                InfoTable.HorizontalAlignment = 0;
+                InfoTable.SpacingAfter = 10;
+                InfoTable.DefaultCell.Border = 0;
+                InfoTable.TotalWidth = 15;
+                InfoTable.SetWidths(new int[] { 2, 2, 2, 2 });
+                InfoTable.WidthPercentage = 100;
+                InfoTable.DefaultCell.Border = Rectangle.BOX;
+                InfoTable.AddCell(createHeaderCell("Xem từ tháng", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.dislayMonth(startDate), 1, 1, 1));
+                InfoTable.AddCell(createHeaderCell("Đến tháng", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.dislayMonth(endDate), 1, 1, 1));
+                InfoTable.AddCell(createHeaderCell("Số lượng xuất", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.displayNumber(soLuongXuat), 0, 3, 1));
+                InfoTable.AddCell(createHeaderCell("Tổng tiền", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.displayMoney(tongTienXuat), 0, 3, 1));
+
+                //Thống kê nguồn thu
+                var DetailTable = new PdfPTable(8);
+                DetailTable.HorizontalAlignment = 1;
+                DetailTable.SpacingAfter = 10;
+                DetailTable.WidthPercentage = 100;
+                DetailTable.SetWidths(new int[] { 1, 6, 4, 3, 1, 3, 2, 3 });
+                DetailTable.AddCell(createTableTitleCell("Danh mục sách nhập", 0, 8, 1));
+                DetailTable.AddCell(createNoBorderCell(" ", 1, 8, 1));
+                foreach (var s in DMSach)
+                {
+                    DetailTable.AddCell(createBottomBorderCell(s.MaSoSach.ToString(), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(s.TenSach, 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(" ", 1, 3, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell("Tổng cộng", 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(DataDisplayHelper.displayNumber((decimal)s.SoLuongXuatTheoThang), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(DataDisplayHelper.displayMoney((decimal)s.TongTienXuatTheoThang), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    var PhieuXuat = s.getPhieuXuatTheoThang(startDate.Month, startDate.Year, endDate.Month, endDate.Year);
+                    foreach (var p in PhieuXuat)
+                    {
+                        DetailTable.AddCell(createNoBorderCell(" ", 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell("Phiếu xuất số " + p.MaSoPhieuXuat, 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell("Ngày " + DataDisplayHelper.dislayShortDate(p.PhieuXuat.NgayLap), 1, 2, 1));
+                        DetailTable.AddCell(createNoBorderCell(" ", 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(DataDisplayHelper.displayMoney(p.DonGia), 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(p.SoLuong.ToString(), 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(DataDisplayHelper.displayMoney(p.ThanhTien), 1, 1, 1));
+                    }
+                }
+
+                _doc.Open();
+                _doc.Add(_tilte);
+                _doc.Add(HeaderTable);
+                _doc.Add(InfoTable);
+                _doc.Add(DetailTable);
+                _doc.Close();
+
+                return File.ReadAllBytes(filePath);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                _doc.Close();
+            }
+        }
+
+        public byte[] printCongNoNXB(List<Sach> DMSach, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var filePath = Path.Combine(FolderPath, FileName);
+                PdfWriter writer = PdfWriter.GetInstance(_doc, new FileStream(filePath, FileMode.Create));
+                //Create table here for write database data
+
+                var soLuongNo = (decimal)DMSach.Sum(s => s.TongSoLuongNXBNoTheoThang);
+                var tongTienNo = (decimal)DMSach.Sum(s => s.TongTienNXBNoTheoThang);
+                var HeaderTable = new PdfPTable(2);
+                HeaderTable.HorizontalAlignment = 0;
+                HeaderTable.SpacingBefore = 20;
+                HeaderTable.SpacingAfter = 10;
+                HeaderTable.SetWidths(new int[] { 2, 6 });
+
+                HeaderTable.AddCell(createNoBorderCell("Ngày in", 2, 1, 1));
+                HeaderTable.AddCell(createNoBorderCell(": " + DataDisplayHelper.dislayShortDate(DateTime.Now), 0, 1, 1));
+
+                //Thông tin thống kê
+                var InfoTable = new PdfPTable(4);
+                InfoTable.HorizontalAlignment = 0;
+                InfoTable.SpacingAfter = 10;
+                InfoTable.DefaultCell.Border = 0;
+                InfoTable.TotalWidth = 15;
+                InfoTable.SetWidths(new int[] { 2, 2, 2, 2 });
+                InfoTable.WidthPercentage = 100;
+                InfoTable.DefaultCell.Border = Rectangle.BOX;
+                InfoTable.AddCell(createHeaderCell("Xem từ tháng", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.dislayMonth(startDate), 1, 1, 1));
+                InfoTable.AddCell(createHeaderCell("Đến tháng", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.dislayMonth(endDate), 1, 1, 1));
+                InfoTable.AddCell(createHeaderCell("Số lượng nợ", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.displayNumber(soLuongNo), 0, 3, 1));
+                InfoTable.AddCell(createHeaderCell("Tổng tiền", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.displayMoney(tongTienNo), 0, 3, 1));
+
+                //Thống kê nguồn thu
+                var DetailTable = new PdfPTable(8);
+                DetailTable.HorizontalAlignment = 1;
+                DetailTable.SpacingAfter = 10;
+                DetailTable.WidthPercentage = 100;
+                DetailTable.SetWidths(new int[] { 1, 6, 4, 3, 1, 3, 2, 3 });
+                DetailTable.AddCell(createTableTitleCell("Danh mục sách nợ Nhà xuất bản", 0, 8, 1));
+                DetailTable.AddCell(createNoBorderCell(" ", 1, 8, 1));
+                foreach (var s in DMSach)
+                {
+                    DetailTable.AddCell(createBottomBorderCell(s.MaSoSach.ToString(), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(s.TenSach, 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(" ", 1, 3, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell("Tổng cộng", 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(DataDisplayHelper.displayNumber((decimal)s.TongSoLuongNXBNoTheoThang), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(DataDisplayHelper.displayMoney((decimal)s.TongTienNXBNoTheoThang), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    var CongNo = s.getCongNoNXBTheoThang(startDate.Month, startDate.Year, endDate.Month, endDate.Year);
+                    foreach (var p in CongNo)
+                    {
+                        DetailTable.AddCell(createNoBorderCell(" ", 1, 2, 1));
+                        //DetailTable.AddCell(createNoBorderCell("Phiếu xuất số " + p.Maso, 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell("Tháng " + DataDisplayHelper.dislayMonth(p.Thang), 1, 2, 1));
+                        DetailTable.AddCell(createNoBorderCell(" ", 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(DataDisplayHelper.displayMoney(p.DonGia), 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(p.SoLuong.ToString(), 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(DataDisplayHelper.displayMoney(p.ThanhTien), 1, 1, 1));
+                    }
+                }
+
+                _doc.Open();
+                _doc.Add(_tilte);
+                _doc.Add(HeaderTable);
+                _doc.Add(InfoTable);
+                _doc.Add(DetailTable);
+                _doc.Close();
+
+                return File.ReadAllBytes(filePath);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                _doc.Close();
+            }
+        }
+
+        public byte[] printCongNoDaiLy(List<Sach> DMSach, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var filePath = Path.Combine(FolderPath, FileName);
+                PdfWriter writer = PdfWriter.GetInstance(_doc, new FileStream(filePath, FileMode.Create));
+                //Create table here for write database data
+
+                var soLuongNo = (decimal)DMSach.Sum(s => s.TongSoLuongDaiLyNoTheoThang);
+                var tongTienNo = (decimal)DMSach.Sum(s => s.TongTienDaiLyNoTheoTang);
+                var HeaderTable = new PdfPTable(2);
+                HeaderTable.HorizontalAlignment = 0;
+                HeaderTable.SpacingBefore = 20;
+                HeaderTable.SpacingAfter = 10;
+                HeaderTable.SetWidths(new int[] { 2, 6 });
+
+                HeaderTable.AddCell(createNoBorderCell("Ngày in", 2, 1, 1));
+                HeaderTable.AddCell(createNoBorderCell(": " + DataDisplayHelper.dislayShortDate(DateTime.Now), 0, 1, 1));
+
+                //Thông tin thống kê
+                var InfoTable = new PdfPTable(4);
+                InfoTable.HorizontalAlignment = 0;
+                InfoTable.SpacingAfter = 10;
+                InfoTable.DefaultCell.Border = 0;
+                InfoTable.TotalWidth = 15;
+                InfoTable.SetWidths(new int[] { 2, 2, 2, 2 });
+                InfoTable.WidthPercentage = 100;
+                InfoTable.DefaultCell.Border = Rectangle.BOX;
+                InfoTable.AddCell(createHeaderCell("Xem từ tháng", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.dislayMonth(startDate), 1, 1, 1));
+                InfoTable.AddCell(createHeaderCell("Đến tháng", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.dislayMonth(endDate), 1, 1, 1));
+                InfoTable.AddCell(createHeaderCell("Số lượng nợ", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.displayNumber(soLuongNo), 0, 3, 1));
+                InfoTable.AddCell(createHeaderCell("Tổng tiền", 1, 1, 1));
+                InfoTable.AddCell(createCell(DataDisplayHelper.displayMoney(tongTienNo), 0, 3, 1));
+
+                //Thống kê nguồn thu
+                var DetailTable = new PdfPTable(8);
+                DetailTable.HorizontalAlignment = 1;
+                DetailTable.SpacingAfter = 10;
+                DetailTable.WidthPercentage = 100;
+                DetailTable.SetWidths(new int[] { 1, 6, 4, 3, 1, 3, 2, 3 });
+                DetailTable.AddCell(createTableTitleCell("Danh mục sách Đại lý nợ", 0, 8, 1));
+                DetailTable.AddCell(createNoBorderCell(" ", 1, 8, 1));
+                foreach (var s in DMSach)
+                {
+                    DetailTable.AddCell(createBottomBorderCell(s.MaSoSach.ToString(), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(s.TenSach, 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(" ", 1, 3, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell("Tổng cộng", 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(DataDisplayHelper.displayNumber((decimal)s.TongSoLuongDaiLyNoTheoThang), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    DetailTable.AddCell(createBottomBorderCell(DataDisplayHelper.displayMoney((decimal)s.TongTienDaiLyNoTheoTang), 1, 1, 1, BaseColor.LIGHT_GRAY));
+                    var CongNo = s.getCongNoDaiLyTheoThang(startDate.Month, startDate.Year, endDate.Month, endDate.Year);
+                    foreach (var p in CongNo)
+                    {
+                        DetailTable.AddCell(createNoBorderCell(" ", 1, 2, 1));
+                        //DetailTable.AddCell(createNoBorderCell("Phiếu xuất số " + p.Maso, 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell("Tháng " + DataDisplayHelper.dislayMonth(p.Thang), 1, 2, 1));
+                        DetailTable.AddCell(createNoBorderCell(" ", 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(DataDisplayHelper.displayMoney(p.DonGia), 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(p.SoLuong.ToString(), 1, 1, 1));
+                        DetailTable.AddCell(createNoBorderCell(DataDisplayHelper.displayMoney(p.ThanhTien), 1, 1, 1));
+                    }
+                }
+
+                _doc.Open();
+                _doc.Add(_tilte);
+                _doc.Add(HeaderTable);
+                _doc.Add(InfoTable);
+                _doc.Add(DetailTable);
+                _doc.Close();
+
+                return File.ReadAllBytes(filePath);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                _doc.Close();
+            }
+        }
+
         #region Private Method
         private PdfPCell createHeaderCell(string text,int Align, int colspan, int rowspan)
         {
@@ -377,6 +717,7 @@ namespace Core.BIZ
             cell.HorizontalAlignment = Align;
             cell.Colspan = colspan;
             cell.Rowspan = rowspan;
+            cell.Padding = 6;
             return cell;
         }
 
@@ -386,6 +727,7 @@ namespace Core.BIZ
             cell.HorizontalAlignment = Align;
             cell.Colspan = colspan;
             cell.Rowspan = rowspan;
+            cell.Padding = 4;
             return cell;
         }
 
