@@ -95,29 +95,39 @@ namespace WinForm.Views
 
         private void btXoa_Click(object sender, EventArgs e)
         {
-          ///  List<ChiTietPhieuNhap> _DSCTPN = PhieuNhapManager.ChiTiet.getAll();
-          /// kiểm trạng trạng thái
-            if (!txbMaPhieuNhap.Text.Equals(""))
+            ///  List<ChiTietPhieuNhap> _DSCTPN = PhieuNhapManager.ChiTiet.getAll();
+            /// kiểm trạng trạng thái
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                PhieuNhap pn = new PhieuNhap();
-                int x = int.Parse(txbMaPhieuNhap.Text.ToString());
-                var phieu = PhieuNhapManager.find(x);
-
-                if (phieu.TrangThai != 1)
+                if (!txbMaPhieuNhap.Text.Equals(""))
                 {
-                    if (PhieuNhapManager.delete(phieu.MaSoPhieuNhap))
+                    PhieuNhap pn = new PhieuNhap();
+                    int x = int.Parse(txbMaPhieuNhap.Text.ToString());
+                    var phieu = PhieuNhapManager.find(x);
+
+                    if (phieu.TrangThai != 1)
                     {
-                        MessageBox.Show("Đã xóa thành công");
-                        LoadDSPM();
+                        if (PhieuNhapManager.delete(phieu.MaSoPhieuNhap))
+                        {
+                            MessageBox.Show("Đã xóa thành công");
+                            LoadDSPM();
+                        }
+                        else
+                            MessageBox.Show("Không xóa được");
                     }
                     else
-                        MessageBox.Show("Không xóa được");
+                        MessageBox.Show("Không tìm thấy");
                 }
                 else
-                    MessageBox.Show("...");
+                    MessageBox.Show("Chọn phiếu nhập cần xóa");
+
             }
-            else
-                MessageBox.Show("Chọn phiếu nhập cần xóa");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
         }
 
         private void btChuaDuyet_Click(object sender, EventArgs e)
@@ -127,30 +137,40 @@ namespace WinForm.Views
 
         private void btDuyet_Click(object sender, EventArgs e)
         {
-            if (!txbMaPhieuNhap.Text.Equals(""))
-            {
-              
-                int ma = int.Parse(txbMaPhieuNhap.Text.ToString());
-                var Phieu = PhieuNhapManager.find(ma);
 
-                // thêm kiểm tra trạng thái phiếu nhập
-                if (Phieu != null)
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn duyệt phiếu nhập", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (!txbMaPhieuNhap.Text.Equals(""))
                 {
-                    if (Phieu.accept())
+
+                    int ma = int.Parse(txbMaPhieuNhap.Text.ToString());
+                    var Phieu = PhieuNhapManager.find(ma);
+
+                    // thêm kiểm tra trạng thái phiếu nhập
+                    if (Phieu != null)
                     {
-                        MessageBox.Show("Đã duyệt thành công");
-                        LoadDSPM();
+                        if (Phieu.accept())
+                        {
+                            MessageBox.Show("Đã duyệt thành công");
+                            LoadDSPM();
+                        }
+                        else
+                            MessageBox.Show("Chưa duyệt được");
                     }
                     else
-                        MessageBox.Show("Chưa duyệt được");
+                        MessageBox.Show("Không tìm thấy phiếu nhập");
+
+
                 }
                 else
-                    MessageBox.Show("..");
-
-
+                    MessageBox.Show("Chưa chọn phiếu nhập cần duyệt");
             }
-            else
-                MessageBox.Show("Chưa chọn phiếu nhập cần duyệt");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+       
         }
 
         private void btThem_Click(object sender, EventArgs e)
@@ -162,6 +182,20 @@ namespace WinForm.Views
         private void panelContainer_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+               
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
     }
 }

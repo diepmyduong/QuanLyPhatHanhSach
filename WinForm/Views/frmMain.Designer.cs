@@ -59,42 +59,42 @@
             this.btnThemLinhVuc = new System.Windows.Forms.Button();
             this.btnThemNXB = new System.Windows.Forms.Button();
             this.btnLapPhieuNhap = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.picHinhAnh = new System.Windows.Forms.PictureBox();
+            this.txbGiaBan = new System.Windows.Forms.TextBox();
+            this.cmbLinhVuc = new System.Windows.Forms.ComboBox();
+            this.txbMaSach = new System.Windows.Forms.TextBox();
+            this.txbTenSach = new System.Windows.Forms.TextBox();
+            this.txbGiaMua = new System.Windows.Forms.TextBox();
+            this.txbTacGia = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbNXB = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txbSoLuong = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnCapNhat = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnXoa = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.rtxbMoTa = new System.Windows.Forms.RichTextBox();
+            this.btnTaiAnh = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnLoc = new System.Windows.Forms.Button();
             this.txbLoc = new System.Windows.Forms.TextBox();
             this.gdvDanhMucSach = new System.Windows.Forms.DataGridView();
-            this.btnTaiAnh = new System.Windows.Forms.Button();
-            this.btnXoa = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.picHinhAnh = new System.Windows.Forms.PictureBox();
-            this.btnCapNhat = new System.Windows.Forms.Button();
-            this.txbGiaBan = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txbSoLuong = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cmbNXB = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmbLinhVuc = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txbMaSach = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txbTenSach = new System.Windows.Forms.TextBox();
-            this.txbTacGia = new System.Windows.Forms.TextBox();
-            this.txbGiaMua = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.rtxbMoTa = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.panelContainer.SuspendLayout();
             this.panelRows.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picHinhAnh)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvDanhMucSach)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picHinhAnh)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -170,7 +170,7 @@
             // 
             this.menuItemTaoPhieuXuat.Name = "menuItemTaoPhieuXuat";
             this.menuItemTaoPhieuXuat.Size = new System.Drawing.Size(187, 22);
-            this.menuItemTaoPhieuXuat.Text = "Tạo phiếu xuất";
+            this.menuItemTaoPhieuXuat.Text = "Xem phiếu xuất";
             this.menuItemTaoPhieuXuat.Click += new System.EventHandler(this.menuItemTaoPhieuXuat_Click);
             // 
             // thanhToánToolStripMenuItem
@@ -380,6 +380,276 @@
             this.btnLapPhieuNhap.UseVisualStyleBackColor = true;
             this.btnLapPhieuNhap.Click += new System.EventHandler(this.btnLapPhieuNhap_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.15152F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.10101F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.30303F));
+            this.tableLayoutPanel1.Controls.Add(this.txbGiaMua, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.txbTacGia, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txbTenSach, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txbMaSach, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.cmbLinhVuc, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.cmbNXB, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.txbSoLuong, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.txbGiaBan, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.btnCapNhat, 3, 5);
+            this.tableLayoutPanel1.Controls.Add(this.picHinhAnh, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.btnXoa, 3, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.rtxbMoTa, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.btnTaiAnh, 4, 7);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
+            this.tableLayoutPanel1.RowCount = 9;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(605, 294);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // picHinhAnh
+            // 
+            this.picHinhAnh.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picHinhAnh.Image = global::WinForm.Properties.Resources.DefaultImage;
+            this.picHinhAnh.InitialImage = null;
+            this.picHinhAnh.Location = new System.Drawing.Point(418, 13);
+            this.picHinhAnh.Name = "picHinhAnh";
+            this.tableLayoutPanel1.SetRowSpan(this.picHinhAnh, 7);
+            this.picHinhAnh.Size = new System.Drawing.Size(174, 204);
+            this.picHinhAnh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picHinhAnh.TabIndex = 16;
+            this.picHinhAnh.TabStop = false;
+            // 
+            // txbGiaBan
+            // 
+            this.txbGiaBan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbGiaBan, 2);
+            this.txbGiaBan.Location = new System.Drawing.Point(101, 165);
+            this.txbGiaBan.Name = "txbGiaBan";
+            this.txbGiaBan.Size = new System.Drawing.Size(182, 20);
+            this.txbGiaBan.TabIndex = 13;
+            // 
+            // cmbLinhVuc
+            // 
+            this.cmbLinhVuc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.cmbLinhVuc, 3);
+            this.cmbLinhVuc.FormattingEnabled = true;
+            this.cmbLinhVuc.Location = new System.Drawing.Point(101, 74);
+            this.cmbLinhVuc.Name = "cmbLinhVuc";
+            this.cmbLinhVuc.Size = new System.Drawing.Size(311, 21);
+            this.cmbLinhVuc.TabIndex = 5;
+            this.cmbLinhVuc.SelectedIndexChanged += new System.EventHandler(this.cmbLinhVuc_SelectedIndexChanged);
+            // 
+            // txbMaSach
+            // 
+            this.txbMaSach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbMaSach, 3);
+            this.txbMaSach.Enabled = false;
+            this.txbMaSach.Location = new System.Drawing.Point(101, 15);
+            this.txbMaSach.Name = "txbMaSach";
+            this.txbMaSach.Size = new System.Drawing.Size(311, 20);
+            this.txbMaSach.TabIndex = 1;
+            // 
+            // txbTenSach
+            // 
+            this.txbTenSach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbTenSach, 3);
+            this.txbTenSach.Location = new System.Drawing.Point(101, 45);
+            this.txbTenSach.Name = "txbTenSach";
+            this.txbTenSach.Size = new System.Drawing.Size(311, 20);
+            this.txbTenSach.TabIndex = 3;
+            // 
+            // txbGiaMua
+            // 
+            this.txbGiaMua.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txbGiaMua, 2);
+            this.txbGiaMua.Location = new System.Drawing.Point(101, 195);
+            this.txbGiaMua.Name = "txbGiaMua";
+            this.txbGiaMua.Size = new System.Drawing.Size(182, 20);
+            this.txbGiaMua.TabIndex = 19;
+            // 
+            // txbTacGia
+            // 
+            this.txbTacGia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbTacGia.Location = new System.Drawing.Point(101, 105);
+            this.txbTacGia.Name = "txbTacGia";
+            this.txbTacGia.Size = new System.Drawing.Size(123, 20);
+            this.txbTacGia.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(41, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Mã sách :";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(37, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Tên sách :";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(38, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Lĩnh vực :";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(46, 108);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(49, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Tác giả :";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(248, 108);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "NXB :";
+            // 
+            // cmbNXB
+            // 
+            this.cmbNXB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbNXB.FormattingEnabled = true;
+            this.cmbNXB.Location = new System.Drawing.Point(289, 104);
+            this.cmbNXB.Name = "cmbNXB";
+            this.cmbNXB.Size = new System.Drawing.Size(123, 21);
+            this.cmbNXB.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(40, 138);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Số lượng :";
+            // 
+            // txbSoLuong
+            // 
+            this.txbSoLuong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbSoLuong.Enabled = false;
+            this.txbSoLuong.Location = new System.Drawing.Point(101, 135);
+            this.txbSoLuong.Name = "txbSoLuong";
+            this.txbSoLuong.Size = new System.Drawing.Size(123, 20);
+            this.txbSoLuong.TabIndex = 11;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(45, 168);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(50, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Giá bán :";
+            // 
+            // btnCapNhat
+            // 
+            this.btnCapNhat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCapNhat.Location = new System.Drawing.Point(289, 163);
+            this.btnCapNhat.Name = "btnCapNhat";
+            this.btnCapNhat.Size = new System.Drawing.Size(123, 23);
+            this.btnCapNhat.TabIndex = 15;
+            this.btnCapNhat.Text = "Cập nhật";
+            this.btnCapNhat.UseVisualStyleBackColor = true;
+            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(43, 198);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Giá mua :";
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXoa.Location = new System.Drawing.Point(289, 193);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(123, 23);
+            this.btnXoa.TabIndex = 17;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(55, 220);
+            this.label9.Name = "label9";
+            this.label9.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.label9.Size = new System.Drawing.Size(40, 18);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Mô tả :";
+            // 
+            // rtxbMoTa
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.rtxbMoTa, 3);
+            this.rtxbMoTa.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxbMoTa.Location = new System.Drawing.Point(101, 223);
+            this.rtxbMoTa.Name = "rtxbMoTa";
+            this.rtxbMoTa.Size = new System.Drawing.Size(311, 44);
+            this.rtxbMoTa.TabIndex = 21;
+            this.rtxbMoTa.Text = "";
+            // 
+            // btnTaiAnh
+            // 
+            this.btnTaiAnh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTaiAnh.Location = new System.Drawing.Point(418, 233);
+            this.btnTaiAnh.Name = "btnTaiAnh";
+            this.btnTaiAnh.Size = new System.Drawing.Size(174, 23);
+            this.btnTaiAnh.TabIndex = 20;
+            this.btnTaiAnh.Text = "Tải ảnh";
+            this.btnTaiAnh.UseVisualStyleBackColor = true;
+            this.btnTaiAnh.Click += new System.EventHandler(this.btnTaiAnh_Click);
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
@@ -432,276 +702,6 @@
             this.gdvDanhMucSach.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdvDanhMucSach_CellContentClick);
             this.gdvDanhMucSach.SelectionChanged += new System.EventHandler(this.gdvDanhMucSach_SelectionChanged);
             // 
-            // btnTaiAnh
-            // 
-            this.btnTaiAnh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTaiAnh.Location = new System.Drawing.Point(418, 233);
-            this.btnTaiAnh.Name = "btnTaiAnh";
-            this.btnTaiAnh.Size = new System.Drawing.Size(174, 23);
-            this.btnTaiAnh.TabIndex = 20;
-            this.btnTaiAnh.Text = "Tải ảnh";
-            this.btnTaiAnh.UseVisualStyleBackColor = true;
-            this.btnTaiAnh.Click += new System.EventHandler(this.btnTaiAnh_Click);
-            // 
-            // btnXoa
-            // 
-            this.btnXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnXoa.Location = new System.Drawing.Point(289, 193);
-            this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(123, 23);
-            this.btnXoa.TabIndex = 17;
-            this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = true;
-            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
-            // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(43, 198);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "Giá mua :";
-            // 
-            // picHinhAnh
-            // 
-            this.picHinhAnh.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picHinhAnh.Image = global::WinForm.Properties.Resources.DefaultImage;
-            this.picHinhAnh.InitialImage = null;
-            this.picHinhAnh.Location = new System.Drawing.Point(418, 13);
-            this.picHinhAnh.Name = "picHinhAnh";
-            this.tableLayoutPanel1.SetRowSpan(this.picHinhAnh, 7);
-            this.picHinhAnh.Size = new System.Drawing.Size(174, 204);
-            this.picHinhAnh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picHinhAnh.TabIndex = 16;
-            this.picHinhAnh.TabStop = false;
-            // 
-            // btnCapNhat
-            // 
-            this.btnCapNhat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCapNhat.Location = new System.Drawing.Point(289, 163);
-            this.btnCapNhat.Name = "btnCapNhat";
-            this.btnCapNhat.Size = new System.Drawing.Size(123, 23);
-            this.btnCapNhat.TabIndex = 15;
-            this.btnCapNhat.Text = "Cập nhật";
-            this.btnCapNhat.UseVisualStyleBackColor = true;
-            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
-            // 
-            // txbGiaBan
-            // 
-            this.txbGiaBan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbGiaBan, 2);
-            this.txbGiaBan.Location = new System.Drawing.Point(101, 165);
-            this.txbGiaBan.Name = "txbGiaBan";
-            this.txbGiaBan.Size = new System.Drawing.Size(182, 20);
-            this.txbGiaBan.TabIndex = 13;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(45, 168);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(50, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Giá bán :";
-            // 
-            // txbSoLuong
-            // 
-            this.txbSoLuong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbSoLuong.Enabled = false;
-            this.txbSoLuong.Location = new System.Drawing.Point(101, 135);
-            this.txbSoLuong.Name = "txbSoLuong";
-            this.txbSoLuong.Size = new System.Drawing.Size(123, 20);
-            this.txbSoLuong.TabIndex = 11;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(40, 138);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Số lượng :";
-            // 
-            // cmbNXB
-            // 
-            this.cmbNXB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbNXB.FormattingEnabled = true;
-            this.cmbNXB.Location = new System.Drawing.Point(289, 104);
-            this.cmbNXB.Name = "cmbNXB";
-            this.cmbNXB.Size = new System.Drawing.Size(123, 21);
-            this.cmbNXB.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(248, 108);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "NXB :";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(46, 108);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Tác giả :";
-            // 
-            // cmbLinhVuc
-            // 
-            this.cmbLinhVuc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.cmbLinhVuc, 3);
-            this.cmbLinhVuc.FormattingEnabled = true;
-            this.cmbLinhVuc.Location = new System.Drawing.Point(101, 74);
-            this.cmbLinhVuc.Name = "cmbLinhVuc";
-            this.cmbLinhVuc.Size = new System.Drawing.Size(311, 21);
-            this.cmbLinhVuc.TabIndex = 5;
-            this.cmbLinhVuc.SelectedIndexChanged += new System.EventHandler(this.cmbLinhVuc_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 78);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Lĩnh vực :";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Tên sách :";
-            // 
-            // txbMaSach
-            // 
-            this.txbMaSach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbMaSach, 3);
-            this.txbMaSach.Enabled = false;
-            this.txbMaSach.Location = new System.Drawing.Point(101, 15);
-            this.txbMaSach.Name = "txbMaSach";
-            this.txbMaSach.Size = new System.Drawing.Size(311, 20);
-            this.txbMaSach.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(41, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Mã sách :";
-            // 
-            // txbTenSach
-            // 
-            this.txbTenSach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbTenSach, 3);
-            this.txbTenSach.Location = new System.Drawing.Point(101, 45);
-            this.txbTenSach.Name = "txbTenSach";
-            this.txbTenSach.Size = new System.Drawing.Size(311, 20);
-            this.txbTenSach.TabIndex = 3;
-            // 
-            // txbTacGia
-            // 
-            this.txbTacGia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbTacGia.Location = new System.Drawing.Point(101, 105);
-            this.txbTacGia.Name = "txbTacGia";
-            this.txbTacGia.Size = new System.Drawing.Size(123, 20);
-            this.txbTacGia.TabIndex = 7;
-            // 
-            // txbGiaMua
-            // 
-            this.txbGiaMua.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbGiaMua, 2);
-            this.txbGiaMua.Location = new System.Drawing.Point(101, 195);
-            this.txbGiaMua.Name = "txbGiaMua";
-            this.txbGiaMua.Size = new System.Drawing.Size(182, 20);
-            this.txbGiaMua.TabIndex = 19;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.15152F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.10101F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.30303F));
-            this.tableLayoutPanel1.Controls.Add(this.txbGiaMua, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.txbTacGia, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txbTenSach, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txbMaSach, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.cmbLinhVuc, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.cmbNXB, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.txbSoLuong, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.txbGiaBan, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.btnCapNhat, 3, 5);
-            this.tableLayoutPanel1.Controls.Add(this.picHinhAnh, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.btnXoa, 3, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.rtxbMoTa, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.btnTaiAnh, 4, 7);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
-            this.tableLayoutPanel1.RowCount = 9;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(605, 294);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(55, 220);
-            this.label9.Name = "label9";
-            this.label9.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.label9.Size = new System.Drawing.Size(40, 18);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Mô tả :";
-            // 
-            // rtxbMoTa
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.rtxbMoTa, 3);
-            this.rtxbMoTa.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtxbMoTa.Location = new System.Drawing.Point(101, 223);
-            this.rtxbMoTa.Name = "rtxbMoTa";
-            this.rtxbMoTa.Size = new System.Drawing.Size(311, 44);
-            this.rtxbMoTa.TabIndex = 21;
-            this.rtxbMoTa.Text = "";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -721,12 +721,12 @@
             this.panelRows.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picHinhAnh)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvDanhMucSach)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picHinhAnh)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

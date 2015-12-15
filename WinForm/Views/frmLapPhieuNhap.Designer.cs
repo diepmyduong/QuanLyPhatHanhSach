@@ -129,11 +129,11 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(50, 98);
+            this.label4.Location = new System.Drawing.Point(47, 98);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 13);
+            this.label4.Size = new System.Drawing.Size(64, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Ngày giao :";
+            this.label4.Text = "Người giao :";
             // 
             // txbMaPhieuNhap
             // 

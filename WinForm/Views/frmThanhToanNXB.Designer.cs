@@ -38,16 +38,16 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lbTongTien = new System.Windows.Forms.Label();
             this.gdvChiTiet = new System.Windows.Forms.DataGridView();
+            this.TenSach = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TongTienT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
             this.txbMaHoaDon = new System.Windows.Forms.TextBox();
             this.cmbNXB = new System.Windows.Forms.ComboBox();
             this.dtpNgayLap = new System.Windows.Forms.DateTimePicker();
-            this.TenSach = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TongTienT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvChiTiet)).BeginInit();
@@ -173,6 +173,7 @@
             // 
             // gdvChiTiet
             // 
+            this.gdvChiTiet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gdvChiTiet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TenSach,
@@ -187,6 +188,30 @@
             this.gdvChiTiet.TabIndex = 6;
             this.gdvChiTiet.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gdvChiTiet_EditingControlShowing);
             this.gdvChiTiet.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdvChiTiet_RowEnter);
+            // 
+            // TenSach
+            // 
+            this.TenSach.HeaderText = "Tên sách";
+            this.TenSach.Name = "TenSach";
+            this.TenSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TenSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // SoLuong
+            // 
+            this.SoLuong.HeaderText = "Số lượng";
+            this.SoLuong.Name = "SoLuong";
+            // 
+            // DonGia
+            // 
+            this.DonGia.HeaderText = "Đơn Giá";
+            this.DonGia.Name = "DonGia";
+            this.DonGia.ReadOnly = true;
+            // 
+            // TongTienT
+            // 
+            this.TongTienT.HeaderText = "Tổng Tiền";
+            this.TongTienT.Name = "TongTienT";
+            this.TongTienT.ReadOnly = true;
             // 
             // flowLayoutPanel1
             // 
@@ -248,34 +273,6 @@
             this.dtpNgayLap.Name = "dtpNgayLap";
             this.dtpNgayLap.Size = new System.Drawing.Size(411, 20);
             this.dtpNgayLap.TabIndex = 12;
-            // 
-            // TenSach
-            // 
-            this.TenSach.HeaderText = "Tên sách";
-            this.TenSach.Name = "TenSach";
-            this.TenSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TenSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TenSach.Width = 208;
-            // 
-            // SoLuong
-            // 
-            this.SoLuong.HeaderText = "Số lượng";
-            this.SoLuong.Name = "SoLuong";
-            this.SoLuong.Width = 208;
-            // 
-            // DonGia
-            // 
-            this.DonGia.HeaderText = "Đơn Giá";
-            this.DonGia.Name = "DonGia";
-            this.DonGia.ReadOnly = true;
-            this.DonGia.Width = 208;
-            // 
-            // TongTienT
-            // 
-            this.TongTienT.HeaderText = "Tổng Tiền";
-            this.TongTienT.Name = "TongTienT";
-            this.TongTienT.ReadOnly = true;
-            this.TongTienT.Width = 207;
             // 
             // frmThanhToanNXB
             // 

@@ -302,7 +302,7 @@ namespace WebForm.Areas.Admin.Controllers
             }
             else
             {
-                putErrorMessage("Duyệt không thành công");
+                putErrorMessage("Duyệt không thành công, vui lòng kiểm tra lại công nợ");
                 return RedirectToAction("Edit", new { id });
             }
             

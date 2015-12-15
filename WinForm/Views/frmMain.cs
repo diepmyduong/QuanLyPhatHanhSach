@@ -49,11 +49,6 @@ namespace WinForm.Views
         //Chọn Xem Danh mục Sách
         private void menuItemXemDanhMucSach_Click(object sender, EventArgs e)
         {
-            var printer = new PrintHelper();
-            printer.FolderPath = "D://";
-            printer.Title = "Danh mục sách";
-            printer.FileName = "file.pdf";
-            printer.printDMSach(SachManager.getAll()); 
 
         }
         //Chọn Xem Danh mục NXB
@@ -77,8 +72,8 @@ namespace WinForm.Views
         //Chọn tạo phiếu xuất
         private void menuItemTaoPhieuXuat_Click(object sender, EventArgs e)
         {
-           // frmLapPhieuXuat form = new frmLapPhieuXuat(this);
-           // form.ShowDialog(this);
+            FrmDanhMucPhieuXuat fr = new FrmDanhMucPhieuXuat();
+            fr.Show();
         }
         //Chọn Thanh toán với Đại lý
         private void menuItemThanhToanDaiLy_Click(object sender, EventArgs e)
@@ -135,84 +130,106 @@ namespace WinForm.Views
         //Chọn cập nhật thông tin Sách
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
-            //Kiểm tra điều kiện
-            if (String.IsNullOrEmpty(txbTenSach.Text))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn cập nhật sản phẩm", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                MessageBox.Show("Tên Sách chưa hợp lệ");
-                return;
-            }
-            if (String.IsNullOrEmpty(txbTacGia.Text))
-            {
-                MessageBox.Show("Tên Tác giả chưa hợp lệ");
-                return;
-            }
-            if (String.IsNullOrEmpty(txbGiaBan.Text))
-            {
-                MessageBox.Show("Giá bán chưa hợp lệ");
-                return;
-            }
-            if (String.IsNullOrEmpty(txbGiaMua.Text))
-            {
-                MessageBox.Show("Giá mua chưa hợp lệ");
-                return;
-            }
-            if (cmbLinhVuc.SelectedIndex == -1)
-            {
-                MessageBox.Show("Lĩnh vực chưa hợp lệ");
-                return;
-            }
-            if (cmbNXB.SelectedIndex == -1)
-            {
-                MessageBox.Show("Nhà Xuất Bản chưa hợp lệ");
-                return;
-            }
-            //Kiểm tra thông tin cập nhật trùng
-            //if(_DMSach.Find(sach => !sach.MaSoSach.Equals(Int32.Parse(txbMaSach.Text))
-            //                        && sach.TenSach.Equals(txbTenSach.Text)
-            //                        && sach.LinhVucSach.MaSoLinhVuc.Equals(cmbLinhVuc.SelectedValue)
-            //                        && sach.NXB.MaSoNXB.Equals(cmbNXB.SelectedValue)) != null)
-            //{
-            //    MessageBox.Show("Thông tin bị trùng");
-            //}
-            //Tạo mới đối tượng
-            Sach s = new Sach();
-            s.MaSoSach = Int32.Parse(txbMaSach.Text);
-            s.TenSach = txbTenSach.Text;
-            s.LinhVucSach = _DMLinhVuc[cmbLinhVuc.SelectedIndex];
-            s.TenTacGia = txbTacGia.Text;
-            s.NXB = _DMNXB[cmbNXB.SelectedIndex];
-            s.Soluong = Decimal.Parse(txbSoLuong.Text);
-            s.GiaBan = Decimal.Parse(txbGiaBan.Text);
-            s.GiaNhap = Decimal.Parse(txbGiaMua.Text);
-            s.HinhAnhTypeImage = picHinhAnh.Image;
-            //Cập nhật
+                if (String.IsNullOrEmpty(txbTenSach.Text))
+                {
+                    MessageBox.Show("Tên Sách chưa hợp lệ");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txbTacGia.Text))
+                {
+                    MessageBox.Show("Tên Tác giả chưa hợp lệ");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txbGiaBan.Text))
+                {
+                    MessageBox.Show("Giá bán chưa hợp lệ");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txbGiaMua.Text))
+                {
+                    MessageBox.Show("Giá mua chưa hợp lệ");
+                    return;
+                }
+                if (cmbLinhVuc.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Lĩnh vực chưa hợp lệ");
+                    return;
+                }
+                if (cmbNXB.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Nhà Xuất Bản chưa hợp lệ");
+                    return;
+                }
+                //Kiểm tra thông tin cập nhật trùng
+                //if(_DMSach.Find(sach => !sach.MaSoSach.Equals(Int32.Parse(txbMaSach.Text))
+                //                        && sach.TenSach.Equals(txbTenSach.Text)
+                //                        && sach.LinhVucSach.MaSoLinhVuc.Equals(cmbLinhVuc.SelectedValue)
+                //                        && sach.NXB.MaSoNXB.Equals(cmbNXB.SelectedValue)) != null)
+                //{
+                //    MessageBox.Show("Thông tin bị trùng");
+                //}
+                //Tạo mới đối tượng
+                Sach s = new Sach();
+                s.MaSoSach = Int32.Parse(txbMaSach.Text);
+                s.TenSach = txbTenSach.Text;
+                s.LinhVucSach = _DMLinhVuc[cmbLinhVuc.SelectedIndex];
+                s.TenTacGia = txbTacGia.Text;
+                s.NXB = _DMNXB[cmbNXB.SelectedIndex];
+                s.Soluong = Decimal.Parse(txbSoLuong.Text);
+                s.GiaBan = Decimal.Parse(txbGiaBan.Text);
+                s.GiaNhap = Decimal.Parse(txbGiaMua.Text);
+                s.HinhAnhTypeImage = picHinhAnh.Image;
+                s.MoTa = rtxbMoTa.Text.ToString();
+                //Cập nhật
 
-            
-                SachManager.edit(s);
-                //Load lại form
-                MessageBox.Show("Thay đổi thông tin sách thành công");
-                reload();
-            
+
+                if (SachManager.edit(s))
+                {
+                    MessageBox.Show("Thay đổi thông tin sách thành công");
+                    reload();
+                }
+                else
+                    MessageBox.Show("Không thay đổi được, kiểm tra lại");
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+            //Kiểm tra điều kiện
+           
            
             
         }
         //Xóa sách đã chọn
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if(!txbMaSach.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa sản phẩm", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                if (SachManager.delete(int.Parse(txbMaSach.Text)))
+                if (!txbMaSach.Text.Equals(""))
                 {
-                    MessageBox.Show("Xóa sách thành công");
-                    reload();
+                    if (SachManager.delete(int.Parse(txbMaSach.Text)))
+                    {
+                        MessageBox.Show("Xóa sách thành công");
+                        reload();
+                    }
+                    else
+                        MessageBox.Show("Không xóa được, vui lòng kiểm tra lại");
                 }
                 else
-                    MessageBox.Show("Không xóa được, vui lòng kiểm tra lại");
+                {
+                    MessageBox.Show("Nhập vào mã sách cần xóa");
+                }
             }
-            else
+            else if (dialogResult == DialogResult.No)
             {
-                MessageBox.Show("Nhập vào mã sách cần xóa");
+                return;
             }
+
 
         }
         //Tải ảnh lên

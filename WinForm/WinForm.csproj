@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\iTextSharp.5.5.8\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -267,6 +271,9 @@
     <EmbeddedResource Include="Views\frmChiTietLoNhap.resx">
       <DependentUpon>frmChiTietLoNhap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmChiTietLoXuat.resx">
+      <DependentUpon>frmChiTietLoXuat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmCongNoDaiLy.resx">
       <DependentUpon>frmCongNoDaiLy.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,8 +283,20 @@
     <EmbeddedResource Include="Views\frmDanhMucDaiLy.resx">
       <DependentUpon>frmDanhMucDaiLy.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmDanhMucHoaDonDaiLy.resx">
+      <DependentUpon>frmDanhMucHoaDonDaiLy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmDanhMucHoaDonNXB.resx">
+      <DependentUpon>frmDanhMucHoaDonNXB.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmDanhMucNXB.resx">
       <DependentUpon>frmDanhMucNXB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmDanhMucPhieuNhap.resx">
+      <DependentUpon>FrmDanhMucPhieuNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmDanhMucPhieuXuat.resx">
+      <DependentUpon>FrmDanhMucPhieuXuat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmDanhMucSach.resx">
       <DependentUpon>frmDanhMucSach.cs</DependentUpon>
@@ -333,6 +352,7 @@
     <EmbeddedResource Include="Views\frmThongKeTonKho.resx">
       <DependentUpon>frmThongKeTonKho.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

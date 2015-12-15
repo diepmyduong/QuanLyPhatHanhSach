@@ -167,6 +167,7 @@
             // 
             // gdvXuat
             // 
+            this.gdvXuat.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvXuat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvXuat, 4);
             this.gdvXuat.Dock = System.Windows.Forms.DockStyle.Fill;

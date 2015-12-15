@@ -140,7 +140,7 @@ namespace WebForm.Controllers
                 var result = PhieuXuatManager.add(currentPhieu);
                 if(result != 0)
                 {
-                    return RedirectToAction("OrderSuccess");
+                    return RedirectToAction("OrderDetail","Manager",new { id = result });
                 }
                 else
                 {

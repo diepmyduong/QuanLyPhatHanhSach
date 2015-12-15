@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.BIZ;
 using Core.DAL;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace WinForm.Views
 {
@@ -43,6 +46,7 @@ namespace WinForm.Views
             _endMonth = 12;
             _endYear = DateTime.Now.Year;
             //Load combobox tháng và năm
+            createGridViewColumns();
             cmbStartMonth.DataSource = new BindingSource(FilterHelper.Monthes, null);
             cmbEndMonth.DataSource = new BindingSource(FilterHelper.Monthes, null);
             cmbStartMonth.DisplayMember = "Key";
@@ -64,6 +68,11 @@ namespace WinForm.Views
             cmbEndMonth.SelectedValue = 12;
             cmbEndYear.SelectedValue = _endYear;
             LoadTT();
+            if (_CurrentDaiLy != null)
+            {
+                lbMa.Text = _CurrentDaiLy.MaSoDaiLy + "";
+                lbTen.Text = _CurrentDaiLy.TenDaiLy;
+            }
         }
         private void LoadTT()
         {
@@ -126,8 +135,126 @@ namespace WinForm.Views
         {
 
         }
+        private void createGridViewColumns()
+        {
+            gdvHoaDon.AutoGenerateColumns = false; // Bỏ auto generate Columns
+            gdvHoaDon.ColumnCount = 5; // Xác định số columns có
+            setColumn(gdvHoaDon.Columns[0]
+                , nameof(HoaDonDaiLyManager.Properties.MaSoHoaDon)
+                , HoaDonDaiLyManager.Properties.MaSoHoaDon);
+            gdvHoaDon.Columns[0].Width = 130;
+            gdvHoaDon.Columns[1].Width = 130;
+            gdvHoaDon.Columns[2].Width = 150;
+            gdvHoaDon.Columns[3].Width = 150;
+            gdvHoaDon.Columns[4].Width = 150;
+            setColumn(gdvHoaDon.Columns[1]
+                , nameof(HoaDonDaiLyManager.Properties.MaSoDaiLy)
+                , HoaDonDaiLyManager.Properties.MaSoDaiLy);
+            setColumn(gdvHoaDon.Columns[2]
+                , nameof(HoaDonDaiLyManager.Properties.DaiLy)
+                , HoaDonDaiLyManager.Properties.DaiLy);
+            setColumn(gdvHoaDon.Columns[3]
+                , nameof(HoaDonDaiLyManager.Properties.NgayLap)
+                ,HoaDonDaiLyManager.Properties.NgayLap);
+            setColumn(gdvHoaDon.Columns[4]
+                , nameof(HoaDonDaiLyManager.Properties.TongTien)
+                , HoaDonDaiLyManager.Properties.TongTien);
+            
+
+        }
+
+        private void setColumn(DataGridViewColumn column, string propertyName, string name)
+        {
+            column.Name = propertyName;
+            column.DataPropertyName = propertyName;
+            column.HeaderText = name;
+        }
+
         #endregion
 
+        private void btIn_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xuất tạo file báo cáo", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                var redListTextFont = FontFactory.RegisterDirectory(Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts");
+                var _bold = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10f, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+                var _bold1 = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10f, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+                PdfPTable pdfTable = new PdfPTable(gdvHoaDon.ColumnCount);
+                pdfTable.DefaultCell.Padding = 3;
+                pdfTable.WidthPercentage = 30;
+                pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfTable.DefaultCell.BorderWidth = 1;
+                pdfTable.TotalWidth = 500f;
+                pdfTable.LockedWidth = true;
+                float[] widths = new float[] { 100f, 100f, 100f, 100f, 100f };
+                pdfTable.SetWidths(widths);
 
+
+                //Adding Header row
+                foreach (DataGridViewColumn column in gdvHoaDon.Columns)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, _bold));
+                    cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+
+                    pdfTable.AddCell(cell);
+                }
+
+                //Adding DataRow
+                foreach (DataGridViewRow row in gdvHoaDon.Rows)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (!String.IsNullOrEmpty(Convert.ToString(cell.Value)))
+                            pdfTable.AddCell(new Phrase(cell.Value.ToString(), _bold1));
+                    }
+                }
+
+                //Exporting to PDF
+                string folderPath = @"C:\Users\huy\Desktop\Report\";
+                string x = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "";
+
+                string tenfile = x + "ReportThongNguonThu.pdf";
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                using (FileStream stream = new FileStream(folderPath + tenfile, FileMode.Create))
+                {
+
+                    Document pdfDoc = new Document(PageSize.A3, 100f, 100f, 100f, 0);
+                    PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+                    var FontColour = new BaseColor(255, 0, 0);
+                    var _bold2 = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 20f, iTextSharp.text.Font.NORMAL, BaseColor.BLUE);
+                    Paragraph docTitle = new Paragraph("Thống kê nguồn chi " + "\n", _bold2);
+                    Paragraph docTitle4 = new Paragraph("Đại lý : " + lbTen.Text + "\n" + "Mã ĐL :" + lbMa.Text + "\n", _bold2);
+                    Paragraph docTitle1 = new Paragraph("Từ tháng  : " + cmbStartMonth.Text + " Năm  " + cmbStartYear.Text + "\n", _bold2);
+                    Paragraph docTitle2 = new Paragraph("đến tháng : " + cmbEndMonth.Text + " Năm  " + cmbEndYear.Text + "\n", _bold2);
+                    Paragraph docTitle3 = new Paragraph("Tổng tiền thu : " + lbTongTienThu.Text + "\n", _bold2);
+                    docTitle.Alignment = Element.ALIGN_LEFT;
+                    docTitle4.Alignment = Element.ALIGN_LEFT;
+                    docTitle1.Alignment = Element.ALIGN_LEFT;
+                    docTitle2.Alignment = Element.ALIGN_LEFT;
+                    docTitle3.Alignment = Element.ALIGN_LEFT;
+                    pdfDoc.Add(docTitle);
+                    pdfDoc.Add(docTitle4);
+                    pdfDoc.Add(docTitle1);
+                    pdfDoc.Add(docTitle2);
+                    pdfDoc.Add(docTitle3);
+                    pdfDoc.Add(new Paragraph("\n"));
+                    pdfDoc.Add(new Paragraph("\n"));
+                    pdfDoc.Add(pdfTable);
+                    pdfDoc.Close();
+                    stream.Close();
+
+                    MessageBox.Show("Đã tạo file thành công , Tên file là : " + tenfile);
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
     }
 }

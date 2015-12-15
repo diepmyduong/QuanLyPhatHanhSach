@@ -168,6 +168,7 @@
             // 
             // gdvPhieuNhap
             // 
+            this.gdvPhieuNhap.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvPhieuNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvPhieuNhap, 4);
             this.gdvPhieuNhap.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -200,6 +201,7 @@
             this.btnThoat.TabIndex = 0;
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // btXoa
             // 

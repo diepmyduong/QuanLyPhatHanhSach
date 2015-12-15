@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using Core.BIZ;
 using Core.DAL;
 using System.Globalization;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.IO;
 
 namespace WinForm.Views
 {
@@ -87,10 +90,7 @@ namespace WinForm.Views
             reloadGridView();
         }
 
-        private void btLoc_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
@@ -135,6 +135,12 @@ namespace WinForm.Views
             setColumn(gdvLoXuat.Columns[5]
                 , nameof(SachManager.Properties.TongTienXuatTheoThang)
                 , SachManager.Properties.TongTienXuatTheoThang);
+            gdvLoXuat.Columns[0].Width = 120;
+            gdvLoXuat.Columns[1].Width = 120;
+            gdvLoXuat.Columns[2].Width = 120;
+            gdvLoXuat.Columns[3].Width = 120;
+            gdvLoXuat.Columns[4].Width = 120;
+            gdvLoXuat.Columns[5].Width = 120;
 
         }
 
@@ -178,6 +184,111 @@ namespace WinForm.Views
         private void gdvLoXuat_DataSourceChanged(object sender, EventArgs e)
         {
             reloadGridView();
+        }
+
+        private void btIn_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xuất tạo file báo cáo", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                var printer = new PrintHelper();
+                string x = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "";
+
+                string tenfile = x + "ReportLoXuat.pdf";
+                printer.FileName = tenfile;
+                printer.FolderPath = "D://Report";
+                printer.Title = "Báo cáo Lô xuất";
+                var startDate = new DateTime(_startYear, _startMonth, 1);
+                var endDate = new DateTime(_endYear, _endMonth, 1);
+                endDate.AddMonths(1).AddDays(-1);
+                printer.printLoXuat(_DMSach, startDate, endDate);
+                MessageBox.Show("Đã tạo file thành công , Tên file là : " + tenfile);
+                //var redListTextFont = FontFactory.RegisterDirectory(Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts");
+                //var _bold = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10f, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+                //var _bold1 = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10f, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+                //PdfPTable pdfTable = new PdfPTable(gdvLoXuat.ColumnCount);
+                //pdfTable.DefaultCell.Padding = 3;
+                //pdfTable.WidthPercentage = 30;
+                //pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
+                //pdfTable.DefaultCell.BorderWidth = 1;
+                //pdfTable.TotalWidth = 550f;
+                //pdfTable.LockedWidth = true;
+                //float[] widths = new float[] { 50f, 100f, 100f, 100f, 100f, 100f };
+                //pdfTable.SetWidths(widths);
+
+
+                ////Adding Header row
+                //foreach (DataGridViewColumn column in gdvLoXuat.Columns)
+                //{
+                //    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, _bold));
+                //    cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+
+                //    pdfTable.AddCell(cell);
+                //}
+
+                ////Adding DataRow
+                //foreach (DataGridViewRow row in gdvLoXuat.Rows)
+                //{
+                //    foreach (DataGridViewCell cell in row.Cells)
+                //    {
+                //        if (!String.IsNullOrEmpty(Convert.ToString(cell.Value)))
+                //            pdfTable.AddCell(new Phrase(cell.Value.ToString(), _bold1));
+                //    }
+                //}
+
+                ////Exporting to PDF
+                //string folderPath = @"C:\Users\huy\Desktop\Report\";
+                //string x = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "";
+
+                //string tenfile = x + "ReportThongKeLoXuat.pdf";
+                //if (!Directory.Exists(folderPath))
+                //{
+                //    Directory.CreateDirectory(folderPath);
+                //}
+                //using (FileStream stream = new FileStream(folderPath + tenfile, FileMode.Create))
+                //{
+
+                //    Document pdfDoc = new Document(PageSize.A3, 100f, 100f, 100f, 0);
+                //    PdfWriter.GetInstance(pdfDoc, stream);
+                //    pdfDoc.Open();
+                //    var FontColour = new BaseColor(255, 0, 0);
+                //    var _bold2 = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 20f, iTextSharp.text.Font.NORMAL, BaseColor.BLUE);
+                //    Paragraph docTitle = new Paragraph("Thống kê lô xuất " + "\n", _bold2);
+                //    Paragraph docTitle1 = new Paragraph("Từ tháng  : " + cmbStartMonth.Text + " Năm  " + cmbStartYear.Text + "\n", _bold2);
+                //    Paragraph docTitle2 = new Paragraph("đến tháng : " + cmbEndMonth.Text + " Năm  " + cmbEndYear.Text + "\n", _bold2);
+                //    Paragraph docTitle3 = new Paragraph("Tổng số lượng : " + lbTongLuongXuat.Text + "\n", _bold2);
+                //    docTitle.Alignment = Element.ALIGN_LEFT;
+                //    docTitle1.Alignment = Element.ALIGN_LEFT;
+                //    docTitle2.Alignment = Element.ALIGN_LEFT;
+                //    docTitle3.Alignment = Element.ALIGN_LEFT;
+                //    pdfDoc.Add(docTitle);
+                //    pdfDoc.Add(docTitle1);
+                //    pdfDoc.Add(docTitle2);
+                //    pdfDoc.Add(docTitle3);
+                //    pdfDoc.Add(new Paragraph("\n"));
+                //    pdfDoc.Add(new Paragraph("\n"));
+                //    pdfDoc.Add(pdfTable);
+                //    pdfDoc.Close();
+                //    stream.Close();
+
+                //    MessageBox.Show("Đã tạo file thành công , Tên file là : " + tenfile);
+                //}
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
+
+        private void btXem_Click(object sender, EventArgs e)
+        {
+            if (_currentSach != null)
+            {
+                frmChiTietLoXuat form = new frmChiTietLoXuat(this, _currentSach);
+                form.ShowDialog(this);
+            }
+            else
+                MessageBox.Show("Chọn sách cần xem");
         }
     }
 }

@@ -58,60 +58,87 @@ namespace WinForm.Views
         //Khi chọn xóa 1 lĩnh vực
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (!txbMaLinhVuc.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa lĩnh vực", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                if (LinhVucManager.delete(int.Parse(txbMaLinhVuc.Text.ToString())))
+                if (!txbMaLinhVuc.Text.Equals(""))
                 {
-                    MessageBox.Show("Đã xóa lĩnh vực thành công");
-                    loadLinhVuc();
+                    if (LinhVucManager.delete(int.Parse(txbMaLinhVuc.Text.ToString())))
+                    {
+                        MessageBox.Show("Đã xóa lĩnh vực thành công");
+                        loadLinhVuc();
+                    }
+                    else
+                        MessageBox.Show("Không xóa được !");
                 }
                 else
-                    MessageBox.Show("Không xóa được !");
+                    MessageBox.Show("Chọn lĩnh vực cần xóa");
             }
-            else
-                MessageBox.Show("Chọn lĩnh vực cần xóa");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+            
         }
         //Khi chọn thoát khỏi form
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
-            if(_frmParent.GetType().Name == nameof(frmThemSach))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                (_frmParent as frmThemSach).reloadLinhVuc();
+                this.Close();
+                if (_frmParent.GetType().Name == nameof(frmThemSach))
+                {
+                    (_frmParent as frmThemSach).reloadLinhVuc();
+                    return;
+                }
+                if (_frmParent.GetType().Name == nameof(frmMain))
+                {
+                    (_frmParent as frmMain).loadLinhVuc();
+                    return;
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
                 return;
             }
-            if (_frmParent.GetType().Name == nameof(frmMain))
-            {
-                (_frmParent as frmMain).loadLinhVuc();
-                return;
-            }
+          
         }
         //Khi cập nhật lĩnh vực sửa
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txbTenLinhVuc.Text))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn cập nhật", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                MessageBox.Show("Tên lĩnh vực chưa hợp lệ");
+                if (String.IsNullOrEmpty(txbTenLinhVuc.Text))
+                {
+                    MessageBox.Show("Tên lĩnh vực chưa hợp lệ");
+                    return;
+                }
+                //Kiểm tra thông tin sửa có tồn tại không
+                if (_DMLinhVuc.Find(l => l.TenLinhVuc.Equals(txbTenLinhVuc.Text)) != null)
+                {
+                    MessageBox.Show("Lĩnh vực đã tồn tại.");
+                    return;
+                }
+                LinhVuc lv = new LinhVuc()
+                {
+                    MaSoLinhVuc = Int32.Parse(txbMaLinhVuc.Text),
+                    TenLinhVuc = txbTenLinhVuc.Text
+                };
+                if (LinhVucManager.edit(lv))
+                {
+                    MessageBox.Show("Đã cập nhật.");
+                    reload();
+                    return;
+                }
+                MessageBox.Show("Cập nhật thất bại.");
+            }
+            else if (dialogResult == DialogResult.No)
+            {
                 return;
             }
-            //Kiểm tra thông tin sửa có tồn tại không
-            if(_DMLinhVuc.Find(l => l.TenLinhVuc.Equals(txbTenLinhVuc.Text))!= null)
-            {
-                MessageBox.Show("Lĩnh vực đã tồn tại.");
-                return;
-            }
-            LinhVuc lv = new LinhVuc()
-            {
-                MaSoLinhVuc = Int32.Parse(txbMaLinhVuc.Text),
-                TenLinhVuc = txbTenLinhVuc.Text
-            };
-            if (LinhVucManager.edit(lv))
-            {
-                MessageBox.Show("Đã cập nhật.");
-                reload();
-                return;
-            }
-            MessageBox.Show("Cập nhật thất bại.");
+        
         }
         //Khi chọn 1 lĩnh vực từ Danh mục lĩnh vực
         private void gdvDMLinhVuc_SelectionChanged(object sender, EventArgs e)

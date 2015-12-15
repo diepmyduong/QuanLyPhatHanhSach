@@ -33,33 +33,52 @@ namespace WinForm.Views
         //Khi Chọn Thêm
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (!txbTenNXB.Text.Equals("") && !txbDiaChi.Text.Equals("") && !txbSoDienThoai.Text.Equals("") && !txbSoTaiKhoan.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thêm nhà xuất bản", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                NhaXuatBan nxb = new NhaXuatBan();
-                nxb.TenNXB = txbTenNXB.Text.ToString();
-                nxb.DiaChi = txbDiaChi.Text.ToString();
-                nxb.SoDienThoai = txbSoDienThoai.Text.ToString();
-                nxb.SoTaiKhoan = txbSoTaiKhoan.Text.ToString();
-               
+                if (!txbTenNXB.Text.Equals("") && !txbDiaChi.Text.Equals("") && !txbSoDienThoai.Text.Equals("") && !txbSoTaiKhoan.Text.Equals(""))
+                {
+                    NhaXuatBan nxb = new NhaXuatBan();
+                    nxb.TenNXB = txbTenNXB.Text.ToString();
+                    nxb.DiaChi = txbDiaChi.Text.ToString();
+                    nxb.SoDienThoai = txbSoDienThoai.Text.ToString();
+                    nxb.SoTaiKhoan = txbSoTaiKhoan.Text.ToString();
+                    nxb.NganHang = txbNganHang.Text.ToString();
+
                     if (NhaXuatBanManager.add(nxb) != 0)
                         MessageBox.Show("Đã thêm nhà xuất bản thành công");
                     else
                         MessageBox.Show("Không thêm được");
 
 
-               
+
+                }
+                else
+                    MessageBox.Show("Bạn cần nhập đầy đủ thuông tin");
             }
-            else
-                MessageBox.Show("Bạn cần nhập đầy đủ thuông tin");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
         }
         //Khi Hủy Thêm
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
-            if (_frmParent.GetType().Name == nameof(frmDanhMucNXB))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                (_frmParent as frmDanhMucNXB).loadNXB();
+                this.Close();
+                if (_frmParent.GetType().Name == nameof(frmDanhMucNXB))
+                {
+                    (_frmParent as frmDanhMucNXB).loadNXB();
+                }
             }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
         }
         #endregion
 

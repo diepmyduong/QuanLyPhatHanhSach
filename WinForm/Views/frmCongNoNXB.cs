@@ -96,7 +96,15 @@ namespace WinForm.Views
         //Khi chọn nút thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
         //Khi chọn thắng bắt đầu
         private void cmbStartMonth_SelectedIndexChanged(object sender, EventArgs e)

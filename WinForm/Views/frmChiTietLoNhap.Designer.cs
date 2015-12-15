@@ -32,23 +32,21 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbSoLuongNhap = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbEndMonth = new System.Windows.Forms.ComboBox();
-            this.cmbEndYear = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbLoc = new System.Windows.Forms.TextBox();
-            this.btLoc = new System.Windows.Forms.Button();
             this.gdvChiTiet = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
-            this.cmbStartYear = new System.Windows.Forms.ComboBox();
-            this.cmbStartMonth = new System.Windows.Forms.ComboBox();
             this.lbTongTien = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbEndMonth = new System.Windows.Forms.ComboBox();
+            this.cmbEndYear = new System.Windows.Forms.ComboBox();
+            this.cmbStartMonth = new System.Windows.Forms.ComboBox();
+            this.cmbStartYear = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lbTenSach = new System.Windows.Forms.Label();
             this.lbMaSach = new System.Windows.Forms.Label();
+            this.lbTenSach = new System.Windows.Forms.Label();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvChiTiet)).BeginInit();
@@ -77,8 +75,6 @@
             this.tableLayoutPanel1.Controls.Add(this.lbSoLuongNhap, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txbLoc, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btLoc, 5, 4);
             this.tableLayoutPanel1.Controls.Add(this.gdvChiTiet, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.lbTongTien, 4, 2);
@@ -137,46 +133,6 @@
             this.label4.Text = "TỔNG TIỀN :";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 68);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Xem từ :";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 98);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Đến :";
-            // 
-            // cmbEndMonth
-            // 
-            this.cmbEndMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbEndMonth.FormattingEnabled = true;
-            this.cmbEndMonth.Location = new System.Drawing.Point(79, 94);
-            this.cmbEndMonth.Name = "cmbEndMonth";
-            this.cmbEndMonth.Size = new System.Drawing.Size(108, 21);
-            this.cmbEndMonth.TabIndex = 12;
-            this.cmbEndMonth.SelectedIndexChanged += new System.EventHandler(this.cmbEndMonth_SelectedIndexChanged);
-            // 
-            // cmbEndYear
-            // 
-            this.cmbEndYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbEndYear.FormattingEnabled = true;
-            this.cmbEndYear.Location = new System.Drawing.Point(193, 94);
-            this.cmbEndYear.Name = "cmbEndYear";
-            this.cmbEndYear.Size = new System.Drawing.Size(108, 21);
-            this.cmbEndYear.TabIndex = 13;
-            this.cmbEndYear.SelectedIndexChanged += new System.EventHandler(this.cmbEndYear_SelectedIndexChanged);
-            // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -190,29 +146,6 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "SỐ LƯỢNG NHẬP :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txbLoc
-            // 
-            this.txbLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbLoc, 5);
-            this.txbLoc.Location = new System.Drawing.Point(3, 125);
-            this.txbLoc.Name = "txbLoc";
-            this.txbLoc.Size = new System.Drawing.Size(641, 20);
-            this.txbLoc.TabIndex = 16;
-            this.txbLoc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbLoc_KeyDown);
-            this.txbLoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbLoc_KeyPress);
-            // 
-            // btLoc
-            // 
-            this.btLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btLoc.Location = new System.Drawing.Point(650, 123);
-            this.btLoc.Name = "btLoc";
-            this.btLoc.Size = new System.Drawing.Size(111, 23);
-            this.btLoc.TabIndex = 17;
-            this.btLoc.Text = "Lọc";
-            this.btLoc.UseVisualStyleBackColor = true;
-            this.btLoc.UseWaitCursor = true;
-            this.btLoc.Click += new System.EventHandler(this.btLoc_Click);
             // 
             // gdvChiTiet
             // 
@@ -246,26 +179,6 @@
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
-            // cmbStartYear
-            // 
-            this.cmbStartYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStartYear.FormattingEnabled = true;
-            this.cmbStartYear.Location = new System.Drawing.Point(193, 64);
-            this.cmbStartYear.Name = "cmbStartYear";
-            this.cmbStartYear.Size = new System.Drawing.Size(108, 21);
-            this.cmbStartYear.TabIndex = 11;
-            this.cmbStartYear.SelectedIndexChanged += new System.EventHandler(this.cmbStartYear_SelectedIndexChanged);
-            // 
-            // cmbStartMonth
-            // 
-            this.cmbStartMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStartMonth.FormattingEnabled = true;
-            this.cmbStartMonth.Location = new System.Drawing.Point(79, 64);
-            this.cmbStartMonth.Name = "cmbStartMonth";
-            this.cmbStartMonth.Size = new System.Drawing.Size(108, 21);
-            this.cmbStartMonth.TabIndex = 10;
-            this.cmbStartMonth.SelectedIndexChanged += new System.EventHandler(this.cmbStartMonth_SelectedIndexChanged);
-            // 
             // lbTongTien
             // 
             this.lbTongTien.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -280,6 +193,66 @@
             this.lbTongTien.TabIndex = 21;
             this.lbTongTien.Text = "0";
             this.lbTongTien.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(40, 98);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(33, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Đến :";
+            // 
+            // cmbEndMonth
+            // 
+            this.cmbEndMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbEndMonth.FormattingEnabled = true;
+            this.cmbEndMonth.Location = new System.Drawing.Point(79, 94);
+            this.cmbEndMonth.Name = "cmbEndMonth";
+            this.cmbEndMonth.Size = new System.Drawing.Size(108, 21);
+            this.cmbEndMonth.TabIndex = 12;
+            this.cmbEndMonth.SelectedIndexChanged += new System.EventHandler(this.cmbEndMonth_SelectedIndexChanged);
+            // 
+            // cmbEndYear
+            // 
+            this.cmbEndYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbEndYear.FormattingEnabled = true;
+            this.cmbEndYear.Location = new System.Drawing.Point(193, 94);
+            this.cmbEndYear.Name = "cmbEndYear";
+            this.cmbEndYear.Size = new System.Drawing.Size(108, 21);
+            this.cmbEndYear.TabIndex = 13;
+            this.cmbEndYear.SelectedIndexChanged += new System.EventHandler(this.cmbEndYear_SelectedIndexChanged);
+            // 
+            // cmbStartMonth
+            // 
+            this.cmbStartMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStartMonth.FormattingEnabled = true;
+            this.cmbStartMonth.Location = new System.Drawing.Point(79, 64);
+            this.cmbStartMonth.Name = "cmbStartMonth";
+            this.cmbStartMonth.Size = new System.Drawing.Size(108, 21);
+            this.cmbStartMonth.TabIndex = 10;
+            this.cmbStartMonth.SelectedIndexChanged += new System.EventHandler(this.cmbStartMonth_SelectedIndexChanged);
+            // 
+            // cmbStartYear
+            // 
+            this.cmbStartYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStartYear.FormattingEnabled = true;
+            this.cmbStartYear.Location = new System.Drawing.Point(193, 64);
+            this.cmbStartYear.Name = "cmbStartYear";
+            this.cmbStartYear.Size = new System.Drawing.Size(108, 21);
+            this.cmbStartYear.TabIndex = 11;
+            this.cmbStartYear.SelectedIndexChanged += new System.EventHandler(this.cmbStartYear_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(27, 68);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Xem từ :";
             // 
             // label5
             // 
@@ -301,19 +274,6 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Tên sách :";
             // 
-            // lbTenSach
-            // 
-            this.lbTenSach.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbTenSach.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.lbTenSach, 2);
-            this.lbTenSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTenSach.ForeColor = System.Drawing.Color.Red;
-            this.lbTenSach.Location = new System.Drawing.Point(79, 5);
-            this.lbTenSach.Name = "lbTenSach";
-            this.lbTenSach.Size = new System.Drawing.Size(82, 20);
-            this.lbTenSach.TabIndex = 0;
-            this.lbTenSach.Text = "Tên sách :";
-            // 
             // lbMaSach
             // 
             this.lbMaSach.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -326,6 +286,19 @@
             this.lbMaSach.Size = new System.Drawing.Size(77, 20);
             this.lbMaSach.TabIndex = 0;
             this.lbMaSach.Text = "Mã sách :";
+            // 
+            // lbTenSach
+            // 
+            this.lbTenSach.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbTenSach.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.lbTenSach, 2);
+            this.lbTenSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTenSach.ForeColor = System.Drawing.Color.Red;
+            this.lbTenSach.Location = new System.Drawing.Point(79, 5);
+            this.lbTenSach.Name = "lbTenSach";
+            this.lbTenSach.Size = new System.Drawing.Size(82, 20);
+            this.lbTenSach.TabIndex = 0;
+            this.lbTenSach.Text = "Tên sách :";
             // 
             // frmChiTietLoNhap
             // 
@@ -357,8 +330,6 @@
         private System.Windows.Forms.ComboBox cmbEndMonth;
         private System.Windows.Forms.ComboBox cmbEndYear;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txbLoc;
-        private System.Windows.Forms.Button btLoc;
         private System.Windows.Forms.DataGridView gdvChiTiet;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnThoat;

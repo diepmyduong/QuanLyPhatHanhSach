@@ -34,16 +34,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cmbEndMonth = new System.Windows.Forms.ComboBox();
             this.cmbEndYear = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lbTongLuongXuat = new System.Windows.Forms.Label();
-            this.txbLoc = new System.Windows.Forms.TextBox();
-            this.btLoc = new System.Windows.Forms.Button();
             this.gdvLoXuat = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
+            this.btIn = new System.Windows.Forms.Button();
+            this.btXem = new System.Windows.Forms.Button();
             this.cmbStartYear = new System.Windows.Forms.ComboBox();
             this.cmbStartMonth = new System.Windows.Forms.ComboBox();
-            this.btChitiet = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lbTongLuongXuat = new System.Windows.Forms.Label();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvLoXuat)).BeginInit();
@@ -73,15 +72,12 @@
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmbEndMonth, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmbEndYear, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txbLoc, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.gdvLoXuat, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.cmbStartYear, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmbStartMonth, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbTongLuongXuat, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btLoc, 4, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btChitiet, 5, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -137,6 +133,81 @@
             this.cmbEndYear.TabIndex = 13;
             this.cmbEndYear.SelectedIndexChanged += new System.EventHandler(this.cmbEndYear_SelectedIndexChanged);
             // 
+            // gdvLoXuat
+            // 
+            this.gdvLoXuat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel1.SetColumnSpan(this.gdvLoXuat, 6);
+            this.gdvLoXuat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gdvLoXuat.Location = new System.Drawing.Point(3, 153);
+            this.gdvLoXuat.Name = "gdvLoXuat";
+            this.gdvLoXuat.Size = new System.Drawing.Size(758, 335);
+            this.gdvLoXuat.TabIndex = 18;
+            this.gdvLoXuat.DataSourceChanged += new System.EventHandler(this.gdvLoXuat_DataSourceChanged);
+            this.gdvLoXuat.SelectionChanged += new System.EventHandler(this.gdvLoXuat_SelectionChanged);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 6);
+            this.flowLayoutPanel1.Controls.Add(this.btnThoat);
+            this.flowLayoutPanel1.Controls.Add(this.btIn);
+            this.flowLayoutPanel1.Controls.Add(this.btXem);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 494);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(758, 44);
+            this.flowLayoutPanel1.TabIndex = 19;
+            // 
+            // btnThoat
+            // 
+            this.btnThoat.Location = new System.Drawing.Point(647, 3);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(108, 41);
+            this.btnThoat.TabIndex = 0;
+            this.btnThoat.Text = "Thoát";
+            this.btnThoat.UseVisualStyleBackColor = true;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
+            // btIn
+            // 
+            this.btIn.Location = new System.Drawing.Point(533, 3);
+            this.btIn.Name = "btIn";
+            this.btIn.Size = new System.Drawing.Size(108, 41);
+            this.btIn.TabIndex = 1;
+            this.btIn.Text = "In báo cáo";
+            this.btIn.UseVisualStyleBackColor = true;
+            this.btIn.Click += new System.EventHandler(this.btIn_Click);
+            // 
+            // btXem
+            // 
+            this.btXem.Location = new System.Drawing.Point(419, 3);
+            this.btXem.Name = "btXem";
+            this.btXem.Size = new System.Drawing.Size(108, 41);
+            this.btXem.TabIndex = 2;
+            this.btXem.Text = "Xem chi tiết";
+            this.btXem.UseVisualStyleBackColor = true;
+            this.btXem.Click += new System.EventHandler(this.btXem_Click);
+            // 
+            // cmbStartYear
+            // 
+            this.cmbStartYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStartYear.FormattingEnabled = true;
+            this.cmbStartYear.Location = new System.Drawing.Point(231, 34);
+            this.cmbStartYear.Name = "cmbStartYear";
+            this.cmbStartYear.Size = new System.Drawing.Size(146, 21);
+            this.cmbStartYear.TabIndex = 11;
+            this.cmbStartYear.SelectedIndexChanged += new System.EventHandler(this.cmbStartYear_SelectedIndexChanged);
+            // 
+            // cmbStartMonth
+            // 
+            this.cmbStartMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStartMonth.FormattingEnabled = true;
+            this.cmbStartMonth.Location = new System.Drawing.Point(79, 34);
+            this.cmbStartMonth.Name = "cmbStartMonth";
+            this.cmbStartMonth.Size = new System.Drawing.Size(146, 21);
+            this.cmbStartMonth.TabIndex = 10;
+            this.cmbStartMonth.SelectedIndexChanged += new System.EventHandler(this.cmbStartMonth_SelectedIndexChanged);
+            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
@@ -166,94 +237,6 @@
             this.lbTongLuongXuat.TabIndex = 15;
             this.lbTongLuongXuat.Text = "0";
             this.lbTongLuongXuat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txbLoc
-            // 
-            this.txbLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbLoc, 4);
-            this.txbLoc.Location = new System.Drawing.Point(3, 125);
-            this.txbLoc.Name = "txbLoc";
-            this.txbLoc.Size = new System.Drawing.Size(488, 20);
-            this.txbLoc.TabIndex = 16;
-            this.txbLoc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbLoc_KeyDown);
-            this.txbLoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbLoc_KeyPress);
-            // 
-            // btLoc
-            // 
-            this.btLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btLoc.Location = new System.Drawing.Point(497, 123);
-            this.btLoc.Name = "btLoc";
-            this.btLoc.Size = new System.Drawing.Size(146, 23);
-            this.btLoc.TabIndex = 17;
-            this.btLoc.Text = "Lọc";
-            this.btLoc.UseVisualStyleBackColor = true;
-            this.btLoc.UseWaitCursor = true;
-            this.btLoc.Click += new System.EventHandler(this.btLoc_Click);
-            // 
-            // gdvLoXuat
-            // 
-            this.gdvLoXuat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableLayoutPanel1.SetColumnSpan(this.gdvLoXuat, 6);
-            this.gdvLoXuat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gdvLoXuat.Location = new System.Drawing.Point(3, 153);
-            this.gdvLoXuat.Name = "gdvLoXuat";
-            this.gdvLoXuat.Size = new System.Drawing.Size(758, 335);
-            this.gdvLoXuat.TabIndex = 18;
-            this.gdvLoXuat.DataSourceChanged += new System.EventHandler(this.gdvLoXuat_DataSourceChanged);
-            this.gdvLoXuat.SelectionChanged += new System.EventHandler(this.gdvLoXuat_SelectionChanged);
-            // 
-            // flowLayoutPanel1
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 6);
-            this.flowLayoutPanel1.Controls.Add(this.btnThoat);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 494);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(758, 44);
-            this.flowLayoutPanel1.TabIndex = 19;
-            // 
-            // btnThoat
-            // 
-            this.btnThoat.Location = new System.Drawing.Point(647, 3);
-            this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(108, 41);
-            this.btnThoat.TabIndex = 0;
-            this.btnThoat.Text = "Thoát";
-            this.btnThoat.UseVisualStyleBackColor = true;
-            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
-            // 
-            // cmbStartYear
-            // 
-            this.cmbStartYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStartYear.FormattingEnabled = true;
-            this.cmbStartYear.Location = new System.Drawing.Point(231, 34);
-            this.cmbStartYear.Name = "cmbStartYear";
-            this.cmbStartYear.Size = new System.Drawing.Size(146, 21);
-            this.cmbStartYear.TabIndex = 11;
-            this.cmbStartYear.SelectedIndexChanged += new System.EventHandler(this.cmbStartYear_SelectedIndexChanged);
-            // 
-            // cmbStartMonth
-            // 
-            this.cmbStartMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStartMonth.FormattingEnabled = true;
-            this.cmbStartMonth.Location = new System.Drawing.Point(79, 34);
-            this.cmbStartMonth.Name = "cmbStartMonth";
-            this.cmbStartMonth.Size = new System.Drawing.Size(146, 21);
-            this.cmbStartMonth.TabIndex = 10;
-            this.cmbStartMonth.SelectedIndexChanged += new System.EventHandler(this.cmbStartMonth_SelectedIndexChanged);
-            // 
-            // btChitiet
-            // 
-            this.btChitiet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btChitiet.Location = new System.Drawing.Point(649, 123);
-            this.btChitiet.Name = "btChitiet";
-            this.btChitiet.Size = new System.Drawing.Size(112, 23);
-            this.btChitiet.TabIndex = 17;
-            this.btChitiet.Text = "Xem chi tiết";
-            this.btChitiet.UseVisualStyleBackColor = true;
-            this.btChitiet.UseWaitCursor = true;
-            this.btChitiet.Click += new System.EventHandler(this.btLoc_Click);
             // 
             // frmThongKeLoXuat
             // 
@@ -285,13 +268,12 @@
         private System.Windows.Forms.ComboBox cmbEndYear;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbTongLuongXuat;
-        private System.Windows.Forms.TextBox txbLoc;
-        private System.Windows.Forms.Button btLoc;
         private System.Windows.Forms.DataGridView gdvLoXuat;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.ComboBox cmbStartYear;
         private System.Windows.Forms.ComboBox cmbStartMonth;
-        private System.Windows.Forms.Button btChitiet;
+        private System.Windows.Forms.Button btIn;
+        private System.Windows.Forms.Button btXem;
     }
 }

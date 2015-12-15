@@ -41,12 +41,12 @@
             this.btXoa = new System.Windows.Forms.Button();
             this.btLoadAll = new System.Windows.Forms.Button();
             this.btChuaDuyet = new System.Windows.Forms.Button();
+            this.btXemCT = new System.Windows.Forms.Button();
             this.txbMaHD = new System.Windows.Forms.TextBox();
             this.cmbNXB = new System.Windows.Forms.ComboBox();
             this.dtpNgay = new System.Windows.Forms.DateTimePicker();
             this.btnDaiLy = new System.Windows.Forms.Button();
             this.btDuyet = new System.Windows.Forms.Button();
-            this.btXemCT = new System.Windows.Forms.Button();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdvHoaDon)).BeginInit();
@@ -154,6 +154,7 @@
             // 
             // gdvHoaDon
             // 
+            this.gdvHoaDon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvHoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvHoaDon, 4);
             this.gdvHoaDon.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -214,9 +215,19 @@
             this.btChuaDuyet.Name = "btChuaDuyet";
             this.btChuaDuyet.Size = new System.Drawing.Size(140, 41);
             this.btChuaDuyet.TabIndex = 3;
-            this.btChuaDuyet.Text = "hóa đơn chưa duyệt";
+            this.btChuaDuyet.Text = "Hóa đơn chưa duyệt";
             this.btChuaDuyet.UseVisualStyleBackColor = true;
             this.btChuaDuyet.Click += new System.EventHandler(this.btChuaDuyet_Click);
+            // 
+            // btXemCT
+            // 
+            this.btXemCT.Location = new System.Drawing.Point(130, 3);
+            this.btXemCT.Name = "btXemCT";
+            this.btXemCT.Size = new System.Drawing.Size(140, 41);
+            this.btXemCT.TabIndex = 4;
+            this.btXemCT.Text = "Xem chi tiết";
+            this.btXemCT.UseVisualStyleBackColor = true;
+            this.btXemCT.Click += new System.EventHandler(this.btXemCT_Click);
             // 
             // txbMaHD
             // 
@@ -265,16 +276,6 @@
             this.btDuyet.Text = "Duyệt hóa đơn";
             this.btDuyet.UseVisualStyleBackColor = true;
             this.btDuyet.Click += new System.EventHandler(this.btDuyet_Click);
-            // 
-            // btXemCT
-            // 
-            this.btXemCT.Location = new System.Drawing.Point(130, 3);
-            this.btXemCT.Name = "btXemCT";
-            this.btXemCT.Size = new System.Drawing.Size(140, 41);
-            this.btXemCT.TabIndex = 4;
-            this.btXemCT.Text = "Xem chi tiết";
-            this.btXemCT.UseVisualStyleBackColor = true;
-            this.btXemCT.Click += new System.EventHandler(this.btXemCT_Click);
             // 
             // frmDanhMucHoaDonNXB
             // 

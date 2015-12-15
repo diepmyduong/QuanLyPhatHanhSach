@@ -42,6 +42,7 @@ namespace WinForm.Views
 
         private void frmDanhMucHoaDonNXB_Load(object sender, EventArgs e)
         {
+            createGridViewColumns();
             LoadNXB();
             btDuyet.Enabled = false;
             btXoa.Enabled = false;
@@ -49,7 +50,15 @@ namespace WinForm.Views
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
 
         private void btChuaDuyet_Click(object sender, EventArgs e)
@@ -102,7 +111,7 @@ namespace WinForm.Views
                 }
                 if (trangthai == 0)
                 {
-                    btDuyet.Text = "Duyệt phiếu nhập";
+                    btDuyet.Text = "Duyệt hóa đơn";
                     btDuyet.Enabled = true;
                     btXoa.Enabled = true;
                 }
@@ -114,16 +123,25 @@ namespace WinForm.Views
 
         private void btDuyet_Click(object sender, EventArgs e)
         {
-            if (_CurrentHD != null && _CurrentHD.TrangThai == 0)
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn duyệt hóa đơn", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                if (_CurrentHD.accept())
+                if (_CurrentHD != null && _CurrentHD.TrangThai == 0)
                 {
-                    MessageBox.Show("Duyệt hóa đơn thành công");
-                    gdvHoaDon.DataSource = HoaDonNXBManager.getAll();
+                    if (_CurrentHD.accept())
+                    {
+                        MessageBox.Show("Duyệt hóa đơn thành công");
+                        gdvHoaDon.DataSource = HoaDonNXBManager.getAll();
+                    }
+                    else
+                        MessageBox.Show("Duyệt không thành công, vui lòng kiểm tra lại công nợ");
                 }
-                else
-                    MessageBox.Show("Duyệt không thành công");
             }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
            
         }
 
@@ -136,10 +154,57 @@ namespace WinForm.Views
 
         private void btXoa_Click(object sender, EventArgs e)
         {
-            if (HoaDonNXBManager.delete(_CurrentHD.MaSoHoaDon))
-                MessageBox.Show("Đã xóa thành công");
-            else
-                MessageBox.Show("Không xóa được");
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (HoaDonNXBManager.delete(_CurrentHD.MaSoHoaDon))
+                    MessageBox.Show("Đã xóa thành công");
+                else
+                    MessageBox.Show("Không xóa được");
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+           
         }
+        private void createGridViewColumns()
+        {
+            gdvHoaDon.AutoGenerateColumns = false; // Bỏ auto generate Columns
+            gdvHoaDon.ColumnCount = 6; // Xác định số columns có
+            setColumn(gdvHoaDon.Columns[0]
+                , nameof(HoaDonNXBManager.Properties.MaSoHoaDon)
+                , HoaDonNXBManager.Properties.MaSoHoaDon);
+            setColumn(gdvHoaDon.Columns[1]
+                , nameof(HoaDonNXBManager.Properties.MaSoNXB)
+                , HoaDonNXBManager.Properties.MaSoNXB);
+            setColumn(gdvHoaDon.Columns[2]
+                , nameof(HoaDonNXBManager.Properties.NXB)
+                , HoaDonNXBManager.Properties.NXB);
+            setColumn(gdvHoaDon.Columns[3]
+                , nameof(HoaDonNXBManager.Properties.NgayLap)
+                , HoaDonNXBManager.Properties.NgayLap);
+            setColumn(gdvHoaDon.Columns[4]
+                , nameof(HoaDonNXBManager.Properties.TongTien)
+                , HoaDonNXBManager.Properties.TongTien);
+            setColumn(gdvHoaDon.Columns[5]
+                , nameof(HoaDonNXBManager.Properties.TrangThai)
+                , HoaDonNXBManager.Properties.TrangThai);
+            gdvHoaDon.Columns[0].Width = 125;
+            gdvHoaDon.Columns[1].Width = 125;
+            gdvHoaDon.Columns[2].Width = 125;
+            gdvHoaDon.Columns[3].Width = 125;
+            gdvHoaDon.Columns[4].Width = 125;
+            gdvHoaDon.Columns[5].Width = 100;
+
+        }
+
+        private void setColumn(DataGridViewColumn column, string propertyName, string name)
+        {
+            column.Name = propertyName;
+            column.DataPropertyName = propertyName;
+            column.HeaderText = name;
+        }
+
     }
 }

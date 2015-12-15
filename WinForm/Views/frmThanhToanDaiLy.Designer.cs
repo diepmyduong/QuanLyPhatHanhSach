@@ -173,6 +173,7 @@
             // 
             // gdvChiTiet
             // 
+            this.gdvChiTiet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gdvChiTiet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TenSach,
@@ -194,27 +195,23 @@
             this.TenSach.Name = "TenSach";
             this.TenSach.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.TenSach.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TenSach.Width = 200;
             // 
             // SoLuong
             // 
             this.SoLuong.HeaderText = "Số lượng";
             this.SoLuong.Name = "SoLuong";
-            this.SoLuong.Width = 200;
             // 
             // DonGia
             // 
             this.DonGia.HeaderText = "Đơn Giá";
             this.DonGia.Name = "DonGia";
             this.DonGia.ReadOnly = true;
-            this.DonGia.Width = 200;
             // 
             // TongTien
             // 
             this.TongTien.HeaderText = "Tổng tiền";
             this.TongTien.Name = "TongTien";
             this.TongTien.ReadOnly = true;
-            this.TongTien.Width = 158;
             // 
             // flowLayoutPanel1
             // 

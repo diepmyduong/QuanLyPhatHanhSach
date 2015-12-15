@@ -41,7 +41,7 @@ namespace WinForm.Views
         #region Form Control Listener
         //Khi form load
         private void frmChiTietCongNoDaiLy_Load(object sender, EventArgs e)
-        {
+       {
             _cultureInfo = CultureInfo.GetCultureInfo("vi-VN");
             lbMaSoDaiLy.Text = _daily.MaSoDaiLy.ToString();
             lbTenDaiLy.Text = _daily.TenDaiLy;
@@ -69,13 +69,22 @@ namespace WinForm.Views
         //Khi chọn thanh toán
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-            frmThanhToanDaiLy form = new frmThanhToanDaiLy(this);
+            frmThanhToanDaiLy form = new frmThanhToanDaiLy(this,_daily);
             form.ShowDialog(this);
         }
         //Khi chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
         //Khi chọn tháng bắt đầu
         private void cmbStartMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -113,8 +122,51 @@ namespace WinForm.Views
                 lbConNo.Text = String.Format(_cultureInfo, "{0:c}", _tongTienNoThang);
                 lbTienSach.Text = String.Format(_cultureInfo, "{0:c}", _tongTienXuatThang);
                 lbDaThu.Text = String.Format(_cultureInfo, "{0:c}", _tongTienXuatThang - _tongTienNoThang);
+                gdvChiTiet.Columns[0].Width = 122;
+                gdvChiTiet.Columns[1].Width = 122;
+                gdvChiTiet.Columns[2].Width = 122;
+                gdvChiTiet.Columns[3].Width = 122;
+                gdvChiTiet.Columns[4].Width = 130;
+                gdvChiTiet.Columns[5].Width = 140;
 
             }
+        }
+        private void createGridViewColumns()
+        {
+            gdvChiTiet.AutoGenerateColumns = false; // Bỏ auto generate Columns
+            gdvChiTiet.ColumnCount = 6; // Xác định số columns có
+            setColumn(gdvChiTiet.Columns[0]
+                , nameof(CongNoDaiLyManager.Properties.MaSoSach)
+                , CongNoDaiLyManager.Properties.MaSoDaiLy);
+            setColumn(gdvChiTiet.Columns[1]
+                , nameof(CongNoDaiLyManager.Properties.Sach)
+                , CongNoDaiLyManager.Properties.Sach);
+            setColumn(gdvChiTiet.Columns[2]
+                , nameof(CongNoDaiLyManager.Properties.SoLuong)
+                , CongNoDaiLyManager.Properties.SoLuong);
+            setColumn(gdvChiTiet.Columns[3]
+                , nameof(CongNoDaiLyManager.Properties.DonGia)
+                , CongNoDaiLyManager.Properties.DonGia);
+            setColumn(gdvChiTiet.Columns[4]
+                , nameof(CongNoDaiLyManager.Properties.ThanhTien)
+                , CongNoDaiLyManager.Properties.ThanhTien);
+            setColumn(gdvChiTiet.Columns[5]
+                , nameof(CongNoDaiLyManager.Properties.Thang)
+                , CongNoDaiLyManager.Properties.Thang);
+            gdvChiTiet.Columns[0].Width = 122;
+            gdvChiTiet.Columns[1].Width = 122;
+            gdvChiTiet.Columns[2].Width = 122;
+            gdvChiTiet.Columns[3].Width = 122;
+            gdvChiTiet.Columns[4].Width = 122;
+            gdvChiTiet.Columns[5].Width = 122;
+
+        }
+
+        private void setColumn(DataGridViewColumn column, string propertyName, string name)
+        {
+            column.Name = propertyName;
+            column.DataPropertyName = propertyName;
+            column.HeaderText = name;
         }
         #endregion
 

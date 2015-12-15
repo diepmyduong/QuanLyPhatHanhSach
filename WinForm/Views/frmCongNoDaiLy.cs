@@ -99,7 +99,7 @@ namespace WinForm.Views
         //Khi chọn thanh toán
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-            frmThanhToanDaiLy form = new frmThanhToanDaiLy(this);
+            frmThanhToanDaiLy form = new frmThanhToanDaiLy(this,_currentDaiLy);
             form.ShowDialog(this);
         }
         //Khi chọn lọc
@@ -110,7 +110,15 @@ namespace WinForm.Views
         //Khi chọn Thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
         //Khi chọn công nợ của 1 đại lý
         private void gdvDMCongNo_SelectionChanged(object sender, EventArgs e)
@@ -201,7 +209,7 @@ namespace WinForm.Views
             setColumn(gdvDMCongNo.Columns[5]
                 , nameof(DaiLyManager.Properties.TongTienNoThang)
                 , DaiLyManager.Properties.TongTienNoThang);
-
+            
         }
 
         private void setColumn(DataGridViewColumn column, string propertyName, string name)

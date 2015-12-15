@@ -45,12 +45,11 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnNguonThu = new System.Windows.Forms.Button();
             this.btnNguonChi = new System.Windows.Forms.Button();
-            this.txbLocDaiLy = new System.Windows.Forms.TextBox();
-            this.txbLocNXB = new System.Windows.Forms.TextBox();
             this.gdvDaiLy = new System.Windows.Forms.DataGridView();
             this.gdvNXB = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
+            this.btIn = new System.Windows.Forms.Button();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -92,8 +91,6 @@
             this.tableLayoutPanel1.Controls.Add(this.lbTongChi, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbLoiNhuan, 5, 2);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txbLocDaiLy, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txbLocNXB, 4, 3);
             this.tableLayoutPanel1.Controls.Add(this.gdvDaiLy, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.gdvNXB, 4, 4);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 5);
@@ -271,30 +268,9 @@
             this.btnNguonChi.UseVisualStyleBackColor = true;
             this.btnNguonChi.Click += new System.EventHandler(this.btnNguonChi_Click);
             // 
-            // txbLocDaiLy
-            // 
-            this.txbLocDaiLy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbLocDaiLy, 4);
-            this.txbLocDaiLy.Location = new System.Drawing.Point(3, 95);
-            this.txbLocDaiLy.Name = "txbLocDaiLy";
-            this.txbLocDaiLy.Size = new System.Drawing.Size(374, 20);
-            this.txbLocDaiLy.TabIndex = 27;
-            this.txbLocDaiLy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbLocDaiLy_KeyDown);
-            this.txbLocDaiLy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbLocDaiLy_KeyPress);
-            // 
-            // txbLocNXB
-            // 
-            this.txbLocNXB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbLocNXB, 3);
-            this.txbLocNXB.Location = new System.Drawing.Point(383, 95);
-            this.txbLocNXB.Name = "txbLocNXB";
-            this.txbLocNXB.Size = new System.Drawing.Size(378, 20);
-            this.txbLocNXB.TabIndex = 28;
-            this.txbLocNXB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbLocNXB_KeyDown);
-            this.txbLocNXB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbLocNXB_KeyPress);
-            // 
             // gdvDaiLy
             // 
+            this.gdvDaiLy.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvDaiLy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvDaiLy, 4);
             this.gdvDaiLy.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -306,6 +282,7 @@
             // 
             // gdvNXB
             // 
+            this.gdvNXB.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvNXB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvNXB, 3);
             this.gdvNXB.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -319,6 +296,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel2, 7);
             this.flowLayoutPanel2.Controls.Add(this.btnThoat);
+            this.flowLayoutPanel2.Controls.Add(this.btIn);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 494);
@@ -335,6 +313,16 @@
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
+            // btIn
+            // 
+            this.btIn.Location = new System.Drawing.Point(537, 3);
+            this.btIn.Name = "btIn";
+            this.btIn.Size = new System.Drawing.Size(106, 41);
+            this.btIn.TabIndex = 1;
+            this.btIn.Text = "In báo cáo";
+            this.btIn.UseVisualStyleBackColor = true;
+            this.btIn.Click += new System.EventHandler(this.btIn_Click);
             // 
             // frmThongKeDoanhThu
             // 
@@ -377,11 +365,10 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnNguonThu;
         private System.Windows.Forms.Button btnNguonChi;
-        private System.Windows.Forms.TextBox txbLocDaiLy;
-        private System.Windows.Forms.TextBox txbLocNXB;
         private System.Windows.Forms.DataGridView gdvDaiLy;
         private System.Windows.Forms.DataGridView gdvNXB;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.Button btIn;
     }
 }

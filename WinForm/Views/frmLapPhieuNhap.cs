@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.BIZ;
 using Core.DAL;
+using System.Text.RegularExpressions;
 
 namespace WinForm.Views
 {
@@ -40,62 +41,87 @@ namespace WinForm.Views
         //Khi Nhấn Lưu lại phiếu nhập
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            decimal tongtien = 0;
-            List<ChiTietPhieuNhap> list = new List<ChiTietPhieuNhap>();
-            if (!txbNguoiGiao.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn lưu phiếu nhập này", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                PhieuNhap pn = new PhieuNhap();
-                pn.MaSoNXB = int.Parse(cmbNhaXuatBan.SelectedValue.ToString());
-                pn.NgayLap = DateTime.Parse(dtpNgayLap.Value.ToString("yyyy-MM-dd"));
-                pn.NguoiGiao = txbNguoiGiao.Text.ToString();
-
-                for (int i = 0; i < gdvChiTiet.RowCount-1; i++)
+                decimal tongtien = 0;
+                List<ChiTietPhieuNhap> list = new List<ChiTietPhieuNhap>();
+                if (!txbNguoiGiao.Text.Equals(""))
                 {
-                    if (!String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[0].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[1].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[2].Value)))
+                    PhieuNhap pn = new PhieuNhap();
+                    pn.MaSoNXB = int.Parse(cmbNhaXuatBan.SelectedValue.ToString());
+                    pn.NgayLap = DateTime.Parse(dtpNgayLap.Value.ToString("yyyy-MM-dd"));
+                    pn.NguoiGiao = txbNguoiGiao.Text.ToString();
+
+                    for (int i = 0; i < gdvChiTiet.RowCount - 1; i++)
                     {
-                        ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
-                        ctpn.MaSoSach = int.Parse(gdvChiTiet.Rows[i].Cells[0].Value.ToString());
-                        ctpn.SoLuong = int.Parse(gdvChiTiet.Rows[i].Cells[1].Value.ToString());
-                        ctpn.DonGia = int.Parse(gdvChiTiet.Rows[i].Cells[2].Value.ToString());
-                        tongtien = tongtien + ctpn.SoLuong * ctpn.DonGia;
-                        if (pn.ChiTiet.Contains(ctpn))
+                        if (!String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[0].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[1].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[2].Value)))
                         {
-                            return;
+                            ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
+                            ctpn.MaSoSach = int.Parse(gdvChiTiet.Rows[i].Cells[0].Value.ToString());
+                            ctpn.SoLuong = int.Parse(gdvChiTiet.Rows[i].Cells[1].Value.ToString());
+                            ctpn.DonGia = int.Parse(gdvChiTiet.Rows[i].Cells[2].Value.ToString());
+                            tongtien = tongtien + ctpn.SoLuong * ctpn.DonGia;
+                            if(list.Any(s=>s.MaSoSach == ctpn.MaSoSach))
+                            {
+                                MessageBox.Show("Không được nhập trùng chi tiết");
+                                return;
+                            }
+                            list.Add(ctpn);
+                    
                         }
-                        pn.addDetail(ctpn);
-                    }
-                    else
-                    {
-                        if (String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[0].Value)) || String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[1].Value)) || String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[2].Value)))
+                        else
                         {
-                            MessageBox.Show("Chưa nhập đủ thông tin vào bảng");
-                            return;
+                            if (String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[0].Value)) || String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[1].Value)) || String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[2].Value)))
+                            {
+                                MessageBox.Show("Chưa nhập đủ thông tin vào bảng");
+                                return;
+                            }
                         }
+
                     }
 
-                }
-                pn.TongTien = tongtien;
-                int x = PhieuNhapManager.add(pn);
-                if ( x  != 0)
-                {
-                    MessageBox.Show("đã thêm thành công");
-                    txbMaPhieuNhap.Text = x + "";
+                    pn.ChiTiet = list;
+
+                        pn.TongTien = tongtien;
+                        int x = PhieuNhapManager.add(pn);
+                        if (x != 0)
+                        {
+                            MessageBox.Show("đã thêm thành công");
+                            txbMaPhieuNhap.Text = x + "";
+                        }
+                        else
+                            MessageBox.Show("Không thêm được");
+                   
+
                 }
                 else
-                    MessageBox.Show("Không thêm được");
-
+                    MessageBox.Show("Bạn chưa nhập người giao hàng");
             }
-            else
-                MessageBox.Show("Bạn chưa nhập người giao hàng");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
         }
         //Khi chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
-            if (_frmParent.GetType().Name == nameof(frmMain))
+
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                (_frmParent as frmMain).loadSach();
+                this.Close();
+                if (_frmParent.GetType().Name == nameof(frmMain))
+                {
+                    (_frmParent as frmMain).loadSach();
+                }
             }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
         }
         //Khi chọn Nhà Xuất Bản
         private void cmbNhaXuatBan_SelectedIndexChanged(object sender, EventArgs e)
@@ -187,12 +213,19 @@ namespace WinForm.Views
             int tongtienrow = 0;
             for (int row = 0; row <= rows; row++)
             {
-                int Soluong = int.Parse(gdvChiTiet.Rows[row].Cells[1].Value.ToString());
-                int DonGia = int.Parse(gdvChiTiet.Rows[row].Cells[2].Value.ToString());
-               
-                tongtien = tongtien + Soluong * DonGia;
-                tongtienrow =Soluong * DonGia;
-                gdvChiTiet.Rows[row].Cells[3].Value = tongtienrow;
+                if (CheckNumber(gdvChiTiet.Rows[row].Cells[1].Value.ToString()))
+                {
+                    int Soluong = int.Parse(gdvChiTiet.Rows[row].Cells[1].Value.ToString());
+                    int DonGia = int.Parse(gdvChiTiet.Rows[row].Cells[2].Value.ToString());
+                    tongtien = tongtien + Soluong * DonGia;
+                    tongtienrow = Soluong * DonGia;
+                    gdvChiTiet.Rows[row].Cells[3].Value = tongtienrow;
+                }
+                else
+                {
+                    MessageBox.Show("Số lượng phải nhập số");
+                    return 0;
+                }
             }
             return tongtien;
         }
@@ -205,6 +238,10 @@ namespace WinForm.Views
                 _DMSach = nxb.Sach;
                 cmbNhaXuatBan.Enabled = false;
             }
+        }
+        private bool CheckNumber(string input)
+        {
+            return Regex.IsMatch(input, @"^\d+$");
         }
     }
 }

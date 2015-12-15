@@ -41,13 +41,17 @@ namespace WinForm.Views
         //Khi Cập nhật thông tin NXB
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
-            if (!txbMaSoNXB.Text.Equals("") && !txbTenNXB.Text.Equals("") && !txbSoTaiKhoan.Text.Equals("") && !txbSoDienThoai.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn cập nhật nhà xuất bản", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                _currentNXB.TenNXB = txbTenNXB.Text.ToString();
-                _currentNXB.DiaChi = txbDiaChi.Text.ToString();
-                _currentNXB.SoDienThoai = txbSoDienThoai.Text.ToString();
-                _currentNXB.SoTaiKhoan = txbSoTaiKhoan.Text.ToString();
-               
+                if (!txbMaSoNXB.Text.Equals("") && !txbTenNXB.Text.Equals("") && !txbSoTaiKhoan.Text.Equals("") && !txbSoDienThoai.Text.Equals(""))
+                {
+                    _currentNXB.TenNXB = txbTenNXB.Text.ToString();
+                    _currentNXB.DiaChi = txbDiaChi.Text.ToString();
+                    _currentNXB.SoDienThoai = txbSoDienThoai.Text.ToString();
+                    _currentNXB.SoTaiKhoan = txbSoTaiKhoan.Text.ToString();
+                    _currentNXB.NganHang = txbNganHang.Text.ToString();
+
                     if (NhaXuatBanManager.edit(_currentNXB))
                     {
                         MessageBox.Show("Đã sửa thành công");
@@ -55,28 +59,43 @@ namespace WinForm.Views
                     }
                     else
                         MessageBox.Show("Không sửa được");
-              
-                    
 
+
+
+                }
+                else
+                    MessageBox.Show("Bạn phải nhập đủ thông tin nhà xuất bản");
             }
-            else
-                MessageBox.Show("Bạn phải nhập đủ thông tin nhà xuất bản");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+         
         }
         //Khi CHọn xóa NXB
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (!txbMaSoNXB.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa nhà xuất bản", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                if (NhaXuatBanManager.delete(int.Parse(txbMaSoNXB.Text.ToString())))
+                if (!txbMaSoNXB.Text.Equals(""))
                 {
-                    MessageBox.Show("Đã xóa thành công");
-                    loadNXB();
+                    if (NhaXuatBanManager.delete(int.Parse(txbMaSoNXB.Text.ToString())))
+                    {
+                        MessageBox.Show("Đã xóa thành công");
+                        loadNXB();
+                    }
+                    else
+                        MessageBox.Show("Không xóa được");
                 }
                 else
-                    MessageBox.Show("Không xóa được");
+                    MessageBox.Show("Chưa nhập mã nhà xuất bản cần xóa");
             }
-            else
-                MessageBox.Show("Chưa nhập mã nhà xuất bản cần xóa");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+         
         }
         //Khi chọn Thêm mới 1 NXB
         private void btnThemNXB_Click(object sender, EventArgs e)
@@ -93,11 +112,20 @@ namespace WinForm.Views
         //Khi Chọn Thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
-            if (_frmParent.GetType().Name == nameof(frmMain))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                (_frmParent as frmMain).loadNXB();
+                this.Close();
+                if (_frmParent.GetType().Name == nameof(frmMain))
+                {
+                    (_frmParent as frmMain).loadNXB();
+                }
             }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+           
 
         }
         //Khi chọn 1 NXB từ Danh mục NXB
@@ -159,6 +187,7 @@ namespace WinForm.Views
                 txbDiaChi.Text = nxb.DiaChi;
                 txbSoDienThoai.Text = nxb.SoDienThoai;
                 txbSoTaiKhoan.Text = nxb.SoTaiKhoan;
+                txbNganHang.Text = nxb.NganHang;
             }
         }
 

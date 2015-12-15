@@ -93,7 +93,7 @@ namespace WinForm.Views
             }
             if (trangthai == 0)
             {
-                btDuyet.Text = "Duyệt phiếu nhập";
+                btDuyet.Text = "Duyệt phiếu xuất";
                 btDuyet.Enabled = true;
                 btXoa.Enabled = true;
             }
@@ -132,19 +132,46 @@ namespace WinForm.Views
 
         private void btDuyet_Click(object sender, EventArgs e)
         {
-            if (!txbMaPhieuXuat.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn duyệt phiếu này", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                PhieuXuat pn = new PhieuXuat();
-                pn.MaSoPhieuXuat = int.Parse(txbMaPhieuXuat.Text.ToString());
-                pn.MaSoDaiLy = int.Parse(cmbDaiLy.SelectedValue.ToString());
-                pn.NguoiNhan = txbNguoiNhan.Text.ToString();
-                pn.accept();
-              
+                if (!txbMaPhieuXuat.Text.Equals(""))
+                {
+                   
+                   
+     
+                    int maso = int.Parse(txbMaPhieuXuat.Text.ToString());
+                    var phieu = PhieuXuatManager.find(maso);
+                    if (phieu != null)
+                    {
+                        var result = phieu.accept();
+                        switch (result)
+                        {
+                            case PhieuXuat.AcceptStatus.Success:
+                                MessageBox.Show("Đã duyệt thành công");
+                                LoadPX();
+                                return;
+                            case PhieuXuat.AcceptStatus.Error:
+                                MessageBox.Show("Sách tồn không đủ để duyệt! Phiếu xuất yêu cầu được hủy!");
+                                return;
+                            case PhieuXuat.AcceptStatus.Limited:
+                                MessageBox.Show("Tiền nợ đã vượt quá mức cho phép, vui lòng thanh toán trước khi đặt tiếp");
+                                return;
+                            default:
+                                MessageBox.Show("Duyệt không thành công");
+                                return;
+                        }
+                    }
 
-
+                }
+                else
+                    MessageBox.Show("Chưa chọn phiếu xuất cần duyệt");
             }
-            else
-                MessageBox.Show("Chưa chọn phiếu xuất cần duyệt");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
         }
 
         private void panelContainer_Paint(object sender, PaintEventArgs e)

@@ -10,7 +10,8 @@ using System.Windows.Forms;
 using Core.DAL;
 using Core.BIZ;
 using System.IO;
-
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 namespace WinForm.Views
 {
     public partial class frmThongKeTonKho : Form
@@ -82,60 +83,87 @@ namespace WinForm.Views
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //PdfPTable pdfTable = new PdfPTable(gdvTheKho.ColumnCount);
-            //pdfTable.DefaultCell.Padding = 3;
-            //pdfTable.WidthPercentage = 30;
-            //pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
-            //pdfTable.DefaultCell.BorderWidth = 1;
-            //pdfTable.TotalWidth = 350f;
-            //pdfTable.LockedWidth = true;
-            //float[] widths = new float[] { 50f, 100f, 100f, 100f };
-            //pdfTable.SetWidths(widths);
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xuất tạo file báo cáo", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                var printer = new PrintHelper();
+                string x = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "";
+
+                string tenfile = x + "ReportTonKho.pdf";
+                printer.FileName = tenfile;
+                printer.FolderPath = "D://Report";
+                printer.Title = "Báo cáo tồn kho";
+                printer.printTonKho(_DMTheKho, dtpNgayGhi.Value);
+                MessageBox.Show("Đã tạo file thành công , Tên file là : " + tenfile);
+                //var redListTextFont = FontFactory.RegisterDirectory(Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts");
+                //var _bold = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10f,iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+                //var _bold1 = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10f, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+                //PdfPTable pdfTable = new PdfPTable(gdvTheKho.ColumnCount);
+                //pdfTable.DefaultCell.Padding = 3;
+                //pdfTable.WidthPercentage = 30;
+                //pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
+                //pdfTable.DefaultCell.BorderWidth = 1;
+                //pdfTable.TotalWidth = 350f;
+                //pdfTable.LockedWidth = true;
+                //float[] widths = new float[] { 50f, 100f, 100f, 100f };
+                //pdfTable.SetWidths(widths);
 
 
-            ////Adding Header row
-            //foreach (DataGridViewColumn column in gdvTheKho.Columns)
-            //{
-            //    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
-            //    cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
-            //    pdfTable.AddCell(cell);
-            //}
+                ////Adding Header row
+                //foreach (DataGridViewColumn column in gdvTheKho.Columns)
+                //{
+                //    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText,_bold));
+                //    cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
 
-            ////Adding DataRow
-            //foreach (DataGridViewRow row in gdvTheKho.Rows)
-            //{
-            //    foreach (DataGridViewCell cell in row.Cells)
-            //    {
-            //        if (!String.IsNullOrEmpty(Convert.ToString(cell.Value)))
-            //            pdfTable.AddCell(cell.Value.ToString());
-            //    }
-            //}
+                //    pdfTable.AddCell(cell);
+                //}
 
-            ////Exporting to PDF
-            //string folderPath = @"C:\Users\huy\Desktop\Web\QuanLyPhatHanhSach\Report\";
-            //if (!Directory.Exists(folderPath))
-            //{
-            //    Directory.CreateDirectory(folderPath);
-            //}
-            //using (FileStream stream = new FileStream(folderPath + "data.pdf", FileMode.Create))
-            //{
-            //    Document pdfDoc = new Document(PageSize.A3,100f,100f,100f,0);
-            //    PdfWriter.GetInstance(pdfDoc, stream);
-            //    pdfDoc.Open();
-            //    var FontColour = new BaseColor(255, 0, 0);
-            //    var redListTextFont = FontFactory.GetFont("Arial", 28, FontColour);
-            //    Paragraph docTitle = new Paragraph("Thong ke ton kho ngay " + dtpNgayGhi.Value.Day + "-" + dtpNgayGhi.Value.Month + "-" + dtpNgayGhi.Value.Year + "\n", redListTextFont);
-            //    Paragraph docTitle1 = new Paragraph("Tong so luong sach  :" + lbTongLuongSach.Text + "\n", redListTextFont);
-            //    docTitle.Alignment = Element.ALIGN_CENTER;
-            //    docTitle1.Alignment = Element.ALIGN_CENTER;
-            //    pdfDoc.Add(docTitle);
-            //    pdfDoc.Add(docTitle1);
-            //    pdfDoc.Add(new Paragraph("\n"));
-            //    pdfDoc.Add(new Paragraph("\n"));
-            //    pdfDoc.Add(pdfTable);
-            //    pdfDoc.Close();
-            //    stream.Close();
-            //}
+                ////Adding DataRow
+                //foreach (DataGridViewRow row in gdvTheKho.Rows)
+                //{
+                //    foreach (DataGridViewCell cell in row.Cells)
+                //    {
+                //        if (!String.IsNullOrEmpty(Convert.ToString(cell.Value)))
+                //            pdfTable.AddCell(new Phrase(cell.Value.ToString(),_bold1));
+                //    }
+                //}
+
+                ////Exporting to PDF
+                //string folderPath = @"D:\Report\";
+                //string x = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-"+ DateTime.Now.Hour + "-"+ DateTime.Now.Minute +"-"+ DateTime.Now.Second + "";
+
+                //string tenfile = x + "ReportTonKho.pdf";
+                //if (!Directory.Exists(folderPath))
+                //{
+                //    Directory.CreateDirectory(folderPath);
+                //}
+                //using (FileStream stream = new FileStream(folderPath + tenfile, FileMode.Create))
+                //{
+                //    Document pdfDoc = new Document(PageSize.A3, 100f, 100f, 100f, 0);
+                //    PdfWriter.GetInstance(pdfDoc, stream);
+                //    pdfDoc.Open();
+                //    var FontColour = new BaseColor(255, 0, 0);
+                //    var _bold2 = FontFactory.GetFont("Times New Roman", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 20f, iTextSharp.text.Font.NORMAL, BaseColor.BLUE);
+                //    Paragraph docTitle = new Paragraph("Thống kê tồn kho ngày : " + dtpNgayGhi.Value.Day + "-" + dtpNgayGhi.Value.Month + "-" + dtpNgayGhi.Value.Year + "\n", _bold2);
+                //    Paragraph docTitle1 = new Paragraph("Tổng số lượng sách   : " + lbTongLuongSach.Text + "\n", _bold2);
+                //    docTitle.Alignment = Element.ALIGN_LEFT;
+                //    docTitle1.Alignment = Element.ALIGN_LEFT;
+                //    pdfDoc.Add(docTitle);
+                //    pdfDoc.Add(docTitle1);
+                //    pdfDoc.Add(new Paragraph("\n"));
+                //    pdfDoc.Add(new Paragraph("\n"));
+                //    pdfDoc.Add(pdfTable);
+                //    pdfDoc.Close();
+                //    stream.Close();
+
+                //    MessageBox.Show("Đã tạo file thành công , Tên file là : " + tenfile);
+                //}
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+            
         }
     }
 }

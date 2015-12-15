@@ -60,72 +60,91 @@ namespace WinForm.Views
         //Khi chọn tạo sách
         private void btnTao_Click(object sender, EventArgs e)
         {
-            //Kiểm tra điều kiện
-            if (String.IsNullOrEmpty(txbTenSach.Text))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thêm sách", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                MessageBox.Show("Tên Sách chưa hợp lệ");
-                return;
-            }
-            if (String.IsNullOrEmpty(txbTacGia.Text))
-            {
-                MessageBox.Show("Tên Tác giả chưa hợp lệ");
-                return;
-            }
-            if (String.IsNullOrEmpty(txbGiaBan.Text))
-            {
-                MessageBox.Show("Giá bán chưa hợp lệ");
-                return;
-            }
-            if (String.IsNullOrEmpty(txbGiaNhap.Text))
-            {
-                MessageBox.Show("Giá nhập chưa hợp lệ");
-                return;
-            }
-            if (cmbLinhVuc.SelectedIndex == -1)
-            {
-                MessageBox.Show("Lĩnh vực chưa hợp lệ");
-                return;
-            }
-            if (cmbNXB.SelectedIndex == -1)
-            {
-                MessageBox.Show("Nhà Xuất Bản chưa hợp lệ");
-                return;
-            }
-            //Tạo đối tượng
-            _sach = new Sach()
-            {
-                TenSach = txbTenSach.Text,
-                LinhVucSach = _DMLinhVuc[cmbLinhVuc.SelectedIndex],
-                TenTacGia = txbTacGia.Text,
-                NXB = _DMNXB[cmbNXB.SelectedIndex],
-                Soluong = Decimal.ToInt32(nmbSoLuong.Value),
-                GiaBan = Int32.Parse(txbGiaBan.Text),
-                GiaNhap = Int32.Parse(txbGiaNhap.Text),
-                HinhAnhTypeImage = picHinhAnh.Image,
-                
-            };
-            //Thêm vào database
-            if (_sach.isExisted()==true)
-                MessageBox.Show("Tên sách đã tồn tại");
-            else
-            {
-                var result = SachManager.add(_sach);
-                if (result != 0)
+                if (String.IsNullOrEmpty(txbTenSach.Text))
                 {
-                    MessageBox.Show("Tạo mới thành công");
-                    reset();
+                    MessageBox.Show("Tên Sách chưa hợp lệ");
                     return;
                 }
+                if (String.IsNullOrEmpty(txbTacGia.Text))
+                {
+                    MessageBox.Show("Tên Tác giả chưa hợp lệ");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txbGiaBan.Text))
+                {
+                    MessageBox.Show("Giá bán chưa hợp lệ");
+                    return;
+                }
+                if (String.IsNullOrEmpty(txbGiaNhap.Text))
+                {
+                    MessageBox.Show("Giá nhập chưa hợp lệ");
+                    return;
+                }
+                if (cmbLinhVuc.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Lĩnh vực chưa hợp lệ");
+                    return;
+                }
+                if (cmbNXB.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Nhà Xuất Bản chưa hợp lệ");
+                    return;
+                }
+                //Tạo đối tượng
+                _sach = new Sach()
+                {
+                    TenSach = txbTenSach.Text,
+                    LinhVucSach = _DMLinhVuc[cmbLinhVuc.SelectedIndex],
+                    TenTacGia = txbTacGia.Text,
+                    NXB = _DMNXB[cmbNXB.SelectedIndex],
+                    Soluong = Decimal.ToInt32(nmbSoLuong.Value),
+                    GiaBan = Int32.Parse(txbGiaBan.Text),
+                    GiaNhap = Int32.Parse(txbGiaNhap.Text),
+                    HinhAnhTypeImage = picHinhAnh.Image,
+                    MoTa = rtxbMoTa.Text.ToString(),
+
+                };
+                //Thêm vào database
+                if (_sach.isExisted() == true)
+                    MessageBox.Show("Tên sách đã tồn tại");
                 else
-                    MessageBox.Show("Không thêm được sách");
+                {
+                    var result = SachManager.add(_sach);
+                    if (result != 0)
+                    {
+                        MessageBox.Show("Tạo mới thành công");
+                        reset();
+                        return;
+                    }
+                    else
+                        MessageBox.Show("Không thêm được sách");
+                }
             }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+            //Kiểm tra điều kiện
+           
 
         }
         //Khi chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
-            _frmParent.reload();
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+                _frmParent.reload();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+           
         }
 
         #endregion

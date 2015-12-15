@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.BIZ;
 using Core.DAL;
+using System.Text.RegularExpressions;
 
 namespace WinForm.Views
 {
@@ -70,14 +71,26 @@ namespace WinForm.Views
             int tongtienrow = 0;
             for (int row = 0; row <= rows; row++)
             {
-                int Soluong = int.Parse(gdvChiTiet.Rows[row].Cells[1].Value.ToString());
-                int DonGia = int.Parse(gdvChiTiet.Rows[row].Cells[2].Value.ToString());
+                if (CheckNumber(gdvChiTiet.Rows[row].Cells[1].Value.ToString()))
+                {
+                    int Soluong = int.Parse(gdvChiTiet.Rows[row].Cells[1].Value.ToString());
+                    int DonGia = int.Parse(gdvChiTiet.Rows[row].Cells[2].Value.ToString());
 
-                tongtien = tongtien + Soluong * DonGia;
-                tongtienrow = Soluong * DonGia;
-                gdvChiTiet.Rows[row].Cells[3].Value = tongtienrow;
+                    tongtien = tongtien + Soluong * DonGia;
+                    tongtienrow = Soluong * DonGia;
+                    gdvChiTiet.Rows[row].Cells[3].Value = tongtienrow;
+                }
+                else
+                {
+                    MessageBox.Show("Số lượng phải nhập số");
+                    return 0;
+                }
             }
             return tongtien;
+        }
+        private bool CheckNumber(string input)
+        {
+            return Regex.IsMatch(input, @"^\d+$");
         }
         private void cmbDaiLy_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -86,49 +99,67 @@ namespace WinForm.Views
         //khi Lưu lại hóa đơn
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            List<ChiTietHoaDonDaiLy> ListChiTiet = new List<ChiTietHoaDonDaiLy>();
-            HoaDonDaiLy hd = new HoaDonDaiLy();
-            hd.MaSoDaiLy = int.Parse(txbMaSoDaiLy.Text.ToString());
-            hd.NgayLap = DateTime.Parse(dtpNgayLap.Value.ToString("yyyy-MM-dd"));
-
-            for (int i = 0; i < gdvChiTiet.RowCount - 1; i++)
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn lưu", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                if (!String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[0].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[1].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[2].Value)))
+                List<ChiTietHoaDonDaiLy> ListChiTiet = new List<ChiTietHoaDonDaiLy>();
+                HoaDonDaiLy hd = new HoaDonDaiLy();
+                hd.MaSoDaiLy = int.Parse(txbMaSoDaiLy.Text.ToString());
+                hd.NgayLap = DateTime.Parse(dtpNgayLap.Value.ToString("yyyy-MM-dd"));
+
+                for (int i = 0; i < gdvChiTiet.RowCount - 1; i++)
                 {
-                    ChiTietHoaDonDaiLy ct = new ChiTietHoaDonDaiLy();
-                    ct.MaSoSach = int.Parse(gdvChiTiet.Rows[i].Cells[0].Value.ToString());
-                    ct.SoLuong = int.Parse(gdvChiTiet.Rows[i].Cells[1].Value.ToString());
-                    ct.DonGia = int.Parse(gdvChiTiet.Rows[i].Cells[2].Value.ToString());
-                    ListChiTiet.Add(ct);
+                    if (!String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[0].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[1].Value)) && !String.IsNullOrEmpty(Convert.ToString(gdvChiTiet.Rows[i].Cells[2].Value)))
+                    {
+                        ChiTietHoaDonDaiLy ct = new ChiTietHoaDonDaiLy();
+                        ct.MaSoSach = int.Parse(gdvChiTiet.Rows[i].Cells[0].Value.ToString());
+                        ct.SoLuong = int.Parse(gdvChiTiet.Rows[i].Cells[1].Value.ToString());
+                        ct.DonGia = int.Parse(gdvChiTiet.Rows[i].Cells[2].Value.ToString());
+                        ListChiTiet.Add(ct);
+                    }
+                }
+                if (ListChiTiet.Count > 1)
+                {
+                    for (int i = 0; i < ListChiTiet.Count - 1; i++)
+                    {
+                        for (int j = i + 1; j < ListChiTiet.Count; j++)
+                            if (ListChiTiet[i].MaSoSach.Equals(ListChiTiet[j].MaSoSach))
+                            {
+                                MessageBox.Show("Không nhập trùng sách");
+                                return;
+                            }
+                    }
+                }
+
+                hd.ChiTiet = ListChiTiet;
+
+                int x = HoaDonDaiLyManager.add(hd);
+                if (x != 0)
+                {
+                    MessageBox.Show("Đã thêm thành công hóa đơn đại lý");
+                    txbMaHoaDon.Text = x + "";
                 }
             }
-            if (ListChiTiet.Count > 1)
+            else if (dialogResult == DialogResult.No)
             {
-                for (int i = 0; i < ListChiTiet.Count - 1; i++)
-                {
-                    for (int j = i + 1; j < ListChiTiet.Count; j++)
-                        if (ListChiTiet[i].MaSoSach.Equals(ListChiTiet[j].MaSoSach))
-                        {
-                            MessageBox.Show("Không nhập trùng sách");
-                            return;
-                        }
-                }
+                return;
             }
-
-            hd.ChiTiet = ListChiTiet;
-           
-            int x = HoaDonDaiLyManager.add(hd);
-            if (x != 0)
-            {
-                MessageBox.Show("Đã thêm thành công hóa đơn đại lý");
-                txbMaHoaDon.Text = x + "";
-            }
+          
         
         }
         //Khi chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+           
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
         #endregion
 

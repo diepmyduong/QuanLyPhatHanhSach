@@ -36,16 +36,20 @@ namespace WinForm.Views
         //Khi Cập nhật thông tin Đại lý
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
-            if (!txbMaSoDaiLy.Text.Equals("") && !txbTenDaiLy.Text.Equals("") && !txbSoDienThoai.Text.Equals("") && !txbSoTaiKhoan.Text.Equals("") && !txbDiaChi.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn cập nhật đại lý", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                //DaiLy dl = new DaiLy();
-                //dl.MaSoDaiLy = int.Parse(txbMaSoDaiLy.Text);
-                _currentDaiLy.TenDaiLy = txbTenDaiLy.Text.ToString();
-                _currentDaiLy.DiaChi = txbDiaChi.Text.ToString();
-                _currentDaiLy.SoDienThoai = txbSoDienThoai.Text.ToString();
-                _currentDaiLy.SoTaiKhoan = txbSoTaiKhoan.Text.ToString();
+                if (!txbMaSoDaiLy.Text.Equals("") && !txbTenDaiLy.Text.Equals("") && !txbSoDienThoai.Text.Equals("") && !txbSoTaiKhoan.Text.Equals("") && !txbDiaChi.Text.Equals(""))
+                {
+                    //DaiLy dl = new DaiLy();
+                    //dl.MaSoDaiLy = int.Parse(txbMaSoDaiLy.Text);
+                    _currentDaiLy.TenDaiLy = txbTenDaiLy.Text.ToString();
+                    _currentDaiLy.DiaChi = txbDiaChi.Text.ToString();
+                    _currentDaiLy.SoDienThoai = txbSoDienThoai.Text.ToString();
+                    _currentDaiLy.SoTaiKhoan = txbSoTaiKhoan.Text.ToString();
+                    _currentDaiLy.NganHang = txbNganHang.Text.ToString();
 
-              
+
                     if (DaiLyManager.edit(_currentDaiLy))
                     {
                         MessageBox.Show("Đã sửa đại lý thành công");
@@ -53,30 +57,45 @@ namespace WinForm.Views
                     }
                     else
                         MessageBox.Show("Không sửa được");
-              
 
-                
+
+
+                }
+                else
+                    MessageBox.Show("Nhập đầy đủ thông tin cần sửa");
             }
-            else
-                MessageBox.Show("Nhập đầy đủ thông tin cần sửa");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
         }
         //Khi Xóa 1 Đại lý
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (!txbMaSoDaiLy.Text.Equals(""))
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa đại lý", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-     
-               // dl.MaSoDaiLy = int.Parse(txbMaSoDaiLy.Text.ToString());
-                if (DaiLyManager.delete(_currentDaiLy.MaSoDaiLy))
+                if (!txbMaSoDaiLy.Text.Equals(""))
                 {
-                    MessageBox.Show("Xóa đại lý thành công");
-                    loadDaiLy();
+
+                    // dl.MaSoDaiLy = int.Parse(txbMaSoDaiLy.Text.ToString());
+                    if (DaiLyManager.delete(_currentDaiLy.MaSoDaiLy))
+                    {
+                        MessageBox.Show("Xóa đại lý thành công");
+                        loadDaiLy();
+                    }
+                    else
+                        MessageBox.Show("Không xóa được đại lý");
                 }
                 else
-                    MessageBox.Show("Không xóa được đại lý");
+                    MessageBox.Show("Chọn đại lý cần xóa");
             }
-            else
-                MessageBox.Show("Chọn đại lý cần xóa");
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+          
         }
         //Khi Thêm Mới Đại lý
         private void btnThemDaiLy_Click(object sender, EventArgs e)
@@ -93,7 +112,15 @@ namespace WinForm.Views
         //Khi Chọn thoát
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
         //Khi Chọn Đại lý từ Danh Mục Đại lý
         private void gdvDMDaiLy_SelectionChanged(object sender, EventArgs e)
@@ -119,6 +146,7 @@ namespace WinForm.Views
                 txbDiaChi.Text = daily.DiaChi;
                 txbSoDienThoai.Text = daily.SoDienThoai;
                 txbSoTaiKhoan.Text = daily.SoTaiKhoan;
+                txbNganHang.Text = daily.NganHang;
             }
         }
 

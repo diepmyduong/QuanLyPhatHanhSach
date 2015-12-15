@@ -37,12 +37,10 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnLoNhap = new System.Windows.Forms.Button();
             this.btnLoXuat = new System.Windows.Forms.Button();
-            this.txbLoc = new System.Windows.Forms.TextBox();
-            this.btnLoc = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.gdvTheKho = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -72,8 +70,6 @@
             this.tableLayoutPanel1.Controls.Add(this.lbTongLuongSach, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.dtpNgayGhi, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txbLoc, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnLoc, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.gdvTheKho, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -169,27 +165,15 @@
             this.btnLoXuat.UseVisualStyleBackColor = true;
             this.btnLoXuat.Click += new System.EventHandler(this.btnLoXuat_Click);
             // 
-            // txbLoc
+            // button1
             // 
-            this.txbLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbLoc, 2);
-            this.txbLoc.Location = new System.Drawing.Point(3, 105);
-            this.txbLoc.Name = "txbLoc";
-            this.txbLoc.Size = new System.Drawing.Size(516, 20);
-            this.txbLoc.TabIndex = 5;
-            this.txbLoc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbLoc_KeyDown);
-            this.txbLoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbLoc_KeyPress);
-            // 
-            // btnLoc
-            // 
-            this.btnLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLoc.Location = new System.Drawing.Point(525, 103);
-            this.btnLoc.Name = "btnLoc";
-            this.btnLoc.Size = new System.Drawing.Size(74, 23);
-            this.btnLoc.TabIndex = 6;
-            this.btnLoc.Text = "Lọc";
-            this.btnLoc.UseVisualStyleBackColor = true;
-            this.btnLoc.Click += new System.EventHandler(this.btnLoc_Click);
+            this.button1.Location = new System.Drawing.Point(3, 83);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(153, 34);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "In báo cáo";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // gdvTheKho
             // 
@@ -226,16 +210,6 @@
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 83);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(153, 34);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "In báo cáo";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // frmThongKeTonKho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,8 +242,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnLoNhap;
         private System.Windows.Forms.Button btnLoXuat;
-        private System.Windows.Forms.TextBox txbLoc;
-        private System.Windows.Forms.Button btnLoc;
         private System.Windows.Forms.DataGridView gdvTheKho;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Button btnThoat;

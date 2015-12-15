@@ -30,20 +30,19 @@
         {
             this.panelContainer = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lbSachBanDuoc = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbEndMonth = new System.Windows.Forms.ComboBox();
             this.cmbEndYear = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbLoc = new System.Windows.Forms.TextBox();
-            this.btLoc = new System.Windows.Forms.Button();
             this.gdvDMSach = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnThoat = new System.Windows.Forms.Button();
+            this.btIn = new System.Windows.Forms.Button();
             this.cmbStartYear = new System.Windows.Forms.ComboBox();
             this.cmbStartMonth = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lbSachBanDuoc = new System.Windows.Forms.Label();
             this.lbTongTien = new System.Windows.Forms.Label();
             this.panelContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -77,8 +76,6 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbEndMonth, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmbEndYear, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txbLoc, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btLoc, 5, 4);
             this.tableLayoutPanel1.Controls.Add(this.gdvDMSach, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.cmbStartYear, 2, 1);
@@ -99,6 +96,35 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(764, 541);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // lbSachBanDuoc
+            // 
+            this.lbSachBanDuoc.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbSachBanDuoc.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.lbSachBanDuoc, 2);
+            this.lbSachBanDuoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSachBanDuoc.ForeColor = System.Drawing.Color.MediumBlue;
+            this.lbSachBanDuoc.Location = new System.Drawing.Point(536, 17);
+            this.lbSachBanDuoc.Name = "lbSachBanDuoc";
+            this.tableLayoutPanel1.SetRowSpan(this.lbSachBanDuoc, 2);
+            this.lbSachBanDuoc.Size = new System.Drawing.Size(23, 25);
+            this.lbSachBanDuoc.TabIndex = 21;
+            this.lbSachBanDuoc.Text = "0";
+            this.lbSachBanDuoc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.MediumBlue;
+            this.label4.Location = new System.Drawing.Point(399, 77);
+            this.label4.Name = "label4";
+            this.tableLayoutPanel1.SetRowSpan(this.label4, 2);
+            this.label4.Size = new System.Drawing.Size(131, 25);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "TỔNG TIỀN :";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -154,31 +180,9 @@
             this.label3.Text = "SÁCH BÁN ĐƯỢC :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txbLoc
-            // 
-            this.txbLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txbLoc, 5);
-            this.txbLoc.Location = new System.Drawing.Point(3, 125);
-            this.txbLoc.Name = "txbLoc";
-            this.txbLoc.Size = new System.Drawing.Size(641, 20);
-            this.txbLoc.TabIndex = 16;
-            this.txbLoc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbLoc_KeyDown);
-            this.txbLoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbLoc_KeyPress);
-            // 
-            // btLoc
-            // 
-            this.btLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btLoc.Location = new System.Drawing.Point(650, 123);
-            this.btLoc.Name = "btLoc";
-            this.btLoc.Size = new System.Drawing.Size(111, 23);
-            this.btLoc.TabIndex = 17;
-            this.btLoc.Text = "Lọc";
-            this.btLoc.UseVisualStyleBackColor = true;
-            this.btLoc.UseWaitCursor = true;
-            this.btLoc.Click += new System.EventHandler(this.btLoc_Click);
-            // 
             // gdvDMSach
             // 
+            this.gdvDMSach.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gdvDMSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.gdvDMSach, 6);
             this.gdvDMSach.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -191,6 +195,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 6);
             this.flowLayoutPanel1.Controls.Add(this.btnThoat);
+            this.flowLayoutPanel1.Controls.Add(this.btIn);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 494);
@@ -207,6 +212,16 @@
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
+            // btIn
+            // 
+            this.btIn.Location = new System.Drawing.Point(533, 3);
+            this.btIn.Name = "btIn";
+            this.btIn.Size = new System.Drawing.Size(108, 41);
+            this.btIn.TabIndex = 1;
+            this.btIn.Text = "In báo cáo";
+            this.btIn.UseVisualStyleBackColor = true;
+            this.btIn.Click += new System.EventHandler(this.btIn_Click);
             // 
             // cmbStartYear
             // 
@@ -227,35 +242,6 @@
             this.cmbStartMonth.Size = new System.Drawing.Size(108, 21);
             this.cmbStartMonth.TabIndex = 10;
             this.cmbStartMonth.SelectedIndexChanged += new System.EventHandler(this.cmbStartMonth_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.MediumBlue;
-            this.label4.Location = new System.Drawing.Point(399, 77);
-            this.label4.Name = "label4";
-            this.tableLayoutPanel1.SetRowSpan(this.label4, 2);
-            this.label4.Size = new System.Drawing.Size(131, 25);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "TỔNG TIỀN :";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbSachBanDuoc
-            // 
-            this.lbSachBanDuoc.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbSachBanDuoc.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.lbSachBanDuoc, 2);
-            this.lbSachBanDuoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSachBanDuoc.ForeColor = System.Drawing.Color.MediumBlue;
-            this.lbSachBanDuoc.Location = new System.Drawing.Point(536, 17);
-            this.lbSachBanDuoc.Name = "lbSachBanDuoc";
-            this.tableLayoutPanel1.SetRowSpan(this.lbSachBanDuoc, 2);
-            this.lbSachBanDuoc.Size = new System.Drawing.Size(23, 25);
-            this.lbSachBanDuoc.TabIndex = 21;
-            this.lbSachBanDuoc.Text = "0";
-            this.lbSachBanDuoc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbTongTien
             // 
@@ -301,8 +287,6 @@
         private System.Windows.Forms.ComboBox cmbEndMonth;
         private System.Windows.Forms.ComboBox cmbEndYear;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txbLoc;
-        private System.Windows.Forms.Button btLoc;
         private System.Windows.Forms.DataGridView gdvDMSach;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnThoat;
@@ -311,5 +295,6 @@
         private System.Windows.Forms.Label lbSachBanDuoc;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbTongTien;
+        private System.Windows.Forms.Button btIn;
     }
 }
